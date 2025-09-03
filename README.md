@@ -3,6 +3,19 @@ P3 Project giga chads
 Oppan Gangnam seutail
 Gangnam seutail
 
+All you gotta do is say his name
+His greatness [?], goes to shame
+Let me talk about it
+I don't care what you
+Thinking J would do
+'Causе next to 'Bron
+He'll always be numbеr two
+Fifty-thousand points, leader in this game
+It's hard not to glaze when mentioning all his accolades
+Some would even say he's the best of all time
+And if you disagree
+Then you'd have lost your goddamn mind
+
 [Verse 1]
 Najeneun ttasaroun inganjeogin yeoja
 Keopi hanjanui yeoyureul aneun, pumgyeok inneun yeoja
