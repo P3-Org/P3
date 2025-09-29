@@ -10,5 +10,10 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World! " + age);
+        boolean SOS = true;
+        System.out.println("SOS "+ SOS);
+
     }
+
 }
+
