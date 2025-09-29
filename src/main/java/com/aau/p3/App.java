@@ -11,7 +11,7 @@ public class App
     {
         System.out.println( "Hello World! " + age);
         boolean SOS = true;
-        System.out.println("SOS "+ SOS);
+        System.out.println("SOS2 "+ SOS);
 
     }
 
