@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Java CI with Maven
+name: P3 JUnit with Maven CI
 
 on:
   push:
@@ -20,7 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
     - uses: actions/checkout@v4
     - name: Set up JDK 25
       uses: actions/setup-java@v4
