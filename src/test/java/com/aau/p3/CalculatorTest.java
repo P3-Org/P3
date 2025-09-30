@@ -20,4 +20,11 @@ class CalculatorTest {
             () -> assertEquals(10,Calculator.multiply(5,2)),
             () -> assertEquals(100,Calculator.multiply(10,10)));
     }
+    @Test
+    @DisplayName("Divide tow integers")
+    void divide() {
+        assertAll(
+                () -> assertEquals(3,Calculator.divide(6,2)),
+                () -> assertEquals(1,Calculator.divide(10,10)));
+    }
 }
