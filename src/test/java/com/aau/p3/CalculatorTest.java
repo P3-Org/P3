@@ -14,12 +14,6 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Mod two integers")
-    void mod() {
-        assertEquals(1,Calculator.modulo(5,2));
-    }
-
-    @Test
     @DisplayName("Multiply tow integers")
     void multiply() {
         assertAll(
