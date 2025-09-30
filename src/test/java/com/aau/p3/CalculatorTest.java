@@ -24,7 +24,7 @@ class CalculatorTest {
     @DisplayName("Divide tow integers")
     void divide() {
         assertAll(
-                () -> assertEquals(4,Calculator.divide(6,2)),
+                () -> assertEquals(3,Calculator.divide(6,2)),
                 () -> assertEquals(1,Calculator.divide(10,10)));
     }
 }
