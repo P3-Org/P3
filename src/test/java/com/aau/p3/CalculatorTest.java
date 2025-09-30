@@ -16,7 +16,7 @@ class CalculatorTest {
     @Test
     @DisplayName("Mod two integers")
     void mod() {
-        assertEquals(2,Calculator.add(5,2));
+        assertEquals(1,Calculator.add(5,2));
     }
 
     @Test
