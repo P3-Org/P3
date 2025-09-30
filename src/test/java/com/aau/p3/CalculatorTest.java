@@ -14,6 +14,12 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Mod two integers")
+    void mod() {
+        assertEquals(2,Calculator.add(5,2));
+    }
+
+    @Test
     @DisplayName("Multiply tow integers")
     void multiply() {
         assertAll(
