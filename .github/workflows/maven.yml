@@ -9,15 +9,13 @@
 name: P3 JUnit with Maven CI
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   merge_group:
 
 jobs:
-  build:
-
+  test-job:
+    name: "JUnit & Maven CI"
     runs-on: ubuntu-latest
 
     steps:
