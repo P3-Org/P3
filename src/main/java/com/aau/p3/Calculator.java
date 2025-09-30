@@ -16,6 +16,9 @@ public class Calculator {
   
     static int divide(int a, int b) {
         return a / b;
+    }
 
+    static int modulo(int a, int b) {
+        return a % b;
     }
 }
