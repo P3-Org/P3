@@ -1,7 +1,7 @@
 package com.aau.p3;
 
 public class Calculator {
-
+    //SE er sej
     static int add(int a, int b) {
         return a + b;
     }
