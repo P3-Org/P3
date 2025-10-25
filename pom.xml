@@ -30,9 +30,11 @@
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
+            <version>3.2.5</version>
             <configuration>
-                <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar} -Xshare:off
-                </argLine>
+                <!-- Use property expansion only if it's defined -->
+                <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar -Xshare:off</argLine>
+                <useModulePath>false</useModulePath>
             </configuration>
         </plugin>
     </plugins>
