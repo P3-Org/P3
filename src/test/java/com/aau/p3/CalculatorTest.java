@@ -13,12 +13,13 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Add two numbers")
+    @DisplayName("Add two integers")
     void add() {
         assertEquals(4, Calculator.add(2,2));
     }
 
     @Test
+    @DisplayName("Multiply tow integers")
     void multiply() {
         assertAll(
         () -> assertEquals(-4,Calculator.multiply(2,-2)),
@@ -32,7 +33,10 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Divide tow integers")
     void divide() {
-        assertEquals(4, Calculator.divide(8,2));
+        assertAll(
+                () -> assertEquals(3,Calculator.divide(6,2)),
+                () -> assertEquals(1,Calculator.divide(10,10)));
     }
 }
