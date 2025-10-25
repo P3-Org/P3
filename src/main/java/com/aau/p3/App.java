@@ -1,18 +1,14 @@
 package com.aau.p3;
+import com.aau.p3.YearInFiveYears;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static int age = 23;
+public class App {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World! " + age);
-        boolean SOS = true;
-        System.out.println("SOS2 "+ SOS);
+        System.out.println( "Hello World!");
 
+        YearInFiveYears yearFive = new YearInFiveYears(new FetchAPI());
+        int year = yearFive.CalcYear();
+        System.out.println(year);
     }
 
 }
