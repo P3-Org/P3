@@ -1,62 +1,80 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.aau.p3</groupId>
-  <artifactId>P3</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+    <groupId>com.aau.p3</groupId>
+    <artifactId>P3</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
-  <name>P3</name>
-  <url>http://maven.apache.org</url>
+    <name>P3</name>
+    <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>properties</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>3.2.5</version>
-            <configuration>
-                <!-- Use property expansion only if it's defined -->
-                <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar -Xshare:off</argLine>
-                <useModulePath>false</useModulePath>
-            </configuration>
-        </plugin>
-    </plugins>
-  </build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <!-- Use property expansion only if it's defined -->
+                    <argLine>-javaagent:${settings.localRepository}/org/mockito/mockito-core/5.20.0/mockito-core-5.20.0.jar -Xshare:off</argLine>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version>
+                <configuration>
+                    <mainClass>com.aau.p3.App</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
-  <dependencies>
-      <dependency>
-          <groupId>org.junit.jupiter</groupId>
-          <artifactId>junit-jupiter</artifactId>
-          <version>5.10.2</version>
-          <scope>test</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-          <version>5.20.0</version>
-      </dependency>
-      <dependency>
-          <groupId>org.json</groupId>
-          <artifactId>json</artifactId>
-          <version>20231013</version>
-      </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.3</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,15 +1,22 @@
 package com.aau.p3;
 import com.aau.p3.YearInFiveYears;
 
-public class App {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!");
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
-        YearInFiveYears yearFive = new YearInFiveYears(new FetchAPI());
-        int year = yearFive.CalcYear();
-        System.out.println(year);
+public class App extends Application {
+    @Override
+    public void start(Stage stage) {
+        Label label = new Label("Hello, JavaFX!");
+        Scene scene = new Scene(label, 400, 200);
+        stage.setTitle("JavaFX App");
+        stage.setScene(scene);
+        stage.show();
     }
 
+    public static void main(String[] args) {
+        launch();
+    }
 }
-

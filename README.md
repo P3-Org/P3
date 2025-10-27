@@ -3,47 +3,12 @@ P3 Project giga chads
 Oppan Gangnam seutail
 Gangnam seutail
 
-All you gotta do is say his name
-His greatness [?], goes to shame
-Let me talk about it
-I don't care what you
-Thinking J would do
-'Causе next to 'Bron
-He'll always be numbеr two
-Fifty-thousand points, leader in this game
-It's hard not to glaze when mentioning all his accolades
-Some would even say he's the best of all time
-And if you disagree
-Then you'd have lost your goddamn mind
+Run configurations for JavaFX:
+1. Download denne først: https://gluonhq.com/products/javafx/
+1. Edit configuration
+2. Add main class ved at trykke på plusset i venstre hjørne
+2. Motify options (drop down menu)
+    3. Add VM-option
+3. Tilføj følgende linje til dette felt men ændrer til den sti hvor du har gemt mappen. GEM IKKE I PROJEKT MAPPEN
 
-[Verse 1]
-Najeneun ttasaroun inganjeogin yeoja
-Keopi hanjanui yeoyureul aneun, pumgyeok inneun yeoja
-Bami omyeon simjangi tteugeowojineun yeoja
-Geureon banjeon inneun yeoja
-
-[Refrain]
-Naneun sanai
-Najeneun neomankeum ttasaroun geureon sanai
-Keopi sikgido jeone wonsyat ttaerineun sanai
-Bami omyeon simjangi teojyeo beorineun sanai
-Geureon sanai
-
-[Pre-Chorus]
-Areumdawo, sarangseureowo
-Geurae, neo (Hey), geurae, baro neo (Hey)
-Areumdawo, sarangseureowo
-Geurae, neo (Hey), geurae, baro neo (Hey)
-Jigeumbuteo gal dekkaji ga bolkka
-
-[Chorus]
-Oppan Gangnam seutail, uh
-Gangnam seutail
-Op, op-op-op, oppan Gangnam seutail, uh
-Gangnam seutail
-Op, op-op-op, oppan Gangnam seutail, uh
-Eh, sexy lady
-Op, op-op-op, oppan Gangnam seutail, uh
-Eh, sexy lady
-Op, op-op-op
-Eh-eh-eh, eh-eh-eh
+--add-modules javafx.controls,javafx.fxml --module-path "C:\Users\frede\javafx-sdk-25.0.1\lib"
