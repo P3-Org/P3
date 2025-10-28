@@ -43,6 +43,9 @@
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>com.aau.p3.App</mainClass>
+                    <options>
+                        --enable-native-access=javafx.graphics
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
