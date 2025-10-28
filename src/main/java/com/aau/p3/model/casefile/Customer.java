@@ -3,11 +3,10 @@ package com.aau.p3.model.casefile;
 public class Customer {
     public static class ValuationDocument {
     }
-    private String name;
-    private int CPR;
-    private int phoneNumber;
-    private String email;
-
+    private final String name;
+    private final int CPR;
+    private final int phoneNumber;
+    private final String email;
 
     //Constructor
     public Customer(String name, int CPR, int phoneNumber, String email) {
