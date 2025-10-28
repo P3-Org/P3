@@ -1,0 +1,46 @@
+/* Sidebar container */
+.sidebar {
+    -fx-background-color: #f7f9fc;
+    -fx-padding: 8;
+}
+
+/* TitledPane header style */
+.titled-pane > .title {
+    -fx-background-color: #b7cdf6;   /* light blue */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 12 10 12;
+}
+
+/* Remove default border around TitledPane content */
+.titled-pane > .content {
+    -fx-background-color: transparent;
+    -fx-padding: 8 0 0 0;
+}
+
+/* Submenu buttons */
+.submenu .button.nav-item {
+    -fx-background-color: #c9d8f7;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 8 10 8 16;
+    -fx-font-size: 14px;
+}
+
+/* Top-level nav buttons */
+.button.nav-item {
+    -fx-background-color: white;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10 12;
+    -fx-font-size: 15px;
+    -fx-border-color: #c9c9c9;
+    -fx-border-width: 1;
+}
+
+/* Hover/selected states */
+.button.nav-item:hover {
+    -fx-background-color: #e9eefc;
+}
+.button.nav-item:focused {
+    -fx-background-insets: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.2, 0, 1);
+}

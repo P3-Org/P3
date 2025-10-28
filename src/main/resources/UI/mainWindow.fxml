@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.25" prefHeight="700.0" prefWidth="1100.0"
+           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.aau.p3.controller.MainController" stylesheets="@nav.css">
+
+    <items>
+        <!-- LEFT: Navigation -->
+        <VBox spacing="8.0" prefWidth="240.0" styleClass="sidebar">
+            <children>
+                <TitledPane text="Cases" expanded="false" animated="false">
+                    <content>
+                        <VBox spacing="6.0" styleClass="submenu">
+                            <children>
+                                <Button text="My cases"    onAction="#openMyCases"   maxWidth="Infinity" styleClass="nav-item"/>
+                                <Button text="All cases"   onAction="#openAllCases"  maxWidth="Infinity" styleClass="nav-item"/>
+                            </children>
+                        </VBox>
+                    </content>
+                </TitledPane>
+
+                <Separator/>
+
+                <Button text="Address lookup" onAction="#openAddressLookup" maxWidth="Infinity" styleClass="nav-item"/>
+                <Button text="Help desk"     onAction="#openHelpDesk"      maxWidth="Infinity" styleClass="nav-item"/>
+                <Button text="Exit"          onAction="#exitApp"           maxWidth="Infinity" styleClass="nav-item"/>
+            </children>
+        </VBox>
+
+        <!-- RIGHT: Content area -->
+        <StackPane fx:id="contentArea"/>
+    </items>
+</SplitPane>

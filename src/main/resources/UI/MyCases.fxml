@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.aau.p3.controller.MyCasesController"
+      alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
+
+    <Label text="My Cases" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <TableView prefWidth="500" prefHeight="300">
+        <columns>
+            <TableColumn text="Case ID" prefWidth="100" />
+            <TableColumn text="Title" prefWidth="250" />
+            <TableColumn text="Status" prefWidth="150" />
+        </columns>
+
+    </TableView>
+
+    <HBox spacing="10">
+        <Button text="Go to all cases" onAction="#handleAllCases" />
+    </HBox>
+</VBox>
