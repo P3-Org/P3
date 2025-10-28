@@ -41,6 +41,7 @@ public class MainController {
 
     public void openAddressLookup(ActionEvent actionEvent) {
         System.out.println("Address search activated...");
+        setCenter("/UI/AddressLookup.fxml");
     }
 
     public void openHelpDesk(ActionEvent actionEvent) {

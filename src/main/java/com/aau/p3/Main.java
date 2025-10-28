@@ -14,7 +14,7 @@ public class Main extends Application {
             // Load the FXML file from the resources folder
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/UI/mainWindow.fxml"));
             Parent root = loader.load();
-            primaryStage.setTitle("My JavaFX Application");
+            primaryStage.setTitle("Nykredit Platform");
             primaryStage.setScene(new Scene(root, 800, 600));
             primaryStage.show();
         } catch (Exception e) {
