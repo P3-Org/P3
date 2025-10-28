@@ -1,9 +1,39 @@
 package com.aau.p3.model.casefile;
 import java.util.Date;
-import com.aau.p3.model.property.Property;
+
 
 public class Case {
-    private Date date;
-    private String status;
+    private Date openedDate;
+    private Date closedDate;
+    private StatusEnum status;
     private String type;
+
+    //Constructor
+    public Case(Date openedDate, Date closedDate, StatusEnum status, String type) {
+        this.openedDate = openedDate;
+        this.closedDate = closedDate;
+        this.status = status;
+        this.type = type;
+    }
+
+    //Getters
+    public Date getOpenedData() {
+        return this.openedDate;
+    }
+
+    public Date getClosedDate() {
+        return this.closedDate;
+    }
+
+    public StatusEnum getStatus() {
+        return this.status;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
 }

@@ -4,7 +4,32 @@ public class Customer {
     public static class ValuationDocument {
     }
     private String name;
-    private String email;
     private int CPR;
     private int phoneNumber;
+    private String email;
+
+
+    //Constructor
+    public Customer(String name, int CPR, int phoneNumber, String email) {
+        this.name = name;
+        this.CPR = CPR;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+    }
+
+    // Getters
+    public String getName() {
+        return this.name;
+    }
+    public int getCPR() {
+        return this.CPR;
+    }
+    public int getPhoneNumber() {
+        return this.phoneNumber;
+    }
+    public String getEmail() {
+        return this.email;
+    }
+
 }
+
