@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Take an address as input with scanner
         Scanner adresseScan = new Scanner(System.in);
         String adresseSearch = adresseScan.nextLine();
         System.out.println(adresseSearch);
