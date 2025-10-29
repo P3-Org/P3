@@ -11,6 +11,11 @@ import javafx.scene.layout.StackPane;
 public class MainController {
     @FXML private StackPane contentArea;
 
+    @FXML
+    public void initialize() {
+        setCenter("/UI/HomePage.fxml");
+    }
+
     public void setCenter(String fxml) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
@@ -22,11 +27,20 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
             }
-
+            System.out.println("contentArea" + contentArea.getChildren());
             contentArea.getChildren().setAll(view);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setHomePage() {
+        setCenter("/UI/HomePage.fxml");
+    }
+
+    @FXML
+    private void openHomePage() {
+        setCenter("/UI/HomePage.fxml");
     }
 
     @FXML
@@ -39,16 +53,20 @@ public class MainController {
         setCenter("/UI/AllCases.fxml");
     }
 
-    public void openAddressLookup(ActionEvent actionEvent) {
+    @FXML
+    private void openAddressLookup(ActionEvent actionEvent) {
         System.out.println("Address search activated...");
         setCenter("/UI/AddressLookup.fxml");
     }
 
-    public void openHelpDesk(ActionEvent actionEvent) {
+    @FXML
+    private void openHelpDesk(ActionEvent actionEvent) {
         System.out.println("Open help desk activated...");
     }
 
-    public void exitApp() {
+    @FXML
+    private void exitApp() {
         System.exit(0); // Exits the program
     }
+
 }

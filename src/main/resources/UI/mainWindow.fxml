@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.25" prefHeight="700.0" prefWidth="1100.0"
-           xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="com.aau.p3.controller.MainController" stylesheets="@nav.css">
+<SplitPane dividerPositions="0.25" prefHeight="700.0" prefWidth="1100.0" stylesheets="@nav.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.controller.MainController">
 
     <items>
         <!-- LEFT: Navigation -->
-        <VBox spacing="8.0" prefWidth="240.0" styleClass="sidebar">
+        <VBox prefWidth="240.0" spacing="8.0" styleClass="sidebar">
             <children>
-                <TitledPane text="Cases" expanded="false" animated="false">
+                <Button maxWidth="Infinity" onAction="#openHomePage" styleClass="nav-item" text="Homepage" />
+                <TitledPane animated="false" expanded="false" text="Cases">
                     <content>
                         <VBox spacing="6.0" styleClass="submenu">
                             <children>
-                                <Button text="My cases"    onAction="#openMyCases"   maxWidth="Infinity" styleClass="nav-item"/>
-                                <Button text="All cases"   onAction="#openAllCases"  maxWidth="Infinity" styleClass="nav-item"/>
+                                <Button maxWidth="Infinity" onAction="#openMyCases" styleClass="nav-item" text="My cases" />
+                                <Button maxWidth="Infinity" onAction="#openAllCases" styleClass="nav-item" text="All cases" />
                             </children>
                         </VBox>
                     </content>
                 </TitledPane>
 
-                <Separator/>
+                <Separator />
 
-                <Button text="Address lookup" onAction="#openAddressLookup" maxWidth="Infinity" styleClass="nav-item"/>
-                <Button text="Help desk"     onAction="#openHelpDesk"      maxWidth="Infinity" styleClass="nav-item"/>
-                <Button text="Exit"          onAction="#exitApp"           maxWidth="Infinity" styleClass="nav-item"/>
+                <Button maxWidth="Infinity" onAction="#openAddressLookup" styleClass="nav-item" text="Address lookup" />
+                <Button maxWidth="Infinity" onAction="#openHelpDesk" styleClass="nav-item" text="Help desk" />
+                <Button maxWidth="Infinity" onAction="#exitApp" styleClass="nav-item" text="Exit" />
             </children>
         </VBox>
 
         <!-- RIGHT: Content area -->
-        <StackPane fx:id="contentArea"/>
+        <StackPane fx:id="contentArea" />
     </items>
 </SplitPane>

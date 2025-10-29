@@ -1,5 +1,6 @@
 package com.aau.p3;
 
+import com.aau.p3.controller.MainController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
