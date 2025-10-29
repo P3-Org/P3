@@ -1,6 +1,7 @@
 package com.aau.p3;
 
-import com.aau.p3.dawa.Autocomplete;
+import com.aau.p3.dawa.DawaAutocomplete;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,9 +10,14 @@ public class Main {
         String adresseSearch = adresseScan.nextLine();
         System.out.println(adresseSearch);
 
-        Autocomplete autocom = new Autocomplete();
-        String hej = autocom.autocomplete(adresseSearch);
-        System.out.println(hej);
+        // Create Autocomplete object
+        DawaAutocomplete autocomplete = new DawaAutocomplete();
+        List<String> addressInfo = autocomplete.autocomplete(adresseSearch);
+
+        // Print possible addresses
+        for (String address : addressInfo) {
+            System.out.println(address);
+        }
 
     }
 }
