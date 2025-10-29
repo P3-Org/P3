@@ -34,10 +34,6 @@ public class MainController {
         }
     }
 
-    public void setHomePage() {
-        setCenter("/UI/HomePage.fxml");
-    }
-
     @FXML
     private void openHomePage() {
         setCenter("/UI/HomePage.fxml");
