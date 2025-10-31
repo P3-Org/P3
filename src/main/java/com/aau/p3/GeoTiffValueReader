@@ -1,0 +1,41 @@
+package com.aau.p3;
+
+import org.geotools.coverage.grid.GridCoverage2D;
+import org.geotools.gce.geotiff.GeoTiffReader;
+import org.geotools.geometry.DirectPosition2D;
+import org.geotools.referencing.CRS;
+import org.geotools.api.referencing.crs.CoordinateReferenceSystem;
+import org.geotools.api.referencing.operation.MathTransform;
+
+import java.io.File;
+
+public class GeoTiffValueReader {
+    public static void main(String[] args) throws Exception {
+        // 1️⃣ Indlæs GeoTIFF-fil
+        File geotiff = new File("data/dhm_25832.tif");
+        GeoTiffReader reader = new GeoTiffReader(geotiff);
+        GridCoverage2D coverage = reader.read(null);
+
+        // 2️⃣ Definer koordinatsystemer
+        CoordinateReferenceSystem sourceCRS = CRS.decode("EPSG:4326");   // Input: lon/lat
+        CoordinateReferenceSystem targetCRS = coverage.getCoordinateReferenceSystem2D(); // TIFF: 25832
+
+        // 3️⃣ Transformer koordinat
+        double lon = 12.5683;  // fx København
+        double lat = 55.6761;
+        DirectPosition2D wgs84 = new DirectPosition2D(sourceCRS, lon, lat);
+        DirectPosition2D eutm = new DirectPosition2D();
+
+        MathTransform transform = CRS.findMathTransform(sourceCRS, targetCRS, true);
+        transform.transform(wgs84, eutm);
+
+        System.out.printf("Transformeret til EPSG:25832 → X: %.2f, Y: %.2f%n", eutm.x, eutm.y);
+
+        // 4️⃣ Læs værdi fra raster
+        double[] value = new double[1];
+        coverage.evaluate(eutm, value);
+        System.out.println("Rasterværdi ved punktet: " + value[0]);
+
+        reader.dispose();
+    }
+}
