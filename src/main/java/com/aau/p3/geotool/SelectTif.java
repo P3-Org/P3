@@ -14,16 +14,6 @@ public class SelectTif {
 
      */
 
-    public static void main(String[] args) {
-        // Redundant, only for testing
-        double[][] coordinates = {{550900.0, 6320500.0},
-                                  {551100.0, 6320500.0},
-                                  {551100.0, 6320600.0},
-                                  {550900.0, 6320600.0}};
-
-        List<String> listOfTifFiles = getFileArray(coordinates);
-        System.out.println(listOfTifFiles);
-    }
 
     /**
      * Takes coordinates from GeoJSON polygon, and returns all 1x1 km tif files, the polygon covers.
