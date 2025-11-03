@@ -49,7 +49,7 @@ public class UrlHelper {
 
     // Takes registry number and real property area, which through API call returns the polygon
     public StringBuilder getPolygon(String kode, String matrikel){
-        String polygon_url = this.BASE_URL + "/jordstykker/"+ kode + "/" + matrikel + "?format=geojson";
+        String polygon_url = this.BASE_URL + "/jordstykker/"+ kode + "/" + matrikel + "?format=geojson&srid=25832";
         return this.getResponse(polygon_url);
     }
 
