@@ -1,5 +1,7 @@
 package com.aau.p3.dawa;
 
+import com.aau.p3.utility.UrlHelper;
+
 import java.io.BufferedReader;              // Reads text from http inputstream
 import java.io.InputStreamReader;           // Converts byte streams (like HTTP responses) into character streams
 import java.net.HttpURLConnection;          // Send HTTP requests and receive responses
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;             // Defines a compiled regular expres
 * */
 public class DawaAutocomplete {
 
-    private static final String BASE_URL = "https://api.dataforsyningen.dk/autocomplete";
+
 
     /**
      * @param query the search query
@@ -27,33 +29,9 @@ public class DawaAutocomplete {
         // Lists to hold information on both addresses, aswell as x and y coordinates.
         List<String> addresses = new ArrayList<>();
         List<String> coordinates = new ArrayList<>();
+        UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
-        // Create url string with base URL + UTF_8 encoder, to ensure æ,ø and å are handled
-        String urlString = BASE_URL + "?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
-
-        try {
-            // Create URL object from url string
-            URL url = new URL(urlString);
-            System.out.println(url);
-
-            // Create connection and request "GET"
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // Check if response was successful
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-
-                // While there are still lines, append lines to our response.
-                while ((line = in.readLine()) != null) {
-                    response.append(line);
-                }
-
-                // Closes connection when all lines are read
-                in.close();
+        StringBuilder response = urlhelper.getAutoComplete(query);
 
                 // Find all "forslagstekst"
                 Pattern pattern = Pattern.compile("\"forslagstekst\"\\s*:\\s*\"(.*?)\"");
@@ -76,14 +54,6 @@ public class DawaAutocomplete {
                     coordinates.add(yMatcher.group(1));
                 }
 
-
-            } else {
-                System.out.println("GET request failed. Response code: " + responseCode);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         System.out.println(coordinates);
         return coordinates;
     }

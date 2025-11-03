@@ -1,5 +1,6 @@
 package com.aau.p3.dawa;
 
+import com.aau.p3.utility.UrlHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -22,108 +23,51 @@ import java.util.regex.Pattern;
  * */
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
-    String hej = "";
-    private static final String getMatrikelnr = "https://api.dataforsyningen.dk/jordstykker";
     String matrikel = "";
     String kode = "";
+    UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
     /**
-     * @Param todo
+     * @Param A list of an x and y coordinate
+     * @TODO Change the "kode" so it takes the correct one
      * */
-    public void dawapolygonforaddress(List<String> Coordinates){
-            String x = Coordinates.get(1);
-            String y = Coordinates.get(2);
+    public void getPropertyNo(List<String> Coordinates){
+        StringBuilder response = urlhelper.getPropertyNo(Coordinates);
 
-        String urlString = getMatrikelnr + "?x="+ x + "&y=" + y;
+        // Find all "Matrikelnr"
+        Pattern pattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");
+        Matcher matrikelNr = pattern.matcher(response.toString());
 
-        try {
-            // Create URL object from url string
-            URL url = new URL(urlString);
-            System.out.println(url);
+        Pattern kodepattern = Pattern.compile("\"ejerlav\"\\s*:\\s*\\{[^}]*?\"kode\"\\s*:\\s*(\\d+)");
+        Matcher ejerlavkode = kodepattern.matcher(response.toString());
 
-            // Create connection and request "GET"
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // Check if response was successful
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-
-                // While there are still lines, append lines to our response.
-                while ((line = in.readLine()) != null) {
-                    response.append(line);
-                }
-                System.out.println(response);
-
-                // Closes connection when all lines are read
-                in.close();
-
-                // Find all "Matrikelnr"
-                Pattern pattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");
-                Matcher matrikelNr = pattern.matcher(response.toString());
-
-                Pattern kodepattern = Pattern.compile("\"kode\"\\s*:\\s*\"(.*?)\"");
-                Matcher ejerlavkode = kodepattern.matcher(response.toString());
-
-                while (matrikelNr.find()) {
-                    matrikel = matrikelNr.group(1);
-                }
-
-                while (ejerlavkode.find()) {
-                    kode = ejerlavkode.group(1);
-                }
-
-                System.out.println(matrikel);
-                System.out.println(kode);
-
-            } else {
-                System.out.println("GET request failed. Response code: " + responseCode);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        while (matrikelNr.find()) {
+            matrikel = matrikelNr.group(1);
         }
 
-            }
+        if (ejerlavkode.find()) {
+            kode = ejerlavkode.group(1);
+        }
 
 
+        System.out.println(matrikel);
+        System.out.println(kode);
+        }
+
+    /**
+     * @return List of coordinates of the polygon in a WGS84 format
+     * */
     private List<List<Double>> GETPolygon(){
-        String polygonURL = getMatrikelnr + "/"+ this.kode + "/" + this.matrikel + "?format=geojson";
-        try {
-            // Create URL object from url string
-            URL url = new URL(polygonURL);
-            System.out.println(url);
-
-            // Create connection and request "GET"
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
-            // Check if response was successful
-            int responseCode = conn.getResponseCode();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-
-                // While there are still lines, append lines to our response.
-                while ((line = in.readLine()) != null) {
-                    response.append(line);
-                }
-                System.out.println(response);
-
-                // Closes connection when all lines are read
-                in.close();
-
-
+        StringBuilder response = urlhelper.getPolygon(this.kode, this.matrikel);
+        this.polygon = new ArrayList<>();
 
                 JSONObject results = new JSONObject(response.toString());
-                // 2. Get the "geometry" object
+
+
+                // Get the "geometry" object
                 JSONObject geometry = results.getJSONObject("geometry");
 
-                // 3. Get the "coordinates" array (This is the triple-nested array structure)
+                // Get the "coordinates" array (This is the triple-nested array structure)
                 JSONArray coordinatesRoot = geometry.getJSONArray("coordinates");
 
                 for (int i = 0; i < coordinatesRoot.length(); i++) {
@@ -131,11 +75,9 @@ public class DawaPolygonForAddress{
 
                     // Middle loop: Points within a ring
                     for (int j = 0; j < ringArray.length(); j++) {
-                        JSONArray pointArray = ringArray.getJSONArray(j); // This is the [lng, lat] pair
-                        List<Double> javaPoint = new ArrayList<>();
+                        JSONArray pointArray = ringArray.getJSONArray(j); // This is the [x(lon), y(lat)] pair
 
-                        // Inner logic: Longitude and Latitude values (which are Doubles)
-                        // GeoJSON coordinates are [longitude, latitude]
+                        List<Double> javaPoint = new ArrayList<>();
                         double longitude = pointArray.getDouble(0);
                         double latitude = pointArray.getDouble(1);
 
@@ -144,15 +86,6 @@ public class DawaPolygonForAddress{
                         this.polygon.add(javaPoint);
                     }
                 }
-
-
-            } else {
-                System.out.println("GET request failed. Response code: " + responseCode);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
 
         System.out.println(polygon);
