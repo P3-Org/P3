@@ -1,6 +1,8 @@
 package com.aau.p3;
 
 import com.aau.p3.dawa.DawaAutocomplete;
+import com.aau.p3.dawa.DawaPolygonForAddress;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,11 +16,16 @@ public class Main {
         // Create Autocomplete object
         DawaAutocomplete autocomplete = new DawaAutocomplete();
         List<String> addressInfo = autocomplete.autocomplete(adresseSearch);
+        System.out.println(addressInfo);
 
         // Print possible addresses
         for (String address : addressInfo) {
             System.out.println(address);
         }
 
+        DawaPolygonForAddress heyo = new DawaPolygonForAddress();
+        heyo.dawapolygonforaddress(addressInfo);
+        heyo.getPolygon();
+
+        }
     }
-}

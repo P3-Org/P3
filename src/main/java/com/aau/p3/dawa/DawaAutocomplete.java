@@ -84,7 +84,7 @@ public class DawaAutocomplete {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return addresses;
+        System.out.println(coordinates);
+        return coordinates;
     }
 }
