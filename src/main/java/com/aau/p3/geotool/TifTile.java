@@ -1,9 +1,10 @@
 package com.aau.p3.geotool;
 
+
 import org.geotools.api.parameter.ParameterValueGroup;
 import org.geotools.coverage.grid.GridCoverage2D;
-import org.geotools.coverage.processing.operation.Mosaic;
 import org.geotools.gce.geotiff.GeoTiffReader;
+import org.geotools.coverage.processing.CoverageProcessor;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,10 +51,16 @@ public class TifTile {
             return coverage.getFirst();
         }
 
-        Mosaic mosaicOp = new Mosaic();
-        ParameterValueGroup params = mosaicOp.getParameters();
+        CoverageProcessor processor = CoverageProcessor.getInstance();
+        ParameterValueGroup params = processor.getOperation("Mosaic").getParameters();
+
+// set sources (accepts List<GridCoverage2D>)
         params.parameter("sources").setValue(coverage);
 
-        return (GridCoverage2D) mosaicOp.doOperation(params, null);
+// optional: set background nodata value(s)
+        params.parameter("backgroundValues").setValue(new double[]{Double.NaN});
+
+// perform the operation (some versions accept a second 'hints' argument; null is fine)
+        return (GridCoverage2D) processor.doOperation(params, null);
     }
 }
