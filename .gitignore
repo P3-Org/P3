@@ -12,6 +12,12 @@ target/
 *.iws
 *.iml
 *.ipr
+# Ignore everything in .idea
+.idea/*
+# But not the directory itself (so Git can see inside it)
+!.idea/
+# And not the runConfigurations folder
+!.idea/runConfigurations/
 
 ### Eclipse ###
 .apt_generated
