@@ -1,6 +1,6 @@
 package com.aau.p3.geotool;
 
-import org.geotools.api.referencing.operation.MathTransform;
+import org.geotools.api.referencing.operation.MathTransform2D;
 import org.geotools.coverage.grid.GridCoverage2D;
 import java.util.List;
 import static com.aau.p3.geotool.SelectTif.getFileArray;
@@ -28,14 +28,16 @@ public class Main {
         System.out.println(value);
     }
 
-    public static double getValue(GridCoverage2D coverage, double worldX, double worldY) throws Exception {
-        GridGeometry2D gridGeom = coverage.getGridGeometry();
+    public static double[] getPixels(GridCoverage2D coverage, double worldX, double worldY) {
+        try {
+            MathTransform2D gridToCRS = coverage.getGridGeometry().getGridToCRS2D();
 
-        // Transform from world (map) to grid (pixel) coordinates
-        MathTransform worldToGrid = gridGeom.getCRSToGrid2D();
-        double[] srcPt = new double[] { worldX, worldY };
-        double[] destPt = new double[2];
-        worldToGrid.transform(srcPt, 0, destPt, 0, 1);
+            // ✅ Invert the transform safely
+            MathTransform2D crsToGrid = (MathTransform2D) gridToCRS.inverse();
+
+            double[] src = new double[]{worldX, worldY};
+            double[] dst = new double[2];
+            crsToGrid.transform(src, 0, dst, 0, 1);
 
             return dst;
 
