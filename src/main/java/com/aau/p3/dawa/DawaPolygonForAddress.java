@@ -18,8 +18,6 @@ import java.util.regex.Pattern;
 
 /**
  * @author Batman
- * @TODO søg efter href istedet
- * @TODO Lav comments
  * */
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;

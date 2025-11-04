@@ -10,6 +10,10 @@ import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @Author Batman
+ * @TODO mock data for the other methods
+ * */
 class UrlHelperTest {
 
     @Test
