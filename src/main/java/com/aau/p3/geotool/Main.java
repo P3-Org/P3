@@ -1,10 +1,9 @@
 package com.aau.p3.geotool;
 
-import org.geotools.api.referencing.operation.MathTransform2D;
 import org.geotools.coverage.grid.GridCoverage2D;
+import org.locationtech.jts.geom.*;
 import java.util.List;
 import static com.aau.p3.geotool.SelectTif.getFileArray;
-import org.locationtech.jts.geom.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -13,7 +12,6 @@ public class Main {
                 {551100.0, 6320500.0},
                 {551100.0, 6320600.0},
                 {550900.0, 6320600.0}};
-        double[][] coords = {{550897.0, 6320500.0}};
 
         List<String> listOfTifFiles = getFileArray(coordinates);
         System.out.println(listOfTifFiles);
@@ -22,38 +20,10 @@ public class Main {
         tile.load();
         GridCoverage2D gc = tile.getCoverage();
 
-        double[] pixels = getPixels(gc, 550900.0, 6320500.0);
-        double value = getValue(pixels, gc);
+        FindMaxValue maxValueOfProperty = new FindMaxValue();
+        double maxVal = maxValueOfProperty.getMaxValueInPolygon(gc, coordinates);
 
-        System.out.println(value);
-    }
-
-    public static double[] getPixels(GridCoverage2D coverage, double worldX, double worldY) {
-        try {
-            MathTransform2D gridToCRS = coverage.getGridGeometry().getGridToCRS2D();
-
-            // ✅ Invert the transform safely
-            MathTransform2D crsToGrid = (MathTransform2D) gridToCRS.inverse();
-
-            double[] src = new double[]{worldX, worldY};
-            double[] dst = new double[2];
-            crsToGrid.transform(src, 0, dst, 0, 1);
-
-            return dst;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new double[]{Double.NaN, Double.NaN};
-        }
-    }
-
-    public static double getValue(double[] coords, GridCoverage2D coverage) {
-        int x = (int) coords[0];
-        int y = (int) coords[1];
-
-        double[] pixel = new double[1];
-        coverage.evaluate(new org.geotools.coverage.grid.GridCoordinates2D(x, y), pixel);
-
-        return pixel[0];
+        System.out.println("EASTING: " + maxValueOfProperty.getEasting() + " NORTHING: " + maxValueOfProperty.getNorthing());
+        System.out.println("Max value of rain on property: " + maxVal + " mm/day");
     }
 }
