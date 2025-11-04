@@ -1,6 +1,7 @@
 package com.aau.p3.geotool;
 
 import org.geotools.api.referencing.operation.MathTransform2D;
+import org.geotools.api.referencing.operation.TransformException;
 import org.geotools.coverage.grid.GridCoordinates2D;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.locationtech.jts.geom.Coordinate;
@@ -12,7 +13,14 @@ public class FindMaxValue {
     private double easting;
     private double northing;
 
-    public double getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws Exception {
+    /**
+     * Method for acquiring the max value from a polygon shape that has been extracted from a tif file.
+     * @param coverage Raster grid from the tif file. Holds geospatial metadata and transform capabilities from pixels to real world coordinates (i.e. EPSG:25832)
+     * @param worldCoords The EPSG:25832 coordinates for the polygons corners
+     * @return the max value multiplied by 1000 (for meters per. day)
+     * @throws TransformException if error occurs
+     */
+    public double getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
         // Build a JTS Polygon from the world coordinates
         GeometryFactory gf = new GeometryFactory();
         Coordinate[] coords = new Coordinate[worldCoords.length + 1];
