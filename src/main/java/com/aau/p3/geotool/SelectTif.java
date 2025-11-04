@@ -5,17 +5,6 @@ import java.util.List;
 
 public class SelectTif {
     /**
-     * Coordinates for the polygon:
-     * [550900.0, 6320500.0], BOTTOM-left
-     * [551100.0, 6320500.0], TOP-right
-     * [551100.0, 6320600.0],
-     * [550900.0, 6320600.0],
-     * [550900.0, 6320500.0]  BOTTOM-left
-
-     */
-
-
-    /**
      * Takes coordinates from GeoJSON polygon, and returns all 1x1 km tif files, the polygon covers.
      * @param coordinatesArray 2D double array
      * @return List of filenames covered by the polygon
