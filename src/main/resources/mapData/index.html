@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Leaflet in JavaFX</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Leaflet CSS -->
+        <link
+                rel="stylesheet"
+                href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                crossorigin=""
+        />
+        <style>
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+            #map {
+                height: 100%;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script
+                src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                crossorigin=""
+        ></script>
+        <script>
+            const styleMap = {
+                0: 'bluespot_ekstremregn_0',
+                15: 'bluespot_ekstremregn_0_015',
+                30: 'bluespot_ekstremregn_0_030',
+                45: 'bluespot_ekstremregn_0_045',
+                60: 'bluespot_ekstremregn_0_060',
+                75: 'bluespot_ekstremregn_0_075',
+                90: 'bluespot_ekstremregn_0_090',
+                105: 'bluespot_ekstremregn_0_105',
+                120: 'bluespot_ekstremregn_0_120',
+                135: 'bluespot_ekstremregn_0_135',
+                150: 'bluespot_ekstremregn_0_150',
+                151: 'bluespot_ekstremregn_0_150plus' // fallback for anything >150
+            };
+            let ekstremregn;
+
+            document.addEventListener('DOMContentLoaded', () => {
+                L.Browser.any3d = false; // Force Leaflet to use 2D transforms
+                const map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 18,
+                    attribution: '@opensteetmap.org',
+                    zIndex: 1
+                }).addTo(map);
+
+                ekstremregn = L.tileLayer.wms("http://localhost:8080/wms-proxy", {
+                    layers: 'dhm_bluespot_ekstremregn',
+                    styles: 'bluespot_ekstremregn_0_015',
+                    format: 'image/png',
+                    transparent: true,
+                    token: '614d970326f8c0bc7f7b666245c117f8',
+                    attribution: '@dataforsyningen.dk',
+                    zIndex: 5
+                }).addTo(map);
+            });
+
+            function setMapStyle(index) {
+                ekstremregn.setParams({ styles: styleMap[index] })
+            }
+        </script>
+    </body>
+</html>

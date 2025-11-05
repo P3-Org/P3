@@ -1,5 +1,14 @@
 package com.aau.p3;
 
+
+import com.aau.p3.dawa.DawaAutocomplete;
+import com.aau.p3.dawa.DawaPolygonForAddress;
+import com.aau.p3.utility.UrlHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +20,7 @@ public class Main extends Application {
     /* The start method is defined in Application and is used to create a scene with JavaFX */
     @Override
     public void start(Stage primaryStage) {
+        LocalProxyServer.startProxy(8080);
         try {
             /* Makes a new FXMLLoader object the parsed parameter,
              * gets the entire path to the fxml file that we wish to display */
@@ -29,3 +39,4 @@ public class Main extends Application {
         }
     }
 }
+

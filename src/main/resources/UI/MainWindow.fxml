@@ -24,7 +24,7 @@
                 <Separator />
 
                 <Button maxWidth="Infinity" onAction="#openAddressLookup" styleClass="nav-item" text="Address lookup" />
-                <Button maxWidth="Infinity" onAction="#openHydrologicalTool" styleClass="nav-item" text="Address lookup" />
+                <Button maxWidth="Infinity" onAction="#openHydrologicalTool" styleClass="nav-item" text="Hydrological tool" />
                 <Button maxWidth="Infinity" onAction="#openHelpDesk" styleClass="nav-item" text="Help desk" />
                 <Button maxWidth="Infinity" onAction="#exitApp" styleClass="nav-item" text="Exit" />
             </children>
