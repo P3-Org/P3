@@ -19,7 +19,7 @@ public class HydrologicalToolController {
 
         // Setting slider's Min, Max and start value.
         ekstremregnSlider.setMin(0);
-        ekstremregnSlider.setValue(75);
+        ekstremregnSlider.setValue(15);
         ekstremregnSlider.setMax(150);
         // Set the slider to show TickMarks, Labels and to snap to each Tick
         ekstremregnSlider.setShowTickMarks(true);
@@ -40,23 +40,24 @@ public class HydrologicalToolController {
             System.err.println("Map HTML not found in resources");
             return;
         }
-        System.out.println(mapResource);
-        // Creates a string representation of the HTML location
+
+        // Creates a string representation of the HTML location to use for the "mapEngine"
         String mapUrl = mapResource.toExternalForm();
         webEngine.load(mapUrl);
         System.out.println("Loading map from: " + mapUrl);
 
-        // Make WebView fill the AnchorPane
+        // Adjust how the webView fills the anchorpane
         AnchorPane.setTopAnchor(webView, 0.0);
         AnchorPane.setBottomAnchor(webView, 0.0);
         AnchorPane.setLeftAnchor(webView, 0.0);
         AnchorPane.setRightAnchor(webView, 0.0);
-
+        // Inserts the webView into the JavaFX anchor
         mapAnchor.getChildren().add(webView);
 
-        //
+        // Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
+        // and parse that value to the javascript function "setMapStyle" in @index.html.
         ekstremregnSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            var value = ekstremregnSlider.getValue();
+            double value = ekstremregnSlider.getValue();
             webEngine.executeScript("setMapStyle(" + value + ")");
         });
     }

@@ -49,7 +49,7 @@
 
             document.addEventListener('DOMContentLoaded', () => {
                 L.Browser.any3d = false; // Force Leaflet to use 2D transforms
-                const map = L.map('map').setView([57.0488, 9.9217], 17);
+                const map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
 
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 18,
@@ -57,11 +57,9 @@
                     zIndex: 1
                 }).addTo(map);
 
-                //wmsLayer.setParams({ styles: newStyle }); use for slider
-
                 ekstremregn = L.tileLayer.wms("http://localhost:8080/wms-proxy", {
                     layers: 'dhm_bluespot_ekstremregn',
-                    styles: 'bluespot_ekstremregn_0_045', //make this a variable to later on change with a slider
+                    styles: 'bluespot_ekstremregn_0_015',
                     format: 'image/png',
                     transparent: true,
                     token: '614d970326f8c0bc7f7b666245c117f8',
