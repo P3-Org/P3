@@ -11,6 +11,7 @@ public class Main extends Application {
     /* The start method is defined in Application and is used to create a scene with JavaFX */
     @Override
     public void start(Stage primaryStage) {
+        LocalProxyServer.startProxy(8080);
         try {
             /* Makes a new FXMLLoader object the parsed parameter,
              * gets the entire path to the fxml file that we wish to display */

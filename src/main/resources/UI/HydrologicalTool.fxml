@@ -4,17 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.aau.p3.controller.HydrologicalToolController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.controller.HydrologicalToolController">
    <children>
       <Label alignment="CENTER" prefHeight="66.0" prefWidth="610.0" text="Hydrological Tool">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-       <AnchorPane fx:id="mapAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="350.0">
-             </AnchorPane>
+        <AnchorPane fx:id="mapAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="350.0">
+        </AnchorPane>
+        <Slider fx:id="ekstremregnSlider" maxWidth="350"/>
    </children>
 </VBox>
