@@ -1,13 +1,7 @@
-package com.aau.p3.dawa;
+package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.utility.UrlHelper;
+import com.aau.p3.platform.utilities.UrlHelper;
 
-import java.io.BufferedReader;              // Reads text from http inputstream
-import java.io.InputStreamReader;           // Converts byte streams (like HTTP responses) into character streams
-import java.net.HttpURLConnection;          // Send HTTP requests and receive responses
-import java.net.URL;                        // URL class
-import java.net.URLEncoder;                 // Rewrites æøå to unicode for api search
-import java.nio.charset.StandardCharsets;   // Standard character set
 import java.util.ArrayList;                 // List
 import java.util.List;                      // List
 import java.util.regex.Matcher;             // Used to find matches of a regex pattern in a string (dont understand so no touch)

@@ -60,7 +60,7 @@
         .leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
             border: 0px;
         }
-        }
+
         .fa, .leaflet-container, a {
             color: #444444 !important;
         }

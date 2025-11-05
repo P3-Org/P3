@@ -1,15 +1,9 @@
-package com.aau.p3.dawa;
+package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.utility.UrlHelper;
+import com.aau.p3.platform.utilities.UrlHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;

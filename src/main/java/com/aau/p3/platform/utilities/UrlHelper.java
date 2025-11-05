@@ -1,4 +1,4 @@
-package com.aau.p3.utility;
+package com.aau.p3.platform.utilities;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
