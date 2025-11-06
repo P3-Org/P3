@@ -1,14 +1,10 @@
 package com.aau.p3.dawa;
 
-import com.aau.p3.utility.UrlHelper;
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 
 class DawaAutocompleteTest {
     private DawaAutocomplete dawaAutocomplete;
@@ -35,8 +31,4 @@ class DawaAutocompleteTest {
         List<String> addressInfo = dawaAutocomplete.autocomplete("Bondag");
         Assertions.assertEquals(expectedCoords, addressInfo);
     }
-
-
-
-
 }

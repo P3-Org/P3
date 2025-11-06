@@ -1,5 +1,6 @@
 package com.aau.p3.dawa;
 
+import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
