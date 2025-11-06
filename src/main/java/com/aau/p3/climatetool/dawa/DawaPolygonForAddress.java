@@ -9,17 +9,14 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 /**
  * @author Batman
- * @TODO søg efter href istedet
- * @TODO Lav comments
  * */
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
-    String matrikel = "";
-    String kode = "";
-    UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
+    public String matrikel = "";
+    public String kode = "";
+    public UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
     /**
      * @Param A list of an x and y coordinate

@@ -13,8 +13,6 @@ import java.util.regex.Pattern;             // Defines a compiled regular expres
 * */
 public class DawaAutocomplete {
 
-
-
     /**
      * @param query the search query
      * @return The addresses you have searched for
