@@ -67,9 +67,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the principle of Liskov Substitution Principle */
         riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo));
-        //riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        //riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        //riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
         /* Loops through all the risks and gathers their data and prints the color values */
         for (RiskAssessment risk : riskAssessment) {

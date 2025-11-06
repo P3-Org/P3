@@ -22,4 +22,3 @@ public class StormSurgeRisk implements RiskAssessment {
         return assignColors(value, threshold);
     }
 }
-
