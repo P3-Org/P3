@@ -1,0 +1,98 @@
+package com.aau.p3.climatetool.geoprocessing;
+
+import org.geotools.api.referencing.operation.MathTransform2D;
+import org.geotools.api.referencing.operation.TransformException;
+import org.geotools.coverage.grid.GridCoordinates2D;
+import org.geotools.coverage.grid.GridCoverage2D;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.geom.Polygon;
+
+public class FindMaxValue {
+    private double easting;
+    private double northing;
+
+    /**
+     * Method for acquiring the max value from a polygon shape that has been extracted from a tif file.
+     * @param coverage Raster grid from the tif file. Holds geospatial metadata and transform capabilities from pixels to real world coordinates (i.e. EPSG:25832)
+     * @param worldCoords The EPSG:25832 coordinates for the polygons corners
+     * @return the max value multiplied by 1000 (for meters per. day)
+     * @throws TransformException if error occurs
+     */
+    public double getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
+        /* Create a polygon shape based on the world coordinates provided */
+        GeometryFactory gf = new GeometryFactory();
+        Coordinate[] coords = new Coordinate[worldCoords.length + 1]; // +1 since we want to add an extra closing coordinate
+
+        /* Convert the double values for the world coordinates to the datatype Coordinate used by the framework locationtech */
+        for (int i = 0; i < worldCoords.length; i++) {
+            coords[i] = new Coordinate(worldCoords[i][0], worldCoords[i][1]);
+        }
+
+        /* Closes the polygon and creates it based on the coords */
+        coords[worldCoords.length] = coords[0];
+        Polygon property = gf.createPolygon(coords);
+
+        /* Prepare transforms so we can go from pixels to world coordinates and the other way as well */
+        MathTransform2D gridToCRS = coverage.getGridGeometry().getGridToCRS2D();
+        MathTransform2D crsToGrid = (MathTransform2D) gridToCRS.inverse();
+
+        /* Gets the width and height of the coverage such that we can iterate over it */
+        int width = coverage.getRenderedImage().getWidth();
+        int height = coverage.getRenderedImage().getHeight();
+
+        /* Keep track of the max value and the east and north coordinates in these variables.
+         * Also keeps track of the sample double array that will hold the samples gathered from the tif files. */
+        double maxVal = Double.NEGATIVE_INFINITY;
+        easting = Double.NEGATIVE_INFINITY;
+        northing = Double.NEGATIVE_INFINITY;
+        double[] sample = new double[1];
+
+        /* Since the polygon "property" is defined by coordinates, we want to get the coordinate
+        *  corresponding to every pixel. This then allows us to check which coordinates are within the polygon
+        *  This search could in theory be optimized by starting the conversion and check closer to the start of the polygon - but we don't do that */
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                /* Converts the pixel center to world coordinates */
+                double[] gridPt = {x + 0.5, y + 0.5};
+                double[] worldPt = new double[2];
+
+                /* .transform() takes gridPt which corresponds to a pixel, and updates worldPt with the corresponding coordinate */
+                gridToCRS.transform(gridPt, 0, worldPt, 0, 1);
+
+                /* .contains() Check if this pixel’s world coordinate lies inside the polygon */
+                Point p = gf.createPoint(new Coordinate(worldPt[0], worldPt[1]));
+                if (property.contains(p)) {
+                    try {
+                        /* .evaluate() finds the measurement associated with a coordinate and stores it in sample */
+                        coverage.evaluate(new GridCoordinates2D(x, y), sample);
+                        /* Since measurement where no data exist is kinda weird, we check if it's NaN
+                        *  If the measurement is larger we update "easting" and "northing" that hold the coordinates */
+                        if (!Double.isNaN(sample[0]) && sample[0] > maxVal) {
+                            maxVal = sample[0];
+                            easting = worldPt[0];
+                            northing = worldPt[1];
+                        }
+                    } catch (Exception ignored) { // Catches both checked an unchecked exceptions
+                    }
+                }
+            }
+        }
+        return (maxVal * 1000);
+    }
+
+    /**
+     * Method for gathering and rounding the easting coordinates
+     */
+    public double getEasting() {
+        return (double) Math.round(this.easting * 10) / 10;
+    }
+
+    /**
+     * Method for gathering and rounding the northing coordinates
+     */
+    public double getNorthing() {
+        return (double) Math.round(this.northing * 10) / 10;
+    }
+}

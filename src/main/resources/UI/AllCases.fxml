@@ -5,22 +5,22 @@
 
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.aau.p3.controller.AllCasesController"
+      fx:controller="com.aau.p3.platform.controller.AllCasesController"
       alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
 
-    <Label text="All Cases" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+    <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="All Cases" />
 
-    <TableView prefWidth="600" prefHeight="350">
+    <TableView prefHeight="350" prefWidth="600">
         <columns>
-            <TableColumn text="Case ID" prefWidth="100" />
-            <TableColumn text="Title" prefWidth="300" />
-            <TableColumn text="Owner" prefWidth="150" />
-            <TableColumn text="Status" prefWidth="100" />
+            <TableColumn prefWidth="100" text="Case ID" />
+            <TableColumn prefWidth="300" text="Title" />
+            <TableColumn prefWidth="133.0" text="Owner" />
+            <TableColumn prefWidth="117.0" text="Status" />
         </columns>
     </TableView>
 
     <HBox spacing="10">
-        <Button text="Show my cases" onAction="#handleMyCases" />
-        <Button text="Export" onAction="#handleExport" />
+        <Button onAction="#handleMyCases" text="Show my cases" />
+        <Button onAction="#handleExport" text="Export" />
     </HBox>
 </VBox>

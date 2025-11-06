@@ -5,7 +5,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/21"
       xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.aau.p3.controller.MyCasesController"
+      fx:controller="com.aau.p3.platform.controller.MyCasesController"
       alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
 
     <Label text="My Cases" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
