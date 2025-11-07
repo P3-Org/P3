@@ -4,15 +4,28 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
-   <children>
-      <Label alignment="CENTER" prefHeight="66.0" prefWidth="610.0" text="Hydrological Tool">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+    <children>
+      <Label alignment="CENTER" prefHeight="46.0" prefWidth="600.0" text="Hydrological Tool">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-        <AnchorPane fx:id="mapAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="350.0">
+      <Separator layoutY="36.0" prefHeight="21.0" prefWidth="600.0" />
+        <AnchorPane fx:id="mapAnchor" layoutX="166.0" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="420.0">
         </AnchorPane>
-        <Slider fx:id="ekstremregnSlider" maxWidth="350"/>
+       <fx:define>
+           <ToggleGroup fx:id="weatherOption" />
+       </fx:define>
+       <HBox alignment="CENTER" layoutX="166.0" layoutY="357.0" prefHeight="26.0" prefWidth="420.0">
+         <children>
+             <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Cadastral map" />
+              <ToggleButton fx:id="rainToggle" mnemonicParsing="false" text="Cloud Burst" toggleGroup="$weatherOption"/>
+              <ToggleButton fx:id="stormToggle" mnemonicParsing="false" text="Strom Surge" toggleGroup="$weatherOption"/>
+              <ToggleButton fx:id="erosionToggle" mnemonicParsing="false" text="erosion?" toggleGroup="$weatherOption" />
+              <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="groundwater?" toggleGroup="$weatherOption" />
+         </children>
+      </HBox>
+       <Slider fx:id="ekstremregnSlider" layoutX="166.0" layoutY="392.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" />
    </children>
-</VBox>
+</Pane>

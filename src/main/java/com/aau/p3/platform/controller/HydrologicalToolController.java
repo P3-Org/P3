@@ -12,6 +12,8 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -21,6 +23,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HydrologicalToolController implements ControlledScreen {
+    public ToggleButton rainToggle;
+    public ToggleButton cadastralToggle;
+    public ToggleButton stormToggle;
+    public ToggleButton erosionToggle;
+    public ToggleButton groundwaterToggle;
+    public ToggleGroup weatherOption;
+
     private MainController mainController;
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
 
@@ -105,7 +114,7 @@ public class HydrologicalToolController implements ControlledScreen {
         // and parse that value to the javascript function "setMapStyle" in @index.html.
         ekstremregnSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             double value = ekstremregnSlider.getValue();
-            webEngine.executeScript("setMapStyle(" + value + ")");
+            webEngine.executeScript("ekstremregnSlider(" + value + ")");
         });
     }
 }
