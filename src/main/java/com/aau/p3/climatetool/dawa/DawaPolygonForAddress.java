@@ -20,7 +20,6 @@ public class DawaPolygonForAddress{
 
     /**
      * @Param A list of an x and y coordinate
-     * @TODO Change the "kode" so it takes the correct one
      * */
     public void getPropertyNo(List<String> Coordinates){
         StringBuilder response = urlhelper.getPropertyNo(Coordinates);

@@ -26,7 +26,7 @@ public class DawaAutocomplete {
         StringBuilder response = urlhelper.getAutoComplete(query);
 
                 // Find all "forslagstekst"
-                Pattern pattern = Pattern.compile("\"forslagstekst\"\\s*:\\s*\"(.*?)\"");
+                Pattern pattern = Pattern.compile("\"forslagstekst\"\\s*:\\s*\"(.*x?)\"");
                 Matcher addressMatcher = pattern.matcher(response.toString());
 
                 // Find relevant longitude and latitude data
