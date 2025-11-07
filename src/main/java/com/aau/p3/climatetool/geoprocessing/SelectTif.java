@@ -23,11 +23,11 @@ public class SelectTif {
     }
 
     /**
-     * Method used to find tif files corresponding to the given coordinates given.
+     * Helper method used to find tif files corresponding to the given coordinates given.
      * @param coordinates double array
      * @return tif file name
      */
-    public static String getFileName(double[] coordinates, String fileTag) {
+    private static String getFileName(double[] coordinates, String fileTag) {
         int xCoordinates = (int) (coordinates[0] / 1000);
         int yCoordinates = (int) (coordinates[1] / 1000);
         return fileTag + "_1km_" + yCoordinates + "_" + xCoordinates + ".tif";
