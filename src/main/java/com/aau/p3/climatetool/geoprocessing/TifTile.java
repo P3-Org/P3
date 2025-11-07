@@ -66,7 +66,7 @@ public class TifTile {
         }
 
         if (coverage.size() == 1) {
-            return coverage.getFirst();
+            return coverage.get(0);
         }
 
         CoverageProcessor processor = CoverageProcessor.getInstance();

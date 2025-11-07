@@ -1,4 +1,4 @@
-package com.aau.p3.platform.utilities;
+package com.aau.p3.platform.urlmanager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,10 +17,6 @@ import java.util.List;
  * Handle the response JSON in your own method not in this class
 * */
 
-
-/**
- * @Author Batman
- * */
 
 public class UrlHelper {
     private String BASE_URL;

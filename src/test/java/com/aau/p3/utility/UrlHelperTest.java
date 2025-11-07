@@ -1,6 +1,6 @@
 package com.aau.p3.utility;
 
-import com.aau.p3.platform.utilities.UrlHelper;
+import com.aau.p3.platform.urlmanager.UrlHelper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

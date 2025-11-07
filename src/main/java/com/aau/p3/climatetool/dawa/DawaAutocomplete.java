@@ -1,26 +1,22 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.utilities.UrlHelper;
+import com.aau.p3.platform.urlmanager.UrlHelper;
 
 import java.util.ArrayList;                 // List
 import java.util.List;                      // List
 import java.util.regex.Matcher;             // Used to find matches of a regex pattern in a string (dont understand so no touch)
 import java.util.regex.Pattern;             // Defines a compiled regular expression pattern (dont understand so no touch)
 
-
-/**
-* @author Batman
-* */
 public class DawaAutocomplete {
-
+    List<String> coordinates = new ArrayList<>();
     /**
      * @param query the search query
-     * @return The addresses you have searched for
+     * Assings the coordinates field with x and y values
      */
-    public List<String> autocomplete(String query) {
+    public DawaAutocomplete(String query) {
         // Lists to hold information on both addresses, aswell as x and y coordinates.
         List<String> addresses = new ArrayList<>();
-        List<String> coordinates = new ArrayList<>();
+
         UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
         StringBuilder response = urlhelper.getAutoComplete(query);
@@ -47,6 +43,8 @@ public class DawaAutocomplete {
                 }
 
         System.out.println(coordinates);
+    }
+    public List<String> getCoordinates() {
         return coordinates;
     }
 }

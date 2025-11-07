@@ -1,58 +1,25 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.utilities.UrlHelper;
+import com.aau.p3.platform.urlmanager.UrlHelper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-/**
- * @author Batman
- * */
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
-    public String matrikel = "";
-    public String kode = "";
     public UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
     /**
-     * @Param A list of an x and y coordinate
+     * Fills out the field of polygon with coordinates of the polygon
      * */
-    public void getPropertyNo(List<String> Coordinates){
-        StringBuilder response = urlhelper.getPropertyNo(Coordinates);
-
-        // Find all "Matrikelnr"
-        Pattern pattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");
-        Matcher matrikelNr = pattern.matcher(response.toString());
-
-        Pattern kodepattern = Pattern.compile("\"ejerlav\"\\s*:\\s*\\{[^}]*?\"kode\"\\s*:\\s*(\\d+)");
-        Matcher ejerlavkode = kodepattern.matcher(response.toString());
-
-        while (matrikelNr.find()) {
-            matrikel = matrikelNr.group(1);
-        }
-
-        if (ejerlavkode.find()) {
-            kode = ejerlavkode.group(1);
-        }
-
-
-        System.out.println(matrikel);
-        System.out.println(kode);
-        }
-
-    /**
-     * @return List of coordinates of the polygon in a WGS84 format
-     * */
-    private List<List<Double>> GETPolygon(){
-        StringBuilder response = urlhelper.getPolygon(this.kode, this.matrikel);
+    public DawaPolygonForAddress(String ownerLicense, String cadastre){
+        // Get response from urlhelper,with the search of owner license and cadastre information
+        StringBuilder response = urlhelper.getPolygon(ownerLicense, cadastre);
         this.polygon = new ArrayList<>();
 
                 JSONObject results = new JSONObject(response.toString());
-
 
                 // Get the "geometry" object
                 JSONObject geometry = results.getJSONObject("geometry");
@@ -71,19 +38,20 @@ public class DawaPolygonForAddress{
                         double longitude = pointArray.getDouble(0);
                         double latitude = pointArray.getDouble(1);
 
+                        // Add x and y to javaPoint and insert as a list inside polygon
                         javaPoint.add(longitude);
                         javaPoint.add(latitude);
                         this.polygon.add(javaPoint);
                     }
                 }
 
-
         System.out.println(polygon);
+    };
+
+    /** Getter method
+     * @return Returns the nested double list with the coordinates of the polygon
+     */
+    public List<List<Double>> getPolygon() {
         return this.polygon;
-    };
-
-    public List<List<Double>> getPolygon(){
-        return GETPolygon();
-    };
-
+    }
 }
