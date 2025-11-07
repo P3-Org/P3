@@ -1,11 +1,10 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.urlmanager.UrlHelper;
-
 import java.util.ArrayList;                 // List
 import java.util.List;                      // List
 import java.util.regex.Matcher;             // Used to find matches of a regex pattern in a string (dont understand so no touch)
 import java.util.regex.Pattern;             // Defines a compiled regular expression pattern (dont understand so no touch)
+import com.aau.p3.platform.urlmanager.*;
 
 public class DawaAutocomplete {
     List<String> coordinates = new ArrayList<>();
@@ -17,9 +16,8 @@ public class DawaAutocomplete {
         // Lists to hold information on both addresses, aswell as x and y coordinates.
         List<String> addresses = new ArrayList<>();
 
-        UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
-
-        StringBuilder response = urlhelper.getAutoComplete(query);
+        AutoComplete autoComplete = new AutoComplete("https://api.dataforsyningen.dk", query);
+        StringBuilder response = autoComplete.getAutoComplete();
 
                 // Find all "forslagstekst"
                 Pattern pattern = Pattern.compile("\"forslagstekst\"\\s*:\\s*\"(.*x?)\"");

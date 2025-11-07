@@ -1,13 +1,12 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.urlmanager.UrlHelper;
+import com.aau.p3.platform.urlmanager.PropertyNumber;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DawaPropertyNumbers {
-    public UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
     private List<List<Double>> polygon;
     private String cadastre = "";
     private String ownerLicense = "";
@@ -16,8 +15,10 @@ public class DawaPropertyNumbers {
      * @Param A list of an x and y coordinate
      * Finds and stores info about cadastre and owner license
      * */
-    public DawaPropertyNumbers(List<String> Coordinates){
-        StringBuilder response = urlhelper.getPropertyNo(Coordinates);
+    public DawaPropertyNumbers(List<String> coordinates){
+        PropertyNumber propertyCoordinates = new PropertyNumber("https://api.dataforsyningen.dk", coordinates);
+        StringBuilder response = propertyCoordinates.getPropertyNumber();
+
 
         // Fetches all cadastre info, for the given coordinates, from the API
         Pattern cadastrePattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");

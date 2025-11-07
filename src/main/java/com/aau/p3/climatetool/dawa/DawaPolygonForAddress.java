@@ -1,6 +1,6 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.urlmanager.UrlHelper;
+import com.aau.p3.platform.urlmanager.Polygon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,14 +9,15 @@ import java.util.List;
 
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
-    public UrlHelper urlhelper = new UrlHelper("https://api.dataforsyningen.dk");
 
     /**
      * Fills out the field of polygon with coordinates of the polygon
      * */
     public DawaPolygonForAddress(String ownerLicense, String cadastre){
         // Get response from urlhelper,with the search of owner license and cadastre information
-        StringBuilder response = urlhelper.getPolygon(ownerLicense, cadastre);
+        Polygon dawaPolygon = new Polygon("https://api.dataforsyningen.dk", ownerLicense, cadastre);
+
+        StringBuilder response = dawaPolygon.getPolygon();
         this.polygon = new ArrayList<>();
 
                 JSONObject results = new JSONObject(response.toString());
