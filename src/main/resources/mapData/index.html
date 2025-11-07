@@ -31,7 +31,7 @@
                 crossorigin=""
         ></script>
         <script>
-            const havvandMap = {
+            const stormSurgeMap = {
                 0: 'havvandpaaland_0',
                 0.5: 'havvandpaaland_0.5',
                 1: 'havvandpaaland_1',
@@ -46,7 +46,7 @@
                 5.5: 'havvandpaaland_5_5',
                 6: 'havvandpaaland_6'
             };
-            const ekstremregnMap = {
+            const cloudBurstMap = {
                 0: 'bluespot_ekstremregn_0',
                 15: 'bluespot_ekstremregn_0_015',
                 30: 'bluespot_ekstremregn_0_030',
@@ -60,7 +60,7 @@
                 150: 'bluespot_ekstremregn_0_150'
             };
             // Predef. public variables
-            let climateOverlay;
+            let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
             map = L.map('map').setView([57.0488, 9.9217], 17);
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -69,24 +69,23 @@
 
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 18,
-                    attribution: '@opensteetmap.org',
+                    attribution: '@openstreetmap.org',
                     zIndex: 1
                 }).addTo(map);
 
                 climateOverlay;
-
             });
 
-            function ekstremregnStyles(index) {
-                climateOverlay.setParams({ styles: ekstremregnMap[index] })
+            function cloudBurstStyles(index) {
+                climateOverlay.setParams({ styles: cloudBurstMap[index] })
             }
 
             function groundwaterStyles(index) {
 
             }
 
-            function stormsurgeStyles(index) {
-                climateOverlay.setParams({ styles: havvandMap[index] })
+            function stormSurgeStyles(index) {
+                climateOverlay.setParams({ styles: stormSurgeMap[index] })
             }
 
             function erosionStyles(index) {
@@ -97,7 +96,7 @@
                 // Cloudburst overlay api
                 climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
                     layers: 'dhm_bluespot_ekstremregn',
-                    styles: 'bluespot_ekstremregn_0_015',
+                    styles: 'bluespot_ekstremregn_0_0',
                     format: 'image/png',
                     transparent: "TRUE",
                     token: '614d970326f8c0bc7f7b666245c117f8',
@@ -108,7 +107,7 @@
 
             function setGroundwater(){
                 // Groundwater levels overlay api
-                L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
+                climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
                     layers: '100m_rcp45_nf_median_phreatic_all_mean',
                     format: 'image/png',
                     transparent: "TRUE",
@@ -123,9 +122,9 @@
 
             function setStormSurge(){
                 // Storm surge seawater levels overlay api
-                L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
+                climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
                     layers: 'dhm_havvandpaaland',
-                    styles: 'havvandpaaland_0.5',
+                    styles: 'havvandpaaland_0',
                     format: 'image/png',
                     transparent: "TRUE",
                     token: '614d970326f8c0bc7f7b666245c117f8',
@@ -138,8 +137,35 @@
 
             }
 
-            function removeLayer(){
-                map.removeLayer(climateOverlay);
+            function setCadastral(){
+                cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
+                    layers: 'Centroide_Gaeldende',
+                    styles: 'Roede_centroider',
+                    format: 'image/png',
+                    transparent: "TRUE",
+                    token: '614d970326f8c0bc7f7b666245c117f8',
+                    attribution: '@Dataforsyningen.dk',
+                    zIndex: 5
+                }).addTo(map);
+
+                cadOverlayBoundary = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
+                    layers: 'MatrikelSkel_Gaeldende',
+                    styles: 'Roede_skel',
+                    format: 'image/png',
+                    transparent: "TRUE",
+                    token: '614d970326f8c0bc7f7b666245c117f8',
+                    attribution: '@Dataforsyningen.dk',
+                    zIndex: 5
+                }).addTo(map);
+            }
+
+            function removeClimateLayer(){
+                if (climateOverlay){map.removeLayer(climateOverlay)}
+            }
+
+            function removeCadastralLayer(){
+                if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
+                if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
             }
             
         </script>

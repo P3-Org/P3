@@ -34,7 +34,10 @@ public class HydrologicalToolController implements ControlledScreen {
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
 
     @FXML
-    Slider ekstremregnSlider = new Slider();
+    Slider cloudBurstSlider = new Slider();
+
+    @FXML
+    Slider stormSurgeSlider = new Slider();
 
     @Override
     public void setMainController(MainController mainController) {
@@ -48,14 +51,23 @@ public class HydrologicalToolController implements ControlledScreen {
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
-        ekstremregnSlider.setMin(0); // Value bound settings
-        //ekstremregnSlider.setValue(15);
-        ekstremregnSlider.setMax(150);
-        ekstremregnSlider.setShowTickMarks(true); // Tick mark settings
-        ekstremregnSlider.setShowTickLabels(true);
-        ekstremregnSlider.setSnapToTicks(true);
-        ekstremregnSlider.setMajorTickUnit(15); // Value between major ticks
-        ekstremregnSlider.setMinorTickCount(0); //Value between minor ticks
+        // initialize Sliders functionality
+        cloudBurstSlider.setMin(0); // Value bound settings
+        cloudBurstSlider.setMax(150);
+        cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
+        cloudBurstSlider.setShowTickLabels(true);
+        cloudBurstSlider.setSnapToTicks(true);
+        cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
+        cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
+
+        stormSurgeSlider.setMin(0);// Value bound settings
+        stormSurgeSlider.setMax(6);
+        stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
+        stormSurgeSlider.setShowTickLabels(true);
+        stormSurgeSlider.setSnapToTicks(true);
+        stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
+        stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
+
 
         // CALL API DAWA - GETS COORDINATES
             // Redundant, only for testing
@@ -108,17 +120,55 @@ public class HydrologicalToolController implements ControlledScreen {
 
         // Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
         // and parse that value to the javascript function "setMapStyle" in @index.html.
-        ekstremregnSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            double value = ekstremregnSlider.getValue();
-            webEngine.executeScript("ekstremregnStyles(" + value + ")");
+        cloudBurstSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double value = cloudBurstSlider.getValue();
+            webEngine.executeScript("cloudBurstStyles(" + value + ")");
         });
 
-        cloudburstToggle.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+        stormSurgeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double value = stormSurgeSlider.getValue();
+            webEngine.executeScript("stormSurgeStyles(" + value + ")");
+        });
+
+
+
+        /* eventListeners for Toggle buttons
+         * */
+        cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCloudburst()");
             } else {
-                webEngine.executeScript("removeLayer()");
+                webEngine.executeScript("removeClimateLayer()");
             }
-        }));
+        });
+        stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setStormSurge()");
+            } else {
+                webEngine.executeScript("removeClimateLayer()");
+            }
+        });
+        erosionToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setErosion()");
+            } else {
+                webEngine.executeScript("removeClimateLayer()");
+            }
+        });
+        groundwaterToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setGroundwater()");
+            } else {
+                webEngine.executeScript("removeClimateLayer()");
+            }
+        });
+
+        cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setCadastral()");
+            } else {
+                webEngine.executeScript("removeCadastralLayer()");
+            }
+        });
     }
 }

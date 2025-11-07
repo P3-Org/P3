@@ -23,6 +23,7 @@ public class LocalProxyServer {
             // The HTTP context specifies what to do when receiving requests on the given port + path
             server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
             server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
+            server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
             // Sets 4 threads available for requests for the server
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
@@ -61,7 +62,15 @@ public class LocalProxyServer {
         handleRequest(exchange, fullQuery);
     }
 
+    private static void handleDaf(HttpExchange exchange) throws IOException{
+        // Converts the request to a string
+        String query = exchange.getRequestURI().getRawQuery();
+        String targetUrl = "https://api.dataforsyningen.dk/wms/MatGaeldendeOgForeloebigWMS_DAF";
 
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
+    }
 
     // Method for handling the requests aimed at the server
     private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {

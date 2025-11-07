@@ -26,6 +26,7 @@
               <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="groundwater?" toggleGroup="$weatherOption" />
          </children>
       </HBox>
-       <Slider fx:id="ekstremregnSlider" layoutX="166.0" layoutY="392.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" />
+       <Slider fx:id="cloudBurstSlider" layoutX="166.0" layoutY="392.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" />
+        <Slider fx:id="stormSurgeSlider" layoutX="166.0" layoutY="430.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" />
    </children>
 </Pane>
