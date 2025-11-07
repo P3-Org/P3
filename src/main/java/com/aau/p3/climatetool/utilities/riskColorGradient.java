@@ -1,4 +1,4 @@
-package com.aau.p3.platform.utilities;
+package com.aau.p3.climatetool.utilities;
 
 public class riskColorGradient {
 

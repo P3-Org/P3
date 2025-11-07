@@ -1,8 +1,0 @@
-package com.aau.p3.climatetool.risk;
-
-public class Groundwater {
-
-    // CALLS "FINDAVERAGE" TO GATHER AVERAGE VALUE FROM SPECIFIED TIF FILE
-
-    // COMPARES THRESHOLDS FROM DATABASE AND RETURNS A COLOR TO THE CONTROLLER
-}
