@@ -31,7 +31,6 @@
                 crossorigin=""
         ></script>
         <script>
-
             const havvandMap = {
                 0: 'havvandpaaland_0',
                 0.5: 'havvandpaaland_0.5',
@@ -60,11 +59,13 @@
                 135: 'bluespot_ekstremregn_0_135',
                 150: 'bluespot_ekstremregn_0_150'
             };
+            // Predef. public variables
             let climateOverlay;
+            map = L.map('map').setView([57.0488, 9.9217], 17);
 
             document.addEventListener('DOMContentLoaded', () => {
                 L.Browser.any3d = false; // Force Leaflet to use 2D transforms
-                const map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
+                //map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
 
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 18,
@@ -72,7 +73,28 @@
                     zIndex: 1
                 }).addTo(map);
 
-                // Cloud burst
+                climateOverlay;
+
+            });
+
+            function ekstremregnStyles(index) {
+                climateOverlay.setParams({ styles: ekstremregnMap[index] })
+            }
+
+            function groundwaterStyles(index) {
+
+            }
+
+            function stormsurgeStyles(index) {
+                climateOverlay.setParams({ styles: havvandMap[index] })
+            }
+
+            function erosionStyles(index) {
+
+            }
+
+            function setCloudburst(){
+                // Cloudburst overlay api
                 climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
                     layers: 'dhm_bluespot_ekstremregn',
                     styles: 'bluespot_ekstremregn_0_015',
@@ -82,9 +104,10 @@
                     attribution: '@Dataforsyningen.dk',
                     zIndex: 5
                 }).addTo(map);
+            }
 
-
-                // Grundwater levels
+            function setGroundwater(){
+                // Groundwater levels overlay api
                 L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
                     layers: '100m_rcp45_nf_median_phreatic_all_mean',
                     format: 'image/png',
@@ -93,10 +116,13 @@
                     service: 'WMS',
                     token: '4656e62e1c57f5767255b528fb641642', // required for access
                     styles: 'default',
-                    attribution: '@Dataforsyningen.dk'
+                    attribution: '@Dataforsyningen.dk',
+                    opacity: '0.345'
                 }).addTo(map);
+            }
 
-                // Storm surge seawater levels
+            function setStormSurge(){
+                // Storm surge seawater levels overlay api
                 L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
                     layers: 'dhm_havvandpaaland',
                     styles: 'havvandpaaland_0.5',
@@ -106,26 +132,14 @@
                     attribution: '@Dataforsyningen.dk',
                     zIndex: 5
                 }).addTo(map);
-            });
-
-            function ekstremregnStyles(index) {
-                climateOverlay.setParams({ styles: styleMap[index] })
             }
 
-            function groundwaterStyles(index) {
+            function setErosion(){
 
             }
 
-            function stormsurgeStyles(index) {
-
-            }
-
-            function erosionStyles(index) {
-
-            }
-
-            function setGroundwater(){
-
+            function removeLayer(){
+                map.removeLayer(climateOverlay);
             }
             
         </script>

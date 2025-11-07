@@ -23,11 +23,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HydrologicalToolController implements ControlledScreen {
-    public ToggleButton rainToggle;
-    public ToggleButton cadastralToggle;
-    public ToggleButton stormToggle;
-    public ToggleButton erosionToggle;
-    public ToggleButton groundwaterToggle;
+    public ToggleButton cloudburstToggle = new ToggleButton();
+    public ToggleButton cadastralToggle = new ToggleButton();
+    public ToggleButton stormsurgeToggle = new ToggleButton();
+    public ToggleButton erosionToggle = new ToggleButton();
+    public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
 
     private MainController mainController;
@@ -49,13 +49,13 @@ public class HydrologicalToolController implements ControlledScreen {
         System.out.println("HydrologicalToolController initialized!");
 
         ekstremregnSlider.setMin(0); // Value bound settings
-        ekstremregnSlider.setValue(15);
+        //ekstremregnSlider.setValue(15);
         ekstremregnSlider.setMax(150);
         ekstremregnSlider.setShowTickMarks(true); // Tick mark settings
         ekstremregnSlider.setShowTickLabels(true);
         ekstremregnSlider.setSnapToTicks(true);
-        ekstremregnSlider.setMajorTickUnit(30); // Value between major ticks
-        ekstremregnSlider.setMinorTickCount(15); //Value between minor ticks
+        ekstremregnSlider.setMajorTickUnit(15); // Value between major ticks
+        ekstremregnSlider.setMinorTickCount(0); //Value between minor ticks
 
         // CALL API DAWA - GETS COORDINATES
             // Redundant, only for testing
@@ -110,7 +110,15 @@ public class HydrologicalToolController implements ControlledScreen {
         // and parse that value to the javascript function "setMapStyle" in @index.html.
         ekstremregnSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             double value = ekstremregnSlider.getValue();
-            webEngine.executeScript("ekstremregnSlider(" + value + ")");
+            webEngine.executeScript("ekstremregnStyles(" + value + ")");
         });
+
+        cloudburstToggle.selectedProperty().addListener(((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setCloudburst()");
+            } else {
+                webEngine.executeScript("removeLayer()");
+            }
+        }));
     }
 }

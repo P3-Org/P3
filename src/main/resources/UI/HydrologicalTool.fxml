@@ -20,8 +20,8 @@
        <HBox alignment="CENTER" layoutX="166.0" layoutY="357.0" prefHeight="26.0" prefWidth="420.0">
          <children>
              <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Cadastral map" />
-              <ToggleButton fx:id="rainToggle" mnemonicParsing="false" text="Cloud Burst" toggleGroup="$weatherOption"/>
-              <ToggleButton fx:id="stormToggle" mnemonicParsing="false" text="Strom Surge" toggleGroup="$weatherOption"/>
+              <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Cloud Burst" toggleGroup="$weatherOption"/>
+              <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Strom Surge" toggleGroup="$weatherOption"/>
               <ToggleButton fx:id="erosionToggle" mnemonicParsing="false" text="erosion?" toggleGroup="$weatherOption" />
               <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="groundwater?" toggleGroup="$weatherOption" />
          </children>
