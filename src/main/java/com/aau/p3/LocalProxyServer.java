@@ -32,31 +32,32 @@ public class LocalProxyServer {
         }
     }
 
+    private static String queryNullCheck(String targetUrl, String query){
+        String fullQuery = "";
+        if (query != null) {
+            fullQuery = targetUrl + "?" + query;
+        }
+        return fullQuery;
+    }
+    // Function that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
     private static void handleDmh(HttpExchange exchange)  throws IOException{
         // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
-        String fullQuery = "";
-
-        // Builds full WMS URL that consist of the targetURL "dataforsyningen" and the specific path for each WMS,
-        // and the query received by the server, sent from the JavaFX application.
         String targetUrl = "https://api.dataforsyningen.dk/wms/dhm";
-        if (query != null) {
-            fullQuery = targetUrl + "?" + query;
-        }
+
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
         handleRequest(exchange, fullQuery);
     }
-    
+
+    // Function that handles the request for hip WMS, and forwards the targetUrl to handleRequest
     private static void handleHip(HttpExchange exchange) throws IOException{
         // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
-        String fullQuery = "";
-
-        // Builds full WMS URL that consist of the targetURL "dataforsyningen" and the specific path for each WMS,
-        // and the query received by the server, sent from the JavaFX application.
         String targetUrl = "https://api.dataforsyningen.dk/hip_dtg_10m_100m";
-        if (query != null) {
-            fullQuery = targetUrl + "?" + query;
-        }
+
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
         handleRequest(exchange, fullQuery);
     }
 

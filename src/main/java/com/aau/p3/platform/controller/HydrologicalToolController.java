@@ -48,18 +48,14 @@ public class HydrologicalToolController implements ControlledScreen {
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
-        // Setting slider's Min, Max and start value.
-        ekstremregnSlider.setMin(0);
+        ekstremregnSlider.setMin(0); // Value bound settings
         ekstremregnSlider.setValue(15);
         ekstremregnSlider.setMax(150);
-        // Set the slider to show TickMarks, Labels and to snap to each Tick
-        ekstremregnSlider.setShowTickMarks(true);
+        ekstremregnSlider.setShowTickMarks(true); // Tick mark settings
         ekstremregnSlider.setShowTickLabels(true);
         ekstremregnSlider.setSnapToTicks(true);
-        // Set the value between each major Tick
-        ekstremregnSlider.setMajorTickUnit(15);
-        // Set the value between each minor Tick
-        ekstremregnSlider.setMinorTickCount(0);
+        ekstremregnSlider.setMajorTickUnit(30); // Value between major ticks
+        ekstremregnSlider.setMinorTickCount(15); //Value between minor ticks
 
         // CALL API DAWA - GETS COORDINATES
             // Redundant, only for testing
