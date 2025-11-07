@@ -4,6 +4,8 @@ import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 
+import java.util.List;
+
 import static com.aau.p3.climatetool.utilities.riskColorGradient.assignColors;
 
 public class CoastalErosionRisk implements RiskAssessment {
@@ -17,8 +19,8 @@ public class CoastalErosionRisk implements RiskAssessment {
 
     @Override
     public double[] gatherData(double[][] coordinates) {
-        double value = geoDataReader.readValue(coordinates, "coastalErosion", "BLAHBLAH");
+        List<Double> value = geoDataReader.readValue(coordinates, "coastalErosion", "BLAHBLAH");
         double[] threshold = thresholdRepository.getThreshold("CoastalErosion");
-        return assignColors(value, threshold);
+        return new double[] {255, 255, 0};
     }
 }

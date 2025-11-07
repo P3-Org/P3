@@ -61,15 +61,15 @@ public class HydrologicalToolController implements ControlledScreen {
 
         /* Sets up the different readers for both the Geo data and the database.
         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-        *  Follows the principle of Dependency Inversion Principle */
+        *  Follows the Dependency Inversion Principle */
         GeoDataReader geoReader = new TifGeoDataReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
-        /* Adds a risk to the list of risks. All risks include the same information and follows the principle of Liskov Substitution Principle */
+        /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
         riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
+        //riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
+        //riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
+        //riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
         /* Loops through all the risks and gathers their data and prints the color values */
         for (RiskAssessment risk : riskAssessment) {

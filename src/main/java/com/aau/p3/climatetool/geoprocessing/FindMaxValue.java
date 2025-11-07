@@ -9,6 +9,9 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FindMaxValue {
     private double easting;
     private double northing;
@@ -20,7 +23,7 @@ public class FindMaxValue {
      * @return the max value multiplied by 1000 (for meters per. day)
      * @throws TransformException if error occurs
      */
-    public double getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
+    public List<Double> getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
         /* Create a polygon shape based on the world coordinates provided */
         GeometryFactory gf = new GeometryFactory();
         Coordinate[] coords = new Coordinate[worldCoords.length + 1]; // +1 since we want to add an extra closing coordinate
@@ -44,9 +47,7 @@ public class FindMaxValue {
 
         /* Keep track of the max value and the east and north coordinates in these variables.
          * Also keeps track of the sample double array that will hold the samples gathered from the tif files. */
-        double maxVal = Double.NEGATIVE_INFINITY;
-        easting = Double.NEGATIVE_INFINITY;
-        northing = Double.NEGATIVE_INFINITY;
+        List<Double> values = new ArrayList<>();
         double[] sample = new double[1];
 
         /* Since the polygon "property" is defined by coordinates, we want to get the coordinate
@@ -69,30 +70,14 @@ public class FindMaxValue {
                         coverage.evaluate(new GridCoordinates2D(x, y), sample);
                         /* Since measurement where no data exist is kinda weird, we check if it's NaN
                         *  If the measurement is larger we update "easting" and "northing" that hold the coordinates */
-                        if (!Double.isNaN(sample[0]) && sample[0] > maxVal) {
-                            maxVal = sample[0];
-                            easting = worldPt[0];
-                            northing = worldPt[1];
+                        if (!Double.isNaN(sample[0]) && sample[0] >= 0) {
+                            values.add(sample[0]);
                         }
                     } catch (Exception ignored) { // Catches both checked an unchecked exceptions
                     }
                 }
             }
         }
-        return (maxVal * 1000);
-    }
-
-    /**
-     * Method for gathering and rounding the easting coordinates
-     */
-    public double getEasting() {
-        return (double) Math.round(this.easting * 10) / 10;
-    }
-
-    /**
-     * Method for gathering and rounding the northing coordinates
-     */
-    public double getNorthing() {
-        return (double) Math.round(this.northing * 10) / 10;
+        return values;
     }
 }

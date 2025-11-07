@@ -15,7 +15,7 @@ public class TifFileReader {
      * @param fileTag The file tag based on the specific climate risk i.e. "SIMRAIN", "DTM"...
      * @return
      */
-    public static double readGeoData(double[][] coordinates, String tifTileDir, String fileTag) {
+    public static List<Double> readGeoData(double[][] coordinates, String tifTileDir, String fileTag) {
         try {
             /* Locate which tif files that the coordinates fall in to */
             List<String> listOfTifFiles = getFileArray(coordinates, fileTag);
@@ -28,12 +28,11 @@ public class TifFileReader {
             /* Gathers the max value from the tif file that is within the bounds of the polygon (property).
             *  Then return it */
             FindMaxValue maxValueOfProperty = new FindMaxValue();
-            double maxVal = maxValueOfProperty.getMaxValueInPolygon(gc, coordinates);
+            List<Double> values = maxValueOfProperty.getMaxValueInPolygon(gc, coordinates);
 
-            // delete the sout later on (currently just for testing)
-            System.out.println("EASTING: " + maxValueOfProperty.getEasting() + " NORTHING: " + maxValueOfProperty.getNorthing());
-            System.out.println("Max value of rain on property: " + maxVal + " mm/day");
-            return maxVal;
+            System.out.println("Max value of rain on property: " + values + " mm/day");
+
+            return values;
         } catch (IOException | TransformException e) {
             throw new RuntimeException(e);
         }
