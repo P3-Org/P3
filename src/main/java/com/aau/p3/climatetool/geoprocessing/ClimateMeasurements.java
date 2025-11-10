@@ -12,20 +12,27 @@ import org.locationtech.jts.geom.Polygon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FindMaxValue {
-    private double easting;
-    private double northing;
+public class ClimateMeasurements {
+    private final GeometryFactory gf = new GeometryFactory();
 
     /**
-     * Method for acquiring the max value from a polygon shape that has been extracted from a tif file.
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
      * @param coverage Raster grid from the tif file. Holds geospatial metadata and transform capabilities from pixels to real world coordinates (i.e. EPSG:25832)
-     * @param worldCoords The EPSG:25832 coordinates for the polygons corners
-     * @return the max value multiplied by 1000 (for meters per. day)
-     * @throws TransformException if error occurs
+     * @param worldCoords The EPSG:25832 coordinates for the polygons corners from DAWA
+     * @return a List of doubles containing the sampled data
+     * @throws TransformException if error occurs, throw up the stack
      */
-    public List<Double> getMaxValueInPolygon(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
-        /* Create a polygon shape based on the world coordinates provided */
-        GeometryFactory gf = new GeometryFactory();
+    public List<Double> getMeasurements(GridCoverage2D coverage, double[][] worldCoords) throws TransformException {
+        Polygon property = gf.createPolygon(buildCoordinate(worldCoords));
+        return samplePixels(coverage, gf, property);
+    }
+
+    /**
+     * Methods for converting worldCoords of type double[][] to a Coordinate[] array.
+     * @param worldCoords The EPSG:25832 coordinates for the polygons corners from DAWA
+     * @return an array of type Coordinate
+     */
+    private Coordinate[] buildCoordinate(double[][] worldCoords){
         Coordinate[] coords = new Coordinate[worldCoords.length + 1]; // +1 since we want to add an extra closing coordinate
 
         /* Convert the double values for the world coordinates to the datatype Coordinate used by the framework locationtech */
@@ -35,11 +42,20 @@ public class FindMaxValue {
 
         /* Closes the polygon and creates it based on the coords */
         coords[worldCoords.length] = coords[0];
-        Polygon property = gf.createPolygon(coords);
+        return coords;
+    }
 
+    /**
+     * Method for sampling over a grid of pixels to achieve a list of sample values.
+     * @param coverage Raster grid from the tif file. Holds geospatial metadata and transform capabilities from pixels to real world coordinates (i.e. EPSG:25832)
+     * @param gf Geometry Factory used to create points that will be checked if inside the property lines. Created in {@code getMeasurrements()}
+     * @param property polygon shape from the framework locationtech. Created in {@code getMeasurrements()}
+     * @return a list of sample values within the property lines
+     * @throws TransformException if error occurs, throw up the stack
+     */
+    private List<Double> samplePixels(GridCoverage2D coverage, GeometryFactory gf, Polygon property) throws TransformException {
         /* Prepare transforms so we can go from pixels to world coordinates and the other way as well */
         MathTransform2D gridToCRS = coverage.getGridGeometry().getGridToCRS2D();
-        MathTransform2D crsToGrid = (MathTransform2D) gridToCRS.inverse();
 
         /* Gets the width and height of the coverage such that we can iterate over it */
         int width = coverage.getRenderedImage().getWidth();
@@ -51,8 +67,8 @@ public class FindMaxValue {
         double[] sample = new double[1];
 
         /* Since the polygon "property" is defined by coordinates, we want to get the coordinate
-        *  corresponding to every pixel. This then allows us to check which coordinates are within the polygon
-        *  This search could in theory be optimized by starting the conversion and check closer to the start of the polygon - but we don't do that */
+         *  corresponding to every pixel. This then allows us to check which coordinates are within the polygon
+         *  This search could in theory be optimized by starting the conversion and check closer to the start of the polygon - but we don't do that */
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 /* Converts the pixel center to world coordinates */
@@ -69,11 +85,11 @@ public class FindMaxValue {
                         /* .evaluate() finds the measurement associated with a coordinate and stores it in sample */
                         coverage.evaluate(new GridCoordinates2D(x, y), sample);
                         /* Since measurement where no data exist is kinda weird, we check if it's NaN
-                        *  If the measurement is larger we update "easting" and "northing" that hold the coordinates */
+                         *  If the measurement is larger we update "easting" and "northing" that hold the coordinates */
                         if (!Double.isNaN(sample[0]) && sample[0] >= 0) {
                             values.add(sample[0]);
                         }
-                    } catch (Exception ignored) { // Catches both checked an unchecked exceptions
+                    } catch (ArrayIndexOutOfBoundsException ignored) { // Catches both checked an unchecked exceptions
                     }
                 }
             }

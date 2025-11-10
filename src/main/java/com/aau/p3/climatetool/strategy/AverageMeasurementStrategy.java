@@ -1,0 +1,12 @@
+package com.aau.p3.climatetool.strategy;
+
+import com.aau.p3.climatetool.utilities.MeasurementStrategy;
+
+import java.util.List;
+
+public class AverageMeasurementStrategy implements MeasurementStrategy {
+    @Override
+    public double processValues(List<Double> samples) {
+        return samples.stream().reduce(0.0, Double::sum); // Double::sum references to the metho sum in Double Class using :: operator.
+    }
+}

@@ -2,12 +2,14 @@ package com.aau.p3.platform.controller;
 
 import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.geoprocessing.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TifGeoDataReader;
+import com.aau.p3.climatetool.geoprocessing.TifFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;
 import com.aau.p3.climatetool.risk.CoastalErosionRisk;
 import com.aau.p3.climatetool.risk.GroundwaterRisk;
 import com.aau.p3.climatetool.risk.StormSurgeRisk;
+import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
+import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.platform.utilities.ControlledScreen;
@@ -63,11 +65,11 @@ public class HydrologicalToolController implements ControlledScreen {
         /* Sets up the different readers for both the Geo data and the database.
         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
         *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TifGeoDataReader();
+        GeoDataReader geoReader = new TifFileReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
-        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
         //riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
         //riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
         //riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
