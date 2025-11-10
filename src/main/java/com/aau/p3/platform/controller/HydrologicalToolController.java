@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.geoprocessing.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TifFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;

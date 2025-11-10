@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 
 /**
  * The class below is intended to set up a local server. etc etc
- * @Author dinMormor
+ * @Author
  * @Param port
  */
 public class LocalProxyServer {
