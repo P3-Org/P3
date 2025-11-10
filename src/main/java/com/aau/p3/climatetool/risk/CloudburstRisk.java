@@ -7,7 +7,7 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 
 import java.util.List;
 
-import static com.aau.p3.climatetool.utilities.riskColorGradient.assignColors;
+import static com.aau.p3.climatetool.utilities.RiskColorGradient.assignColors;
 
 public class CloudburstRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -25,6 +25,6 @@ public class CloudburstRisk implements RiskAssessment {
         List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
         double[] threshold = thresholdRepository.getThreshold("Cloudburst");
         double measurementValue = measurementStrategy.processValues(value);
-        return new double[] {255, 255, 0};
+        return assignColors(measurementValue, threshold);
     }
 }
