@@ -24,7 +24,7 @@ public class CoverageMosaicker {
 
         // If just one coverage, return it
         if (coverages.size() == 1) {
-            return coverages.getFirst();
+            return coverages.get(0);
         }
 
         /* If more than one coverage was loaded, they need to be combined into a single coverage.
