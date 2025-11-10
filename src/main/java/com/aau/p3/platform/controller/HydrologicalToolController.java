@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HydrologicalToolController implements ControlledScreen {
+    // initialisation of toggles, s.t. they're visible to the FXML file
     public ToggleButton cloudburstToggle = new ToggleButton();
     public ToggleButton cadastralToggle = new ToggleButton();
     public ToggleButton stormsurgeToggle = new ToggleButton();
@@ -33,16 +34,16 @@ public class HydrologicalToolController implements ControlledScreen {
     private MainController mainController;
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
 
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
     @FXML
     Slider cloudBurstSlider = new Slider();
 
     @FXML
     Slider stormSurgeSlider = new Slider();
-
-    @Override
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
 
     @FXML
     private AnchorPane mapAnchor;
@@ -52,33 +53,23 @@ public class HydrologicalToolController implements ControlledScreen {
         System.out.println("HydrologicalToolController initialized!");
 
         // initialize Sliders functionality
-        cloudBurstSlider.setMin(0); // Value bound settings
-        cloudBurstSlider.setMax(150);
-        cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
-        cloudBurstSlider.setShowTickLabels(true);
-        cloudBurstSlider.setSnapToTicks(true);
-        cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
-        cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
-
-        stormSurgeSlider.setMin(0);// Value bound settings
-        stormSurgeSlider.setMax(6);
-        stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
-        stormSurgeSlider.setShowTickLabels(true);
-        stormSurgeSlider.setSnapToTicks(true);
-        stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
-        stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
-
+        this.setStormSurgeSlider();
+        this.setCloudBurstSlider();
 
         // CALL API DAWA - GETS COORDINATES
             // Redundant, only for testing
-        double[][] coordinates = {{550900.0, 6320500.0},
+        double[][] coordinates = {
+                {550900.0, 6320500.0},
                 {551100.0, 6320500.0},
                 {551100.0, 6320600.0},
-                {550900.0, 6320600.0}};
+                {550900.0, 6320600.0}
+        };
 
-        /* Sets up the different readers for both the Geo data and the database.
-        *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-        *  Follows the Dependency Inversion Principle */
+        /*
+        * Sets up the different readers for both the Geo data and the database.
+        * Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+        * Follows the Dependency Inversion Principle
+        */
         GeoDataReader geoReader = new TifGeoDataReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
@@ -98,7 +89,7 @@ public class HydrologicalToolController implements ControlledScreen {
         WebView webView = new WebView();
         WebEngine webEngine = webView.getEngine();
 
-        // Make variable for html file with all relevant map-data and information
+        // Make variable for HTML file with all relevant map data and information
         var mapResource = getClass().getResource("/mapData/index.html");
         if (mapResource == null) {
             System.err.println("Map HTML not found in resources");
@@ -115,7 +106,7 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setBottomAnchor(webView, 0.0);
         AnchorPane.setLeftAnchor(webView, 0.0);
         AnchorPane.setRightAnchor(webView, 0.0);
-        // Inserts the webView into the JavaFX anchor
+        // Inserts the webView into the JavaFX anchorpane
         mapAnchor.getChildren().add(webView);
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
@@ -132,23 +123,27 @@ public class HydrologicalToolController implements ControlledScreen {
         });
 
 
-        // eventListeners for Toggle buttons
+        // Event listeners for Toggle buttons
         cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
-                webEngine.executeScript("setCloudburst()");
                 cloudBurstSlider.setVisible(true);
+                webEngine.executeScript("setCloudburst()");
+
             } else {
                 webEngine.executeScript("removeClimateLayer()");
                 cloudBurstSlider.setVisible(false);
+                cloudBurstSlider.setValue(0);
             }
         });
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
-                webEngine.executeScript("setStormSurge()");
                 stormSurgeSlider.setVisible(true);
+                webEngine.executeScript("setStormSurge()");
+
             } else {
                 webEngine.executeScript("removeClimateLayer()");
                 stormSurgeSlider.setVisible(false);
+                stormSurgeSlider.setValue(0);
             }
         });
         erosionToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
@@ -165,7 +160,6 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeClimateLayer()");
             }
         });
-
         cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCadastral()");
@@ -174,4 +168,28 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
     }
-}
+
+    // helper functions here
+    private void setStormSurgeSlider(){
+        stormSurgeSlider.setMin(0);// Value bound settings
+        stormSurgeSlider.setMax(6);
+        stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
+        stormSurgeSlider.setShowTickLabels(true);
+        stormSurgeSlider.setSnapToTicks(true);
+        stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
+        stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
+
+    }
+
+    private void setCloudBurstSlider(){
+        cloudBurstSlider.setMin(0); // Value bound settings
+        cloudBurstSlider.setMax(150);
+        cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
+        cloudBurstSlider.setShowTickLabels(true);
+        cloudBurstSlider.setSnapToTicks(true);
+        cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
+        cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
+
+    }
+
+    }

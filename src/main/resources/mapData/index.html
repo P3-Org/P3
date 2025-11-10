@@ -31,6 +31,8 @@
                 crossorigin=""
         ></script>
         <script>
+
+            // The different storm surge styles, signify increase in sea level in m.
             const stormSurgeMap = {
                 0: 'havvandpaaland_0',
                 0.5: 'havvandpaaland_0.5',
@@ -46,6 +48,7 @@
                 5.5: 'havvandpaaland_5_5',
                 6: 'havvandpaaland_6'
             };
+            // The different cloud burst styles, signify rainfall given in m. (Object key in mm)
             const cloudBurstMap = {
                 0: 'bluespot_ekstremregn_0',
                 15: 'bluespot_ekstremregn_0_015',
@@ -59,41 +62,38 @@
                 135: 'bluespot_ekstremregn_0_135',
                 150: 'bluespot_ekstremregn_0_150'
             };
-            // Predef. public variables
+
+            // Predefine variables for later use.
             let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
             map = L.map('map').setView([57.0488, 9.9217], 17);
 
+            // When the window is opened and loaded, call the api for the map.
             document.addEventListener('DOMContentLoaded', () => {
-                L.Browser.any3d = false; // Force Leaflet to use 2D transforms
-                //map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
+                L.Browser.any3d = false; // Force Leaflet to use 2D transforms.
 
+                // Uses openstreetmap api for a map.
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 18,
                     attribution: '@openstreetmap.org',
                     zIndex: 1
                 }).addTo(map);
 
+                // Variable used for inserting the different overlays from wms.
                 climateOverlay;
             });
 
+            // Functions for changing the API calls when moving the slider.
             function cloudBurstStyles(index) {
                 climateOverlay.setParams({ styles: cloudBurstMap[index] })
-            }
-
-            function groundwaterStyles(index) {
-
             }
 
             function stormSurgeStyles(index) {
                 climateOverlay.setParams({ styles: stormSurgeMap[index] })
             }
 
-            function erosionStyles(index) {
-
-            }
-
+            // Functions for setting up the API calls when the corresponding button is clicked.
             function setCloudburst(){
-                // Cloudburst overlay api
+                // Cloudburst overlay API.
                 climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
                     layers: 'dhm_bluespot_ekstremregn',
                     styles: 'bluespot_ekstremregn_0_0',
@@ -106,14 +106,14 @@
             }
 
             function setGroundwater(){
-                // Groundwater levels overlay api
+                // Groundwater levels overlay API.
                 climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
                     layers: '100m_rcp45_nf_median_phreatic_all_mean',
                     format: 'image/png',
                     transparent: "TRUE",
                     version: '1.3.0',
                     service: 'WMS',
-                    token: '4656e62e1c57f5767255b528fb641642', // required for access
+                    token: '4656e62e1c57f5767255b528fb641642', // Required for access.
                     styles: 'default',
                     attribution: '@Dataforsyningen.dk',
                     opacity: '0.345'
@@ -137,6 +137,7 @@
 
             }
 
+            // Function for the cadastral overlay when corresponding button is clicked.
             function setCadastral(){
                 cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
                     layers: 'Centroide_Gaeldende',
@@ -159,15 +160,16 @@
                 }).addTo(map);
             }
 
+            // Removes the climateOverlay if it is turned on.
             function removeClimateLayer(){
                 if (climateOverlay){map.removeLayer(climateOverlay)}
             }
 
+            // Removes the cadastralLayer centroid and boundary if it is turned on.
             function removeCadastralLayer(){
                 if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
                 if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
             }
-            
         </script>
     </body>
 </html>

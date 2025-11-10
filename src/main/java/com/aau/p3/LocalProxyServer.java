@@ -10,9 +10,8 @@ import java.util.concurrent.Executors;
 
 
 /**
- * The class below is intended to set up a local server. etc etc
- * @Author dinMormor
- * @Param port
+ * The class below is intended to set up a local server to use for api calls in case of CORS issues.
+ * @Param portnumber
  */
 public class LocalProxyServer {
     // Method for setting up the necessary tools for starting a proxy server
@@ -33,6 +32,10 @@ public class LocalProxyServer {
         }
     }
 
+    /*
+    * Helper method that checks if the query path is null,
+    * and after combines the targetUrl and query for the fullQuery.
+    */
     private static String queryNullCheck(String targetUrl, String query){
         String fullQuery = "";
         if (query != null) {
@@ -40,7 +43,8 @@ public class LocalProxyServer {
         }
         return fullQuery;
     }
-    // Function that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
+
+    // Method that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
     private static void handleDmh(HttpExchange exchange)  throws IOException{
         // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
@@ -51,7 +55,7 @@ public class LocalProxyServer {
         handleRequest(exchange, fullQuery);
     }
 
-    // Function that handles the request for hip WMS, and forwards the targetUrl to handleRequest
+    // Method that handles the request for hip WMS, and forwards the targetUrl to handleRequest
     private static void handleHip(HttpExchange exchange) throws IOException{
         // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
