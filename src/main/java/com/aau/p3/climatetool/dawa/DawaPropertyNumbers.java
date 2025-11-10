@@ -16,7 +16,7 @@ public class DawaPropertyNumbers {
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates){
-        PropertyNumber propertyCoordinates = new PropertyNumber("https://api.dataforsyningen.dk", coordinates);
+        UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
         StringBuilder response = propertyCoordinates.getPropertyNumber();
 
 

@@ -16,7 +16,7 @@ public class DawaAutocomplete {
         // Lists to hold information on both addresses, aswell as x and y coordinates.
         List<String> addresses = new ArrayList<>();
 
-        AutoComplete autoComplete = new AutoComplete("https://api.dataforsyningen.dk", query);
+        UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.getAutoComplete();
 
                 // Find all "forslagstekst"

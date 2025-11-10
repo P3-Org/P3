@@ -15,7 +15,7 @@ public class DawaPolygonForAddress{
      * */
     public DawaPolygonForAddress(String ownerLicense, String cadastre){
         // Get response from urlhelper,with the search of owner license and cadastre information
-        Polygon dawaPolygon = new Polygon("https://api.dataforsyningen.dk", ownerLicense, cadastre);
+        UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
 
         StringBuilder response = dawaPolygon.getPolygon();
         this.polygon = new ArrayList<>();
@@ -47,7 +47,7 @@ public class DawaPolygonForAddress{
                 }
 
         System.out.println(polygon);
-    };
+    }
 
     /** Getter method
      * @return Returns the nested double list with the coordinates of the polygon
