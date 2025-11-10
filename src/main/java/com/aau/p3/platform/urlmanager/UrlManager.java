@@ -18,7 +18,6 @@ import java.net.URL;
 public class UrlManager {
     protected static String globalUrlString;
     protected String BASE_URL;
-
     public static void setUrlString(String urlStringParam){
         globalUrlString = urlStringParam;
     }
