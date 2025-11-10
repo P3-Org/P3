@@ -118,8 +118,9 @@ public class HydrologicalToolController implements ControlledScreen {
         // Inserts the webView into the JavaFX anchor
         mapAnchor.getChildren().add(webView);
 
-        // Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
-        // and parse that value to the javascript function "setMapStyle" in @index.html.
+        /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
+        *  and parse that value to the javascript function "setMapStyle" in @index.html.
+        */
         cloudBurstSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             double value = cloudBurstSlider.getValue();
             webEngine.executeScript("cloudBurstStyles(" + value + ")");
@@ -131,21 +132,23 @@ public class HydrologicalToolController implements ControlledScreen {
         });
 
 
-
-        /* eventListeners for Toggle buttons
-         * */
+        // eventListeners for Toggle buttons
         cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCloudburst()");
+                cloudBurstSlider.setVisible(true);
             } else {
                 webEngine.executeScript("removeClimateLayer()");
+                cloudBurstSlider.setVisible(false);
             }
         });
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setStormSurge()");
+                stormSurgeSlider.setVisible(true);
             } else {
                 webEngine.executeScript("removeClimateLayer()");
+                stormSurgeSlider.setVisible(false);
             }
         });
         erosionToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
