@@ -1,6 +1,6 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.urlmanager.Polygon;
+import com.aau.p3.platform.urlmanager.UrlPolygon;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

@@ -1,6 +1,6 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.platform.urlmanager.PropertyNumber;
+import com.aau.p3.platform.urlmanager.UrlPropertyNumber;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -12,7 +12,7 @@ public class DawaPropertyNumbers {
     private String ownerLicense = "";
 
     /** Constructor for the DawaPropertyNumbers class
-     * @Param A list of an x and y coordinate
+     * A list of an x and y coordinate
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates){
