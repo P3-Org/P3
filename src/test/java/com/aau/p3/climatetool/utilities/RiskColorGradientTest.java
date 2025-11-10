@@ -5,9 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RiskColorGradientTest {
+    double processedMockValue = 20;
+    double[] thresholdValues = {20, 40};
 
     @Test
     void assignColors() {
-       // RiskColorGradient.assignColors()
+        double[] calculatedRGB = RiskColorGradient.assignColors(processedMockValue, thresholdValues);
+
+
     }
 }
