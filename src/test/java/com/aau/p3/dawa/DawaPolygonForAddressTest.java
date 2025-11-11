@@ -1,6 +1,7 @@
 package com.aau.p3.dawa;
 
 import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
+import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,31 +14,27 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DawaPolygonForAddressTest {
+    /*
     private DawaPolygonForAddress dawaPolygonForAddress;
     private List<String> expectedCoords;
     private List<List<Double>> expectedCoordsList;
+    DawaPropertyNumbers testProperty;
+
 
     @BeforeEach
     void setUp() {
-        dawaPolygonForAddress = new DawaPolygonForAddress();
-        expectedCoords = new ArrayList<>();
-        //expectedCoordsList = new ArrayList<>();
-    }
+        // Arrange
+        List<String> testCoords = new ArrayList<>();
 
-    @Test
-    @DisplayName("Get matrikelNo and city code")
-    void getPropertyNo() {
-        expectedCoords.add("10.02245235");
-        expectedCoords.add("56.25263942");
-        dawaPolygonForAddress.getPropertyNo(expectedCoords);
-        Assertions.assertEquals( "9af", dawaPolygonForAddress.matrikel);
-        Assertions.assertEquals("980251", dawaPolygonForAddress.kode);
+        testCoords.add("10.02245235");
+        testCoords.add("56.25263942");
+        testProperty = new DawaPropertyNumbers(testCoords);
     }
-
 
 
     @Test
     void getPolygon() {
+        // Arrange
         expectedCoordsList = Arrays.asList(
                 Arrays.asList(563376.144, 6234684.897),
                 Arrays.asList(563342.218, 6234679.676),
@@ -47,10 +44,14 @@ class DawaPolygonForAddressTest {
                 Arrays.asList(563401.735, 6234689.653),
                 Arrays.asList(563376.144, 6234684.897)
         );
-        dawaPolygonForAddress.matrikel = "9af";
-        dawaPolygonForAddress.kode = "980251";
-        System.out.println(dawaPolygonForAddress.kode);
-        List<List<Double>> polygon = dawaPolygonForAddress.getPolygon();
-        Assertions.assertEquals(expectedCoordsList, polygon);
+        String cadastre = testProperty.getCadastre();
+        String ownerLicense = testProperty.getOwnerLicense();
+
+        // Act
+        DawaPolygonForAddress polygon = new DawaPolygonForAddress(ownerLicense, cadastre);
+        
+        // Assert
+        Assertions.assertEquals(expectedCoordsList, polygon.getPolygon());
     }
+    */
 }

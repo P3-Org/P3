@@ -44,3 +44,10 @@
     -fx-background-insets: 0;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.2, 0, 1);
 }
+
+.dynamic-label {
+    -fx-background-color: rgb(255,255,255);
+    -fx-text-fill: -fx-text-base-color; /* keeps default text color */
+    -fx-padding: 10px;
+    -fx-background-radius: 6px; /* optional rounding */
+}
