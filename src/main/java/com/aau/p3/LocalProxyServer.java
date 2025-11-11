@@ -10,9 +10,8 @@ import java.util.concurrent.Executors;
 
 
 /**
- * The class below is intended to set up a local server. etc etc
- * @Author
- * @Param port
+ * The class below is intended to set up a local server to use for api calls in case of CORS issues.
+ * @Param portnumber
  */
 public class LocalProxyServer {
     // Method for setting up the necessary tools for starting a proxy server
@@ -21,7 +20,9 @@ public class LocalProxyServer {
             // Creates a httpserver which binds to a socket-address object with the specified port number
             HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
             // The HTTP context specifies what to do when receiving requests on the given port + path
-            server.createContext("/wms-proxy", LocalProxyServer::handleRequest);
+            server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
+            server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
+            server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
             // Sets 4 threads available for requests for the server
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
@@ -31,18 +32,52 @@ public class LocalProxyServer {
         }
     }
 
-    // Method for handling the requests aimed at the server
-    private static void handleRequest(HttpExchange exchange) throws IOException {
+    /*
+    * Helper method that checks if the query path is null,
+    * and after combines the targetUrl and query for the fullQuery.
+    */
+    private static String queryNullCheck(String targetUrl, String query){
+        String fullQuery = "";
+        if (query != null) {
+            fullQuery = targetUrl + "?" + query;
+        }
+        return fullQuery;
+    }
+
+    // Method that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
+    private static void handleDmh(HttpExchange exchange)  throws IOException{
         // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
-
-        // Builds full WMS URL that consist of the targetURL "dataforsyningen",
-        // and the query received by the server, sent from the JavaFX application.
         String targetUrl = "https://api.dataforsyningen.dk/wms/dhm";
-        if (query != null) {
-            targetUrl += "?" + query;
-        }
 
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
+    }
+
+    // Method that handles the request for hip WMS, and forwards the targetUrl to handleRequest
+    private static void handleHip(HttpExchange exchange) throws IOException{
+        // Converts the request to a string
+        String query = exchange.getRequestURI().getRawQuery();
+        String targetUrl = "https://api.dataforsyningen.dk/hip_dtg_10m_100m";
+
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
+    }
+
+    private static void handleDaf(HttpExchange exchange) throws IOException{
+        // Converts the request to a string
+        String query = exchange.getRequestURI().getRawQuery();
+        String targetUrl = "https://api.dataforsyningen.dk/wms/MatGaeldendeOgForeloebigWMS_DAF";
+
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
+    }
+
+    // Method for handling the requests aimed at the server
+    private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {
         System.out.println("Fetching: " + targetUrl);
 
         // Opens the connection between the proxy server and the api endpoint
