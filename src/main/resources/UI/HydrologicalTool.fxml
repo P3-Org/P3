@@ -4,29 +4,106 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+<Pane xmlns="http://javafx.com/javafx/17.0.12"
+      xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@nav.css"
+      fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+
     <children>
-      <Label alignment="CENTER" prefHeight="46.0" prefWidth="600.0" text="Hydrological Tool">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <Separator layoutY="36.0" prefHeight="21.0" prefWidth="600.0" />
-        <AnchorPane fx:id="mapAnchor" layoutX="166.0" layoutY="57.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="420.0">
-        </AnchorPane>
-       <fx:define>
-           <ToggleGroup fx:id="weatherOption" />
-       </fx:define>
-       <HBox alignment="CENTER" layoutX="166.0" layoutY="357.0" prefHeight="26.0" prefWidth="420.0">
-         <children>
-             <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Cadastral map" />
-              <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Cloud Burst"/>
-              <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Strom Surge" toggleGroup="$weatherOption" />
-              <ToggleButton fx:id="erosionToggle" mnemonicParsing="false" text="Coastal erosion" toggleGroup="$weatherOption" />
-              <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Groundwater" toggleGroup="$weatherOption" />
-         </children>
-      </HBox>
-       <Slider fx:id="cloudBurstSlider" layoutX="166.0" layoutY="392.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" visible="false" />
-        <Slider fx:id="stormSurgeSlider" layoutX="166.0" layoutY="392.0" maxWidth="440.0" prefHeight="15.0" prefWidth="420.0" visible="false" />
-   </children>
+
+        <!-- Header -->
+        <Label alignment="CENTER"
+               prefHeight="66.0"
+               prefWidth="610.0"
+               text="Hydrological Tool">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+
+        <!-- Main layout grid -->
+        <GridPane layoutY="60.0" prefHeight="340.0" prefWidth="600.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="299.0" minHeight="10.0" prefHeight="299.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+
+            <children>
+                <!-- Map area -->
+                <AnchorPane fx:id="mapAnchor"
+                            maxHeight="-Infinity"
+                            maxWidth="-Infinity"
+                            prefHeight="300.0"
+                            prefWidth="350.0"
+                            GridPane.columnIndex="1" />
+
+                <!-- Slider (from both versions) -->
+                <Slider fx:id="cloudBurstSlider"
+                        maxWidth="350"
+                        prefWidth="350"
+                        visible="false"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="1" />
+                <Slider fx:id="stormSurgeSlider"
+                        maxWidth="350"
+                        prefWidth="350"
+                        visible="false"
+                        GridPane.columnIndex="1"
+                        GridPane.rowIndex="1" />
+
+                <!-- Dynamic label container -->
+                <GridPane fx:id="labelContainer">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="cloudburst" text="Cloudburst" styleClass="dynamic-label">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="groundwater" text="Groundwater" styleClass="dynamic-label" GridPane.columnIndex="1">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="stormsurge" text="Storm Surge" styleClass="dynamic-label" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="coastalerosion" text="Coastal Erosion" styleClass="dynamic-label" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
+
+        <!-- Weather option buttons -->
+        <fx:define>
+            <ToggleGroup fx:id="weatherOption" />
+        </fx:define>
+
+        <HBox alignment="CENTER" layoutY="410.0" prefHeight="26.0" prefWidth="600.0">
+            <children>
+                <ToggleButton fx:id="cadastralToggle" text="Cadastral Map" />
+                <ToggleButton fx:id="cloudburstToggle" text="Cloudburst" toggleGroup="$weatherOption" />
+                <ToggleButton fx:id="stormsurgeToggle" text="Storm Surge" toggleGroup="$weatherOption" />
+                <ToggleButton fx:id="erosionToggle" text="Coastal Erosion" toggleGroup="$weatherOption" />
+                <ToggleButton fx:id="groundwaterToggle" text="Groundwater" toggleGroup="$weatherOption" />
+            </children>
+        </HBox>
+    </children>
 </Pane>
