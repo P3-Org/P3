@@ -7,8 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
-import java.sql.SQLOutput;
-
 public class MainController {
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
@@ -79,7 +77,7 @@ public class MainController {
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
         System.out.println("Hydrological tool activated...");
-        setCenter("/UI/HydrologicalTool.fxml");
+        setCenter("/UI/HydrologicalToolOLD.fxml");
     }
 
     @FXML
