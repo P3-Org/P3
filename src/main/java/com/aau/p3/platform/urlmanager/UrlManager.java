@@ -16,12 +16,11 @@ import java.net.URL;
 
 
 public class UrlManager {
-    protected static String globalUrlString;
-    protected String BASE_URL;
-    public static void setUrlString(String urlStringParam){
-        globalUrlString = urlStringParam;
-    }
+    protected static String BASE_URL;
 
+    public UrlManager(String baseURL){
+        BASE_URL = baseURL;
+    }
     /* Collective function, that with the given Url string performs and API call and returns the response
     * Features the creation of connection, readings of information, security checks and termination.
     */
