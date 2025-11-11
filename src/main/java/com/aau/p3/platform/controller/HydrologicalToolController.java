@@ -8,20 +8,20 @@ import com.aau.p3.climatetool.risk.CoastalErosionRisk;
 import com.aau.p3.climatetool.risk.GroundwaterRisk;
 import com.aau.p3.climatetool.risk.StormSurgeRisk;
 import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
-import com.aau.p3.climatetool.utilities.GeoDataReader;
-import com.aau.p3.climatetool.utilities.MeasurementStrategy;
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class HydrologicalToolController implements ControlledScreen {
     private MainController mainController;
@@ -37,6 +37,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private AnchorPane mapAnchor;
+
+    @FXML
+    private GridPane labelContainer;
 
     @FXML
     public void initialize() {
@@ -67,18 +70,15 @@ public class HydrologicalToolController implements ControlledScreen {
         *  Follows the Dependency Inversion Principle */
         GeoDataReader geoReader = new TifFileReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+        RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
         riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-        //riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        //riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        //riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
-        /* Loops through all the risks and gathers their data and prints the color values */
-        for (RiskAssessment risk : riskAssessment) {
-            double[] colorValue = risk.gatherData(coordinates);
-            System.out.println(risk.getClass().getSimpleName() + " => " + Arrays.toString(colorValue));
-        }
+        riskLabelBinder.applyColors(riskAssessment, coordinates);
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();

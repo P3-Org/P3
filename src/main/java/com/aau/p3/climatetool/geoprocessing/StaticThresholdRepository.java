@@ -6,6 +6,6 @@ public class StaticThresholdRepository implements ThresholdRepository {
     @Override
     public double[] getThreshold(String riskType) {
         // Switch that finds which risk that was sent in the parameters
-        return new double[] {15.0, 30.0};
+        return new double[] {50.0, 100.0};
     }
 }
