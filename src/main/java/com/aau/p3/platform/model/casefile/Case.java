@@ -5,13 +5,15 @@ import java.util.Date;
 
 
 public class Case {
+    private int caseID;
     private Date openedDate;
     private Date closedDate;
     private StatusEnum status;
     private String type;
 
     //Constructor
-    public Case(Date openedDate, Date closedDate, StatusEnum status, String type) {
+    public Case(int caseID, Date openedDate, Date closedDate, StatusEnum status, String type) {
+        this.caseID = caseID;
         this.openedDate = openedDate;
         this.closedDate = closedDate;
         this.status = status;

@@ -12,13 +12,22 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="469.0">
                      <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <TextArea prefHeight="100.0" prefWidth="311.0" text="The Accumulated climate score is: " />
-                              <TextArea prefHeight="100.0" prefWidth="171.0" promptText="Climate number" />
-                           </children>
-                        </HBox>
-                        <TextField prefHeight="75.0" prefWidth="469.0" promptText="Comment..." />
+                        <BorderPane prefHeight="220.0" prefWidth="359.0">
+                           <top>
+                              <HBox prefHeight="55.0" prefWidth="359.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TextArea prefHeight="100.0" prefWidth="311.0" text="Climate estimate score:" wrapText="true">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font></TextArea>
+                                    <TextArea prefHeight="100.0" prefWidth="171.0" promptText="Climate number" wrapText="true" />
+                                 </children>
+                              </HBox>
+                           </top>
+                           <center>
+                              <TextField alignment="TOP_LEFT" prefHeight="75.0" prefWidth="359.0" promptText="Any other comments on the state..." BorderPane.alignment="CENTER" />
+                           </center>
+                        </BorderPane>
                      </children></VBox>
                   <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" prefHeight="333.0" prefWidth="469.0">
                     <columnConstraints>
@@ -34,7 +43,7 @@
                            <center>
                                 <Label fx:id="cloudburst" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Cloudburst" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font size="26.0" />
+                                        <Font size="20.0" />
                                     </font>
                                 </Label>
                            </center>
@@ -43,7 +52,7 @@
                            <center>
                                 <Label fx:id="groundwater" alignment="CENTER" prefHeight="108.0" prefWidth="154.0" styleClass="dynamic-label" text="Groundwater" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font size="26.0" />
+                                        <Font size="20.0" />
                                     </font>
                                 </Label>
                            </center>
@@ -52,7 +61,7 @@
                            <center>
                                 <Label fx:id="stormsurge" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Storm Surge" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font size="26.0" />
+                                        <Font size="20.0" />
                                     </font>
                                 </Label>
                            </center>
@@ -61,7 +70,7 @@
                            <center>
                                 <Label fx:id="coastalerosion" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Coastal Erosion" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font size="26.0" />
+                                        <Font size="20.0" />
                                     </font>
                                 </Label>
                            </center>
@@ -88,8 +97,8 @@
                    </HBox>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Slider fx:id="cloudBurstSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="286.0" visible="false" />
-                        <Slider fx:id="stormSurgeSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="286.0" visible="false" />
+                        <Slider fx:id="cloudBurstSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="390.0" visible="false" />
+                        <Slider fx:id="stormSurgeSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="390.0" visible="false" />
                      </children>
                   </Pane>
 
