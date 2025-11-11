@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
    <children>
-      <SplitPane dividerPositions="0.6019108280254777" layoutY="74.0" prefHeight="445.0" prefWidth="787.0">
+      <SplitPane dividerPositions="0.4619634509137272" layoutY="74.0" prefHeight="445.0" prefWidth="787.0">
         <items>
-            <VBox alignment="TOP_RIGHT" prefHeight="451.0" prefWidth="392.0">
+            <VBox alignment="TOP_RIGHT" prefHeight="443.0" prefWidth="416.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="469.0">
                      <children>
@@ -41,7 +41,7 @@
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <center>
-                                <Label fx:id="groundwater" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Groundwater" BorderPane.alignment="CENTER">
+                                <Label fx:id="groundwater" alignment="CENTER" prefHeight="108.0" prefWidth="154.0" styleClass="dynamic-label" text="Groundwater" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="26.0" />
                                     </font>
@@ -69,26 +69,33 @@
                       </children>
                   </GridPane>
                </children></VBox>
-            <VBox prefHeight="451.0" prefWidth="419.0">
+            <VBox prefHeight="443.0" prefWidth="399.0">
                <children>
                    <AnchorPane fx:id="mapAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="420.0">
                    </AnchorPane>
                    <HBox alignment="CENTER" prefHeight="26.0" prefWidth="420.0">
-                       <fx:define>
-                           <ToggleGroup fx:id="weatherOption" />
-                       </fx:define>
+
                        <children>
                            <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Cadastral map" />
-                           <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Cloud Burst"/>
+                           <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Cloud Burst">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="weatherOption" />
+                           </toggleGroup></ToggleButton>
                            <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Strom Surge" toggleGroup="$weatherOption" />
                            <ToggleButton fx:id="erosionToggle" mnemonicParsing="false" text="Coastal erosion" toggleGroup="$weatherOption" />
                            <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Groundwater" toggleGroup="$weatherOption" />
                        </children>
                    </HBox>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" />
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Slider fx:id="cloudBurstSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="286.0" visible="false" />
+                        <Slider fx:id="stormSurgeSlider" layoutX="14.0" layoutY="14.0" prefHeight="17.0" prefWidth="286.0" visible="false" />
+                     </children>
+                  </Pane>
 
                </children></VBox>
         </items>
       </SplitPane>
+      <TextField layoutX="24.0" layoutY="26.0" prefHeight="17.0" prefWidth="357.0" promptText="Search Address" styleClass="search-bar" />
    </children>
 </Pane>

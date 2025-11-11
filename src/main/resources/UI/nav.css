@@ -51,3 +51,40 @@
     -fx-padding: 10px;
     -fx-background-radius: 6px; /* optional rounding */
 }
+
+/* Basic style for the search bar */
+.search-bar {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1;
+    -fx-padding: 5 10 5 35; /* Left padding for icon space */
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+/* Placeholder text (promptText) color */
+.search-bar .text-field {
+    -fx-prompt-text-fill: #999999;
+}
+
+/* On hover */
+.search-bar:hover {
+    -fx-border-color: #999999;
+}
+
+/* On focus */
+.search-bar:focused {
+    -fx-border-color: #3f8efc;
+    -fx-effect: dropshadow(three-pass-box, rgba(63, 142, 252, 0.3), 8, 0, 0, 0);
+}
+
+/* Optional: Add a search icon on the left using a background image */
+.search-bar {
+    -fx-background-image: url("images/search.png"); /* your search icon path */
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 10 center;
+    -fx-background-size: 16px 16px;
+}
+
