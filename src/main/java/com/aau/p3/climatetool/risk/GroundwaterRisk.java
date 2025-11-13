@@ -19,6 +19,6 @@ public class GroundwaterRisk implements RiskAssessment {
     public double[] gatherData(double[][] coordinates) {
         //List<Double> value = geoDataReader.readValues(coordinates, "groundwater", "BLAH");
         //double[] threshold = thresholdRepository.getThreshold("Groundwater");
-        return new double[] {255, 255, 0};
+        return new double[] {0, 175, 0};
     }
 }
