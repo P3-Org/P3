@@ -2,25 +2,42 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.aau.p3.platform.controller.AllCasesController"
-      alignment="TOP_CENTER" spacing="15" style="-fx-padding: 20;">
-
-    <Label text="All Cases" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
-
-    <TableView prefWidth="600" prefHeight="350">
-        <columns>
-            <TableColumn text="Case ID" prefWidth="100" />
-            <TableColumn text="Title" prefWidth="300" />
-            <TableColumn text="Owner" prefWidth="150" />
-            <TableColumn text="Status" prefWidth="100" />
-        </columns>
-    </TableView>
-
-    <HBox spacing="10">
-        <Button text="Show my cases" onAction="#handleMyCases" />
-        <Button text="Export" onAction="#handleExport" />
-    </HBox>
-</VBox>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.AddressLookupController">
+    <children>
+        <SplitPane dividerPositions="0.25" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane>
+                    <children>
+                        <TextField promptText="Search any address" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                  <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" spacing="10.0">
+                     <children>
+                              <Label text="My cases">
+                                  <font>
+                                      <Font size="35.0" />
+                                  </font>
+                              </Label>
+                              <TableView fx:id="myCasesTable">
+                                  <columns>
+                                      <TableColumn fx:id="tableCaseID" text="Case ID" />
+                                      <TableColumn fx:id="tableTitle" text="Title" />
+                                      <TableColumn fx:id="tableOwner" text="Owner" />
+                                      <TableColumn fx:id="tableStatus" text="Status" />
+                                  </columns>
+                                  <columnResizePolicy>
+                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                  </columnResizePolicy>
+                              </TableView>
+                     </children>
+                  </VBox>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>

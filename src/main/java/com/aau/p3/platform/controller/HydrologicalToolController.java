@@ -10,13 +10,13 @@ import com.aau.p3.climatetool.risk.StormSurgeRisk;
 import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
+import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -55,6 +55,17 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
+    private Pane cloudBurstIndicator;
+    @FXML
+    private Pane stormSurgeIndicator;
+    @FXML
+    private Pane groundWaterIndicator;
+    @FXML
+    private Pane coastalErosionIndicator;
+
+
+
+    @FXML
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
@@ -71,8 +82,8 @@ public class HydrologicalToolController implements ControlledScreen {
                 {550900.0, 6320600.0}};
 
         /* Sets up the different readers for both the Geo data and the database.
-        *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-        *  Follows the Dependency Inversion Principle */
+         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+         *  Follows the Dependency Inversion Principle */
         GeoDataReader geoReader = new TifFileReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
@@ -83,7 +94,18 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
         riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
+
         riskLabelBinder.applyColors(riskAssessment, coordinates);
+
+
+        Indicator indicator = new Indicator();
+        indicator.setThresholdsLines("", cloudBurstIndicator);
+        indicator.setThresholdsLines("", groundWaterIndicator);
+        indicator.setThresholdsLines("", stormSurgeIndicator);
+        indicator.setThresholdsLines("", coastalErosionIndicator);
+
+
+
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
@@ -110,8 +132,8 @@ public class HydrologicalToolController implements ControlledScreen {
         mapAnchor.getChildren().add(webView);
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
-        *  and parse that value to the javascript function "setMapStyle" in @index.html.
-        */
+         *  and parse that value to the javascript function "setMapStyle" in @index.html.
+         */
         cloudBurstSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             double value = cloudBurstSlider.getValue();
             webEngine.executeScript("cloudBurstStyles(" + value + ")");
@@ -189,7 +211,5 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setSnapToTicks(true);
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
-
     }
-
-    }
+}

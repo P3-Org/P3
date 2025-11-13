@@ -3,34 +3,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.25" prefHeight="700.0" prefWidth="1100.0" stylesheets="@nav.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.MainController">
-
+<SplitPane dividerPositions="0.1953551912568306" prefHeight="700.0" prefWidth="1100.0" stylesheets="@nav.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.MainController">
     <items>
-        <!-- LEFT: Navigation -->
-        <VBox prefWidth="240.0" spacing="8.0" styleClass="sidebar">
-            <children>
-                <Button maxWidth="Infinity" onAction="#openHomePage" styleClass="nav-item" text="Homepage" />
-                <TitledPane animated="false" expanded="false" text="Cases">
-                    <content>
-                        <VBox spacing="6.0" styleClass="submenu">
-                            <children>
-                                <Button maxWidth="Infinity" onAction="#openMyCases" styleClass="nav-item" text="My cases" />
-                                <Button maxWidth="Infinity" onAction="#openAllCases" styleClass="nav-item" text="All cases" />
-                            </children>
-                        </VBox>
-                    </content>
-                </TitledPane>
-
-                <Separator />
-
-                <Button maxWidth="Infinity" onAction="#openAddressLookup" styleClass="nav-item" text="Address lookup" />
-                <Button maxWidth="Infinity" onAction="#openHydrologicalTool" styleClass="nav-item" text="Hydrological tool" />
-                <Button maxWidth="Infinity" onAction="#openHelpDesk" styleClass="nav-item" text="Help desk" />
-                <Button maxWidth="Infinity" onAction="#exitApp" styleClass="nav-item" text="Exit" />
-            </children>
-        </VBox>
-
-        <!-- RIGHT: Content area -->
-        <StackPane fx:id="contentArea" />
+      <ScrollPane fitToWidth="true" maxWidth="250.0" minWidth="-Infinity" prefWidth="250.0">
+         <content>
+              <!-- LEFT: Navigation -->
+              <VBox prefWidth="200.0" spacing="8.0" styleClass="sidebar">
+                  <children>
+                      <Button maxWidth="Infinity" onAction="#openAddressLookup" styleClass="nav-item" text="Homepage" />
+      
+                      <Separator />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Vurderingsoversig" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Bestillingsoversigt" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Bestil vurdering" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Ejd. til skrivbordsvurdering" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Generelle oplysninger" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Fakta" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Bedømmelse" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Klassifikation" />
+                      <Button maxWidth="Infinity" styleClass="nav-item" text="*Historik" />
+                      <Button maxWidth="Infinity" onAction="#openHydrologicalTool" styleClass="nav-item" text="Klimaopslag" />
+                      <Button maxWidth="Infinity" text="*Udskriv vurderingskladde" />
+                      <Separator />
+                      <Button maxWidth="Infinity" onAction="#exitApp" styleClass="nav-item" text="Exit" />
+                  </children>
+              </VBox>
+         </content>
+      </ScrollPane>
+      <AnchorPane fx:id="contentArea" prefHeight="200.0" prefWidth="200.0" />
     </items>
 </SplitPane>
