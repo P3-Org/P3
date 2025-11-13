@@ -1,8 +1,6 @@
 package com.aau.p3.climatetool.groundwater;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
-import com.aau.p3.platform.urlmanager.UrlManager;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

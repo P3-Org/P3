@@ -9,8 +9,13 @@ public class UrlAutoComplete extends UrlManager {
     public UrlAutoComplete(String query){
         this.query = query;
     }
+
     public StringBuilder getAutoComplete(){
         String urlString = globalUrlString + "/autocomplete?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
         return super.getResponse(urlString);
     }
+
+
+
+
 }

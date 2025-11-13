@@ -6,16 +6,15 @@ import java.util.regex.Matcher;             // Used to find matches of a regex p
 import java.util.regex.Pattern;             // Defines a compiled regular expression pattern (dont understand so no touch)
 import com.aau.p3.platform.urlmanager.*;
 
-public class DawaAutocomplete {
+public class DawaGetCoordinates {
     List<String> coordinates = new ArrayList<>();
+    List<String> addresses = new ArrayList<>();
     /**
      * @param query the search query
      * Assings the coordinates field with x and y values
      */
-    public DawaAutocomplete(String query) {
+    public DawaGetCoordinates(String query) {
         // Lists to hold information on both addresses, aswell as x and y coordinates.
-        List<String> addresses = new ArrayList<>();
-
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.getAutoComplete();
 
@@ -34,6 +33,7 @@ public class DawaAutocomplete {
                     addresses.add(addressMatcher.group(1));
                 }
 
+
                 // Add longitude and latitude data to "coordinates" list
                 while (xMatcher.find() && yMatcher.find()) {
                     coordinates.add(xMatcher.group(1));
@@ -42,6 +42,10 @@ public class DawaAutocomplete {
 
         System.out.println(coordinates);
     }
+    public List<String> getAddresses() {
+        return addresses;
+    }
+
     public List<String> getCoordinates() {
         return coordinates;
     }

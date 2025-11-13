@@ -1,6 +1,5 @@
 package com.aau.p3.platform.controller;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.geoprocessing.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TifFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;
@@ -11,7 +10,6 @@ import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -21,9 +19,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class HydrologicalToolController implements ControlledScreen {
     // initialisation of toggles, s.t. they're visible to the FXML file
