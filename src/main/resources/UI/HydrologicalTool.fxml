@@ -5,9 +5,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
    <children>
-      <SplitPane dividerPositions="0.4619634509137272" layoutY="74.0" prefHeight="445.0" prefWidth="787.0">
+      <SplitPane dividerPositions="0.4619634509137272" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
             <VBox alignment="TOP_RIGHT" prefHeight="443.0" prefWidth="416.0">
                <children>
@@ -15,7 +15,7 @@
                      <children>
                         <BorderPane prefHeight="220.0" prefWidth="359.0">
                            <top>
-                              <HBox prefHeight="55.0" prefWidth="359.0" BorderPane.alignment="CENTER">
+                              <HBox prefHeight="55.0" BorderPane.alignment="CENTER">
                                  <children>
                                     <TextArea prefHeight="100.0" prefWidth="311.0" text="Climate estimate score:" wrapText="true">
                                        <font>
@@ -42,54 +42,78 @@
                       <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <center>
-                                <Label fx:id="cloudburst" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" styleClass="dynamic-label" text="Cloudburst" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
+                              <AnchorPane BorderPane.alignment="CENTER">
+                                 <children>
+                                      <Label fx:id="cloudburst" alignment="CENTER" styleClass="dynamic-label" text="Cloudburst" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Label>
+                                 </children>
+                              </AnchorPane>
                            </center>
                            <bottom>
-                              <Pane fx:id="cloudBurstPane" prefHeight="17.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+                              <AnchorPane fx:id="cloudBurstPane" maxHeight="20.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(to right, red, yellow, green);" width="180">
-                                    </Rectangle>
+                                     <Pane minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right, red, yellow, green);"
+                                           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
                                  </children>
-                              </Pane>
+                              </AnchorPane>
                            </bottom>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <center>
-                                <Label fx:id="groundwater" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" text="Groundwater" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                      <Label fx:id="groundwater" alignment="CENTER" text="Groundwater" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Label>
+                                 </children>
+                              </AnchorPane>
                            </center>
+                           <bottom>
+                              <AnchorPane BorderPane.alignment="CENTER" />
+                           </bottom>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <center>
-                                <Label fx:id="stormsurge" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" text="Storm Surge" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                      <Label fx:id="stormsurge" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" text="Storm Surge" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Label>
+                                 </children>
+                              </AnchorPane>
                            </center>
+                           <bottom>
+                              <AnchorPane BorderPane.alignment="CENTER" />
+                           </bottom>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <center>
-                                <Label fx:id="coastalerosion" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" styleClass="dynamic-label" text="Coastal Erosion" BorderPane.alignment="CENTER">
-                                    <font>
-                                        <Font size="20.0" />
-                                    </font>
-                                </Label>
+                              <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                      <Label fx:id="coastalerosion" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" styleClass="dynamic-label" text="Coastal Erosion" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                          <font>
+                                              <Font size="20.0" />
+                                          </font>
+                                      </Label>
+                                 </children></AnchorPane>
                            </center>
+                           <bottom>
+                              <AnchorPane BorderPane.alignment="CENTER" />
+                           </bottom>
                         </BorderPane>
                       </children>
                   </GridPane>
                </children></VBox>
             <VBox prefHeight="443.0" prefWidth="399.0">
                <children>
-                   <AnchorPane fx:id="mapAnchor" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="300.0" prefWidth="420.0">
+                   <AnchorPane fx:id="mapAnchor" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                    </AnchorPane>
                    <HBox alignment="CENTER" prefHeight="26.0" prefWidth="420.0">
 
@@ -115,4 +139,4 @@
         </items>
       </SplitPane>
    </children>
-</Pane>
+</AnchorPane>

@@ -4,33 +4,40 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.AddressLookupController">
-    <SplitPane dividerPositions="0.2600502512562814" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0">
-        <items>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                <children>
-                    <TextField layoutX="14.0" layoutY="24.0" prefHeight="17.0" prefWidth="357.0" promptText="Search any address" styleClass="search-bar" />
-                    <Label layoutX="14.0" layoutY="73.0" prefHeight="26.0" prefWidth="357.0" text="My cases">
-                        <font>
-                            <Font size="20.0" />
-                        </font>
-                    </Label>
-                </children>
-            </AnchorPane>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="257.0" prefWidth="503.0">
-                <children>
-                    <TableView fx:id="myCasesTable" prefHeight="291.0" prefWidth="598.0">
-                        <columns>
-                            <TableColumn fx:id="tableCaseID" prefWidth="100" text="Case ID" />
-                            <TableColumn fx:id="tableTitle" prefWidth="200" text="Title" />
-                            <TableColumn fx:id="tableOwner" prefWidth="133.0" text="Owner" />
-                            <TableColumn fx:id="tableStatus" prefWidth="117.0" text="Status" />
-                        </columns>
-                        <columnResizePolicy>
-                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                        </columnResizePolicy>
-                    </TableView>
-                </children></AnchorPane>
-        </items>
-    </SplitPane>
-</Pane>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.AddressLookupController">
+    <children>
+        <SplitPane dividerPositions="0.25" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <items>
+                <AnchorPane>
+                    <children>
+                        <TextField promptText="Search any address" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane>
+                    <children>
+                  <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" spacing="10.0">
+                     <children>
+                              <Label text="My cases">
+                                  <font>
+                                      <Font size="35.0" />
+                                  </font>
+                              </Label>
+                              <TableView fx:id="myCasesTable">
+                                  <columns>
+                                      <TableColumn fx:id="tableCaseID" text="Case ID" />
+                                      <TableColumn fx:id="tableTitle" text="Title" />
+                                      <TableColumn fx:id="tableOwner" text="Owner" />
+                                      <TableColumn fx:id="tableStatus" text="Status" />
+                                  </columns>
+                                  <columnResizePolicy>
+                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                  </columnResizePolicy>
+                              </TableView>
+                     </children>
+                  </VBox>
+                    </children>
+                </AnchorPane>
+            </items>
+        </SplitPane>
+    </children>
+</AnchorPane>
