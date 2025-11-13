@@ -74,7 +74,7 @@ public class HydrologicalToolController implements ControlledScreen {
         this.setCloudBurstSlider();
 
         // CALL API DAWA - GETS COORDINATES
-        // Redundant, only for testing
+            // Redundant, only for testing
         double[][] coordinates = {
                 {550900.0, 6320500.0},
                 {551100.0, 6320500.0},
@@ -92,7 +92,7 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
         riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
         riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
 
         riskLabelBinder.applyColors(riskAssessment, coordinates);
@@ -158,9 +158,7 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("hej1");
             if (newValue){
-                System.out.println("hej2");
                 stormSurgeSlider.setVisible(true);
                 webEngine.executeScript("setStormSurge()");
 

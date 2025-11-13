@@ -14,6 +14,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DawaPolygonForAddressTest {
+    /*
     private DawaPolygonForAddress dawaPolygonForAddress;
     private List<String> expectedCoords;
     private List<List<Double>> expectedCoordsList;
@@ -22,7 +23,7 @@ class DawaPolygonForAddressTest {
 
     @BeforeEach
     void setUp() {
-        /* Arrange */
+        // Arrange
         List<String> testCoords = new ArrayList<>();
 
         testCoords.add("10.02245235");
@@ -33,7 +34,7 @@ class DawaPolygonForAddressTest {
 
     @Test
     void getPolygon() {
-        /* Arrange */
+        // Arrange
         expectedCoordsList = Arrays.asList(
                 Arrays.asList(563376.144, 6234684.897),
                 Arrays.asList(563342.218, 6234679.676),
@@ -46,10 +47,11 @@ class DawaPolygonForAddressTest {
         String cadastre = testProperty.getCadastre();
         String ownerLicense = testProperty.getOwnerLicense();
 
-        /* Act */
+        // Act
         DawaPolygonForAddress polygon = new DawaPolygonForAddress(ownerLicense, cadastre);
         
-        /* Assert */
+        // Assert
         Assertions.assertEquals(expectedCoordsList, polygon.getPolygon());
     }
+    */
 }

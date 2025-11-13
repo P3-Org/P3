@@ -33,9 +33,9 @@ public class LocalProxyServer {
     }
 
     /*
-     * Helper method that checks if the query path is null,
-     * and after combines the targetUrl and query for the fullQuery.
-     */
+    * Helper method that checks if the query path is null,
+    * and after combines the targetUrl and query for the fullQuery.
+    */
     private static String queryNullCheck(String targetUrl, String query){
         String fullQuery = "";
         if (query != null) {

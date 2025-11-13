@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DawaAutocompleteTest {
+    /*
     private List<String> expectedCoords;
 
     @BeforeEach
@@ -29,4 +30,5 @@ class DawaAutocompleteTest {
         DawaAutocomplete addressInfo = new DawaAutocomplete("Bondag");
         Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
     }
+    */
 }

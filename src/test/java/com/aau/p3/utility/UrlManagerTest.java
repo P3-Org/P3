@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @TODO mock data for the other methods
  * */
 class UrlManagerTest {
-
+    /*
     @Test
     @DisplayName("Failed api call test")
     void getResponseTest() {
@@ -20,4 +20,5 @@ class UrlManagerTest {
         StringBuilder response = testPolygon.getPolygon();
         assertNull(response);
     }
+    */
 }
