@@ -45,13 +45,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.2, 0, 1);
 }
 
-.dynamic-label {
-    -fx-background-color: rgb(255,255,255);
-    -fx-text-fill: -fx-text-base-color; /* keeps default text color */
-    -fx-padding: 10px;
-    -fx-background-radius: 6px; /* optional rounding */
-}
-
 /* Basic style for the search bar */
 .search-bar {
     -fx-background-color: white;
@@ -86,5 +79,23 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 10 center;
     -fx-background-size: 16px 16px;
+}
+
+.label,
+.text-field,
+.text-area,
+.combo-box,
+.check-box,
+.radio-button,
+.choice-box,
+.slider,
+.progress-bar,
+.menu-button {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.progress-bar-gradient > .bar {
+    -fx-background-color: linear-gradient(to right, red 0%, yellow 50%, green 100%);
 }
 

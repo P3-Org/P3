@@ -8,10 +8,10 @@ public class Address {
     private int zipCode;
     private String city;
     private String streetName;
-    private int houseNumber;
+    private String houseNumber;
 
     // Address constructor with everything
-    public Address(String country, int zipCode, String city, String streetName, int houseNumber){
+    public Address(String country, int zipCode, String city, String streetName, String houseNumber){
         this.country = country;
         this.zipCode = zipCode;
         this.city = city;
@@ -20,7 +20,7 @@ public class Address {
     }
 
     // Address constructor simple
-    public Address(String streetName, int houseNumber){
+    public Address(String streetName, String houseNumber){
         this.streetName = streetName;
         this.houseNumber = houseNumber;
     }
@@ -41,7 +41,7 @@ public class Address {
         return this.streetName;
     }
 
-    public int getHouseNumber(){
+    public String getHouseNumber(){
         return this.houseNumber;
     }
 

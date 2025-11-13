@@ -40,15 +40,15 @@ public class AddressLookupController {
         // Mock Data — adjust Address/Customer constructors to match your real classes
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
-                        new Address("Denmark", 8382, "Hinnerup", "Bondagervej", 5),
+                        new Address("Denmark", 8382, "Hinnerup", "Bondagervej", "5"),
                         new Customer("Alice Johnson", 9260, 22334455, "alice@johnson.com"),
                         StatusEnum.PENDING),
                 new Case(2,
-                        new Address("Denmark", 9280, "Storvorde", "Ceciliavej", 13),
+                        new Address("Denmark", 9280, "Storvorde", "Ceciliavej", "13"),
                         new Customer("Bob Smith", 9261, 33445566, "bob@smith.com"),
                         StatusEnum.APPROVED),
                 new Case(3,
-                        new Address("Denmark", 9260, "Gistrup", "Mølleskoven", 28),
+                        new Address("Denmark", 9260, "Gistrup", "Mølleskoven", "28"),
                         new Customer("Charlie Brown", 9263, 44556677, "charlie@brown.com"),
                         StatusEnum.REJECTED)
         );

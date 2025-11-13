@@ -11,10 +11,7 @@ import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
@@ -55,6 +52,9 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
+    private ProgressBar cloudBurstProgress;
+
+    @FXML
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
@@ -84,6 +84,8 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
         riskLabelBinder.applyColors(riskAssessment, coordinates);
+        cloudBurstProgress.setProgress(0.8);
+
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();

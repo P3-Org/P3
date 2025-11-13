@@ -19,6 +19,6 @@ public class CoastalErosionRisk implements RiskAssessment {
     public double[] gatherData(double[][] coordinates) {
         //List<Double> value = geoDataReader.readValues(coordinates, "coastalErosion", "BLAHBLAH");
         //double[] threshold = thresholdRepository.getThreshold("CoastalErosion");
-        return new double[] {0, 0, 255};
+        return new double[] {0, 175, 0};
     }
 }

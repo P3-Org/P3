@@ -19,7 +19,7 @@ public class StormSurgeRisk implements RiskAssessment {
     public double[] gatherData(double[][] coordinates) {
         //List<Double> value = geoDataReader.readValues(coordinates, "stormsurge", "BLAHBLAH");
         //double[] threshold = thresholdRepository.getThreshold("StormSurge");
-        return new double[] {255, 255, 0};
+        return new double[] {0, 175, 0};
     }
 
 }

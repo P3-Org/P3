@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
@@ -29,7 +31,7 @@
                            </center>
                         </BorderPane>
                      </children></VBox>
-                  <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" prefHeight="333.0" prefWidth="469.0">
+                  <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" prefHeight="195.0" prefWidth="359.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -41,16 +43,45 @@
                       <children>
                         <BorderPane prefHeight="200.0" prefWidth="200.0">
                            <center>
-                                <Label fx:id="cloudburst" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Cloudburst" BorderPane.alignment="CENTER">
+                                <Label fx:id="cloudburst" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" styleClass="dynamic-label" text="Cloudburst" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
                                 </Label>
                            </center>
+                           <bottom>
+                              <Pane prefHeight="17.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" layoutX="-20.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="201.0">
+                                       <fill>
+                                          <LinearGradient endX="1.0" endY="1.0">
+                                             <stops>
+                                                <Stop>
+                                                   <color>
+                                                      <Color red="0.7843137383460999" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="0.5070235978946634">
+                                                   <color>
+                                                      <Color red="1.0" green="1.0" />
+                                                   </color>
+                                                </Stop>
+                                                <Stop offset="1.0">
+                                                   <color>
+                                                      <Color green="0.686274528503418" />
+                                                   </color>
+                                                </Stop>
+                                             </stops>
+                                          </LinearGradient>
+                                       </fill>
+                                    </Rectangle>
+                                 </children>
+                              </Pane>
+                           </bottom>
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                            <center>
-                                <Label fx:id="groundwater" alignment="CENTER" prefHeight="108.0" prefWidth="154.0" styleClass="dynamic-label" text="Groundwater" BorderPane.alignment="CENTER">
+                                <Label fx:id="groundwater" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" text="Groundwater" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
@@ -59,7 +90,7 @@
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
                            <center>
-                                <Label fx:id="stormsurge" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Storm Surge" BorderPane.alignment="CENTER">
+                                <Label fx:id="stormsurge" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" text="Storm Surge" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
@@ -68,7 +99,7 @@
                         </BorderPane>
                         <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <center>
-                                <Label fx:id="coastalerosion" alignment="CENTER" prefHeight="125.0" prefWidth="215.0" styleClass="dynamic-label" text="Coastal Erosion" BorderPane.alignment="CENTER">
+                                <Label fx:id="coastalerosion" alignment="CENTER" prefHeight="79.0" prefWidth="158.0" styleClass="dynamic-label" text="Coastal Erosion" BorderPane.alignment="CENTER">
                                     <font>
                                         <Font size="20.0" />
                                     </font>
@@ -105,6 +136,5 @@
                </children></VBox>
         </items>
       </SplitPane>
-      <TextField layoutX="24.0" layoutY="26.0" prefHeight="17.0" prefWidth="357.0" promptText="Search Address" styleClass="search-bar" />
    </children>
 </Pane>

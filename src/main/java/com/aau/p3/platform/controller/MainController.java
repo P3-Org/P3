@@ -16,7 +16,7 @@ public class MainController {
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/UI/HomePage.fxml");
+        setCenter("/UI/AddressLookup.fxml");
     }
 
     /* setCenter method takes an FXML file
@@ -54,18 +54,8 @@ public class MainController {
 
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
     @FXML
-    private void openHomePage(ActionEvent actionEvent) {
-        setCenter("/UI/HomePage.fxml");
-    }
-
-    @FXML
     private void openMyCases(ActionEvent actionEvent) {
         setCenter("/UI/MyCases.fxml");
-    }
-
-    @FXML
-    private void openAllCases(ActionEvent actionEvent) {
-        setCenter("/UI/AllCases.fxml");
     }
 
     @FXML
@@ -78,11 +68,6 @@ public class MainController {
     private void openHydrologicalTool(ActionEvent actionEvent) {
         System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
-    }
-
-    @FXML
-    private void openHelpDesk(ActionEvent actionEvent) {
-        System.out.println("Open help desk activated...");
     }
 
     @FXML
