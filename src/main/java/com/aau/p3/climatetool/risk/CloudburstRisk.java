@@ -23,7 +23,7 @@ public class CloudburstRisk implements RiskAssessment {
     @Override
     public double[] gatherData(double[][] coordinates) {
         List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
-        double[] threshold = thresholdRepository.getThreshold("Cloudburst");
+        double[] threshold = thresholdRepository.getThreshold("cloudburst");
         double measurementValue = measurementStrategy.processValues(value);
         return assignColors(measurementValue, threshold);
     }
