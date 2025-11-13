@@ -81,7 +81,7 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
         riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
         riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
         riskLabelBinder.applyColors(riskAssessment, coordinates);
 
