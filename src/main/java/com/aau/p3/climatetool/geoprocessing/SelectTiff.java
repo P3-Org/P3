@@ -3,7 +3,7 @@ package com.aau.p3.climatetool.geoprocessing;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectTif {
+public class SelectTiff {
     /**
      * Takes coordinates from GeoJSON polygon, and returns all 1x1 km tif files, the polygon covers.
      * @param coordinatesArray 2D double array

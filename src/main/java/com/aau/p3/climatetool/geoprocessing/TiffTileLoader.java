@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TifTileLoader {
+public class TiffTileLoader {
     private static final String BASE_PATH = "src/main/resources/";
     private final List<String> filePaths = new ArrayList<>();
     private final List<GridCoverage2D> coverages = new ArrayList<>();
@@ -19,7 +19,7 @@ public class TifTileLoader {
      * @param tifTileDir contains the specific folder
      * @param listOfTifFiles is a list of tif files gathered by methods in SelectTif.java
      */
-    public TifTileLoader(String tifTileDir, List<String> listOfTifFiles) {
+    public TiffTileLoader(String tifTileDir, List<String> listOfTifFiles) {
         for (String fileTag : listOfTifFiles) {
             this.filePaths.add(BASE_PATH + tifTileDir + "/" + fileTag);
         }
