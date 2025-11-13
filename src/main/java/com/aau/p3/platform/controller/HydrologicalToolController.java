@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -52,7 +54,8 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
-    private ProgressBar cloudBurstProgress;
+    private Pane cloudBurstPane;
+
 
     @FXML
     public void initialize() {
@@ -84,7 +87,9 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
         riskLabelBinder.applyColors(riskAssessment, coordinates);
-        cloudBurstProgress.setProgress(0.8);
+
+        Line thresholdline = new Line(90,0,90,17);
+        cloudBurstPane.getChildren().addAll(thresholdline);
 
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene

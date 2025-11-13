@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
@@ -50,30 +49,9 @@
                                 </Label>
                            </center>
                            <bottom>
-                              <Pane prefHeight="17.0" prefWidth="180.0" BorderPane.alignment="CENTER">
+                              <Pane fx:id="cloudBurstPane" prefHeight="17.0" prefWidth="180.0" BorderPane.alignment="CENTER">
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" layoutX="-20.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" width="201.0">
-                                       <fill>
-                                          <LinearGradient endX="1.0" endY="1.0">
-                                             <stops>
-                                                <Stop>
-                                                   <color>
-                                                      <Color red="0.7843137383460999" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="0.5070235978946634">
-                                                   <color>
-                                                      <Color red="1.0" green="1.0" />
-                                                   </color>
-                                                </Stop>
-                                                <Stop offset="1.0">
-                                                   <color>
-                                                      <Color green="0.686274528503418" />
-                                                   </color>
-                                                </Stop>
-                                             </stops>
-                                          </LinearGradient>
-                                       </fill>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" height="17.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(to right, red, yellow, green);" width="180">
                                     </Rectangle>
                                  </children>
                               </Pane>
