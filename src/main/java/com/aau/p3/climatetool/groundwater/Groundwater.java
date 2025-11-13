@@ -5,7 +5,10 @@ import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
 import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
 import com.aau.p3.platform.urlmanager.UrlManager;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,23 +17,47 @@ import java.util.regex.Pattern;
 
 public class Groundwater {
     private double kote;
+    private List<Double> hValues;
 
-    public String holder;
+    /**
+     * @param query the search query
+     * Gathers the "kote" value and the h values and stores them
+     */
     public Groundwater(String query) {
+        // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
         System.out.println(groundwater.getUrlGroundwater().toString());
         StringBuilder response = groundwater.getUrlGroundwater();
 
+        // Use regex to extract kote value
         Pattern pattern = Pattern.compile("\"kote\":([0-9.]+)");
         Matcher matcher = pattern.matcher(response.toString());
-
-        holder = matcher.find() ? matcher.group(1) : "";
+        // If not empty, insert into hold
+        String holder = matcher.find() ? matcher.group(1) : "";
+        // Parse it to a double
         kote = Double.parseDouble(holder);
-        System.out.println(kote);
+
+        // Initialize hValues as an array list
+        hValues = new ArrayList<>();
+        JSONObject json = new JSONObject(response.toString());
+        // Find the "samlet" array inside the "statistik" array of the geoJson
+        JSONArray samletArray = json.getJSONObject("statistik").getJSONArray("samlet");
+
+        // Extract the h values to the array list
+        if (!samletArray.isEmpty()) {
+            JSONObject hObject = samletArray.getJSONObject(0);
+            String[] keys = {"h2", "h5", "h10", "h20", "h50", "h100"};
+            for (String key : keys) {
+                if (hObject.has(key)) {
+                    hValues.add(hObject.getDouble(key));
+                }
+            }
+        }
     }
 
+    // lege main
     public static void main(String[] args) {
-        DawaAutocomplete addresse = new DawaAutocomplete("Læsøgade+18+9000");
+        DawaAutocomplete addresse = new DawaAutocomplete("Tryvej+30+9750");
         DawaPropertyNumbers addrNr = new DawaPropertyNumbers(addresse.getCoordinates());
         DawaPolygonForAddress addrPoly = new DawaPolygonForAddress(addrNr.getOwnerLicense(),addrNr.getCadastre());
 
@@ -40,8 +67,10 @@ public class Groundwater {
 
         String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
-        System.out.println(wkt);
         Groundwater test = new Groundwater(wkt);
+        System.out.println(test.hValues.get(0));
+        System.out.println(test.kote);
+        System.out.println(test.kote - test.hValues.get(3));
     }
 }
 
