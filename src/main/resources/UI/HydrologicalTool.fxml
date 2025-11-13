@@ -82,9 +82,9 @@
                                           </AnchorPane>
                                        </center>
                                         <bottom>
-                                            <AnchorPane fx:id="cloudBurstPane" maxHeight="20.0" BorderPane.alignment="CENTER">
+                                            <AnchorPane maxHeight="20.0" BorderPane.alignment="CENTER">
                                                 <children>
-                                                    <Pane maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right, red, yellow, green);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                    <Pane fx:id="cloudBurstIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
                                                 </children>
                                             </AnchorPane>
                                         </bottom>
@@ -119,7 +119,7 @@
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right, red, yellow, green);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Pane fx:id="groundWaterIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -154,7 +154,7 @@
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right, red, yellow, green);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Pane fx:id="stormSurgeIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -189,7 +189,7 @@
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right, red, yellow, green);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Pane fx:id="coastalErosionIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
                                               </children>
                                           </AnchorPane>
                                        </bottom>

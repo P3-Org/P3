@@ -10,6 +10,7 @@ import com.aau.p3.climatetool.risk.StormSurgeRisk;
 import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
+import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -54,7 +55,13 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
-    private Pane cloudBurstPane;
+    private Pane cloudBurstIndicator;
+    @FXML
+    private Pane stormSurgeIndicator;
+    @FXML
+    private Pane groundWaterIndicator;
+    @FXML
+    private Pane coastalErosionIndicator;
 
 
 
@@ -87,10 +94,17 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
         riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo));
 
+
         riskLabelBinder.applyColors(riskAssessment, coordinates);
 
-        Line thresholdline = new Line(90,0,90,17);
-        cloudBurstPane.getChildren().addAll(thresholdline);
+
+        Indicator indicator = new Indicator();
+        indicator.setThresholdsLines("", cloudBurstIndicator);
+        indicator.setThresholdsLines("", groundWaterIndicator);
+        indicator.setThresholdsLines("", stormSurgeIndicator);
+        indicator.setThresholdsLines("", coastalErosionIndicator);
+
+
 
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
