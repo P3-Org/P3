@@ -23,10 +23,8 @@ public class StormSurgeRisk implements RiskAssessment {
     @Override
     public double[] gatherData(double[][] coordinates) {
         List<Double> value = geoDataReader.readValues(coordinates, "havvand_land", "SIMSEA");
-        double[] threshold = thresholdRepository.getThreshold("StormSurge");
+        double[] threshold = thresholdRepository.getThreshold("stormsurge");
         double measurementValue = measurementStrategy.processValues(value);
         return assignColors(measurementValue, threshold);
-        //return new double[] {255, 255, 0};
     }
-
 }
