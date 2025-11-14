@@ -1,4 +1,6 @@
-package com.aau.p3.climatetool.utilities;
+package com.aau.p3.climatetool.utilities.color;
+
+import com.aau.p3.climatetool.utilities.RiskAssessment;
 
 import java.util.List;
 

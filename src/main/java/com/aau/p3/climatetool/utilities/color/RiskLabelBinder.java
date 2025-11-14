@@ -1,6 +1,6 @@
-package com.aau.p3.climatetool.utilities;
+package com.aau.p3.climatetool.utilities.color;
 
-import javafx.scene.control.Label;
+import com.aau.p3.climatetool.utilities.RiskAssessment;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
