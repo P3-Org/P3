@@ -1,76 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Leaflet in JavaFX</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="utf-8" />
+    <title>Leaflet in JavaFX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Leaflet CSS -->
-        <link
-                rel="stylesheet"
-                href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-                integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-                crossorigin=""
-        />
-        <style>
-            html, body {
-                height: 100%;
-                margin: 0;
-            }
-            #map {
-                height: 100%;
-                width: 100%;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="map"></div>
-        <script
-                src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-                crossorigin=""
-        ></script>
-        <script>
-            const styleMap = {
-                0: 'bluespot_ekstremregn_0',
-                15: 'bluespot_ekstremregn_0_015',
-                30: 'bluespot_ekstremregn_0_030',
-                45: 'bluespot_ekstremregn_0_045',
-                60: 'bluespot_ekstremregn_0_060',
-                75: 'bluespot_ekstremregn_0_075',
-                90: 'bluespot_ekstremregn_0_090',
-                105: 'bluespot_ekstremregn_0_105',
-                120: 'bluespot_ekstremregn_0_120',
-                135: 'bluespot_ekstremregn_0_135',
-                150: 'bluespot_ekstremregn_0_150',
-                151: 'bluespot_ekstremregn_0_150plus' // fallback for anything >150
-            };
-            let ekstremregn;
+    <!-- Leaflet CSS -->
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+            integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+            crossorigin=""
+    />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+<script
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+        crossorigin=""
+></script>
+<script>
+    // The different storm surge styles, signify increase in sea level in m.
+    const stormSurgeMap = {
+        0: 'havvandpaaland_0',
+        0.5: 'havvandpaaland_0.5',
+        1: 'havvandpaaland_1',
+        1.5: 'havvandpaaland_1_5',
+        2: 'havvandpaaland_2',
+        2.5: 'havvandpaaland_2_5',
+        3: 'havvandpaaland_3',
+        3.5: 'havvandpaaland_3_5',
+        4: 'havvandpaaland_4',
+        4.5: 'havvandpaaland_4_5',
+        5: 'havvandpaaland_5',
+        5.5: 'havvandpaaland_5_5',
+        6: 'havvandpaaland_6'
+    };
+    // The different cloud burst styles, signify rainfall given in m. (Object key in mm)
+    const cloudBurstMap = {
+        0: 'bluespot_ekstremregn_0',
+        15: 'bluespot_ekstremregn_0_015',
+        30: 'bluespot_ekstremregn_0_030',
+        45: 'bluespot_ekstremregn_0_045',
+        60: 'bluespot_ekstremregn_0_060',
+        75: 'bluespot_ekstremregn_0_075',
+        90: 'bluespot_ekstremregn_0_090',
+        105: 'bluespot_ekstremregn_0_105',
+        120: 'bluespot_ekstremregn_0_120',
+        135: 'bluespot_ekstremregn_0_135',
+        150: 'bluespot_ekstremregn_0_150'
+    };
 
-            document.addEventListener('DOMContentLoaded', () => {
-                L.Browser.any3d = false; // Force Leaflet to use 2D transforms
-                const map = L.map('map').setView([57.0488, 9.9217], 17); // Set initial view to Aalborg
+    // Predefine variables for later use.
+    let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
+    map = L.map('map').setView([57.0488, 9.9217], 17);
 
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 18,
-                    attribution: '@opensteetmap.org',
-                    zIndex: 1
-                }).addTo(map);
+    // When the window is opened and loaded, call the api for the map.
+    document.addEventListener('DOMContentLoaded', () => {
+        L.Browser.any3d = false; // Force Leaflet to use 2D transforms.
 
-                ekstremregn = L.tileLayer.wms("http://localhost:8080/wms-proxy", {
-                    layers: 'dhm_bluespot_ekstremregn',
-                    styles: 'bluespot_ekstremregn_0_015',
-                    format: 'image/png',
-                    transparent: true,
-                    token: '614d970326f8c0bc7f7b666245c117f8',
-                    attribution: '@dataforsyningen.dk',
-                    zIndex: 5
-                }).addTo(map);
-            });
+        // Uses openstreetmap api for a map.
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 18,
+            attribution: '@openstreetmap.org',
+            zIndex: 1
+        }).addTo(map);
 
-            function setMapStyle(index) {
-                ekstremregn.setParams({ styles: styleMap[index] })
-            }
-        </script>
-    </body>
+        // Variable used for inserting the different overlays from wms.
+        climateOverlay;
+    });
+
+    // Functions for changing the API calls when moving the slider.
+    function cloudBurstStyles(index) {
+        climateOverlay.setParams({ styles: cloudBurstMap[index] })
+    }
+
+    function stormSurgeStyles(index) {
+        climateOverlay.setParams({ styles: stormSurgeMap[index] })
+    }
+
+    // Functions for setting up the API calls when the corresponding button is clicked.
+    function setCloudburst(){
+        // Cloudburst overlay API.
+        climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
+            layers: 'dhm_bluespot_ekstremregn',
+            styles: 'bluespot_ekstremregn_0_0',
+            format: 'image/png',
+            transparent: "TRUE",
+            token: '614d970326f8c0bc7f7b666245c117f8',
+            attribution: '@Dataforsyningen.dk',
+            zIndex: 5
+        }).addTo(map);
+    }
+
+    function setGroundwater(){
+        // Groundwater levels overlay API.
+        climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
+            layers: '100m_rcp45_nf_median_phreatic_all_mean',
+            format: 'image/png',
+            transparent: "TRUE",
+            version: '1.3.0',
+            service: 'WMS',
+            token: '4656e62e1c57f5767255b528fb641642', // Required for access.
+            styles: 'default',
+            attribution: '@Dataforsyningen.dk',
+            opacity: '0.345'
+        }).addTo(map);
+    }
+
+    function setStormSurge(){
+        // Storm surge seawater levels overlay api
+        climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
+            layers: 'dhm_havvandpaaland',
+            styles: 'havvandpaaland_0',
+            format: 'image/png',
+            transparent: "TRUE",
+            token: '614d970326f8c0bc7f7b666245c117f8',
+            attribution: '@Dataforsyningen.dk',
+            zIndex: 5
+        }).addTo(map);
+    }
+
+    function setErosion(){
+
+    }
+
+    // Function for the cadastral overlay when corresponding button is clicked.
+    function setCadastral(){
+        cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
+            layers: 'Centroide_Gaeldende',
+            styles: 'Roede_centroider',
+            format: 'image/png',
+            transparent: "TRUE",
+            token: '614d970326f8c0bc7f7b666245c117f8',
+            attribution: '@Dataforsyningen.dk',
+            zIndex: 5
+        }).addTo(map);
+
+        cadOverlayBoundary = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
+            layers: 'MatrikelSkel_Gaeldende',
+            styles: 'Roede_skel',
+            format: 'image/png',
+            transparent: "TRUE",
+            token: '614d970326f8c0bc7f7b666245c117f8',
+            attribution: '@Dataforsyningen.dk',
+            zIndex: 5
+        }).addTo(map);
+    }
+
+    // Removes the climateOverlay if it is turned on.
+    function removeClimateLayer(){
+        if (climateOverlay){map.removeLayer(climateOverlay)}
+    }
+
+    // Removes the cadastralLayer centroid and boundary if it is turned on.
+    function removeCadastralLayer(){
+        if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
+        if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
+    }
+</script>
+</body>
 </html>
