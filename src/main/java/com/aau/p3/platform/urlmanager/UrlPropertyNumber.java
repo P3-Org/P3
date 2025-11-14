@@ -6,6 +6,7 @@ import java.util.List;
 public class UrlPropertyNumber extends UrlManager {
     private final List<String> coordinates;
     public UrlPropertyNumber(List<String> coordinates) {
+        super("https://api.dataforsyningen.dk");
         this.coordinates = coordinates;
     }
 
@@ -13,7 +14,7 @@ public class UrlPropertyNumber extends UrlManager {
         // We extract the coordinates, to use them in the final Url
         String x = coordinates.get(0);
         String y = coordinates.get(1);
-        String property_url = globalUrlString + "/jordstykker?x="+ x + "&y=" + y;
+        String property_url = BASE_URL + "/jordstykker?x="+ x + "&y=" + y;
 
         return super.getResponse(property_url);
     }
