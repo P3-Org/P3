@@ -52,6 +52,7 @@
                     <options>
                         --enable-native-access=javafx.graphics
                         --enable-native-access=javafx.web
+                        --enable-native-access=ALL-UNNAMED
                         -Djava.util.logging.config.file=src/main/resources/logging.properties
                     </options>
                 </configuration>
