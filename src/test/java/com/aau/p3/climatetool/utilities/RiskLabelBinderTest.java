@@ -17,13 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class RiskLabelBinderTest {
-
-    /* Need to enable the JavaFX toolkit to be able to test elements from JavaFX. Starts up a platform that can be tested upon. */
-    @BeforeAll
-    static void initToolkit() {
-        Platform.startup(() -> {});
-    }
-
     @Test
     void applyColors() {
         /* Arrange */
