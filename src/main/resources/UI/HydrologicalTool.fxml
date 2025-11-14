@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+<AnchorPane prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
    <children>
       <SplitPane dividerPositions="0.4619634509137272" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -38,8 +38,7 @@
                      <center>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextArea fx:id="commentArea" prefRowCount="5" wrapText="true" promptText="Enter your comment here..."
-                                        AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                              <TextArea fx:id="commentArea" prefRowCount="5" promptText="Enter your comment here..." wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                            </children>
                         </AnchorPane>
                      </center>
@@ -67,6 +66,7 @@
                                                       <AnchorPane BorderPane.alignment="CENTER">
                                                          <children>
                                                             <Label alignment="CENTER" contentDisplay="CENTER" text="info gathered here" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                            <Button layoutX="84.0" layoutY="2.0" mnemonicParsing="false" onAction="#popUpHandler" text="popup" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </center>
@@ -84,7 +84,7 @@
                                         <bottom>
                                             <AnchorPane maxHeight="20.0" BorderPane.alignment="CENTER">
                                                 <children>
-                                                    <Pane fx:id="cloudBurstIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+                                                    <Pane fx:id="cloudBurstIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                                 </children>
                                             </AnchorPane>
                                         </bottom>
@@ -113,13 +113,14 @@
                                                         </Label>
                                                    </top>
                                                 </BorderPane>
+                                                <Button mnemonicParsing="false" onAction="#popUpHandler" text="Button" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                              </children>
                                           </AnchorPane>
                                        </center>
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="groundWaterIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+                                                  <Pane fx:id="groundWaterIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -148,13 +149,14 @@
                                                         </Label>
                                                    </top>
                                                 </BorderPane>
+                                                <Button mnemonicParsing="false" onAction="#popUpHandler" text="Button" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                              </children>
                                           </AnchorPane>
                                        </center>
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="stormSurgeIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+                                                  <Pane fx:id="stormSurgeIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -183,13 +185,14 @@
                                                         </Label>
                                                    </top>
                                                 </BorderPane>
+                                                <Button mnemonicParsing="false" onAction="#popUpHandler" text="Button" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                              </children>
                                           </AnchorPane>
                                        </center>
                                        <bottom>
                                           <AnchorPane BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="coastalErosionIndicator" minHeight="20" maxHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0"/>
+                                                  <Pane fx:id="coastalErosionIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>

@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+
 import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;
@@ -10,13 +11,19 @@ import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +66,26 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Pane coastalErosionIndicator;
 
+    @FXML
+    private void popUpHandler() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/PopupWindow.fxml"));
+            VBox popupRoot = loader.load();
 
+            PopupWindowController controller = loader.getController();
+            controller.setMessage("This is a dynamic popup message!");
+
+            Stage popupStage = new Stage();
+            controller.setStage(popupStage);
+            popupStage.setScene(new Scene(popupRoot));
+            popupStage.initOwner(mapAnchor.getScene().getWindow()); // owner is main window
+            popupStage.setAlwaysOnTop(true);
+            popupStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     public void initialize() {
