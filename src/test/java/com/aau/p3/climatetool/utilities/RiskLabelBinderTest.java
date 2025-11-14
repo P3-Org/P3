@@ -4,6 +4,7 @@ import com.aau.p3.climatetool.risk.CloudburstRisk;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -28,7 +29,7 @@ class RiskLabelBinderTest {
         /* Arrange */
         // Sets up the containers and labels needed for test (in JavaFX)
         GridPane labelContainer = new GridPane();
-        Label cloudBurstLabel = new Label();
+        AnchorPane cloudBurstLabel = new AnchorPane();
 
         // Initializes needed binder and risk list
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
