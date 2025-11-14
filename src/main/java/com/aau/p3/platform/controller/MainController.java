@@ -4,21 +4,22 @@ import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-
-import java.sql.SQLOutput;
+import javafx.scene.layout.Region;
 
 public class MainController {
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
-    @FXML private StackPane contentArea;
+    @FXML private AnchorPane contentArea;
 
     /* void Method that is ALWAYS called during the initialization process of FXML from Main.java
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/UI/HomePage.fxml");
+        setCenter("/UI/AddressLookup.fxml");
     }
 
     /* setCenter method takes an FXML file
@@ -48,6 +49,21 @@ public class MainController {
             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
             * with id contentArea in the MainWindow.fxml */
             System.out.println("contentArea" + contentArea.getChildren());
+
+            // Make the node resize to fill the StackPane
+            view.setManaged(true);
+            view.setVisible(true);
+            StackPane.setAlignment(view, Pos.TOP_LEFT); // optional, usually default
+            if (view instanceof Region region) {
+                region.prefWidthProperty().bind(contentArea.widthProperty());
+                region.prefHeightProperty().bind(contentArea.heightProperty());
+            }
+
+            AnchorPane.setTopAnchor(view, 0.0);
+            AnchorPane.setBottomAnchor(view, 0.0);
+            AnchorPane.setLeftAnchor(view, 0.0);
+            AnchorPane.setRightAnchor(view, 0.0);
+
             contentArea.getChildren().setAll(view);
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,18 +72,8 @@ public class MainController {
 
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
     @FXML
-    private void openHomePage(ActionEvent actionEvent) {
-        setCenter("/UI/HomePage.fxml");
-    }
-
-    @FXML
     private void openMyCases(ActionEvent actionEvent) {
         setCenter("/UI/MyCases.fxml");
-    }
-
-    @FXML
-    private void openAllCases(ActionEvent actionEvent) {
-        setCenter("/UI/AllCases.fxml");
     }
 
     @FXML
@@ -80,11 +86,6 @@ public class MainController {
     private void openHydrologicalTool(ActionEvent actionEvent) {
         System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
-    }
-
-    @FXML
-    private void openHelpDesk(ActionEvent actionEvent) {
-        System.out.println("Open help desk activated...");
     }
 
     @FXML
