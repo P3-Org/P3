@@ -1,26 +1,85 @@
 package com.aau.p3.climatetool.groundwater;
 
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
+import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
+import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * Class that gets "h" values and "kote" values, to analyze distance to groundwater after certain weather conditions
+ * @Author Batman
+ */
 public class Groundwater {
+    private double kote;
+    private List<Double> hValues;
 
-    public Groundwater(String query) {
-        String holder;
+    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch
+    // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
+    /**
+     * @param query the search query, being the coordinates in EPSG:25832 format
+     * Performs API call and gathers the "kote" value and the h values and stores them
+     */
+    public void groundwaterFetch(String query) {
+        // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
+        System.out.println(groundwater.getUrlGroundwater().toString());
         StringBuilder response = groundwater.getUrlGroundwater();
 
-        Pattern pattern = Pattern.compile("\"kote\":([0-9.]+)");
-        Matcher matcher = pattern.matcher(response.toString());
+        // Get kote value
+        kote = Groundwater.extractKote(response);
 
-        holder = matcher.find() ? matcher.group(1) : "";
-        System.out.println(holder);
+        // Get h values
+        hValues = Groundwater.extractHValues(response);
     }
 
-    public static void main(String[] args) {
-        Groundwater test = new Groundwater("POINT(726000%206170000)");
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     * @param response The geoJSON response from the URL manager
+     * @return a double of the kote value
+     */
+    public static Double extractKote(StringBuilder response) {
+        // Get the double from the object "kote"
+        JSONObject obj = new JSONObject(response.toString());
+        double holder = obj.getDouble("kote");
+
+        return holder;
     }
+
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     *
+     * @param response The geoJSON response from the URL manager
+     * @return a list of h values
+     */
+    public static List<Double> extractHValues(StringBuilder response) {
+        // Initialize hValues as an array list
+        ArrayList<Double> holder = new ArrayList<>();
+        JSONObject json = new JSONObject(response.toString());
+        // Find the "samlet" array inside the "statistik" array of the geoJson
+        JSONArray samletArray = json.getJSONObject("statistik").getJSONArray("samlet");
+
+        // Extract the h values to the array list
+        if (!samletArray.isEmpty()) {
+            JSONObject hObject = samletArray.getJSONObject(0);
+            String[] keys = {"h2", "h5", "h10", "h20", "h50", "h100"};
+            for (String key : keys) {
+                if (hObject.has(key)) {
+                    holder.add(hObject.getDouble(key));
+                }
+            }
+        }
+        return holder;
+    }
+
+    // Getters
+    public double getKote() { return this.kote; }
+
+    public List<Double> getHValues() { return this.hValues; }
 }
+

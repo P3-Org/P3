@@ -19,7 +19,6 @@ public class DawaPropertyNumbers {
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
         StringBuilder response = propertyCoordinates.getPropertyNumber();
 
-
         // Fetches all cadastre info, for the given coordinates, from the API
         Pattern cadastrePattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");
         Matcher cadastreInfo = cadastrePattern.matcher(response.toString());

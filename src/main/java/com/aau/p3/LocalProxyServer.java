@@ -78,7 +78,7 @@ public class LocalProxyServer {
 
     // Method for handling the requests aimed at the server
     private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {
-        System.out.println("Fetching: " + targetUrl);
+        //System.out.println("Fetching: " + targetUrl);
 
         // Opens the connection between the proxy server and the api endpoint
         HttpURLConnection conn = (HttpURLConnection) new URL(targetUrl).openConnection();
