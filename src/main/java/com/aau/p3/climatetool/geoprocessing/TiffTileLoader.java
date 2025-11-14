@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TifTileLoader {
+public class TiffTileLoader {
     private static final String BASE_PATH = "src/main/resources/";
     private static final String USER_NAME = "ftpuser";
     private static final String PASSWORD = "0Ett84fGAB:&";
@@ -25,7 +25,7 @@ public class TifTileLoader {
      * @param tifTileDir contains the specific folder
      * @param listOfTifFiles is a list of tif files gathered by methods in SelectTif.java
      */
-    public TifTileLoader(String tifTileDir, List<String> listOfTifFiles) {
+    public TiffTileLoader(String tifTileDir, List<String> listOfTifFiles) {
         for (String fileTag : listOfTifFiles) {
             this.filePaths.add(BASE_URL + tifTileDir + "/" + fileTag);
         }

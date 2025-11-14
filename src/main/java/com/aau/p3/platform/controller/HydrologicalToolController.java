@@ -1,7 +1,7 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.database.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TifFileReader;
+import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;
 import com.aau.p3.climatetool.risk.CoastalErosionRisk;
 import com.aau.p3.climatetool.risk.GroundwaterRisk;
@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Line;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
@@ -79,9 +78,9 @@ public class HydrologicalToolController implements ControlledScreen {
                 {550900.0, 6320600.0}};
 
         /* Sets up the different readers for both the Geo data and the database.
-         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-         *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TifFileReader();
+        *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+        *  Follows the Dependency Inversion Principle */
+        GeoDataReader geoReader = new TiffFileReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
@@ -91,18 +90,13 @@ public class HydrologicalToolController implements ControlledScreen {
         riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
         riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
-
         riskLabelBinder.applyColors(riskAssessment, coordinates);
-
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("", cloudBurstIndicator);
         indicator.setThresholdsLines("", groundWaterIndicator);
         indicator.setThresholdsLines("", stormSurgeIndicator);
         indicator.setThresholdsLines("", coastalErosionIndicator);
-
-
-
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
@@ -208,5 +202,6 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setSnapToTicks(true);
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
+
     }
 }
