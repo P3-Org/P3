@@ -5,40 +5,65 @@ import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
 import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
 import com.aau.p3.platform.urlmanager.UrlManager;
+import org.geotools.api.referencing.operation.TransformException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//https://api.dataforsyningen.dk/rest/hydro_model/v1.0/grundvandsstand/100m?punkt=POINT(726000%206170000)&token=c6937f7f319698d502a27b3895d26d2d
-
 public class Groundwater {
     private double kote;
     private List<Double> hValues;
 
+    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch
+    // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
+
     /**
      * @param query the search query
-     * Gathers the "kote" value and the h values and stores them
+     *              Performs API call and gathers the "kote" value and the h values and stores them
      */
-    public Groundwater(String query) {
+    public void groundwaterFetch(String query) {
         // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
         System.out.println(groundwater.getUrlGroundwater().toString());
         StringBuilder response = groundwater.getUrlGroundwater();
 
+        // Get kote value
+        this.kote = Groundwater.extractKote(response);
+
+        // Get h values
+        this.hValues = Groundwater.extractHValues(response);
+    }
+
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     *
+     * @param response The geoJSON response from the URL manager
+     * @return a double of the kote value
+     */
+    public static Double extractKote(StringBuilder response) {
         // Use regex to extract kote value
-        Pattern pattern = Pattern.compile("\"kote\":([0-9.]+)");
+        Pattern pattern = Pattern.compile("\"kote\"\\s*:\\s*([0-9.]+)");
         Matcher matcher = pattern.matcher(response.toString());
         // If not empty, insert into hold
         String holder = matcher.find() ? matcher.group(1) : "";
         // Parse it to a double
-        kote = Double.parseDouble(holder);
+        return Double.parseDouble(holder);
+    }
 
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     *
+     * @param response The geoJSON response from the URL manager
+     * @return a list of h values
+     */
+    public static List<Double> extractHValues(StringBuilder response) {
         // Initialize hValues as an array list
-        hValues = new ArrayList<>();
+        ArrayList<Double> holder = new ArrayList<>();
         JSONObject json = new JSONObject(response.toString());
         // Find the "samlet" array inside the "statistik" array of the geoJson
         JSONArray samletArray = json.getJSONObject("statistik").getJSONArray("samlet");
@@ -49,28 +74,15 @@ public class Groundwater {
             String[] keys = {"h2", "h5", "h10", "h20", "h50", "h100"};
             for (String key : keys) {
                 if (hObject.has(key)) {
-                    hValues.add(hObject.getDouble(key));
+                    holder.add(hObject.getDouble(key));
                 }
             }
         }
+        return holder;
     }
 
-    // lege main
-    public static void main(String[] args) {
-        DawaAutocomplete addresse = new DawaAutocomplete("Tryvej+30+9750");
-        DawaPropertyNumbers addrNr = new DawaPropertyNumbers(addresse.getCoordinates());
-        DawaPolygonForAddress addrPoly = new DawaPolygonForAddress(addrNr.getOwnerLicense(),addrNr.getCadastre());
+    // Getters
+    public double getKote() { return this.kote; }
 
-        List<Double> coords = addrPoly.getPolygon().get(0);
-        double x = coords.get(0);
-        double y = coords.get(1);
-
-        String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
-
-        Groundwater test = new Groundwater(wkt);
-        System.out.println(test.hValues.get(0));
-        System.out.println(test.kote);
-        System.out.println(test.kote - test.hValues.get(3));
-    }
+    public List<Double> getHValues() { return this.hValues; }
 }
-
