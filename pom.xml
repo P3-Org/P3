@@ -59,8 +59,8 @@
             </groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-              <source>16</source>
-              <target>16</target>
+              <source>25</source>
+              <target>25</target>
             </configuration>
           </plugin>
         </plugins>

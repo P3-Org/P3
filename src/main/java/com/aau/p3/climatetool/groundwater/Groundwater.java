@@ -4,17 +4,16 @@ import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
 import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
-import com.aau.p3.platform.urlmanager.UrlManager;
-import org.geotools.api.referencing.operation.TransformException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * Class that gets "h" values and "kote" values, to analyze distance to groundwater after certain weather conditions
+ * @Author Batman
+ */
 public class Groundwater {
     private double kote;
     private List<Double> hValues;
@@ -23,8 +22,8 @@ public class Groundwater {
     // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
     /**
-     * @param query the search query
-     *              Performs API call and gathers the "kote" value and the h values and stores them
+     * @param query the search query, being the coordinates in EPSG:25832 format
+     * Performs API call and gathers the "kote" value and the h values and stores them
      */
     public void groundwaterFetch(String query) {
         // Use URL manager to perform API call and get response
@@ -33,26 +32,23 @@ public class Groundwater {
         StringBuilder response = groundwater.getUrlGroundwater();
 
         // Get kote value
-        this.kote = Groundwater.extractKote(response);
+        kote = Groundwater.extractKote(response);
 
         // Get h values
-        this.hValues = Groundwater.extractHValues(response);
+        hValues = Groundwater.extractHValues(response);
     }
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     *
      * @param response The geoJSON response from the URL manager
      * @return a double of the kote value
      */
     public static Double extractKote(StringBuilder response) {
-        // Use regex to extract kote value
-        Pattern pattern = Pattern.compile("\"kote\"\\s*:\\s*([0-9.]+)");
-        Matcher matcher = pattern.matcher(response.toString());
-        // If not empty, insert into hold
-        String holder = matcher.find() ? matcher.group(1) : "";
-        // Parse it to a double
-        return Double.parseDouble(holder);
+        // Get the double from the object "kote"
+        JSONObject obj = new JSONObject(response.toString());
+        double holder = obj.getDouble("kote");
+
+        return holder;
     }
 
     /**
@@ -86,3 +82,4 @@ public class Groundwater {
 
     public List<Double> getHValues() { return this.hValues; }
 }
+
