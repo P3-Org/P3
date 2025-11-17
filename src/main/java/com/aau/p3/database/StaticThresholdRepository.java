@@ -30,7 +30,6 @@ public class StaticThresholdRepository implements ThresholdRepository {
             if (rs.next()) {
                 double min = rs.getDouble("minThreshold");
                 double max = rs.getDouble("maxThreshold");
-                System.out.println("min:" + min + "max: " + max);
                 return new double[]{min, max};
             }
 
