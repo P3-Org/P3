@@ -10,6 +10,14 @@
 
     <Label text="My Cases" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
+    <!-- Address input field -->
+    <TextField fx:id="addressField"
+               layoutX="20" layoutY="30"
+               prefWidth="360"
+               promptText="Enter an address..." />
+
+
+
     <TableView prefWidth="500" prefHeight="300">
         <columns>
             <TableColumn text="Case ID" prefWidth="100" />

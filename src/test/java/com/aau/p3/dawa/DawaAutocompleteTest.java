@@ -1,11 +1,5 @@
 package com.aau.p3.dawa;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
-import org.junit.jupiter.api.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 class DawaAutocompleteTest {
     /*
     private List<String> expectedCoords;

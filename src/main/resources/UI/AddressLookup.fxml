@@ -10,7 +10,7 @@
             <items>
                 <AnchorPane>
                     <children>
-                        <TextField promptText="Search any address" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                        <TextField promptText="Search any address" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" fx:id="addressField" />
                     </children>
                 </AnchorPane>
                 <AnchorPane>

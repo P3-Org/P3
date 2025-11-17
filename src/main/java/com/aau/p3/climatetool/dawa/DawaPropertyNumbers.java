@@ -1,6 +1,8 @@
 package com.aau.p3.climatetool.dawa;
 
 import com.aau.p3.platform.urlmanager.UrlPropertyNumber;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,27 +18,15 @@ public class DawaPropertyNumbers {
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates){
+        // Get the response with the given query for the UrlPropertyNumber
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
         StringBuilder response = propertyCoordinates.getPropertyNumber();
 
-        // Fetches all cadastre info, for the given coordinates, from the API
-        Pattern cadastrePattern = Pattern.compile("\"matrikelnr\"\\s*:\\s*\"(.*?)\"");
-        Matcher cadastreInfo = cadastrePattern.matcher(response.toString());
-
-        // Fetches all owner license info, for the given coordinates, from the API
-        Pattern ownerLicensePattern = Pattern.compile("\"ejerlav\"\\s*:\\s*\\{[^}]*?\"kode\"\\s*:\\s*(\\d+)");
-        Matcher ownerLicenseInfo = ownerLicensePattern.matcher(response.toString());
-
-        // Add the cadastreInfo to object field when found
-        while (cadastreInfo.find()) {
-            this.cadastre = cadastreInfo.group(1);
-        }
-
-        /* The first and only the first ownerLicenseInfo found is entered in the object field. This is because in
-        geojson, multiple fields are labelled as "kode", but only the first on corresponds to the owner license */
-        if (ownerLicenseInfo.find()) {
-            this.ownerLicense = ownerLicenseInfo.group(1);
-        }
+        JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
+        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
+        this.cadastre = item.optString("matrikelnr",""); // In the first object it finds the "matrikelnr" and saves it
+        JSONObject ejerlav = item.getJSONObject("ejerlav"); // In object item it finds the object "ejerlav"
+        this.ownerLicense = ejerlav.optString("kode",""); // In object ejerlav find "kode"
     }
 
     /** Getter method
