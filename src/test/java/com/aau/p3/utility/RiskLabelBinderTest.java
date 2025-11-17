@@ -1,13 +1,13 @@
-package com.aau.p3.climatetool.utilities;
+package com.aau.p3.utility;
 
 import com.aau.p3.climatetool.risk.CloudburstRisk;
 
-import javafx.application.Platform;
-import javafx.scene.control.Label;
+import com.aau.p3.climatetool.utilities.RiskAssessment;
+import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
+import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

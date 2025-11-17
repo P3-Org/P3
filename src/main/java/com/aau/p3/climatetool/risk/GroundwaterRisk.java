@@ -4,8 +4,6 @@ import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 
-import java.util.List;
-
 public class GroundwaterRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
     private final ThresholdRepository thresholdRepository;
@@ -19,6 +17,6 @@ public class GroundwaterRisk implements RiskAssessment {
     public double[] gatherData(double[][] coordinates) {
         //List<Double> value = geoDataReader.readValues(coordinates, "groundwater", "BLAH");
         //double[] threshold = thresholdRepository.getThreshold("Groundwater");
-        return new double[] {0, 175, 0};
+        return new double[] {0, 175, 167};
     }
 }

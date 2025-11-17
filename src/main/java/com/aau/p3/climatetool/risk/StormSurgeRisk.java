@@ -4,10 +4,9 @@ import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.color.ColorManager;
 
 import java.util.List;
-
-import static com.aau.p3.climatetool.utilities.RiskColorGradient.assignColors;
 
 public class StormSurgeRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -25,6 +24,6 @@ public class StormSurgeRisk implements RiskAssessment {
         List<Double> value = geoDataReader.readValues(coordinates, "havvand_land", "SIMSEA");
         double[] threshold = thresholdRepository.getThreshold("stormsurge");
         double measurementValue = measurementStrategy.processValues(value);
-        return assignColors(measurementValue, threshold);
+        return ColorManager.getRGBValues(measurementValue, threshold);
     }
 }
