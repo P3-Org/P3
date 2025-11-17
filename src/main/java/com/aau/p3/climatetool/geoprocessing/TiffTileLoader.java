@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TiffTileLoader {
-    private static final String BASE_PATH = "src/main/resources/";
     private static final String USER_NAME = "ftpuser";
     private static final String PASSWORD = "0Ett84fGAB:&";
     private static final String IP_ADDRESS = "130.225.39.117";

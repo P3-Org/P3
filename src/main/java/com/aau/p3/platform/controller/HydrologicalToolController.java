@@ -4,12 +4,9 @@ import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
-import com.aau.p3.climatetool.risk.CloudburstRisk;
-import com.aau.p3.climatetool.risk.CoastalErosionRisk;
-import com.aau.p3.climatetool.risk.GroundwaterRisk;
-import com.aau.p3.climatetool.risk.StormSurgeRisk;
-import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
+import com.aau.p3.platform.model.property.Property;
+import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.fxml.FXML;
@@ -20,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HydrologicalToolController implements ControlledScreen {
@@ -33,7 +29,7 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleGroup weatherOption;
 
     private MainController mainController;
-    private final List<RiskAssessment> riskAssessment = new ArrayList<>();
+
 
     @Override
     public void setMainController(MainController mainController) {
@@ -67,12 +63,6 @@ public class HydrologicalToolController implements ControlledScreen {
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
-        // initialize Sliders functionality
-        this.setStormSurgeSlider();
-        this.setCloudBurstSlider();
-
-        // CALL API DAWA - GETS COORDINATES
-            // Redundant, only for testing
         double[][] coordinates = {
                 {550900.0, 6320500.0},
                 {551100.0, 6320500.0},
@@ -80,19 +70,23 @@ public class HydrologicalToolController implements ControlledScreen {
                 {550900.0, 6320600.0}};
 
         /* Sets up the different readers for both the Geo data and the database.
-        *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-        *  Follows the Dependency Inversion Principle */
+         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+         *  Follows the Dependency Inversion Principle */
         GeoDataReader geoReader = new TiffFileReader();
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+
+        RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
+
+        Property property = new Property(coordinates, riskFactory.createRisks(coordinates));
+
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
-        /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
-        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
+        // Calling applyColors to apply the correct colors to the labels inside JavaFX
+        riskLabelBinder.applyColors(property.getRisks(), coordinates);
 
-        riskLabelBinder.applyColors(riskAssessment, coordinates);
+        // initialize Sliders functionality
+        this.setStormSurgeSlider();
+        this.setCloudBurstSlider();
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("", cloudBurstIndicator);
