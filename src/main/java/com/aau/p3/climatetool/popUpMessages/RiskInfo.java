@@ -1,0 +1,26 @@
+package com.aau.p3.climatetool.popUpMessages;
+
+/*
+ * Class that will hold up to four strings, each a description of what a climate risk is, or how it works.
+ */
+public class RiskInfo {
+    private String generalInfo;
+    private String thresholdInfo;
+    private String calculationInfo;
+    private String precautionInfo;
+
+    // Constructor, that enables the use of getters to reach the climate risk information.
+    public RiskInfo(String general, String threshold, String calculation, String precaution){
+        this.generalInfo = general;
+        this.thresholdInfo = threshold;
+        this.calculationInfo = calculation;
+        this.precautionInfo = precaution;
+    }
+
+    // A series of getters, to get the strings that hold the information regarding a climate risk.
+    public String getGeneralInfo() {return generalInfo;}
+    public String getThresholdInfo() {return thresholdInfo;}
+    public String getCalculationInfo() {return calculationInfo;}
+    public String getPrecautionInfo() {return precautionInfo;}
+
+}

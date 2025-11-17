@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.aau.p3.platform.controller.PopupWindowController"
-      spacing="10" style="-fx-background-color: lightyellow; -fx-padding: 10; -fx-border-color: orange; -fx-border-width: 2;">
-
-    <Label fx:id="popupLabel" text="Default message"/>
-    <Button text="Close" onAction="#closePopup"/>
+<VBox spacing="10" style="-fx-background-color: lightyellow; -fx-padding: 10; -fx-border-color: orange; -fx-border-width: 2;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.PopupWindowController">
+   <TextFlow fx:id="infoDisplay" prefHeight="200.0" prefWidth="400.0" />
+    <Button onAction="#closePopup" text="Close" />
 </VBox>
