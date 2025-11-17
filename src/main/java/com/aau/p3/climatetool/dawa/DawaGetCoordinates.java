@@ -22,8 +22,8 @@ public class DawaGetCoordinates {
         JSONObject data = item.getJSONObject("data"); // In the Object item, get the Object data with the key: "data".
         String coordinateX = data.optString("x", ""); // In the data object, save the string "x"
         String coordinateY = data.optString("y", ""); // In the data object, save the string "y"
-        coordinates.add(coordinateX); // adds the x coordinate to our List
         coordinates.add(coordinateY); // adds the y coordinate to our list
+        coordinates.add(coordinateX); // adds the x coordinate to our List
         //System.out.println(coordinates);
     }
     // Method for returning the coordinates.

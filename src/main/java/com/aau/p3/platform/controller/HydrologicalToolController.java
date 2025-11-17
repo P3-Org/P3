@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.database.StaticThresholdRepository;
@@ -12,6 +13,7 @@ import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Popup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,9 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+    private WebEngine webEngine;
+    private List<String> coords;
+    private List<List<Double>> polygonCoords;
 
     private MainController mainController;
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
@@ -38,7 +44,14 @@ public class HydrologicalToolController implements ControlledScreen {
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+        this.coords = this.mainController.globalCoords;
+        this.polygonCoords = this.mainController.polygonCoords;
     }
+
+    @FXML
+    private TextField addressField; // The field where the user types the address
+    private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
+    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
 
     @FXML
     Slider cloudBurstSlider = new Slider();
@@ -67,17 +80,40 @@ public class HydrologicalToolController implements ControlledScreen {
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
 
+
+
         // initialize Sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
         // CALL API DAWA - GETS COORDINATES
             // Redundant, only for testing
+        System.out.println("test 0.5" + mainController.globalCoords);
+        System.out.println("test");
+        System.out.println(this.polygonCoords);
+
+        // 1st iteration: create outer array
+        double[][] result = new double[this.polygonCoords.size()][];
+
+// 2nd iteration: convert each inner List<Double> to double[]
+        for (int i = 0; i < this.polygonCoords.size(); i++) {
+            List<Double> inner = this.polygonCoords.get(i);
+
+            result[i] = new double[inner.size()];
+            for (int j = 0; j < inner.size(); j++) {
+                result[i][j] = inner.get(j);
+            }
+        }
+        System.out.println("hej");
+        System.out.println(result);
+
         double[][] coordinates = {
                 {550900.0, 6320500.0},
                 {551100.0, 6320500.0},
                 {551100.0, 6320600.0},
                 {550900.0, 6320600.0}};
+        System.out.println("hej2");
+        System.out.println(coordinates);
 
         /* Sets up the different readers for both the Geo data and the database.
         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
@@ -102,7 +138,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
+        webEngine = webView.getEngine();
 
         // Make variable for HTML file with all relevant map data and information
         var mapResource = getClass().getResource("/mapData/index.html");
@@ -123,6 +159,13 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
         mapAnchor.getChildren().add(webView);
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                System.out.println(coords);
+                panTo(coords);
+            }
+        });
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.
@@ -206,4 +249,9 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
 
     }
+
+    public void panTo(List<String> coords) {
+        webEngine.executeScript("panTo(" + coords + ")");
+    }
+
 }
