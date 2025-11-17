@@ -15,7 +15,7 @@ class UrlManagerTest {
     @Test
     @DisplayName("Failed api call test")
     void getResponseTest() {
-        UrlManager.setUrlString("https//:NotASite");
+        new UrlManager("https//:NotASite");
         UrlPolygon testPolygon = new UrlPolygon("not", "real");
         StringBuilder response = testPolygon.getPolygon();
         assertNull(response);
