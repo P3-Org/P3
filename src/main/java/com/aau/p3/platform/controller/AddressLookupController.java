@@ -24,9 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressLookupController {
-
+    // List over the addresses that will be suggested to auto complete.
     private List<String> addresses = new ArrayList<>();
-    private String type = new String();
 
     @FXML private TableView<Case> myCasesTable;
     @FXML private TableColumn<Case, Integer> tableCaseID;
@@ -35,10 +34,10 @@ public class AddressLookupController {
     @FXML private TableColumn<Case, StatusEnum> tableStatus;
 
     @FXML
-    private TextField addressField;
+    private TextField addressField; // The field where the user types the address
 
-    private final Popup suggestionsPopup = new Popup();
-    private final ListView<String> suggestionsList = new ListView<>();
+    private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
+    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
 
     @FXML
     public void initialize() {
@@ -81,13 +80,13 @@ public class AddressLookupController {
 
         // When the user types in the address field
         addressField.textProperty().addListener((obs, oldText, newText) -> {
-            if (newText.length() > 1) {
+            if (!newText.isEmpty()) {
                 // Creates the API call from the UrlAutoComplete object with the given UrlString.
                 UrlAutoComplete dawaAutoComplete = new UrlAutoComplete(newText);
 
                 // Takes the response and finds the addresses from the DawaGetAddress class and method
-                DawaGetAddressAutoComplete addressResponse = new DawaGetAddressAutoComplete();
-                addresses = addressResponse.DawaGetAddressAutocomplete(dawaAutoComplete);
+                DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
+                addresses = addressResponse.getAddresses();
                 // Addresses are converted to a observable list so it can be put into our ListView suggestionList.
                 ObservableList<String> ObservableAddresses = FXCollections.observableArrayList(addresses);
                 if (!addresses.isEmpty()) {
@@ -117,10 +116,8 @@ public class AddressLookupController {
         String selected = suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
             addressField.setText(selected);
-            UrlAutoComplete buffer = new UrlAutoComplete(selected);
-            DawaGetType typeResponse = new DawaGetType();
-            this.type = typeResponse.DawaGetType(buffer);
-            if (type.equals("adresse")){
+            DawaGetType type = new DawaGetType(selected);
+            if (type.getType().equals("adresse")){
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(),propertyNumbers.getCadastre());

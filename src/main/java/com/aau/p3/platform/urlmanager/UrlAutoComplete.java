@@ -7,7 +7,6 @@ import java.nio.charset.StandardCharsets;
 public class UrlAutoComplete extends UrlManager {
     private final String query;
 
-
     public UrlAutoComplete(String query){
         super("https://api.dataforsyningen.dk");
         this.query = query;
@@ -17,8 +16,4 @@ public class UrlAutoComplete extends UrlManager {
         String urlString = BASE_URL + "/autocomplete?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
         return super.getResponse(urlString);
     }
-
-
-
-
 }

@@ -7,26 +7,26 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DawaGetCoordinates {
-    List<String> coordinates = new ArrayList<>();
+    private final List<String> coordinates = new ArrayList<>();
     /**
      * @param query the search query
-     * Assings the coordinates field with x and y values
+     * Assigns the coordinates field with x and y values
      */
     public DawaGetCoordinates(String query) {
-        // Lists to hold information on both addresses, aswell as x and y coordinates.
+        // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.getAutoComplete();
 
-        JSONArray jsonArray = new JSONArray(response.toString());
-        JSONObject item = jsonArray.getJSONObject(0);
-        JSONObject data = item.getJSONObject("data");
-        String coordinateX = data.optString("x", "");
-        String coordinateY = data.optString("y", "");
-        coordinates.add(coordinateX);
-        coordinates.add(coordinateY);
-        System.out.println(coordinates);
+        JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
+        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
+        JSONObject data = item.getJSONObject("data"); // In the Object item, get the Object data with the key: "data".
+        String coordinateX = data.optString("x", ""); // In the data object, save the string "x"
+        String coordinateY = data.optString("y", ""); // In the data object, save the string "y"
+        coordinates.add(coordinateX); // adds the x coordinate to our List
+        coordinates.add(coordinateY); // adds the y coordinate to our list
+        //System.out.println(coordinates);
     }
-
+    // Method for returning the coordinates.
     public List<String> getCoordinates() {
         return coordinates;
     }
