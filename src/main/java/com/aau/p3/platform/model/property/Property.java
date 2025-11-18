@@ -43,10 +43,18 @@ public class Property {
         if (scoreEdit > 0) {
             specialistScore = 1;
         } else if (scoreEdit < 0) {
+            if (climateScore > 1){
             specialistScore = -1;
+            } else {
+                specialistScore = 0;
+            }
         } else {
             specialistScore = 0;
         }
+    }
+
+    public int getSpecialistScore() {
+        return this.specialistScore;
     }
 
     public void calculateClimateScore() {

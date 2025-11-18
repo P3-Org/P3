@@ -85,6 +85,12 @@ public class HydrologicalToolController implements ControlledScreen {
     private Label overallScoreId;
 
     @FXML
+    private Button scoreDownButton;
+
+    @FXML
+    private Button scoreUpButton;
+
+    @FXML
     public void initialize() {
         // initialize Sliders functionality
         this.setStormSurgeSlider();
@@ -172,6 +178,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
     }
 
     // helper functions here
@@ -231,11 +238,44 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private void increaseScore(ActionEvent event) {
-
+        if (currentProperty.getSpecialistScore() == -1) {
+        currentProperty.setSpecialistScore(0);
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+        updateScoreButtons(0);
+        } else {
+            currentProperty.setSpecialistScore(1);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            updateScoreButtons(1);
+        }
     }
 
     @FXML
     private void decreaseScore(ActionEvent event){
+        if (currentProperty.getSpecialistScore() == 1) {
+            currentProperty.setSpecialistScore(0);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            updateScoreButtons(0);
+
+        } else {
+            currentProperty.setSpecialistScore(-1);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            updateScoreButtons(-1);
+        }
+
+    }
+
+    private void updateScoreButtons(int number) {
+        int score = currentProperty.getClimateScore();
+        scoreDownButton.setVisible(score > 1);
+        scoreUpButton.setVisible(score < 5);
+
+        if (number == 1) {
+            scoreUpButton.setVisible(false);
+        }
+
+        if (number == -1) {
+            scoreDownButton.setVisible(false);
+        }
 
     }
 
@@ -271,7 +311,8 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
     }
-    public void afterInitialize(){
+    public void afterInitialize() {
+        updateScoreButtons(0);
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
 
