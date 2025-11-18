@@ -1,9 +1,8 @@
 package com.aau.p3.platform.controller;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
+import com.aau.p3.climatetool.ClimateStateScore;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
-import com.aau.p3.platform.controller.PopupWindowController;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.database.StaticThresholdRepository;
@@ -27,7 +26,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 
-import java.util.ArrayList;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -83,19 +81,15 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Pane coastalErosionIndicator;
 
+    @FXML
+    private Label overallScoreId;
+
 
     @FXML
     public void initialize() {
-        System.out.println("HydrologicalToolController initialized!");
-
         // initialize Sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
-
-
-
-
-
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
@@ -112,7 +106,6 @@ public class HydrologicalToolController implements ControlledScreen {
         // Creates a string representation of the HTML location to use for the "mapEngine"
         String mapUrl = mapResource.toExternalForm();
         webEngine.load(mapUrl);
-        System.out.println("Loading map from: " + mapUrl);
 
         // Adjust how the webView fills the anchorpane
         AnchorPane.setTopAnchor(webView, 0.0);
@@ -133,7 +126,6 @@ public class HydrologicalToolController implements ControlledScreen {
 
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
-                System.out.println("list test" + coords);
                 panTo(coords);
             }
         });
@@ -248,7 +240,13 @@ public class HydrologicalToolController implements ControlledScreen {
 
         RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
 
-        Property property = new Property(polygon, riskFactory.createRisks(polygon));
+        String address = "Bondagervej 5, 8382 Hinnerup";
+        double[] longLat = {10.17169695, 57.15120367};
+
+        Property property = new Property(address, polygon, longLat, riskFactory.createRisks(polygon));
+
+        property.calculateClimateScore();
+        overallScoreId.setText(Double.toString(property.getClimateScore()));
 
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
@@ -260,6 +258,16 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("", groundWaterIndicator);
         indicator.setThresholdsLines("", stormSurgeIndicator);
         indicator.setThresholdsLines("", coastalErosionIndicator);
+    }
+    
+    @FXML
+    private void increaseScore(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void decreaseScore(ActionEvent event){
+
     }
 
     @FXML

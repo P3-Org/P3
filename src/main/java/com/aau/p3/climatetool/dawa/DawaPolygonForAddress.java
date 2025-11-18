@@ -19,7 +19,6 @@ public class DawaPolygonForAddress{
         UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
 
         StringBuilder response = dawaPolygon.getPolygon();
-        System.out.println(response);
         this.polygon = new ArrayList<>();
 
                 JSONObject results = new JSONObject(response.toString());
@@ -50,8 +49,6 @@ public class DawaPolygonForAddress{
                         this.polygon.add(javaPoint);
                     }
                 }
-        System.out.println(bfeNumber);
-        System.out.println(polygon);
     }
 
     /** Getter method

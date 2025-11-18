@@ -26,8 +26,6 @@ public class Main extends Application {
 ;
             primaryStage.setTitle("Nykredit Platform");
 
-            System.out.println("this is the primarystage"+primaryStage);
-
             /* Displays the application at 90% of the screen,
              * with the initial window which is defined in MainWindow.fxml */
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();

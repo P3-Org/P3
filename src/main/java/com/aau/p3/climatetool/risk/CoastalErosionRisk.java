@@ -30,8 +30,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         this.threshold = thresholdRepository.getThreshold("coastalerosion");
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
-        System.out.println("COASTAL EROSION: Measurement value:" + this.measurementValue + " and normalized measurement value: " + this.normalizedMeasurement);
-        this.RGBValue = ColorManager.getRGBValues(measurementValue);
+        this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
     @Override

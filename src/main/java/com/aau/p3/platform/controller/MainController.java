@@ -92,13 +92,11 @@ public class MainController {
 
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        System.out.println("Address search activated...");
         setCenter("/UI/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
     }
 

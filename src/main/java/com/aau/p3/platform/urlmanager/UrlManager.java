@@ -28,7 +28,6 @@ public class UrlManager {
         try {
             // Create URL object from url string
             URL url = new URL(urlString);
-            System.out.println(url);
 
             // Create connection and request "GET"
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

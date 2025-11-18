@@ -3,11 +3,9 @@ package com.aau.p3.platform.controller;
 import com.aau.p3.climatetool.dawa.*;
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
-import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
-import com.aau.p3.platform.controller.MainController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,10 +16,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,17 +65,13 @@ public class AddressLookupController implements ControlledScreen  {
         // Mock Data — adjust Address/Customer constructors to match your real classes
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
-                        new Address("Denmark", 8382, "Hinnerup", "Bondagervej", "5"),
+                        URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Alice Johnson", 9260, 22334455, "alice@johnson.com"),
                         StatusEnum.PENDING),
                 new Case(2,
-                        new Address("Denmark", 9280, "Storvorde", "Ceciliavej", "13"),
+                        URLDecoder.decode("Danmarksgade+88%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Bob Smith", 9261, 33445566, "bob@smith.com"),
-                        StatusEnum.APPROVED),
-                new Case(3,
-                        new Address("Denmark", 9260, "Gistrup", "Mølleskoven", "28"),
-                        new Customer("Charlie Brown", 9263, 44556677, "charlie@brown.com"),
-                        StatusEnum.REJECTED)
+                        StatusEnum.APPROVED)
         );
 
         // Set data in the table
@@ -133,7 +129,6 @@ public class AddressLookupController implements ControlledScreen  {
 
                 this.mainController.globalCoords = coordinates.getCoordinates();
                 this.mainController.polygonCoords = polygonForAddress.getPolygon();
-                System.out.println("hej 3" + this.mainController.polygonCoords);
                 hydrologicalTool();
 
                 // Go to hydro tool
