@@ -114,7 +114,6 @@ public class HydrologicalToolController implements ControlledScreen {
         // Creates a string representation of the HTML location to use for the "mapEngine"
         String mapUrl = mapResource.toExternalForm();
         webEngine.load(mapUrl);
-        System.out.println("Loading map from: " + mapUrl);
 
         // Adjust how the webView fills the anchorpane
         AnchorPane.setTopAnchor(webView, 0.0);
@@ -291,7 +290,6 @@ public class HydrologicalToolController implements ControlledScreen {
 
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
-                System.out.println("list test" + this.currentProperty.getLatLongCoordinates());
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });

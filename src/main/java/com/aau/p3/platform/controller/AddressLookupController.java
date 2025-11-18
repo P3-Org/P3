@@ -139,16 +139,10 @@ public class AddressLookupController implements ControlledScreen  {
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
-                System.out.println(selectedAddress);
 
                  if (propertyManager.checkPropertyExists(selectedAddress)) {
                      propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
-
-                     System.out.println("if went through");
-
                 } else {
-                     System.out.println("else went through");
-
                      GeoDataReader geoReader = new TiffFileReader();
                      ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
@@ -158,13 +152,7 @@ public class AddressLookupController implements ControlledScreen  {
                      Property newProperty = new Property(selectedAddress,polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
                       propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
-
                  }
-
-                //this.mainController.globalCoords = coordinates.getCoordinates();
-                //this.mainController.polygonCoords = polygonForAddress.getPolygon();
-                //System.out.println("hej 3" + this.mainController.polygonCoords);
-                System.out.println("Current property set to: " + propertyManager.currentProperty);
 
                 hydrologicalTool();
 
