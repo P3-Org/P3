@@ -1,4 +1,4 @@
-package com.aau.p3.climatetool.utilities.color;
+package com.aau.p3.climatetool.utilities;
 
 public class NormalizeSample {
     /**

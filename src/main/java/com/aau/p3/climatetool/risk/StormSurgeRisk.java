@@ -5,7 +5,7 @@ import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-import com.aau.p3.climatetool.utilities.color.NormalizeSample;
+import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
 

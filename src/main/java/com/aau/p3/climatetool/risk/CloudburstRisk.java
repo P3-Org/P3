@@ -5,7 +5,7 @@ import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-import com.aau.p3.climatetool.utilities.color.NormalizeSample;
+import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class CloudburstRisk implements RiskAssessment {
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
         List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
-        this.threshold = this.thresholdRepository.getThreshold("cloudburst");
+        this.threshold = thresholdRepository.getThreshold("cloudburst");
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, threshold);
         this.RGBValue = ColorManager.getRGBValues(measurementValue);

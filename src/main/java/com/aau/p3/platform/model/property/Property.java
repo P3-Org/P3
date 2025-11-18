@@ -5,19 +5,28 @@ import java.util.List;
 
 public class Property {
     private Address address;
-    private final double[][] coordinates;
+    private final double[][] polygonCoordinates;
     private final List<RiskAssessment> riskAssessment;
+    private int BFEValue;
 
     public Property(double[][] coordinates, List<RiskAssessment> riskAssessment) {
-        this.coordinates = coordinates;
+        this.polygonCoordinates = coordinates;
         this.riskAssessment = riskAssessment;
     }
 
     public double[][] getCoordinates() {
-        return this.coordinates;
+        return this.polygonCoordinates;
     }
 
     public List<RiskAssessment> getRisks() {
         return this.riskAssessment;
+    }
+
+    public int getBFEValue() {
+        return this.BFEValue;
+    }
+
+    public void setBFE(int BFE) {
+        this.BFEValue = BFE;
     }
 }

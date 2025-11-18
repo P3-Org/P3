@@ -57,8 +57,6 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Pane coastalErosionIndicator;
 
-
-
     @FXML
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
