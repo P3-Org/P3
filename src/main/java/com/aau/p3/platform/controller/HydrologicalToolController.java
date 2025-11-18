@@ -70,13 +70,16 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
-    private Pane cloudBurstIndicator;
+    private AnchorPane cloudBurstIndicator;
     @FXML
-    private Pane stormSurgeIndicator;
+    private AnchorPane stormSurgeIndicator;
     @FXML
-    private Pane groundWaterIndicator;
+    private AnchorPane groundWaterIndicator;
     @FXML
-    private Pane coastalErosionIndicator;
+    private AnchorPane coastalErosionIndicator;
+
+    @FXML
+    private Slider cloudBurstThumb;
 
     @FXML
     private Label overallScoreId;
@@ -220,10 +223,10 @@ public class HydrologicalToolController implements ControlledScreen {
         riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
 
         Indicator indicator = new Indicator();
-        indicator.setThresholdsLines("", cloudBurstIndicator);
-        indicator.setThresholdsLines("", groundWaterIndicator);
-        indicator.setThresholdsLines("", stormSurgeIndicator);
-        indicator.setThresholdsLines("", coastalErosionIndicator);
+        indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
+        indicator.setThresholdsLines("groundwater", groundWaterIndicator);
+        indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
+        indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
     }
 
     @FXML
