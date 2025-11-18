@@ -1,26 +1,24 @@
 package com.aau.p3.climatetool;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import com.aau.p3.climatetool.utilities.RiskAssessment;
+
 import java.util.List;
 
 public class ClimateStateScore {
-    private List<double[]> listOfRGBValues = new ArrayList<>();
+    public static int computeOverallClimateScore(List<RiskAssessment> riskAssessment) {
+        int overallClimateScore = 5;
 
-//    public int computeScore(List<RiskAssessment> assessmentList, double[][] coordinates) {
-//        for (RiskAssessment risk : assessmentList) {
-//            listOfRGBValues.add(risk.gatherData(coordinates));
-//        }
-//        formula(listOfRGBValues);
-//        return 1;
-//    }
-
-    private void formula(List<double[]> RGBValues) {
-        for (double[] arr : RGBValues) {
-            System.out.println("You gotta check this out:" + RGBValues.getClass());
-            System.out.println(Arrays.toString(arr));
+        for (RiskAssessment risks : riskAssessment) {
+            if (risks.getNormalizedValue() <= 0) {
+                overallClimateScore -= 2;
+            } else if (risks.getNormalizedValue() < 1) {
+                overallClimateScore -= 1;
+            }
         }
-    }
 
-    public void getScore(){}
+        if (overallClimateScore < 1) {
+            overallClimateScore = 1;
+        }
+        return overallClimateScore;
+    }
 }

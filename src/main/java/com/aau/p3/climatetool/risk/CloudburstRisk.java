@@ -30,7 +30,7 @@ public class CloudburstRisk implements RiskAssessment {
         this.threshold = thresholdRepository.getThreshold("cloudburst");
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, threshold);
-        this.RGBValue = ColorManager.getRGBValues(measurementValue);
+        this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
     @Override

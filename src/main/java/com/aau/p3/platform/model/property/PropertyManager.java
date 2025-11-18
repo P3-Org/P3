@@ -17,6 +17,7 @@ public class PropertyManager {
     public static Property getProperty(String address) {
         return propertyList.get(address);
     }
+
     public void setCurrentProperty(Property currentProperty ){
         this.currentProperty = currentProperty;
     }

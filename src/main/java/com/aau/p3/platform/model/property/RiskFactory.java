@@ -27,10 +27,10 @@ public class RiskFactory {
         List<RiskAssessment> riskAssessments = new ArrayList<>();
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
-        riskAssessments.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
+        riskAssessments.add(new CloudburstRisk(geoReader, thresholdRepo, new AverageMeasurementStrategy()));
         riskAssessments.add(new GroundwaterRisk(thresholdRepo));
         riskAssessments.add(new CoastalErosionRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-        riskAssessments.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
+        riskAssessments.add(new StormSurgeRisk(geoReader, thresholdRepo, new AverageMeasurementStrategy()));
 
         for (RiskAssessment risks : riskAssessments) {
             risks.computeRiskMetrics(coordinates);

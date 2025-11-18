@@ -1,18 +1,13 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.Main;
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
-import com.aau.p3.platform.controller.PopupWindowController;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
-import com.aau.p3.database.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
-import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
@@ -29,7 +24,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 
-import java.util.ArrayList;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -47,7 +41,6 @@ public class HydrologicalToolController implements ControlledScreen {
     private Property currentProperty;
 
     private MainController mainController;
-
 
     @Override
     public void setMainController(MainController mainController) {
@@ -85,19 +78,14 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Pane coastalErosionIndicator;
 
+    @FXML
+    private Label overallScoreId;
 
     @FXML
     public void initialize() {
-        System.out.println("HydrologicalToolController initialized!");
-
         // initialize Sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
-
-
-
-
-
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
@@ -122,16 +110,6 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
         mapAnchor.getChildren().add(webView);
-
-
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-
-            }
-        });
-
-
-
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.
@@ -233,13 +211,9 @@ public class HydrologicalToolController implements ControlledScreen {
         return arr;
     }
 
-    private void doRiskstuff(double[][] polygon){
-        /* Sets up the different readers for both the Geo data and the database.
-         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-         *  Follows the Dependency Inversion Principle */
-
-        //Property property = new Property(polygon, riskFactory.createRisks(polygon));
-
+    private void evaluateRiskProfile(double[][] polygon){
+        currentProperty.calculateClimateScore();
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
@@ -250,6 +224,16 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("", groundWaterIndicator);
         indicator.setThresholdsLines("", stormSurgeIndicator);
         indicator.setThresholdsLines("", coastalErosionIndicator);
+    }
+
+    @FXML
+    private void increaseScore(ActionEvent event) {
+
+    }
+
+    @FXML
+    private void decreaseScore(ActionEvent event){
+
     }
 
     @FXML
@@ -286,7 +270,7 @@ public class HydrologicalToolController implements ControlledScreen {
     }
     public void afterInitialize(){
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
-        this.doRiskstuff(polygonArray);
+        this.evaluateRiskProfile(polygonArray);
 
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {

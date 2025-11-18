@@ -23,15 +23,29 @@
                                     </Label>
                                   </children>
                               </AnchorPane>
-                              <AnchorPane maxWidth="50">
-                                 <children>
-                                    <Label text="{estScore}" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                               <HBox alignment="CENTER" spacing="5">
+                                   <Button fx:id="scoreDownButton"
+                                           text="-"
+                                           onAction="#decreaseScore"
+                                           prefWidth="30"
+                                           prefHeight="30"
+                                           style="-fx-font-size: 18;" />
+
+                                   <Label fx:id="overallScoreId"
+                                          text="{estScore}"
+                                          textAlignment="CENTER">
                                        <font>
-                                          <Font size="40.0" />
+                                           <Font size="40.0" />
                                        </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
+                                   </Label>
+
+                                   <Button fx:id="scoreUpButton"
+                                           text="+"
+                                           onAction="#increaseScore"
+                                           prefWidth="30"
+                                           prefHeight="30"
+                                           style="-fx-font-size: 18;" />
+                               </HBox>
                            </children>
                         </HBox>
                      </top>

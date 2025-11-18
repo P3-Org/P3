@@ -30,7 +30,7 @@ public class StormSurgeRisk implements RiskAssessment {
         this.threshold = thresholdRepository.getThreshold("stormsurge");
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
-        this.RGBValue = ColorManager.getRGBValues(measurementValue);
+        this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
     @Override

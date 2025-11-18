@@ -1,7 +1,5 @@
 package com.aau.p3.climatetool.risk;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
-import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.climatetool.geoprocessing.GroundwaterReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
@@ -29,7 +27,7 @@ public class GroundwaterRisk implements RiskAssessment {
         this.measurementValue = reader.getDistanceFromSurface();
         this.threshold = thresholdRepository.getThreshold("groundwater");
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(measurementValue, threshold);
-        this.RGBValue = ColorManager.getRGBValues(measurementValue);
+        this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
     @Override
