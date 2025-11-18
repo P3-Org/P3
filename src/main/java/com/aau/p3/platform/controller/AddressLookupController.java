@@ -52,11 +52,7 @@ public class AddressLookupController implements ControlledScreen  {
 
     @FXML
     public void initialize() {
-        /// Defensive: ensure FXML was wired
-        if (myCasesTable == null) {
-            System.err.println("myCasesTable is null — check fx:id and fx:controller in the FXML");
-            return;
-        }
+
 
         // Map columns using lambdas (explicit, avoids reflection issues)
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
@@ -126,7 +122,8 @@ public class AddressLookupController implements ControlledScreen  {
     private void selectItem(){
         String selected = suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
-            addressField.setText(selected);
+            addressField.setText(selected + " ");
+            addressField.positionCaret(selected.length() +1);
             DawaGetType type = new DawaGetType(selected);
             if (type.getType().equals("adresse")){
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
