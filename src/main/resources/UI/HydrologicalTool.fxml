@@ -206,8 +206,7 @@
                </children></VBox>
             <VBox prefHeight="443.0" prefWidth="399.0">
                <children>
-                   <AnchorPane fx:id="mapAnchor" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-                   </AnchorPane>
+                   <AnchorPane fx:id="mapAnchor" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                   <AnchorPane>
                      <children>
                          <HBox alignment="CENTER" prefHeight="26.0" prefWidth="628.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
@@ -228,6 +227,7 @@
                      <children>
                         <Slider fx:id="cloudBurstSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                         <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Button layoutX="785.0" layoutY="-2.0" mnemonicParsing="false" onAction="#settingsMenu" text="settings" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>

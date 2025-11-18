@@ -29,8 +29,6 @@ public class MainController {
     }
 
 
-
-
     /* setCenter method takes an FXML file
     type (window) and replaces the current window with that content */
     public void setCenter(String fxml) {

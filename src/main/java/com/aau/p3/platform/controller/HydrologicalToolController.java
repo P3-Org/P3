@@ -26,6 +26,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
+import com.aau.p3.platform.controller.MainController;
 
 import java.util.ArrayList;
 import javafx.stage.Stage;
@@ -83,7 +84,10 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Pane coastalErosionIndicator;
 
-
+    @FXML
+    private void settingsMenu(ActionEvent event) {
+        mainController.setCenter("/UI/settingsMenu.fxml");
+    }
     @FXML
     public void initialize() {
         System.out.println("HydrologicalToolController initialized!");
