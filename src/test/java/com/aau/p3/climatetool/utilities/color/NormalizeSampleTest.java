@@ -1,12 +1,9 @@
 package com.aau.p3.climatetool.utilities.color;
 
+import com.aau.p3.climatetool.utilities.NormalizeSample;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class NormalizeSampleTest {
     private double[] threshold;
