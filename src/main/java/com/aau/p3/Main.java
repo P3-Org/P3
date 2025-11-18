@@ -1,6 +1,7 @@
 package com.aau.p3;
 
 
+import com.aau.p3.platform.model.property.PropertyManager;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -10,7 +11,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
-
+    public static PropertyManager propertyManager = new PropertyManager();
     /* The start method is defined in Application and is used to create a scene with JavaFX */
     @Override
     public void start(Stage primaryStage) {

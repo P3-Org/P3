@@ -1,9 +1,17 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.dawa.*;
+import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
+import com.aau.p3.climatetool.utilities.GeoDataReader;
+import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
 import com.aau.p3.platform.model.common.Address;
+import com.aau.p3.platform.model.property.Property;
+import com.aau.p3.platform.model.property.PropertyManager;
+import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
@@ -22,12 +30,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressLookupController implements ControlledScreen  {
 
     private MainController mainController;
+    private PropertyManager propertyManager = Main.propertyManager;
 
 
     @Override
@@ -88,16 +99,13 @@ public class AddressLookupController implements ControlledScreen  {
         // When the user types in the address field
         addressField.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.isEmpty()) {
-                // Creates the API call from the UrlAutoComplete object with the given UrlString.
-                UrlAutoComplete dawaAutoComplete = new UrlAutoComplete(newText);
-
                 // Takes the response and finds the addresses from the DawaGetAddress class and method
                 DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
                 addresses = addressResponse.getAddresses();
-                // Addresses are converted to a observable list so it can be put into our ListView suggestionList.
-                ObservableList<String> ObservableAddresses = FXCollections.observableArrayList(addresses);
+                // Addresses are converted to an observable list so it can be put into our ListView suggestionList.
+                ObservableList<String> observableAddresses = FXCollections.observableArrayList(addresses);
                 if (!addresses.isEmpty()) {
-                    suggestionsList.setItems(ObservableAddresses);
+                    suggestionsList.setItems(observableAddresses);
                     if (!suggestionsPopup.isShowing()) {
                         Bounds bounds = addressField.localToScreen(addressField.getBoundsInLocal()); // Finds the bounds for the address field
                         suggestionsPopup.show(addressField.getScene().getWindow(), bounds.getMinX(), bounds.getMaxY()); //
@@ -120,32 +128,64 @@ public class AddressLookupController implements ControlledScreen  {
      * After this it checks if the selected text will result in the API call "type" adresse,
      * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property */
     private void selectItem(){
-        String selected = suggestionsList.getSelectionModel().getSelectedItem();
+        String selected =  suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
             addressField.setText(selected + " ");
             addressField.positionCaret(selected.length() +1);
             DawaGetType type = new DawaGetType(selected);
-            if (type.getType().equals("adresse")){
+            if (type.getType().equals("adresse")) {
+                String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
-                DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(),propertyNumbers.getCadastre());
+                DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
+                System.out.println(selectedAddress);
 
-                this.mainController.globalCoords = coordinates.getCoordinates();
-                this.mainController.polygonCoords = polygonForAddress.getPolygon();
-                System.out.println("hej 3" + this.mainController.polygonCoords);
+                 if (propertyManager.checkPropertyExists(selectedAddress)) {
+                     propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
+
+                     System.out.println("if went through");
+
+                } else {
+                     System.out.println("else went through");
+
+                     GeoDataReader geoReader = new TiffFileReader();
+                     ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+
+                     RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
+                     double[][] polygon = to2dArray(polygonForAddress.getPolygon());
+
+                     Property newProperty = new Property(selectedAddress,polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+                      propertyManager.addProperty(newProperty);
+                     propertyManager.setCurrentProperty(newProperty);
+
+                 }
+
+                //this.mainController.globalCoords = coordinates.getCoordinates();
+                //this.mainController.polygonCoords = polygonForAddress.getPolygon();
+                //System.out.println("hej 3" + this.mainController.polygonCoords);
+                System.out.println("Current property set to: " + propertyManager.currentProperty);
+
                 hydrologicalTool();
 
-                // Go to hydro tool
-                //HydrologicalToolController.getWebEngine();
-                // find addresse på map
-
-                // få data for den addresse og print i console(til at starte med)
-
             }
-
         }
     }
+    private double[][] to2dArray(List<List<Double>> list) {
+        double[][] arr = new double[list.size()][];
+
+        for (int i = 0; i < list.size(); i++) {
+            List<Double> inner = list.get(i);
+            arr[i] = new double[inner.size()];
+
+            for (int j = 0; j < inner.size(); j++) {
+                arr[i][j] = inner.get(j);
+            }
+        }
+        return arr;
+    }
+
+
     @FXML
     private void hydrologicalTool() {
         mainController.setCenter("/UI/HydrologicalTool.fxml");

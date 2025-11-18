@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
@@ -10,6 +11,7 @@ import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
+import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
@@ -41,8 +43,8 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
     private WebEngine webEngine;
-    private List<String> coords;
-    private List<List<Double>> polygonCoords;
+    private PropertyManager propertyManager;
+    private Property currentProperty;
 
     private MainController mainController;
 
@@ -50,8 +52,8 @@ public class HydrologicalToolController implements ControlledScreen {
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
-        this.coords = this.mainController.globalCoords;
-        this.polygonCoords = this.mainController.polygonCoords;
+        this.propertyManager = Main.propertyManager;
+        this.currentProperty = propertyManager.currentProperty;
     }
 
     @FXML
@@ -125,18 +127,11 @@ public class HydrologicalToolController implements ControlledScreen {
 
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
-               double[][] polygonArray = this.to2dArray(polygonCoords);
-               this.doRiskstuff(polygonArray);
+
             }
         });
 
 
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                System.out.println("list test" + coords);
-                panTo(coords);
-            }
-        });
 
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
@@ -243,17 +238,13 @@ public class HydrologicalToolController implements ControlledScreen {
         /* Sets up the different readers for both the Geo data and the database.
          *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
          *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TiffFileReader();
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
-        RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
-
-        Property property = new Property(polygon, riskFactory.createRisks(polygon));
+        //Property property = new Property(polygon, riskFactory.createRisks(polygon));
 
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
-        riskLabelBinder.applyColors(property.getRisks(), polygon);
+        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("", cloudBurstIndicator);
@@ -292,5 +283,17 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+    public void afterInitialize(){
+        double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
+        this.doRiskstuff(polygonArray);
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                System.out.println("list test" + this.currentProperty.getLatLongCoordinates());
+                panTo(this.currentProperty.getLatLongCoordinates());
+            }
+        });
     }
 }
