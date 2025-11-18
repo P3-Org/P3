@@ -1,6 +1,9 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.climatetool.dawa.DawaAutocomplete;
+import com.aau.p3.climatetool.popUpMessages.RiskInfo;
+import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
+import com.aau.p3.platform.controller.PopupWindowController;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.database.StaticThresholdRepository;
@@ -14,14 +17,20 @@ import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
+
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +71,10 @@ public class HydrologicalToolController implements ControlledScreen {
     Slider stormSurgeSlider = new Slider();
 
     @FXML
-    private AnchorPane mapAnchor;
+    private AnchorPane mapAnchor; //Anchor pane for the webmap
+    
+    @FXML
+    public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
 
     @FXML
     private GridPane labelContainer;
@@ -75,7 +87,6 @@ public class HydrologicalToolController implements ControlledScreen {
     private Pane groundWaterIndicator;
     @FXML
     private Pane coastalErosionIndicator;
-
 
 
     @FXML
@@ -267,6 +278,38 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("", coastalErosionIndicator);
 
 
+    }
+
+    @FXML
+    private void popUpHandler(ActionEvent event) {
+        try {
+            // Readies the popup scene, much like the main stage.
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/PopupWindow.fxml"));
+            VBox popupRoot = loader.load();
+
+            // When the button is clicked, the correct .properties file is found using the fx:id.
+            Button clicked = (Button) event.getSource();
+            String category = clicked.getId().replace("Popup", "").toLowerCase();
+
+            // Instantialises RiskInfoService, to enable calling the loadInfo method, and sourcing the proper information.
+            RiskInfoService infoService = new RiskInfoService();
+            RiskInfo RiskDrilldown = infoService.loadInfo(category);
+
+            // Sets PopupWindowController as the controller for the popup that arises. Runs displayInfo from the controller.
+            PopupWindowController controller = loader.getController();
+            controller.displayInfo(RiskDrilldown);
+
+            // Properly initialises, positions and fills the page with the generated and gathered information.
+            Stage popupStage = new Stage();
+            controller.setStage(popupStage);
+            popupStage.setScene(new Scene(popupRoot));
+            popupStage.initOwner(climateToolScene.getScene().getWindow());
+            popupStage.setAlwaysOnTop(true);
+            popupStage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
