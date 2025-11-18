@@ -1,15 +1,13 @@
 package com.aau.p3.platform.controller;
 
-import com.aau.p3.climatetool.ClimateStateScore;
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
-import com.aau.p3.database.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
-import com.aau.p3.platform.model.property.RiskFactory;
+import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
@@ -39,17 +37,16 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
     private WebEngine webEngine;
-    private List<String> coords;
-    private List<List<Double>> polygonCoords;
+    private PropertyManager propertyManager;
+    private Property currentProperty;
 
     private MainController mainController;
-
 
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
-        this.coords = this.mainController.globalCoords;
-        this.polygonCoords = this.mainController.polygonCoords;
+        this.propertyManager = Main.propertyManager;
+        this.currentProperty = propertyManager.currentProperty;
     }
 
     @FXML
@@ -84,7 +81,6 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Label overallScoreId;
 
-
     @FXML
     public void initialize() {
         // initialize Sliders functionality
@@ -114,22 +110,6 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
         mapAnchor.getChildren().add(webView);
-
-
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-               double[][] polygonArray = this.to2dArray(polygonCoords);
-               this.doRiskstuff(polygonArray);
-            }
-        });
-
-
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                panTo(coords);
-            }
-        });
-
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.
@@ -231,27 +211,13 @@ public class HydrologicalToolController implements ControlledScreen {
         return arr;
     }
 
-    private void doRiskstuff(double[][] polygon){
-        /* Sets up the different readers for both the Geo data and the database.
-         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-         *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TiffFileReader();
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
-
-        RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
-
-        String address = "Bondagervej 5, 8382 Hinnerup";
-        double[] longLat = {10.17169695, 57.15120367};
-
-        Property property = new Property(address, polygon, longLat, riskFactory.createRisks(polygon));
-
-        property.calculateClimateScore();
-        overallScoreId.setText(Double.toString(property.getClimateScore()));
-
+    private void evaluateRiskProfile(double[][] polygon){
+        currentProperty.calculateClimateScore();
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
-        riskLabelBinder.applyColors(property.getRisks(), polygon);
+        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("", cloudBurstIndicator);
@@ -259,7 +225,7 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("", stormSurgeIndicator);
         indicator.setThresholdsLines("", coastalErosionIndicator);
     }
-    
+
     @FXML
     private void increaseScore(ActionEvent event) {
 
@@ -300,5 +266,16 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+    public void afterInitialize(){
+        double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
+        this.evaluateRiskProfile(polygonArray);
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                panTo(this.currentProperty.getLatLongCoordinates());
+            }
+        });
     }
 }

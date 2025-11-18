@@ -6,37 +6,37 @@ import java.util.List;
 
 public class Property {
     private final String address;
-    private final double[][] polygonCoordinates;
-    private final double[] latLongCoordinates;
+    private final List<List<Double>> polygonCoordinates;
+    private final List<String> latLongCoordinates;
     private final List<RiskAssessment> riskAssessment;
     private int climateScore;
     private int specialistScore = 0;
 
-    public Property(String address, double[][] polygonCoordinates, double[] latLongCoordinates, List<RiskAssessment> riskAssessment) {
+    public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
         this.address = address;
         this.polygonCoordinates = polygonCoordinates;
         this.latLongCoordinates = latLongCoordinates;
         this.riskAssessment = riskAssessment;
     }
 
-    public String getAddress() {
-        return this.address;
-    }
-
-    public double[][] getPolygonCoordinates() {
-        return this.polygonCoordinates;
-    }
-
-    public double[] getLatLongCoordinates() {
-        return latLongCoordinates;
-    }
-
     public List<RiskAssessment> getRisks() {
         return this.riskAssessment;
     }
 
+    public String getAddress() {
+        return this.address;
+    }
+
+    public List<List<Double>> getPolygonCoordinates() {
+        return this.polygonCoordinates;
+    }
+
     public int getClimateScore() {
         return climateScore + specialistScore;
+    }
+
+    public List<String> getLatLongCoordinates() {
+        return latLongCoordinates;
     }
 
     public void setSpecialistScore(int scoreEdit) {

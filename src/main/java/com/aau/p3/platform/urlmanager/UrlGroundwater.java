@@ -17,7 +17,6 @@ public class UrlGroundwater extends UrlManager{
         String urlGroundwater = BASE_URL + "/rest/hydro_model/v1.0/grundvandsstand/100m?punkt=POINT(" +
                 encodedQuery +
                 ")&token=c6937f7f319698d502a27b3895d26d2d";
-        System.out.println(urlGroundwater);
         // Get and return response of API call
         return super.getResponse(urlGroundwater);
     }

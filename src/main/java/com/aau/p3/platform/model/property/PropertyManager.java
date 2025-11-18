@@ -4,18 +4,21 @@ import java.util.HashMap;
 
 public class PropertyManager {
     private static final HashMap<String, Property> propertyList = new HashMap<>();
+    public Property currentProperty;
 
     public static boolean checkPropertyExists(String address) {
         return propertyList.containsKey(address);
     }
 
     public static void addProperty(Property property) {
-        if (checkPropertyExists(property.getAddress())){
-           propertyList.put(property.getAddress(), property);
-        }
+        propertyList.put(property.getAddress(), property);
     }
 
     public static Property getProperty(String address) {
         return propertyList.get(address);
+    }
+
+    public void setCurrentProperty(Property currentProperty ){
+        this.currentProperty = currentProperty;
     }
 }

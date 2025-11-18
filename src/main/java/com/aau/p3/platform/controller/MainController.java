@@ -52,6 +52,11 @@ public class MainController {
             * while in theory not being linked at all with it */
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
+
+                // Run some code after maincontroller i set and variables are moved
+                if (ctrl instanceof HydrologicalToolController htc){
+                    htc.afterInitialize();
+                }
             }
 
 
