@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
 
+
 public class MainController {
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
@@ -21,6 +22,9 @@ public class MainController {
     public void initialize() {
         setCenter("/UI/AddressLookup.fxml");
     }
+
+
+
 
     /* setCenter method takes an FXML file
     type (window) and replaces the current window with that content */
@@ -44,6 +48,7 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
             }
+
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
@@ -88,8 +93,12 @@ public class MainController {
         setCenter("/UI/HydrologicalTool.fxml");
     }
 
+
+
     @FXML
     private void exitApp() {
         System.exit(0);
     }
+
+
 }
