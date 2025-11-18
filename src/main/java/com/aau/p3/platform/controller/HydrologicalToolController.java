@@ -3,6 +3,8 @@ package com.aau.p3.platform.controller;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.platform.controller.PopupWindowController;
+import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
+import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.risk.CloudburstRisk;
