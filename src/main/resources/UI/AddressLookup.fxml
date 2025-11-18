@@ -10,14 +10,14 @@
             <items>
                 <AnchorPane>
                     <children>
-                        <TextField promptText="Search any address" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" />
+                        <TextField fx:id="addressField" promptText="Søg efter en adresse" styleClass="search-bar" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="20.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane>
                     <children>
                   <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" spacing="10.0">
                      <children>
-                              <Label text="My cases">
+                              <Label text="Mine cases">
                                   <font>
                                       <Font size="35.0" />
                                   </font>
@@ -25,8 +25,8 @@
                               <TableView fx:id="myCasesTable">
                                   <columns>
                                       <TableColumn fx:id="tableCaseID" text="Case ID" />
-                                      <TableColumn fx:id="tableTitle" text="Title" />
-                                      <TableColumn fx:id="tableOwner" text="Owner" />
+                                      <TableColumn fx:id="tableTitle" text="Adresse" />
+                                      <TableColumn fx:id="tableOwner" text="Grundejer" />
                                       <TableColumn fx:id="tableStatus" text="Status" />
                                   </columns>
                                   <columnResizePolicy>

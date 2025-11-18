@@ -9,8 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
+import java.util.List;
+
+
 
 public class MainController {
+    Object ctrl;
+    public List<String> globalCoords;
+    public List<List<Double>> polygonCoords;
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
     @FXML private AnchorPane contentArea;
@@ -21,6 +27,9 @@ public class MainController {
     public void initialize() {
         setCenter("/UI/AddressLookup.fxml");
     }
+
+
+
 
     /* setCenter method takes an FXML file
     type (window) and replaces the current window with that content */
@@ -36,7 +45,7 @@ public class MainController {
 
             /* Give sub-controller a reference back to this controller so a two-way communication is possible
             *  loader.getController() finds which controller os calling it from the FXML file that was found in getResource() */
-            Object ctrl = loader.getController();
+            this.ctrl = loader.getController();
 
             /* Checks if the current controller is an instance of the interface ControlledScreen
             * such that the subcontroller implements the method setMainController() and can communicate with the MainController
@@ -44,6 +53,7 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
             }
+
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
@@ -70,6 +80,10 @@ public class MainController {
         }
     }
 
+    public Object getctrl(){
+        return this.ctrl;
+    }
+
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
     @FXML
     private void openMyCases(ActionEvent actionEvent) {
@@ -88,8 +102,12 @@ public class MainController {
         setCenter("/UI/HydrologicalTool.fxml");
     }
 
+
+
     @FXML
     private void exitApp() {
         System.exit(0);
     }
+
+
 }

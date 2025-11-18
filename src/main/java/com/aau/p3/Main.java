@@ -2,8 +2,10 @@ package com.aau.p3;
 
 
 import javafx.application.Application;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
@@ -21,15 +23,22 @@ public class Main extends Application {
 
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
+;
             primaryStage.setTitle("Nykredit Platform");
 
-            /* displays the initial window which is defined in MainWindow.fxml */
-            primaryStage.setScene(new Scene(root, 800, 600));
+            System.out.println("this is the primarystage"+primaryStage);
+
+            /* Displays the application at 90% of the screen,
+             * with the initial window which is defined in MainWindow.fxml */
+            Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+            primaryStage.setScene(new Scene(root, bounds.getWidth() * 0.9, bounds.getHeight() * 0.9));
+
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }
 
 
