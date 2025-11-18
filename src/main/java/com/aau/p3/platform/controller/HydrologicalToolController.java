@@ -95,13 +95,6 @@ public class HydrologicalToolController implements ControlledScreen {
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
-
-
-
-
-
-        cloudBurstThumb.setValue(50);
-
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
         webEngine = webView.getEngine();
@@ -261,10 +254,10 @@ public class HydrologicalToolController implements ControlledScreen {
         riskLabelBinder.applyColors(property.getRisks(), polygon);
 
         Indicator indicator = new Indicator();
-        indicator.setThresholdsLines("", cloudBurstIndicator);
-        indicator.setThresholdsLines("", groundWaterIndicator);
-        indicator.setThresholdsLines("", stormSurgeIndicator);
-        indicator.setThresholdsLines("", coastalErosionIndicator);
+        indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
+        indicator.setThresholdsLines("groundwater", groundWaterIndicator);
+        indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
+        indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
     }
 
     @FXML
