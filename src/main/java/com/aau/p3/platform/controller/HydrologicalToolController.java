@@ -65,13 +65,16 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
-    private Pane cloudBurstIndicator;
+    private AnchorPane cloudBurstIndicator;
     @FXML
-    private Pane stormSurgeIndicator;
+    private AnchorPane stormSurgeIndicator;
     @FXML
-    private Pane groundWaterIndicator;
+    private AnchorPane groundWaterIndicator;
     @FXML
-    private Pane coastalErosionIndicator;
+    private AnchorPane coastalErosionIndicator;
+
+    @FXML
+    private Slider cloudBurstThumb;
 
 
     @FXML
@@ -110,6 +113,8 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("", groundWaterIndicator);
         indicator.setThresholdsLines("", stormSurgeIndicator);
         indicator.setThresholdsLines("", coastalErosionIndicator);
+
+        cloudBurstThumb.setValue(50);
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();

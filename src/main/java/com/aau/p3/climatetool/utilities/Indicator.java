@@ -1,19 +1,21 @@
 package com.aau.p3.climatetool.utilities;
 
+import javafx.scene.control.Slider;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Indicator {
     private double[] mockThreshold = {30, 70};
 
-    public void setThresholdsLines(String risk, Pane indicator){
+    public void setThresholdsLines(String risk, AnchorPane indicator){
         Line lowerThreshold = new Line();
         Line upperThreshold = new Line();
 
-        lowerThreshold.startYProperty().set(0);
-        lowerThreshold.endYProperty().bind(indicator.heightProperty()); // auto adjust height
-        upperThreshold.startYProperty().set(0);
-        upperThreshold.endYProperty().bind(indicator.heightProperty());
+        lowerThreshold.startYProperty().set(2);
+        lowerThreshold.endYProperty().set(10); // auto adjust height
+        upperThreshold.startYProperty().set(2);
+        upperThreshold.endYProperty().set(10);
 
         lowerThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[0])));
         lowerThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[0])));
