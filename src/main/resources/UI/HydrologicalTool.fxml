@@ -227,7 +227,7 @@
                      <children>
                         <Slider fx:id="cloudBurstSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                         <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <Button layoutX="785.0" layoutY="-2.0" mnemonicParsing="false" onAction="#settingsMenu" text="settings" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="785.0" layoutY="-2.0" mnemonicParsing="false" onAction="#settingsMenu" styleClass="settings-button" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>

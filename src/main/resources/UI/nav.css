@@ -146,3 +146,17 @@
     -fx-opacity: 0.35;
     -fx-cursor: default;
 }
+.settings-button {
+    -fx-background-image: url("images/settingsIcon.png");
+    -fx-background-size: 20px 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+.settings-button:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 6;
+}
