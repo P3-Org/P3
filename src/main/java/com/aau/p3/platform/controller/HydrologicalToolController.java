@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.platform.controller.PopupWindowController;
@@ -15,6 +16,7 @@ import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
+
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -40,14 +43,26 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+    private WebEngine webEngine;
+    private List<String> coords;
+    private List<List<Double>> polygonCoords;
 
     private MainController mainController;
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
 
     @Override
     public void setMainController(MainController mainController) {
+        System.out.println(">>> setMainController CALLED");
+
         this.mainController = mainController;
+        this.coords = this.mainController.globalCoords;
+        this.polygonCoords = this.mainController.polygonCoords;
     }
+
+    @FXML
+    private TextField addressField; // The field where the user types the address
+    private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
+    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
 
     @FXML
     Slider cloudBurstSlider = new Slider();
@@ -82,49 +97,40 @@ public class HydrologicalToolController implements ControlledScreen {
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
-        // CALL API DAWA - GETS COORDINATES
-            // Redundant, only for testing
+
+
         double[][] coordinates = {
                 {550900.0, 6320500.0},
                 {551100.0, 6320500.0},
                 {551100.0, 6320600.0},
                 {550900.0, 6320600.0}};
+        System.out.println("hej2");
+        System.out.println(coordinates);
 
         /* Sets up the different readers for both the Geo data and the database.
         *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
         *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TiffFileReader();
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
-        RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
 
-        /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
-        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-
-        riskLabelBinder.applyColors(riskAssessment, coordinates);
-
-        Indicator indicator = new Indicator();
-        indicator.setThresholdsLines("", cloudBurstIndicator);
-        indicator.setThresholdsLines("", groundWaterIndicator);
-        indicator.setThresholdsLines("", stormSurgeIndicator);
-        indicator.setThresholdsLines("", coastalErosionIndicator);
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
+
+        webEngine = webView.getEngine();
 
         // Make variable for HTML file with all relevant map data and information
         var mapResource = getClass().getResource("/mapData/index.html");
+
         if (mapResource == null) {
             System.err.println("Map HTML not found in resources");
             return;
         }
 
+
         // Creates a string representation of the HTML location to use for the "mapEngine"
         String mapUrl = mapResource.toExternalForm();
+
         webEngine.load(mapUrl);
+
         System.out.println("Loading map from: " + mapUrl);
 
         // Adjust how the webView fills the anchorpane
@@ -134,6 +140,23 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
         mapAnchor.getChildren().add(webView);
+
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+               double[][] polygonArray = this.to2dArray(polygonCoords);
+               this.doRiskstuff(polygonArray);
+            }
+        });
+
+
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                System.out.println("list test" + coords);
+                panTo(coords);
+            }
+        });
+
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.
@@ -204,7 +227,6 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setSnapToTicks(true);
         stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
-
     }
 
     private void setCloudBurstSlider(){
@@ -215,6 +237,46 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setSnapToTicks(true);
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
+    }
+
+    public void panTo(List<String> coords) {
+        webEngine.executeScript("panTo(" + coords + ")");
+    }
+
+    private double[][] to2dArray(List<List<Double>> list) {
+        double[][] arr = new double[list.size()][];
+
+        for (int i = 0; i < list.size(); i++) {
+            List<Double> inner = list.get(i);
+            arr[i] = new double[inner.size()];
+
+            for (int j = 0; j < inner.size(); j++) {
+                arr[i][j] = inner.get(j);
+            }
+        }
+        return arr;
+    }
+
+    private void doRiskstuff(double[][] polygon){
+
+        GeoDataReader geoReader = new TiffFileReader();
+        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+        RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
+
+        /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
+        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
+        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
+        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
+
+        riskLabelBinder.applyColors(riskAssessment, polygon);
+
+        Indicator indicator = new Indicator();
+        indicator.setThresholdsLines("", cloudBurstIndicator);
+        indicator.setThresholdsLines("", groundWaterIndicator);
+        indicator.setThresholdsLines("", stormSurgeIndicator);
+        indicator.setThresholdsLines("", coastalErosionIndicator);
+
 
     }
 

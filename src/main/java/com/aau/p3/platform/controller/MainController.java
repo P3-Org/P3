@@ -9,9 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
+import java.util.List;
+
 
 
 public class MainController {
+    Object ctrl;
+    public List<String> globalCoords;
+    public List<List<Double>> polygonCoords;
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
     @FXML private AnchorPane contentArea;
@@ -40,7 +45,7 @@ public class MainController {
 
             /* Give sub-controller a reference back to this controller so a two-way communication is possible
             *  loader.getController() finds which controller os calling it from the FXML file that was found in getResource() */
-            Object ctrl = loader.getController();
+            this.ctrl = loader.getController();
 
             /* Checks if the current controller is an instance of the interface ControlledScreen
             * such that the subcontroller implements the method setMainController() and can communicate with the MainController
@@ -73,6 +78,10 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Object getctrl(){
+        return this.ctrl;
     }
 
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */

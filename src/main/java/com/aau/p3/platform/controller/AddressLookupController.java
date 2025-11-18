@@ -5,7 +5,9 @@ import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
 import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.urlmanager.UrlAutoComplete;
+import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
+import com.aau.p3.platform.controller.MainController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -23,7 +25,16 @@ import javafx.stage.Popup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressLookupController {
+public class AddressLookupController implements ControlledScreen  {
+
+    private MainController mainController;
+
+
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
     // List over the addresses that will be suggested to auto complete.
     private List<String> addresses = new ArrayList<>();
 
@@ -41,11 +52,7 @@ public class AddressLookupController {
 
     @FXML
     public void initialize() {
-        /// Defensive: ensure FXML was wired
-        if (myCasesTable == null) {
-            System.err.println("myCasesTable is null — check fx:id and fx:controller in the FXML");
-            return;
-        }
+
 
         // Map columns using lambdas (explicit, avoids reflection issues)
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
@@ -115,14 +122,32 @@ public class AddressLookupController {
     private void selectItem(){
         String selected = suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
-            addressField.setText(selected);
+            addressField.setText(selected + " ");
+            addressField.positionCaret(selected.length() +1);
             DawaGetType type = new DawaGetType(selected);
             if (type.getType().equals("adresse")){
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(),propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
+
+                this.mainController.globalCoords = coordinates.getCoordinates();
+                this.mainController.polygonCoords = polygonForAddress.getPolygon();
+                System.out.println("hej 3" + this.mainController.polygonCoords);
+                hydrologicalTool();
+
+                // Go to hydro tool
+                //HydrologicalToolController.getWebEngine();
+                // find addresse på map
+
+                // få data for den addresse og print i console(til at starte med)
+
             }
+
         }
+    }
+    @FXML
+    private void hydrologicalTool() {
+        mainController.setCenter("/UI/HydrologicalTool.fxml");
     }
 }
