@@ -1,5 +1,6 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.platform.controller.PopupWindowController;
@@ -40,6 +41,7 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+    public TextArea commentArea;
 
     private MainController mainController;
     private final List<RiskAssessment> riskAssessment = new ArrayList<>();
@@ -248,6 +250,12 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void commentButtonHandler(ActionEvent event) {
+        String comment = commentArea.getText();
+        Main.propertyManager.currentProperty.setComments(comment);
     }
 
 }

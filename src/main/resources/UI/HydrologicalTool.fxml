@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -42,7 +43,22 @@
                            </children>
                         </AnchorPane>
                      </center>
+                     <bottom>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <buttons>
+                            <Button fx:id="sendComment" onAction="#commentButtonHandler" mnemonicParsing="false" text="Send kommentar"/>
+                          </buttons>
+                           <BorderPane.margin>
+                              <Insets right="5.0" />
+                           </BorderPane.margin>
+                        </ButtonBar>
+                     </bottom>
                   </BorderPane>
+                  <Separator prefWidth="200.0">
+                     <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                     </padding>
+                  </Separator>
                   <AnchorPane prefHeight="300.0">
                      <children>
                         <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" prefHeight="195.0" prefWidth="359.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
@@ -65,7 +81,7 @@
                                                    <center>
                                                       <AnchorPane BorderPane.alignment="CENTER">
                                                          <children>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                            <Label fx:id="cloudburstSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </center>
@@ -101,7 +117,7 @@
                                                    <center>
                                                       <AnchorPane>
                                                          <children>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                            <Label fx:id="groundwaterSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </center>
@@ -137,7 +153,7 @@
                                                    <center>
                                                       <AnchorPane>
                                                          <children>
-                                                            <Label alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                            <Label fx:id="stormsurgeSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </center>
@@ -173,7 +189,7 @@
                                                    <center>
                                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                          <children>
-                                                            <Label alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                            <Label fx:id="coastalerosionSummary" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                          </children>
                                                       </AnchorPane>
                                                    </center>
@@ -202,6 +218,9 @@
                             </children>
                         </GridPane>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </AnchorPane>
                </children></VBox>
             <VBox prefHeight="443.0" prefWidth="399.0">

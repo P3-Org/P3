@@ -1,35 +1,44 @@
 package com.aau.p3.platform.model.property;
-import com.aau.p3.platform.model.common.Address;
+import com.aau.p3.Main;
+import com.aau.p3.climatetool.utilities.RiskAssessment;
+
+import java.util.List;
 
 public class Property {
-    private Address address;
-    private double value;
-    private double area;
+    private final String address;
+    private final List<List<Double>> polygonCoordinates;
+    private final List<String> latLongCoordinates;
+    //private final List<RiskAssessment> riskAssessment;
+    private List<RiskAssessment> riskAssessment;
+    private List<String> comments;
 
-    public Property(double value, double area, Address address) {
-        this.value = value;
-        this.area = area;
+    public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates) {
         this.address = address;
+        this.polygonCoordinates = polygonCoordinates;
+        this.latLongCoordinates = latLongCoordinates;
+        //this.riskAssessment = riskAssessment;
     }
 
-    public Address getAddress() {
+    public List<RiskAssessment> getRisks() {
+        return this.riskAssessment;
+    }
+
+    public String getAddress() {
         return this.address;
     }
 
-    public double getArea() {
-        return this.area;
-    }
-    
-    public double getValue() {
-        return this.value;
-    }
-    
-    public void setValue(double value) {
-        this.value = value;
+    public List<List<Double>> getPolygonCoordinates() {
+        return this.polygonCoordinates;
     }
 
-    @Override
-    public String toString() {
-        return (this.address + " med størrelse: " + this.area + " og værdi: " + this.value);
+    public List<String> getLatLongCoordinates() {
+        return latLongCoordinates;
+    }
+
+    public void setComments(String newComment) {
+        this.comments.add(newComment);
+    }
+    public List<String> getComments() {
+        return this.comments;
     }
 }
