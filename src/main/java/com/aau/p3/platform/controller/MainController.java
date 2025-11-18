@@ -92,7 +92,7 @@ public class MainController {
     }
 
     @FXML
-    public void openHydrologicalTool() {
+    private void openHydrologicalTool(ActionEvent actionEvent) {
         System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
     }

@@ -137,7 +137,7 @@ public class AddressLookupController implements ControlledScreen  {
                 this.mainController.globalCoords = coordinates.getCoordinates();
                 this.mainController.polygonCoords = polygonForAddress.getPolygon();
                 System.out.println("hej 3" + this.mainController.polygonCoords);
-                this.mainController.openHydrologicalTool();
+                hydrologicalTool();
 
                 // Go to hydro tool
                 //HydrologicalToolController.getWebEngine();
@@ -148,5 +148,9 @@ public class AddressLookupController implements ControlledScreen  {
             }
 
         }
+    }
+    @FXML
+    private void hydrologicalTool() {
+        mainController.setCenter("/UI/HydrologicalTool.fxml");
     }
 }
