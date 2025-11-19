@@ -13,15 +13,26 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Factory function for creating risk assessments, returned as a list.
+ * @Author Batman
+ */
 public class RiskFactory {
     private final GeoDataReader geoReader;
     private final ThresholdRepository thresholdRepo;
 
+    // Constructor for final fields
     public RiskFactory(GeoDataReader geoReader, ThresholdRepository thresholdRepo) {
         this.geoReader = geoReader;
         this.thresholdRepo = thresholdRepo;
     }
 
+    /**
+     * Method that adds the different risks to the list of risk assessments. Each is called with the geodata reader,
+     * thresholds and for some, either average/max measurement strategy
+     * @param coordinates The coordinates of the property
+     * @return List of risk assessments.
+     */
     public List<RiskAssessment> createRisks(double[][] coordinates) {
         List<RiskAssessment> riskAssessments = new ArrayList<>();
 
@@ -31,6 +42,7 @@ public class RiskFactory {
         riskAssessments.add(new CoastalErosionRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
         riskAssessments.add(new StormSurgeRisk(geoReader, thresholdRepo, new AverageMeasurementStrategy()));
 
+        // For each risk, use the appropriate function for making the assessment.
         for (RiskAssessment risks : riskAssessments) {
             risks.computeRiskMetrics(coordinates);
         }

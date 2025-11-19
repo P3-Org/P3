@@ -16,7 +16,7 @@ public class GroundwaterReader {
     private List<Double> hValues;
     private double distanceFromSurface;
 
-    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch
+    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch (slet comment senere)
     // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
     /**
