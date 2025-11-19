@@ -24,7 +24,6 @@ public class Main extends Application {
 
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
-;
             primaryStage.setTitle("Nykredit Platform");
 
             /* Displays the application at 90% of the screen,

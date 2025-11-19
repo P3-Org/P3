@@ -6,7 +6,6 @@ import com.aau.p3.climatetool.risk.GroundwaterRisk;
 import com.aau.p3.climatetool.risk.StormSurgeRisk;
 import com.aau.p3.climatetool.strategy.AverageMeasurementStrategy;
 import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
-import com.aau.p3.climatetool.strategy.MinMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;

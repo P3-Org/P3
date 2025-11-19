@@ -240,10 +240,10 @@ public class HydrologicalToolController implements ControlledScreen {
     private void increaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == -1) {
         currentProperty.setSpecialistScore(0);
-        updateScoreButtons(0);
+        updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(1);
-            updateScoreButtons(1);
+            updateScoreButtons();
         }
     }
 
@@ -251,25 +251,27 @@ public class HydrologicalToolController implements ControlledScreen {
     private void decreaseScore(ActionEvent event){
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
-            updateScoreButtons(0);
-
+            updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(-1);
-            updateScoreButtons(-1);
+            updateScoreButtons();
         }
 
     }
 
-    private void updateScoreButtons(int number) {
-        int score = currentProperty.getClimateScore();
-        scoreDownButton.setVisible(score > 1);
-        scoreUpButton.setVisible(score < 5);
+    private void updateScoreButtons() {
+        int overallClimateScore = currentProperty.getClimateScore();
+        int specialistScoreFactor = currentProperty.getSpecialistScore();
 
-        if (number == 1) {
+        scoreDownButton.setVisible(overallClimateScore > 1);
+        scoreUpButton.setVisible(overallClimateScore < 5);
+
+
+        if (specialistScoreFactor == 1) {
             scoreUpButton.setVisible(false);
         }
 
-        if (number == -1) {
+        if (specialistScoreFactor == -1) {
             scoreDownButton.setVisible(false);
         }
 
@@ -311,10 +313,10 @@ public class HydrologicalToolController implements ControlledScreen {
 
     }
     public void afterInitialize() {
-        updateScoreButtons(0);
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
 
+        updateScoreButtons();
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 panTo(this.currentProperty.getLatLongCoordinates());
