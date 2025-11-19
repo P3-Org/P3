@@ -4,6 +4,11 @@ import com.aau.p3.climatetool.utilities.RiskAssessment;
 
 import java.util.List;
 
+/**
+ * Class that holds information on a property, which in "PropertyManager" can be saved in a list.
+ * Holds everything from address, location and risks
+ * @Author Batman
+ */
 public class Property {
     private final String address;
     private final List<List<Double>> polygonCoordinates;
@@ -12,6 +17,7 @@ public class Property {
     private int climateScore;
     private int specialistScore = 0;
 
+    // Constructor, initializes final variables.
     public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
         this.address = address;
         this.polygonCoordinates = polygonCoordinates;
@@ -19,6 +25,12 @@ public class Property {
         this.riskAssessment = riskAssessment;
     }
 
+    // Calls "computeOverallClimateScore" and assigns to attribute
+    public void calculateClimateScore() {
+        this.climateScore = ClimateStateScore.computeOverallClimateScore(riskAssessment);
+    }
+
+    // Getters and setters
     public List<RiskAssessment> getRisks() {
         return this.riskAssessment;
     }
@@ -55,9 +67,5 @@ public class Property {
 
     public int getSpecialistScore() {
         return this.specialistScore;
-    }
-
-    public void calculateClimateScore() {
-         this.climateScore = ClimateStateScore.computeOverallClimateScore(riskAssessment);
     }
 }

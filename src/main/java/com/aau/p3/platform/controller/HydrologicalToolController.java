@@ -221,6 +221,10 @@ public class HydrologicalToolController implements ControlledScreen {
         return arr;
     }
 
+    /**
+     * Method for computing the climate score and setting appropriate colors for page
+     * @param polygon The polygon of the property
+     */
     private void evaluateRiskProfile(double[][] polygon){
         currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
@@ -236,6 +240,10 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
     }
 
+    /**
+     * Method for increasing and updating the climate score button, if measures have been taken to better it
+     * @param event Event that triggers
+     */
     @FXML
     private void increaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == -1) {
@@ -249,6 +257,10 @@ public class HydrologicalToolController implements ControlledScreen {
         }
     }
 
+    /**
+     * Method for increasing and updating the climate score button
+     * @param event Event that triggers
+     */
     @FXML
     private void decreaseScore(ActionEvent event){
         if (currentProperty.getSpecialistScore() == 1) {
@@ -264,11 +276,18 @@ public class HydrologicalToolController implements ControlledScreen {
 
     }
 
+    /**
+     * Method for changing the climate score, in case any measures has been taken to better the score
+     * @param number The list of coordinates
+     * Initializes all fields with the computed information
+     */
     private void updateScoreButtons(int number) {
+        // Calculate new score
         int score = currentProperty.getClimateScore();
         scoreDownButton.setVisible(score > 1);
         scoreUpButton.setVisible(score < 5);
 
+        // Only show buttons if actions should be permitted
         if (number == 1) {
             scoreUpButton.setVisible(false);
         }
