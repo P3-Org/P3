@@ -240,11 +240,9 @@ public class HydrologicalToolController implements ControlledScreen {
     private void increaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == -1) {
         currentProperty.setSpecialistScore(0);
-        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         updateScoreButtons(0);
         } else {
             currentProperty.setSpecialistScore(1);
-            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons(1);
         }
     }
@@ -253,12 +251,10 @@ public class HydrologicalToolController implements ControlledScreen {
     private void decreaseScore(ActionEvent event){
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
-            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons(0);
 
         } else {
             currentProperty.setSpecialistScore(-1);
-            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons(-1);
         }
 
@@ -276,6 +272,9 @@ public class HydrologicalToolController implements ControlledScreen {
         if (number == -1) {
             scoreDownButton.setVisible(false);
         }
+
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+
 
     }
 
