@@ -8,4 +8,5 @@ public interface RiskAssessment {
     double getMeasurementValue();
     void setDescription(); // Function that combines values to a paragraph, tailored to each risk
     String getDescription(); // Getter to export descriptions
+    double[] getThresholds();
 }

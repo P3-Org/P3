@@ -250,10 +250,12 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private void increaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == -1) {
-        currentProperty.setSpecialistScore(0);
-        updateScoreButtons();
+            currentProperty.setSpecialistScore(0);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(1);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons();
         }
     }
@@ -266,9 +268,11 @@ public class HydrologicalToolController implements ControlledScreen {
     private void decreaseScore(ActionEvent event){
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(-1);
+            overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
             updateScoreButtons();
         }
 
@@ -283,6 +287,7 @@ public class HydrologicalToolController implements ControlledScreen {
         int overallClimateScore = currentProperty.getClimateScore();
         int specialistScoreFactor = currentProperty.getSpecialistScore();
 
+        // Shows the buttons if the score is in a certain range
         scoreDownButton.setVisible(overallClimateScore > 1);
         scoreUpButton.setVisible(overallClimateScore < 5);
 

@@ -1,7 +1,6 @@
 package com.aau.p3.climatetool;
 
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-import org.geotools.api.referencing.operation.TransformException;
 
 import java.util.List;
 

@@ -62,13 +62,12 @@ public class CoastalErosionRisk implements RiskAssessment {
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
-    public void setDescription() {
-
-    }
+    public void setDescription() {}
 
     @Override
     public String getDescription(){
         return this.description;
     }
+    public double[] getThresholds() { return this.threshold; }
 
 }
