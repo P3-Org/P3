@@ -1,6 +1,7 @@
 package com.aau.p3.dawa;
 
 import com.aau.p3.climatetool.dawa.DawaAutocomplete;
+import com.aau.p3.climatetool.dawa.DawaGetCoordinates;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-class DawaAutocompleteTest {
+class DawaGetCoordinatesTest  {
     private List<String> expectedCoords;
 
     @BeforeEach
@@ -20,16 +21,18 @@ class DawaAutocompleteTest {
     @Test
     @DisplayName("autocomplete")
     void autocomplete() {
-        expectedCoords.add("10.02245235");
         expectedCoords.add("56.25263942");
-        DawaAutocomplete addressInfo =  new DawaAutocomplete("Bondagervej+5+8382");
+        expectedCoords.add("10.02245235");
+        DawaGetCoordinates addressInfo =  new DawaGetCoordinates("Bondagervej+5+8382");
         Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
     }
 
     @Test
     @DisplayName("Incomplete address")
     void autocompleteFailure() {
-        DawaAutocomplete addressInfo = new DawaAutocomplete("Bondag");
+        expectedCoords.add("");
+        expectedCoords.add("");
+        DawaGetCoordinates addressInfo = new DawaGetCoordinates("Bondag");
         Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
     }
 }
