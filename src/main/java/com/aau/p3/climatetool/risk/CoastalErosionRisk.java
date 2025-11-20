@@ -56,4 +56,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         return this.normalizedMeasurement;
     }
 
+    @Override
+    public double getMeasurementValue() { return this.measurementValue; }
+
 }

@@ -55,4 +55,7 @@ public class StormSurgeRisk implements RiskAssessment {
     public double getNormalizedValue() {
         return this.normalizedMeasurement;
     }
+
+    @Override
+    public double getMeasurementValue() { return this.measurementValue; }
 }

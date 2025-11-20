@@ -5,4 +5,5 @@ public interface RiskAssessment {
     void computeRiskMetrics(double[][] coordinates);
     double[] getRGB();
     double getNormalizedValue();
+    double getMeasurementValue();
 }
