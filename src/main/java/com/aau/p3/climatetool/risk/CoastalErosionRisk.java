@@ -1,5 +1,6 @@
 package com.aau.p3.climatetool.risk;
 
+import com.aau.p3.climatetool.geoprocessing.CoastalErosionReader;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
@@ -36,13 +37,25 @@ public class CoastalErosionRisk implements RiskAssessment {
      */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
-        List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
+        //List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
+        CoastalErosionReader reader = new CoastalErosionReader();
+
+        // Get x and y coordinates to perform API call
+        double x = coordinates[0][0];
+        double y = coordinates[0][1];
+
+        // Format string for the url string and perform API call
+        String wkt = String.format(java.util.Locale.US, "%.3f, %.3f", x, y);
+
+        reader.coastalErosionFetch(wkt);
+
+
 
         // Compute and initialize different fields of class
-        this.threshold = thresholdRepository.getThreshold("coastalerosion");
-        this.measurementValue = measurementStrategy.processValues(value);
-        this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
-        this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        //this.threshold = thresholdRepository.getThreshold("coastalerosion"); // Wont need, right?
+        //this.measurementValue = measurementStrategy.processValues(value);
+        //this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
+        this.RGBValue = ColorManager.getRGBValues(reader.getRiskNumber());
     }
 
     // Getters
