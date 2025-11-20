@@ -26,7 +26,14 @@ import javafx.stage.Popup;
 
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.List;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.control.Slider;
 
 public class HydrologicalToolController implements ControlledScreen {
     // initialisation of toggles, s.t. they're visible to the FXML file
@@ -255,7 +262,20 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
 
+        ThumbEditor thumbEditor = new ThumbEditor();
+        thumbEditor.setlimits(listOfRisks.get(0),cloudBurstThumb);
+        thumbEditor.setlimits(listOfRisks.get(1),groundWaterThumb);
+        thumbEditor.setlimits(listOfRisks.get(2),stormSurgeThumb);
+        thumbEditor.setlimits(listOfRisks.get(3),coastalErosionThumb);
 
+        System.out.println("Threshold"+Arrays.toString(listOfRisks.get(1).getThresholds()));
+        System.out.println("Measued value"+Double.toString(listOfRisks.get(1).getNormalizedValue()));
+
+        animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
+        animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
+        animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
+        animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
+        //coastalErosionThumb.setValue(listOfRisks.get(3).getNormalizedValue());
 
 
 
@@ -360,5 +380,17 @@ public class HydrologicalToolController implements ControlledScreen {
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });
+    }
+
+    public void animateSliderTo(Slider slider, double targetValue) {
+        double middlepoint = (slider.getMin() + slider.getMax()) / 2.0;
+        slider.setValue(middlepoint);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(slider.valueProperty(), middlepoint)),
+                new KeyFrame(Duration.seconds(3), new KeyValue(slider.valueProperty(), targetValue))
+        );
+
+        timeline.play();
     }
 }
