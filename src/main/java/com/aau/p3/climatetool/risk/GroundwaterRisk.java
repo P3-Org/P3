@@ -6,6 +6,11 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 import com.aau.p3.climatetool.utilities.NormalizeSample;
 
+/**
+ * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
+ * Gets information through API call to dataforsyningen
+ * @Author Batman
+ */
 public class GroundwaterRisk implements RiskAssessment {
     private final ThresholdRepository thresholdRepository;
     private double measurementValue;
@@ -13,23 +18,37 @@ public class GroundwaterRisk implements RiskAssessment {
     private double[] RGBValue;
     private double normalizedMeasurement;
 
+    // Constructor initializes the thresholds
     public GroundwaterRisk(ThresholdRepository thresholdRepository) {
         this.thresholdRepository = thresholdRepository;
     }
 
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     * @param coordinates The list of coordinates
+     * Initializes all fields with the computed information
+     */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
+        // Groundwater object creation
         GroundwaterReader reader = new GroundwaterReader();
+
+        // Get x and y coordinates to perform API call
         double x = coordinates[0][0];
         double y = coordinates[0][1];
+
+        // Format string for the url string and perform API call
         String wkt = String.format(java.util.Locale.US, "%.3f %.3f", x, y);
         reader.groundwaterFetch(wkt);
+
+        // Compute and initialize different fields of class
         this.measurementValue = reader.getDistanceFromSurface();
         this.threshold = thresholdRepository.getThreshold("groundwater");
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(measurementValue, threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
+    // Getters
     @Override
     public double[] getRGB() {
         return this.RGBValue;
@@ -39,4 +58,7 @@ public class GroundwaterRisk implements RiskAssessment {
     public double getNormalizedValue() {
         return this.normalizedMeasurement;
     }
+
+    @Override
+    public double getMeasurementValue() { return this.measurementValue; }
 }

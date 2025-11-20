@@ -85,6 +85,12 @@ public class HydrologicalToolController implements ControlledScreen {
     private Label overallScoreId;
 
     @FXML
+    private Button scoreDownButton;
+
+    @FXML
+    private Button scoreUpButton;
+
+    @FXML
     public void initialize() {
         // initialize Sliders functionality
         this.setStormSurgeSlider();
@@ -172,6 +178,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
     }
 
     // helper functions here
@@ -214,6 +221,10 @@ public class HydrologicalToolController implements ControlledScreen {
         return arr;
     }
 
+    /**
+     * Method for computing the climate score and setting appropriate colors for page
+     * @param polygon The polygon of the property
+     */
     private void evaluateRiskProfile(double[][] polygon){
         currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
@@ -229,13 +240,59 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
     }
 
+    /**
+     * Method for increasing and updating the climate score button, if measures have been taken to better it
+     * @param event Event that triggers
+     */
     @FXML
     private void increaseScore(ActionEvent event) {
-
+        if (currentProperty.getSpecialistScore() == -1) {
+        currentProperty.setSpecialistScore(0);
+        updateScoreButtons();
+        } else {
+            currentProperty.setSpecialistScore(1);
+            updateScoreButtons();
+        }
     }
 
+    /**
+     * Method for increasing and updating the climate score button
+     * @param event Event that triggers
+     */
     @FXML
     private void decreaseScore(ActionEvent event){
+        if (currentProperty.getSpecialistScore() == 1) {
+            currentProperty.setSpecialistScore(0);
+            updateScoreButtons();
+        } else {
+            currentProperty.setSpecialistScore(-1);
+            updateScoreButtons();
+        }
+
+    }
+    /**
+     * Method for changing the climate score, in case any measures has been taken to better the score
+     * Initializes all fields with the computed information
+     */
+    private void updateScoreButtons() {
+        // Calculate new score
+        int overallClimateScore = currentProperty.getClimateScore();
+        int specialistScoreFactor = currentProperty.getSpecialistScore();
+
+        scoreDownButton.setVisible(overallClimateScore > 1);
+        scoreUpButton.setVisible(overallClimateScore < 5);
+
+        // Only show buttons if actions should be permitted
+        if (specialistScoreFactor == 1) {
+            scoreUpButton.setVisible(false);
+        }
+
+        if (specialistScoreFactor == -1) {
+            scoreDownButton.setVisible(false);
+        }
+
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+
 
     }
 
@@ -271,10 +328,11 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
     }
-    public void afterInitialize(){
+    public void afterInitialize() {
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
 
+        updateScoreButtons();
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 panTo(this.currentProperty.getLatLongCoordinates());
