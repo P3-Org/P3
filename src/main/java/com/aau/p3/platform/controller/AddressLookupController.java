@@ -134,7 +134,7 @@ public class AddressLookupController implements ControlledScreen  {
 
                  if (propertyManager.checkPropertyExists(selectedAddress)) {
                      propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
-                } else {
+                 } else {
                      /* Sets up the different readers for both the Geo data and the database.
                       *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
                       *  Follows the Dependency Inversion Principle */
@@ -144,7 +144,7 @@ public class AddressLookupController implements ControlledScreen  {
                      RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
                      double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
-                     Property newProperty = new Property(selectedAddress,polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
                      propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
                  }

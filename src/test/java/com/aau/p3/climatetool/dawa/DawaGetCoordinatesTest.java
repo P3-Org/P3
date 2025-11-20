@@ -13,7 +13,7 @@ class DawaGetCoordinatesTest  {
     private List<String> expectedCoords;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         expectedCoords = new ArrayList<>();
     }
 

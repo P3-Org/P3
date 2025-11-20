@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ class DawaPolygonForAddressTest {
 
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         // Arrange
         List<String> testCoords = new ArrayList<>();
 

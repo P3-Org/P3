@@ -27,7 +27,7 @@ public class RiskLabelBinder implements RiskBinderInterface {
             double[] rgb = risk.getRGB();
             String style = String.format(Locale.US, "-fx-background-color: rgb(%f, %f, %f);", rgb[0], rgb[1], rgb[2]);
             riskLabel.setStyle(style);
-            System.out.println(risk.getClass().getSimpleName() + " => " + Arrays.toString(rgb));
+            System.out.println(risk.getRiskType() + " => " + Arrays.toString(rgb));
         }
     }
 
@@ -37,7 +37,7 @@ public class RiskLabelBinder implements RiskBinderInterface {
      * @return the label found in the FXML file
      */
     private AnchorPane findLabelForRisk(RiskAssessment risk) {
-        String id = risk.getClass().getSimpleName().replace("Risk", "").toLowerCase(Locale.ROOT);
+        String id = risk.getRiskType();
         return (AnchorPane) container.lookup("#" + id);
     }
 }

@@ -13,7 +13,7 @@ class DawaPropertyNumbersTest {
     DawaPropertyNumbers testProperty;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         // Arrange
         List<String> coords = new ArrayList<>();
         coords.add("56.25263942");
