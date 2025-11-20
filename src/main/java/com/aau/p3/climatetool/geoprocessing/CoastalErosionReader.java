@@ -3,7 +3,6 @@ package com.aau.p3.climatetool.geoprocessing;
 import com.aau.p3.platform.urlmanager.UrlCoastalErosion;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,7 +53,7 @@ public class CoastalErosionReader {
                         riskScores.add(0.0);
                         break;
                     case "Lille":
-                        riskScores.add(0.5);
+                        riskScores.add(0.56);
                         break;
                     case "Fremrykning":
                         riskScores.add(1.0);
