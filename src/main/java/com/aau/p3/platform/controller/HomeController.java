@@ -2,7 +2,9 @@ package com.aau.p3.platform.controller;
 
 import com.aau.p3.platform.utilities.ControlledScreen;
 
-/* Controller that handles actions performed in the HomePage.fxml file */
+/**
+ * Controller that handles actions performed in the HomePage.fxml file
+ */
 public class HomeController implements ControlledScreen {
     private MainController mainController;
 

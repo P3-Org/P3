@@ -33,17 +33,19 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles the Address look up controller and window
+ */
 public class AddressLookupController implements ControlledScreen  {
     private MainController mainController;
-    private PropertyManager propertyManager = Main.propertyManager;
+    private final PropertyManager propertyManager = Main.propertyManager;
+    private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
+
 
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
-
-    // List over the addresses that will be suggested to auto complete.
-    private List<String> addresses = new ArrayList<>();
 
     @FXML private TableView<Case> myCasesTable;
     @FXML private TableColumn<Case, Integer> tableCaseID;
@@ -53,7 +55,6 @@ public class AddressLookupController implements ControlledScreen  {
 
     @FXML
     private TextField addressField; // The field where the user types the address
-
     private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
     private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
 
@@ -107,16 +108,17 @@ public class AddressLookupController implements ControlledScreen  {
         });
         // calls the methods selectItem on mouse click in suggestionsList
         suggestionsList.setOnMouseClicked(e -> selectItem());
-        // Calls the method selectItem on a keypress, but only if it is the ENNTER Key.
+        // Calls the method selectItem on a keypress, but only if it is the ENTER Key.
         suggestionsList.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 selectItem();
             }
         });
     }
-    /* Method that takes the selected item from ListView and adds it to addressField.
+    /** Method that takes the selected item from ListView and adds it to addressField.
      * After this it checks if the selected text will result in the API call "type" adresse,
-     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property */
+     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property
+     */
     private void selectItem(){
         String selected =  suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
@@ -147,11 +149,16 @@ public class AddressLookupController implements ControlledScreen  {
                      propertyManager.setCurrentProperty(newProperty);
                  }
 
-                hydrologicalTool();
-
+                setWindowHydrologicalTool();
             }
         }
     }
+
+    /**
+     * Method for converting a List<List<double>> to a double[][]
+     * @param list List to be converted to array
+     * @return arr as a double[][]
+     */
     private double[][] to2dArray(List<List<Double>> list) {
         double[][] arr = new double[list.size()][];
 
@@ -166,8 +173,11 @@ public class AddressLookupController implements ControlledScreen  {
         return arr;
     }
 
+    /**
+     * Method for switching UI window to HydrologicalTool.fxml
+     */
     @FXML
-    private void hydrologicalTool() {
+    private void setWindowHydrologicalTool() {
         mainController.setCenter("/UI/HydrologicalTool.fxml");
     }
 }

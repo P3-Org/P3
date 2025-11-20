@@ -18,6 +18,9 @@ import javafx.stage.Popup;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles my cases controller and the window that
+ */
 public class MyCasesController implements ControlledScreen {
     private MainController mainController;
 

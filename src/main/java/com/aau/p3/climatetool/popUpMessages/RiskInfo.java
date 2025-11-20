@@ -9,7 +9,13 @@ public class RiskInfo {
     private String calculationInfo;
     private String precautionInfo;
 
-    // Constructor, that enables the use of getters to reach the climate risk information.
+    /**
+     * Constructor, that enables the use of getters to reach the climate risk information.
+     * @param general
+     * @param threshold
+     * @param calculation
+     * @param precaution
+     */
     public RiskInfo(String general, String threshold, String calculation, String precaution){
         this.generalInfo = general;
         this.thresholdInfo = threshold;

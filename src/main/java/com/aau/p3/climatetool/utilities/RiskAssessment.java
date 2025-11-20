@@ -5,6 +5,8 @@ public interface RiskAssessment {
     String getRiskType();
     double getNormalizedValue();
     double getMeasurementValue();
+    void setDescription();
+    String getDescription();
     double[] getRGB();
     double[] getThresholds();
     void computeRiskMetrics(double[][] coordinates);

@@ -38,11 +38,20 @@ public class PropertyManager {
         PropertyRepository.saveProperty(property); // Saves to property to the database
     }
 
+    /**
+     * Getter method, provides the property object for the given address
+     * @param address for the property
+     * @return property object with the given address
+     */
     public static Property getProperty(String address) {
         return propertyList.get(address);
     }
 
-    public void setCurrentProperty(Property currentProperty ){
-        this.currentProperty = currentProperty;
+    /**
+     * Setter method, sets the current property to the one given
+     * @param newCurrentProperty property to be set as currentProperty
+     */
+    public void setCurrentProperty(Property newCurrentProperty ){
+        this.currentProperty = newCurrentProperty;
     }
 }

@@ -4,10 +4,9 @@ import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 
 import java.util.List;
+
 /**
- * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
- *
- * @Author Batman
+ * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk.
  */
 public class CoastalErosionRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -17,8 +16,14 @@ public class CoastalErosionRisk implements RiskAssessment {
     private double[] threshold;
     private double[] RGBValue;
     private double normalizedMeasurement;
+    private String description = "Ingen data tilgængelig";
 
-    // Constructor for final attributes
+    /**
+     * Constructor for final attributes of CoastalErosionRisk
+     * @param geoDataReader
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public CoastalErosionRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
@@ -56,6 +61,12 @@ public class CoastalErosionRisk implements RiskAssessment {
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
+    public void setDescription() {}
+
+    @Override
+    public String getDescription(){
+        return this.description;
+    }
     public double[] getThresholds() { return this.threshold; }
 
     @Override

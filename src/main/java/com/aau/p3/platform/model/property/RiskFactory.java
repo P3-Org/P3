@@ -13,12 +13,18 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-/* Factory class for creating risk assessments, returned as a list. */
+/**
+ * Factory function for creating risk assessments, returned as a list.
+ */
 public class RiskFactory {
     private final GeoDataReader geoReader;
     private final ThresholdRepository thresholdRepo;
 
-    // Constructor for final fields
+    /**
+     * Constructor for final fields in RiskFactory class
+     * @param geoReader reader for geo data
+     * @param thresholdRepo thresholds
+     */
     public RiskFactory(GeoDataReader geoReader, ThresholdRepository thresholdRepo) {
         this.geoReader = geoReader;
         this.thresholdRepo = thresholdRepo;
@@ -36,14 +42,13 @@ public class RiskFactory {
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
         riskAssessments.add(new CloudburstRisk(geoReader, thresholdRepo, new AverageMeasurementStrategy()));
         riskAssessments.add(new GroundwaterRisk(thresholdRepo));
-        riskAssessments.add(new CoastalErosionRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
         riskAssessments.add(new StormSurgeRisk(geoReader, thresholdRepo, new AverageMeasurementStrategy()));
+        riskAssessments.add(new CoastalErosionRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
         // For each risk, use the appropriate function for making the assessment.
         for (RiskAssessment risks : riskAssessments) {
             risks.computeRiskMetrics(coordinates);
         }
-
         return riskAssessments;
     }
 }

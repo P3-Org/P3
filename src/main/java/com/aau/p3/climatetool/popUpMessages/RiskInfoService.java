@@ -6,9 +6,8 @@ import java.util.ResourceBundle;
 
 public class RiskInfoService {
 
-    // Method that locates the proper .properties file, and returns the information stored in each property
     /**
-     *
+     * Method that locates the proper .properties file, and returns the information stored in each property
      * @param filename the string that specifies which .properties file that should be read from
      * @return returns an object of RiskInfo with the correct information strings
      */
