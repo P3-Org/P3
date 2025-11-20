@@ -1,6 +1,5 @@
 package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -37,5 +36,4 @@ class DawaPropertyNumbersTest {
         // Assert
         Assertions.assertEquals("980251", testProperty.getOwnerLicense());
     }
-
 }
