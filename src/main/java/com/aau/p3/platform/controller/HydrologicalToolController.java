@@ -57,16 +57,13 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     Slider cloudBurstSlider = new Slider();
-
     @FXML
     Slider stormSurgeSlider = new Slider();
 
     @FXML
     private AnchorPane mapAnchor; //Anchor pane for the webmap
-
     @FXML
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
-
     @FXML
     private GridPane labelContainer;
 
@@ -84,10 +81,8 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private Label overallScoreId;
-
     @FXML
     private Button scoreDownButton;
-
     @FXML
     private Button scoreUpButton;
 
@@ -191,7 +186,6 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setSnapToTicks(true);
         stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
-
     }
 
     private void setCloudBurstSlider(){
@@ -271,6 +265,7 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
     }
+
     /**
      * Method for changing the climate score, in case any measures has been taken to better the score
      * Initializes all fields with the computed information
@@ -293,8 +288,6 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
-
-
     }
 
     @FXML
@@ -327,11 +320,13 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
     @FXML
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
-        Main.propertyManager.currentProperty.setComments(comment);
+        Main.propertyManager.currentProperty.setComment(comment);
+        commentArea.clear();
     }
       
     public void afterInitialize() {

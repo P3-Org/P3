@@ -12,8 +12,6 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
     public static PropertyManager propertyManager = new PropertyManager();
 
-    public static PropertyManager propertyManager = new PropertyManager();
-
     /* The start method is defined in Application and is used to create a scene with JavaFX */
     @Override
     public void start(Stage primaryStage) {

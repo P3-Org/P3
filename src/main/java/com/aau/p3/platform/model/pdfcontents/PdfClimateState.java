@@ -1,22 +1,30 @@
 package com.aau.p3.platform.model.pdfcontents;
 
+import com.aau.p3.Main;
+import com.aau.p3.platform.model.property.Property;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.json.JSONArray;
 
 import java.io.IOException;
+import java.util.List;
 
 public class PdfClimateState extends PdfChapter{
-    private String comments;
+    private int climateScore;
+    private String infoBox;
+    private List<String> comments;
 
-    public PdfClimateState(int overallScore, String comments, Map<String, String> climateFields) {
-        super("Klimastand");
-        this.overallScore = overallScore;
-        this.comments = comments;
-        this.climateFields = climateFields;
+    public PdfClimateState(String riskInfoBox, Property currentProperty) {
+
+        this.climateScore = currentProperty.getClimateScore();
+        // get: infobox, comments
+        this.infoBox = riskInfoBox;
+        if (currentProperty.getComments() != null && !currentProperty.getComments().isEmpty()) {
+            this.comments = currentProperty.getComments();
+        }
     }
-
 
     @Override
     public String getTitle(){
@@ -25,7 +33,6 @@ public class PdfClimateState extends PdfChapter{
 
     @Override
     public void render(PDDocument document, PDPageContentStream contentStream) throws IOException {
-
         // Writes the chapter title.
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
@@ -36,14 +43,36 @@ public class PdfClimateState extends PdfChapter{
         // Writes the climate data, otherwise shown in the tool tab.
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA, 12);
-        contentStream.newLineAtOffset(50, 750);
-        contentStream.showText("Estimeret klimastand: ");
+        contentStream.newLineAtOffset(50, 720);
+        contentStream.showText("Estimeret klimastand: " + climateScore);
+        contentStream.newLineAtOffset(0, -15);
+
         // If any comments were given, display those
         if (comments != null && !comments.isEmpty()) {
             contentStream.newLineAtOffset(0, -15);
-            contentStream.showText("Comments: " + comments);
+            PDFont font = PDType1Font.HELVETICA;
+            float fontSize = 12;
+
+            for (String comment : comments) {
+                String[] lines = comment.split("\\R"); // Split at newlines given by specialist
+
+                if (lines.length > 0) {
+                    // First line with "Kommentar: "
+                    String firstLinePrefix = "Kommentar: ";
+                    contentStream.showText(firstLinePrefix + lines[0]);
+                    contentStream.newLineAtOffset(0, -15);
+
+                    // Calculate dynamic indent for subsequent lines
+                    float indent = font.getStringWidth(firstLinePrefix) / 1000 * fontSize;
+
+                    for (int j = 1; j < lines.length; j++) {
+                        contentStream.newLineAtOffset(indent, 0); // Move right by indent, then show text
+                        contentStream.showText(lines[j]);
+                        contentStream.newLineAtOffset(-indent, -15); // Move back to original X, down by line height
+                    }
+                }
+            }
         }
         contentStream.endText();
     }
-
 }

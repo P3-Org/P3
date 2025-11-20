@@ -5,6 +5,8 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 public class PdfOverview extends PdfChapter {
     String address;
@@ -27,11 +29,14 @@ public class PdfOverview extends PdfChapter {
         contentStream.showText(getTitle());
         contentStream.endText();
 
+        // UTF-8 decode the address stored, for proper display in report
+        String encodedAddress = this.address;
+        String decodedAddress = URLDecoder.decode(encodedAddress, StandardCharsets.UTF_8);
         // Write address info for exported property
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA, 12);
         contentStream.newLineAtOffset(50, 720);
-        contentStream.showText("Address: " + this.address);
+        contentStream.showText("Address: " + decodedAddress);
         contentStream.endText();
     }
 

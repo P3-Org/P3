@@ -1,10 +1,10 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.Main;
-import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.model.pdfcontents.PdfChapter;
 import com.aau.p3.platform.model.pdfcontents.PdfClimateState;
 import com.aau.p3.platform.model.pdfcontents.PdfOverview;
+import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,13 +116,16 @@ public class MainController {
     private void exportDocument (ActionEvent actionEvent) throws IOException {
         System.out.println("Exporting document...");
 
+        // Initialize
         PDDocument document = new PDDocument();
         List<PdfChapter> chapters = new ArrayList<>();
 
-        String soughtAddress = Main.propertyManager.currentProperty.getAddress();
+        // Gather information form elsewhere in the system
+        Property currentProperty = Main.propertyManager.currentProperty;
 
-        chapters.add(new PdfOverview(soughtAddress));
-        //chapters.add(new PdfClimateState(3, givenComment, climateRisksInfo));
+        // Add chapters with content to list
+        chapters.add(new PdfOverview(currentProperty.getAddress()));
+        chapters.add(new PdfClimateState("placeholder", currentProperty));
 
         for (PdfChapter chapter : chapters) {
             PDPage page = new PDPage();
@@ -134,6 +137,7 @@ public class MainController {
         }
 
         document.save("report.pdf");
+        System.out.println("Document saved!");
         document.close();
     }
 
