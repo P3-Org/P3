@@ -4,7 +4,9 @@ import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
+/**
+ * Class that acts as a constructor to get the type of search with the help from the UrlAutoComplete class
+ */
 public class DawaGetType {
     private final String type;
 

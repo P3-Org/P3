@@ -27,6 +27,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Class that handles the hydrological tool controller and window
+ */
 public class HydrologicalToolController implements ControlledScreen {
     // initialisation of toggles, s.t. they're visible to the FXML file
     public ToggleButton cloudburstToggle = new ToggleButton();
@@ -188,7 +191,6 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setSnapToTicks(true);
         stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
-
     }
 
     private void setCloudBurstSlider(){
@@ -205,6 +207,11 @@ public class HydrologicalToolController implements ControlledScreen {
         webEngine.executeScript("panTo(" + coords + ")");
     }
 
+    /**
+     * Method for converting a List<List<double>> to a double[][]
+     * @param list List to be converted to array
+     * @return arr as a double[][]
+     */
     private double[][] to2dArray(List<List<Double>> list) {
         double[][] arr = new double[list.size()][];
 

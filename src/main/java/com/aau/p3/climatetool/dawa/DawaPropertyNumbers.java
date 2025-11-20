@@ -6,12 +6,15 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+/**
+ * Class that acts as a constructor to get Cadastre and Owner license with the help from UrlPropertyNumber
+ */
 public class DawaPropertyNumbers {
     private String cadastre = "";
     private String ownerLicense = "";
 
     /** Constructor for the DawaPropertyNumbers class
-     * A list of an x and y coordinate
+     * @param coordinates list of an x and y coordinate (also known as Latitude and Longitude)
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates){

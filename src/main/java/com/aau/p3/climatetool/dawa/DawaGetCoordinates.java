@@ -6,6 +6,9 @@ import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class
+ */
 public class DawaGetCoordinates {
     private final List<String> coordinates = new ArrayList<>();
 

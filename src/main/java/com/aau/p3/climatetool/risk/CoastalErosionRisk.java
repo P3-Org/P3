@@ -9,9 +9,7 @@ import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
 /**
- * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
- *
- * @Author Batman
+ * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk.
  */
 public class CoastalErosionRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -22,7 +20,12 @@ public class CoastalErosionRisk implements RiskAssessment {
     private double[] RGBValue;
     private double normalizedMeasurement;
 
-    // Constructor for final attributes
+    /**
+     * Constructor for final attributes of CoastalErosionRisk
+     * @param geoDataReader
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public CoastalErosionRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;

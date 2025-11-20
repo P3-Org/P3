@@ -9,6 +9,14 @@ public class Specialist {
     private int CPR;
     private int phoneNumber;
 
+    /**
+     * Constructor for Specialist class
+     * @param name
+     * @param type
+     * @param email
+     * @param CPR
+     * @param phoneNumber
+     */
     public Specialist(String name, TypeEnum type, String email, int CPR, int phoneNumber) {
         this.name = name;
         this.type = type;

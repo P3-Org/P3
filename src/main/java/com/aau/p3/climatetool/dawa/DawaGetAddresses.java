@@ -7,8 +7,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class
+ */
 public class DawaGetAddresses {
     private final List<String> addresses = new ArrayList<>();
+
     /** Method for getting the addresses from the API dataforsyningen that will be auto suggested for the user
      * @param query the search query
      */

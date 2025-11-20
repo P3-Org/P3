@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of cloudburst risk
  * Reads information from TIFF files and sets color from normalized measurements
- * @Author Batman
  */
 public class CloudburstRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -22,7 +21,12 @@ public class CloudburstRisk implements RiskAssessment {
     private double[] RGBValue;
     private double normalizedMeasurement;
 
-    // Constructor for final attributes
+    /**
+     *  Constructor for final attributes in CloudburstRisk class
+     * @param geoDataReader
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public CloudburstRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
