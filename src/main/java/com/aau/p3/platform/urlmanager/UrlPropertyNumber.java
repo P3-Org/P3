@@ -15,6 +15,7 @@ public class UrlPropertyNumber extends UrlManager {
         String y = coordinates.get(0);
         String x = coordinates.get(1);
         String property_url = BASE_URL + "/jordstykker?x="+ x + "&y=" + y;
+        System.out.println(property_url);
 
         return super.getResponse(property_url);
     }

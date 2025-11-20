@@ -6,4 +6,5 @@ public interface RiskAssessment {
     double[] getRGB();
     double getNormalizedValue();
     double getMeasurementValue();
+    double[] getThresholds();
 }

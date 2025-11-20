@@ -58,4 +58,7 @@ public class CloudburstRisk implements RiskAssessment {
 
     @Override
     public double getMeasurementValue() { return this.measurementValue; }
+
+    @Override
+    public double[] getThresholds() { return this.threshold; }
 }
