@@ -1,18 +1,12 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.Main;
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
-import com.aau.p3.platform.controller.PopupWindowController;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
-import com.aau.p3.database.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
-import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
-import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
@@ -29,7 +23,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 
-import java.util.ArrayList;
 import javafx.stage.Stage;
 
 import java.util.List;

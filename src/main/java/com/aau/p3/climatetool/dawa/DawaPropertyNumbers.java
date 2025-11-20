@@ -5,11 +5,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class DawaPropertyNumbers {
-    private List<List<Double>> polygon;
     private String cadastre = "";
     private String ownerLicense = "";
 
@@ -30,14 +27,14 @@ public class DawaPropertyNumbers {
     }
 
     /** Getter method
-     * @return Returns string of the cadastre code
+     * @return returns string of the cadastre code
      */
     public String getCadastre() {
         return this.cadastre;
     }
 
     /** Getter method
-     * @return Returns string of the owner license code
+     * @return returns string of the owner license code
      */
     public String getOwnerLicense() {
         return this.ownerLicense;

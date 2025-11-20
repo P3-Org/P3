@@ -12,10 +12,8 @@ import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.RiskFactory;
-import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
-import com.aau.p3.platform.controller.MainController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,7 +24,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
 
@@ -38,7 +35,7 @@ import java.util.List;
 public class AddressLookupController implements ControlledScreen  {
 
     private MainController mainController;
-    private PropertyManager propertyManager = Main.propertyManager;
+    private final PropertyManager propertyManager = Main.propertyManager;
 
 
     @Override
@@ -102,6 +99,7 @@ public class AddressLookupController implements ControlledScreen  {
                 // Takes the response and finds the addresses from the DawaGetAddress class and method
                 DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
                 addresses = addressResponse.getAddresses();
+
                 // Addresses are converted to an observable list so it can be put into our ListView suggestionList.
                 ObservableList<String> observableAddresses = FXCollections.observableArrayList(addresses);
                 if (!addresses.isEmpty()) {
@@ -117,16 +115,17 @@ public class AddressLookupController implements ControlledScreen  {
         });
         // calls the methods selectItem on mouse click in suggestionsList
         suggestionsList.setOnMouseClicked(e -> selectItem());
-        // Calls the method selectItem on a keypress, but only if it is the ENNTER Key.
+        // Calls the method selectItem on a keypress, but only if it is the ENTER Key.
         suggestionsList.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
                 selectItem();
             }
         });
     }
-    /* Method that takes the selected item from ListView and adds it to addressField.
+    /** Method that takes the selected item from ListView and adds it to addressField.
      * After this it checks if the selected text will result in the API call "type" adresse,
-     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property */
+     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property
+     */
     private void selectItem(){
         String selected =  suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
@@ -159,6 +158,12 @@ public class AddressLookupController implements ControlledScreen  {
             }
         }
     }
+
+    /**
+     * Method for converting a List<List<double>> to a double[][]
+     * @param list
+     * @return arr
+     */
     private double[][] to2dArray(List<List<Double>> list) {
         double[][] arr = new double[list.size()][];
 
@@ -173,7 +178,7 @@ public class AddressLookupController implements ControlledScreen  {
         return arr;
     }
 
-
+    // Method for switching UI window to HydrologicalTool.fxml
     @FXML
     private void hydrologicalTool() {
         mainController.setCenter("/UI/HydrologicalTool.fxml");
