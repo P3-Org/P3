@@ -82,6 +82,16 @@ public class HydrologicalToolController implements ControlledScreen {
     private Slider cloudBurstThumb;
 
     @FXML
+    private Slider groundWaterThumb;
+
+    @FXML
+    private Slider stormSurgeThumb;
+
+    @FXML
+    private Slider coastalErosionThumb;
+
+
+    @FXML
     private Label overallScoreId;
 
     @FXML
@@ -234,15 +244,21 @@ public class HydrologicalToolController implements ControlledScreen {
         currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
+        List <RiskAssessment> listOfRisks = currentProperty.getRisks();
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
-        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
+        riskLabelBinder.applyColors(listOfRisks, polygon);
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
         indicator.setThresholdsLines("groundwater", groundWaterIndicator);
         indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
+
+
+
+
+
     }
 
     /**
