@@ -25,11 +25,18 @@ import javafx.stage.Popup;
 
 import javafx.stage.Stage;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Class that handles the hydrological tool controller and window
  */
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.control.Slider;
+
 public class HydrologicalToolController implements ControlledScreen {
     // initialisation of toggles, s.t. they're visible to the FXML file
     public ToggleButton cloudburstToggle = new ToggleButton();
@@ -38,7 +45,16 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+
+    public TextArea commentArea;
+
+    public Label groundwaterDescription;
+    public Label cloudburstDescription;
+    public Label stormsurgeDescription;
+    public Label coastalerosionDescription;
+
     private WebEngine webEngine;
+
     private PropertyManager propertyManager;
     private Property currentProperty;
 
@@ -58,16 +74,13 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     Slider cloudBurstSlider = new Slider();
-
     @FXML
     Slider stormSurgeSlider = new Slider();
 
     @FXML
     private AnchorPane mapAnchor; //Anchor pane for the webmap
-
     @FXML
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
-
     @FXML
     private GridPane labelContainer;
 
@@ -84,14 +97,27 @@ public class HydrologicalToolController implements ControlledScreen {
     private Slider cloudBurstThumb;
 
     @FXML
-    private Label overallScoreId;
+    private Slider groundWaterThumb;
 
     @FXML
-    private Button scoreDownButton;
+    private Slider stormSurgeThumb;
 
+    @FXML
+    private Slider coastalErosionThumb;
+
+
+    @FXML
+    private Label overallScoreId;
+    @FXML
+    private Button scoreDownButton;
     @FXML
     private Button scoreUpButton;
 
+
+    @FXML
+    private void settingsMenu(ActionEvent event) {
+        mainController.setCenter("/UI/settingsMenu.fxml");
+    }
     @FXML
     public void initialize() {
         // initialize Sliders functionality
@@ -234,15 +260,34 @@ public class HydrologicalToolController implements ControlledScreen {
         currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
+        List <RiskAssessment> listOfRisks = currentProperty.getRisks();
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
-        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
+        riskLabelBinder.applyColors(listOfRisks, polygon);
 
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
         indicator.setThresholdsLines("groundwater", groundWaterIndicator);
         indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
+
+        ThumbEditor thumbEditor = new ThumbEditor();
+        thumbEditor.setlimits(listOfRisks.get(0),cloudBurstThumb);
+        thumbEditor.setlimits(listOfRisks.get(1),groundWaterThumb);
+        thumbEditor.setlimits(listOfRisks.get(2),stormSurgeThumb);
+        thumbEditor.setlimits(listOfRisks.get(3),coastalErosionThumb);
+
+        System.out.println("Threshold"+Arrays.toString(listOfRisks.get(1).getThresholds()));
+        System.out.println("Measued value"+Double.toString(listOfRisks.get(1).getNormalizedValue()));
+
+        animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
+        animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
+        animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
+        animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
+        //coastalErosionThumb.setValue(listOfRisks.get(3).getNormalizedValue());
+
+
+
     }
 
     /**
@@ -279,6 +324,7 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
     }
+
     /**
      * Method for changing the climate score, in case any measures has been taken to better the score
      * Initializes all fields with the computed information
@@ -300,6 +346,13 @@ public class HydrologicalToolController implements ControlledScreen {
         if (specialistScoreFactor == -1) {
             scoreDownButton.setVisible(false);
         }
+
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+    }
+
+    //wip
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        descriptionId.setText(textToShow);
     }
 
     @FXML
@@ -332,8 +385,15 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    @FXML
+    private void commentButtonHandler(ActionEvent event) {
+        String comment = commentArea.getText();
+        Main.propertyManager.currentProperty.setComment(comment);
+        commentArea.clear();
+    }
+
     public void afterInitialize() {
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
@@ -344,5 +404,20 @@ public class HydrologicalToolController implements ControlledScreen {
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });
+
+        System.out.println(currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+    }
+
+    public void animateSliderTo(Slider slider, double targetValue) {
+        double middlepoint = (slider.getMin() + slider.getMax()) / 2.0;
+        slider.setValue(middlepoint);
+
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.seconds(0.5), new KeyValue(slider.valueProperty(), middlepoint)),
+                new KeyFrame(Duration.seconds(3), new KeyValue(slider.valueProperty(), targetValue))
+        );
+
+        timeline.play();
     }
 }
