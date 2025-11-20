@@ -7,12 +7,4 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HydrologicalToolControllerTest {
 
-    @BeforeEach
-    void setup() {
-        HydrologicalToolController controller = new HydrologicalToolController();
-    }
-
-    @Test
-    void afterInitialize() {
-    }
 }
