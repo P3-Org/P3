@@ -17,6 +17,7 @@ public class GroundwaterRisk implements RiskAssessment {
     private double[] threshold;
     private double[] RGBValue;
     private double normalizedMeasurement;
+    private String description = "Ingen data tilgængelig";
 
     // Constructor initializes the thresholds
     public GroundwaterRisk(ThresholdRepository thresholdRepository) {
@@ -46,6 +47,7 @@ public class GroundwaterRisk implements RiskAssessment {
         this.threshold = thresholdRepository.getThreshold("groundwater");
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(measurementValue, threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -61,4 +63,14 @@ public class GroundwaterRisk implements RiskAssessment {
 
     @Override
     public double getMeasurementValue() { return this.measurementValue; }
+
+    @Override
+    public void setDescription() {
+        // I tilfæde af en X-års hændelse, vil grundvandet ligge Y meter fra matriklens overflade.
+        this.description = "I tilfælde af en 50-års hændelse, vil grundvandet ligge " + String.format("%.2f", this.measurementValue) + " meter fra matriklens overflade.";
+    }
+
+    @Override
+    public String getDescription() { return this.description; }
+
 }

@@ -6,4 +6,6 @@ public interface RiskAssessment {
     double[] getRGB();
     double getNormalizedValue();
     double getMeasurementValue();
+    void setDescription(); // Function that combines values to a paragraph, tailored to each risk
+    String getDescription(); // Getter to export descriptions
 }

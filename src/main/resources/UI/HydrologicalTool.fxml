@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
-        <SplitPane dividerPositions="0.4619634509137272" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <VBox alignment="TOP_RIGHT">
                     <children>
@@ -25,7 +25,7 @@
                                             </children>
                                         </AnchorPane>
                                         <HBox alignment="CENTER" spacing="5">
-                                            <Button fx:id="scoreDownButton" onAction="#decreaseScore" prefHeight="40.0" prefWidth="40.0" style="-fx-font-size: 18;" text="-" />
+                                            <Button fx:id="scoreDownButton" onAction="#decreaseScore" prefHeight="30" prefWidth="40.0" style="-fx-font-size: 18;" text="-" />
                                                 <Label fx:id="overallScoreId" text="{estScore}" textAlignment="CENTER">
                                                     <font>
                                                         <Font size="40.0" />
@@ -81,7 +81,7 @@
                                                                     <center>
                                                                         <AnchorPane BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="cloudburstSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="cloudburstDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
@@ -117,7 +117,7 @@
                                                                     <center>
                                                                         <AnchorPane>
                                                                             <children>
-                                                                                <Label fx:id="groundwaterSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="groundwaterDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
@@ -153,7 +153,7 @@
                                                                     <center>
                                                                         <AnchorPane>
                                                                             <children>
-                                                                                <Label fx:id="stormsurgeSummary" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="stormsurgeDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
@@ -189,7 +189,7 @@
                                                                     <center>
                                                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="coastalerosionSummary" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="coastalerosionDescription" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>

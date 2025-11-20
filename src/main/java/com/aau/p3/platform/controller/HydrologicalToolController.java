@@ -36,8 +36,16 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+
     public TextArea commentArea;
+
+    public Label groundwaterDescription;
+    public Label cloudburstDescription;
+    public Label stormsurgeDescription;
+    public Label coastalerosionDescription;
+
     private WebEngine webEngine;
+
     private PropertyManager propertyManager;
     private Property currentProperty;
 
@@ -290,6 +298,11 @@ public class HydrologicalToolController implements ControlledScreen {
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
     }
 
+    //wip
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        descriptionId.setText(textToShow);
+    }
+
     @FXML
     private void popUpHandler(ActionEvent event) {
         try {
@@ -339,5 +352,8 @@ public class HydrologicalToolController implements ControlledScreen {
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });
+
+        System.out.println(currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
 }

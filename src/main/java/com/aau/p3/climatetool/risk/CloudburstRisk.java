@@ -8,6 +8,7 @@ import com.aau.p3.climatetool.utilities.color.ColorManager;
 import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
+
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of cloudburst risk
  * Reads information from TIFF files and sets color from normalized measurements
@@ -21,6 +22,7 @@ public class CloudburstRisk implements RiskAssessment {
     private double[] threshold;
     private double[] RGBValue;
     private double normalizedMeasurement;
+    private String description = "Ingen data tilgængelig";
 
     // Constructor for final attributes
     public CloudburstRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
@@ -58,4 +60,16 @@ public class CloudburstRisk implements RiskAssessment {
 
     @Override
     public double getMeasurementValue() { return this.measurementValue; }
+
+    @Override
+    public void setDescription() {
+        /*
+        *
+        * */
+    }
+
+    @Override
+    public String getDescription(){
+        return "";
+    }
 }
