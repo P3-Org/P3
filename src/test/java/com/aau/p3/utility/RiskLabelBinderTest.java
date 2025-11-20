@@ -1,26 +1,13 @@
 package com.aau.p3.utility;
 
-import com.aau.p3.climatetool.risk.CloudburstRisk;
-
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
-import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.mockito.Mockito;
-
-import java.util.ArrayList;
-import java.util.List;
-
 class RiskLabelBinderTest {
-    @Test
-    void applyColors() {
-        /* Arrange */
-        // Sets up the containers and labels needed for test (in JavaFX)
+//    @Test
+//    void applyColors() {
+//        /* Arrange */
+//
+//        // Sets up the containers and labels needed for test (in JavaFX)
 //        GridPane labelContainer = new GridPane();
 //        AnchorPane cloudBurstLabel = new AnchorPane();
 //
@@ -49,5 +36,5 @@ class RiskLabelBinderTest {
 //        /* Assert */
 //        String style = cloudBurstLabel.getStyle();
 //        assertEquals("-fx-background-color: rgb(255.000000, 0.000000, 0.000000);", style);
-    }
+//    }
 }

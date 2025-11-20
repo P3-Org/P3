@@ -64,4 +64,9 @@ public class GroundwaterRisk implements RiskAssessment {
 
     @Override
     public double[] getThresholds() { return this.threshold; }
+
+    @Override
+    public String getRiskType() {
+        return "groundwater";
+    }
 }

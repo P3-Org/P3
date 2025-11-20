@@ -13,10 +13,7 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Factory function for creating risk assessments, returned as a list.
- * @Author Batman
- */
+/* Factory class for creating risk assessments, returned as a list. */
 public class RiskFactory {
     private final GeoDataReader geoReader;
     private final ThresholdRepository thresholdRepo;

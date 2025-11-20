@@ -38,4 +38,21 @@ public class StaticThresholdRepository implements ThresholdRepository {
         }
         return null;
     }
+
+    @Override
+    public void updateThreshold(String riskType, double min, double max) {
+        String sql = "UPDATE thresholds SET minThreshold=?, maxThreshold=? WHERE riskType=?";
+        try (Connection conn = ConnectToDB.connect("climateTool.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setDouble(1, min);
+            stmt.setDouble(2, max);
+            stmt.setString(3, riskType);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DawaPropertyNumbersTest {
-    /*
+/*
     DawaPropertyNumbers testProperty;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         // Arrange
         List<String> coords = new ArrayList<>();
         coords.add("10.02245235");

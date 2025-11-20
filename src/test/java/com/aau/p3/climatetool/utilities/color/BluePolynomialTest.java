@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BluePolynomialTest {
     double expectedResult;
     @BeforeEach
-    void setUp(){
+    void setup(){
         expectedResult = 50;
     }
 

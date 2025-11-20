@@ -1,11 +1,7 @@
 package com.aau.p3.climatetool.risk;
 
-import com.aau.p3.climatetool.utilities.GeoDataReader;
-import com.aau.p3.climatetool.utilities.MeasurementStrategy;
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
 /**
@@ -61,4 +57,9 @@ public class CloudburstRisk implements RiskAssessment {
 
     @Override
     public double[] getThresholds() { return this.threshold; }
+
+    @Override
+    public String getRiskType() {
+        return "cloudburst";
+    }
 }

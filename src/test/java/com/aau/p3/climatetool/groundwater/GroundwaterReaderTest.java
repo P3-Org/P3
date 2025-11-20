@@ -56,7 +56,7 @@ class GroundwaterReaderTest {
 
 
     @BeforeEach
-    void setUp(){
+    void setup(){
         json = """
         {
             "tileId": "63553_5783",

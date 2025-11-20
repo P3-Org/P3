@@ -9,7 +9,7 @@ class ColorManagerTest {
     private double[] threshold;
 
     @BeforeEach
-    void setUp(){
+    void setup(){
          threshold = new double[] { 10, 30 };
     }
 

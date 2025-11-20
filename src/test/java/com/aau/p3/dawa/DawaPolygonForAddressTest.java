@@ -8,13 +8,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 class DawaPolygonForAddressTest {
     private DawaPolygonForAddress dawaPolygonForAddress;
@@ -24,7 +24,7 @@ class DawaPolygonForAddressTest {
 
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         // Arrange
         List<String> testCoords = new ArrayList<>();
 
