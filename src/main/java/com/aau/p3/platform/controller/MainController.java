@@ -18,13 +18,15 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.List;
 
 public class MainController {
+    Object ctrl;
+    public List<String> globalCoords;
+    public List<List<Double>> polygonCoords;
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
     @FXML private AnchorPane contentArea;
@@ -50,13 +52,18 @@ public class MainController {
 
             /* Give sub-controller a reference back to this controller so a two-way communication is possible
             *  loader.getController() finds which controller os calling it from the FXML file that was found in getResource() */
-            Object ctrl = loader.getController();
+            this.ctrl = loader.getController();
 
             /* Checks if the current controller is an instance of the interface ControlledScreen
             * such that the subcontroller implements the method setMainController() and can communicate with the MainController
             * while in theory not being linked at all with it */
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
+
+                // Run some code after maincontroller i set and variables are moved
+                if (ctrl instanceof HydrologicalToolController htc){
+                    htc.afterInitialize();
+                }
             }
 
 
@@ -85,6 +92,10 @@ public class MainController {
         }
     }
 
+    public Object getctrl(){
+        return this.ctrl;
+    }
+
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
     @FXML
     private void openMyCases(ActionEvent actionEvent) {
@@ -93,13 +104,11 @@ public class MainController {
 
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        System.out.println("Address search activated...");
         setCenter("/UI/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
     }
 

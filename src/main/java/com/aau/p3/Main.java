@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
+    public static PropertyManager propertyManager = new PropertyManager();
 
     public static PropertyManager propertyManager = new PropertyManager();
 
@@ -25,10 +26,7 @@ public class Main extends Application {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/UI/MainWindow.fxml"));
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
-;
             primaryStage.setTitle("Nykredit Platform");
-
-            System.out.println("this is the primarystage"+primaryStage);
 
             /* Displays the application at 90% of the screen,
              * with the initial window which is defined in MainWindow.fxml */
@@ -39,7 +37,9 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    @Override
+    public void stop() {
+        LocalProxyServer.stopProxy();
+    }
 
 }
-
-

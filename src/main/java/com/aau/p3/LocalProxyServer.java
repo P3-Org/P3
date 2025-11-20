@@ -14,11 +14,12 @@ import java.util.concurrent.Executors;
  * @Param portnumber
  */
 public class LocalProxyServer {
+    private static HttpServer server;
     // Method for setting up the necessary tools for starting a proxy server
     public static void startProxy(int port) {
         try {
             // Creates a httpserver which binds to a socket-address object with the specified port number
-            HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
+            server = HttpServer.create(new InetSocketAddress(port), 0);
             // The HTTP context specifies what to do when receiving requests on the given port + path
             server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
             server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
@@ -32,6 +33,9 @@ public class LocalProxyServer {
         }
     }
 
+    public static void stopProxy() {
+        server.stop(0);
+    }
     /*
     * Helper method that checks if the query path is null,
     * and after combines the targetUrl and query for the fullQuery.
@@ -78,8 +82,6 @@ public class LocalProxyServer {
 
     // Method for handling the requests aimed at the server
     private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {
-        //System.out.println("Fetching: " + targetUrl);
-
         // Opens the connection between the proxy server and the api endpoint
         HttpURLConnection conn = (HttpURLConnection) new URL(targetUrl).openConnection();
         conn.setRequestProperty("User-Agent", "JavaFX-Proxy");

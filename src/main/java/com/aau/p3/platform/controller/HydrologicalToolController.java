@@ -3,19 +3,14 @@ package com.aau.p3.platform.controller;
 import com.aau.p3.Main;
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
-import com.aau.p3.platform.controller.PopupWindowController;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
-import com.aau.p3.database.StaticThresholdRepository;
-import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
-import com.aau.p3.climatetool.risk.CloudburstRisk;
-import com.aau.p3.climatetool.risk.CoastalErosionRisk;
-import com.aau.p3.climatetool.risk.GroundwaterRisk;
-import com.aau.p3.climatetool.risk.StormSurgeRisk;
-import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.*;
+import com.aau.p3.platform.model.property.Property;
+import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,9 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Popup;
+
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HydrologicalToolController implements ControlledScreen {
@@ -42,14 +37,23 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
     public TextArea commentArea;
+    private WebEngine webEngine;
+    private PropertyManager propertyManager;
+    private Property currentProperty;
 
     private MainController mainController;
-    private final List<RiskAssessment> riskAssessment = new ArrayList<>();
 
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
+        this.propertyManager = Main.propertyManager;
+        this.currentProperty = propertyManager.currentProperty;
     }
+
+    @FXML
+    private TextField addressField; // The field where the user types the address
+    private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
+    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
 
     @FXML
     Slider cloudBurstSlider = new Slider();
@@ -59,7 +63,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private AnchorPane mapAnchor; //Anchor pane for the webmap
-    
+
     @FXML
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
 
@@ -67,58 +71,39 @@ public class HydrologicalToolController implements ControlledScreen {
     private GridPane labelContainer;
 
     @FXML
-    private Pane cloudBurstIndicator;
+    private AnchorPane cloudBurstIndicator;
     @FXML
-    private Pane stormSurgeIndicator;
+    private AnchorPane stormSurgeIndicator;
     @FXML
-    private Pane groundWaterIndicator;
+    private AnchorPane groundWaterIndicator;
     @FXML
-    private Pane coastalErosionIndicator;
+    private AnchorPane coastalErosionIndicator;
 
+    @FXML
+    private Slider cloudBurstThumb;
+
+    @FXML
+    private Label overallScoreId;
+
+    @FXML
+    private Button scoreDownButton;
+
+    @FXML
+    private Button scoreUpButton;
 
     @FXML
     public void initialize() {
-        System.out.println("HydrologicalToolController initialized!");
-
         // initialize Sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
-        // CALL API DAWA - GETS COORDINATES
-            // Redundant, only for testing
-        double[][] coordinates = {
-                {550900.0, 6320500.0},
-                {551100.0, 6320500.0},
-                {551100.0, 6320600.0},
-                {550900.0, 6320600.0}};
-
-        /* Sets up the different readers for both the Geo data and the database.
-        *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
-        *  Follows the Dependency Inversion Principle */
-        GeoDataReader geoReader = new TiffFileReader();
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
-        RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
-
-        /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
-        riskAssessment.add(new CloudburstRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-        riskAssessment.add(new GroundwaterRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new CoastalErosionRisk(geoReader, thresholdRepo));
-        riskAssessment.add(new StormSurgeRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
-
-        riskLabelBinder.applyColors(riskAssessment, coordinates);
-
-        Indicator indicator = new Indicator();
-        indicator.setThresholdsLines("", cloudBurstIndicator);
-        indicator.setThresholdsLines("", groundWaterIndicator);
-        indicator.setThresholdsLines("", stormSurgeIndicator);
-        indicator.setThresholdsLines("", coastalErosionIndicator);
-
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
+        webEngine = webView.getEngine();
 
         // Make variable for HTML file with all relevant map data and information
         var mapResource = getClass().getResource("/mapData/index.html");
+
         if (mapResource == null) {
             System.err.println("Map HTML not found in resources");
             return;
@@ -127,7 +112,6 @@ public class HydrologicalToolController implements ControlledScreen {
         // Creates a string representation of the HTML location to use for the "mapEngine"
         String mapUrl = mapResource.toExternalForm();
         webEngine.load(mapUrl);
-        System.out.println("Loading map from: " + mapUrl);
 
         // Adjust how the webView fills the anchorpane
         AnchorPane.setTopAnchor(webView, 0.0);
@@ -195,6 +179,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
     }
 
     // helper functions here
@@ -217,6 +202,98 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setSnapToTicks(true);
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
+    }
+
+    public void panTo(List<String> coords) {
+        webEngine.executeScript("panTo(" + coords + ")");
+    }
+
+    private double[][] to2dArray(List<List<Double>> list) {
+        double[][] arr = new double[list.size()][];
+
+        for (int i = 0; i < list.size(); i++) {
+            List<Double> inner = list.get(i);
+            arr[i] = new double[inner.size()];
+
+            for (int j = 0; j < inner.size(); j++) {
+                arr[i][j] = inner.get(j);
+            }
+        }
+        return arr;
+    }
+
+    /**
+     * Method for computing the climate score and setting appropriate colors for page
+     * @param polygon The polygon of the property
+     */
+    private void evaluateRiskProfile(double[][] polygon){
+        currentProperty.calculateClimateScore();
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+        RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
+
+        // Calling applyColors to apply the correct colors to the labels inside JavaFX
+        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
+
+        Indicator indicator = new Indicator();
+        indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
+        indicator.setThresholdsLines("groundwater", groundWaterIndicator);
+        indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
+        indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
+    }
+
+    /**
+     * Method for increasing and updating the climate score button, if measures have been taken to better it
+     * @param event Event that triggers
+     */
+    @FXML
+    private void increaseScore(ActionEvent event) {
+        if (currentProperty.getSpecialistScore() == -1) {
+        currentProperty.setSpecialistScore(0);
+        updateScoreButtons();
+        } else {
+            currentProperty.setSpecialistScore(1);
+            updateScoreButtons();
+        }
+    }
+
+    /**
+     * Method for increasing and updating the climate score button
+     * @param event Event that triggers
+     */
+    @FXML
+    private void decreaseScore(ActionEvent event){
+        if (currentProperty.getSpecialistScore() == 1) {
+            currentProperty.setSpecialistScore(0);
+            updateScoreButtons();
+        } else {
+            currentProperty.setSpecialistScore(-1);
+            updateScoreButtons();
+        }
+
+    }
+    /**
+     * Method for changing the climate score, in case any measures has been taken to better the score
+     * Initializes all fields with the computed information
+     */
+    private void updateScoreButtons() {
+        // Calculate new score
+        int overallClimateScore = currentProperty.getClimateScore();
+        int specialistScoreFactor = currentProperty.getSpecialistScore();
+
+        scoreDownButton.setVisible(overallClimateScore > 1);
+        scoreUpButton.setVisible(overallClimateScore < 5);
+
+        // Only show buttons if actions should be permitted
+        if (specialistScoreFactor == 1) {
+            scoreUpButton.setVisible(false);
+        }
+
+        if (specialistScoreFactor == -1) {
+            scoreDownButton.setVisible(false);
+        }
+
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+
 
     }
 
@@ -250,12 +327,22 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
 
     @FXML
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
         Main.propertyManager.currentProperty.setComments(comment);
     }
+      
+    public void afterInitialize() {
+        double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
+        this.evaluateRiskProfile(polygonArray);
 
+        updateScoreButtons();
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                panTo(this.currentProperty.getLatLongCoordinates());
+            }
+        });
+    }
 }

@@ -20,8 +20,8 @@ public class PopupWindowController {
     // Adds the information paragraphs for the parsed climate risk, using the .properties files.
     public void displayInfo(RiskInfo info){
         infoDisplay.getChildren().add(new Text(info.getGeneralInfo()));
-        infoDisplay.getChildren().add(new Text(info.getThresholdInfo()));
         infoDisplay.getChildren().add(new Text(info.getCalculationInfo()));
+        infoDisplay.getChildren().add(new Text(info.getThresholdInfo()));
         infoDisplay.getChildren().add(new Text(info.getPrecautionInfo()));
     }
 

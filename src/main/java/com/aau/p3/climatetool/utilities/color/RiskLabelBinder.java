@@ -24,8 +24,8 @@ public class RiskLabelBinder implements RiskBinderInterface {
     public void applyColors(List<RiskAssessment> riskAssessment, double[][] coordinates) {
         for (RiskAssessment risk : riskAssessment) {
             AnchorPane riskLabel = findLabelForRisk(risk);
-            double[] rgb = risk.gatherData(coordinates);
-            String style = String.format(Locale.US, "-fx-background-color: rgb(%f, %f, %f);", rgb[0], rgb[1],rgb[2]);
+            double[] rgb = risk.getRGB();
+            String style = String.format(Locale.US, "-fx-background-color: rgb(%f, %f, %f);", rgb[0], rgb[1], rgb[2]);
             riskLabel.setStyle(style);
             System.out.println(risk.getClass().getSimpleName() + " => " + Arrays.toString(rgb));
         }

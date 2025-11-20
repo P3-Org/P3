@@ -1,10 +1,17 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.dawa.*;
+import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
+import com.aau.p3.climatetool.utilities.GeoDataReader;
+import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
-import com.aau.p3.platform.model.common.Address;
-import com.aau.p3.platform.urlmanager.UrlAutoComplete;
+import com.aau.p3.platform.model.property.Property;
+import com.aau.p3.platform.model.property.PropertyManager;
+import com.aau.p3.platform.model.property.RiskFactory;
+import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,14 +23,25 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.net.URLDecoder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressLookupController {
+public class AddressLookupController implements ControlledScreen  {
+    private MainController mainController;
+    private PropertyManager propertyManager = Main.propertyManager;
+
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
     // List over the addresses that will be suggested to auto complete.
     private List<String> addresses = new ArrayList<>();
 
@@ -41,12 +59,6 @@ public class AddressLookupController {
 
     @FXML
     public void initialize() {
-        /// Defensive: ensure FXML was wired
-        if (myCasesTable == null) {
-            System.err.println("myCasesTable is null — check fx:id and fx:controller in the FXML");
-            return;
-        }
-
         // Map columns using lambdas (explicit, avoids reflection issues)
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
         tableTitle.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
@@ -58,17 +70,13 @@ public class AddressLookupController {
         // Mock Data — adjust Address/Customer constructors to match your real classes
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
-                        new Address("Denmark", 8382, "Hinnerup", "Bondagervej", "5"),
+                        URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Alice Johnson", 9260, 22334455, "alice@johnson.com"),
                         StatusEnum.PENDING),
                 new Case(2,
-                        new Address("Denmark", 9280, "Storvorde", "Ceciliavej", "13"),
+                        URLDecoder.decode("Danmarksgade+88%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Bob Smith", 9261, 33445566, "bob@smith.com"),
-                        StatusEnum.APPROVED),
-                new Case(3,
-                        new Address("Denmark", 9260, "Gistrup", "Mølleskoven", "28"),
-                        new Customer("Charlie Brown", 9263, 44556677, "charlie@brown.com"),
-                        StatusEnum.REJECTED)
+                        StatusEnum.APPROVED)
         );
 
         // Set data in the table
@@ -81,16 +89,13 @@ public class AddressLookupController {
         // When the user types in the address field
         addressField.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.isEmpty()) {
-                // Creates the API call from the UrlAutoComplete object with the given UrlString.
-                UrlAutoComplete dawaAutoComplete = new UrlAutoComplete(newText);
-
                 // Takes the response and finds the addresses from the DawaGetAddress class and method
                 DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
                 addresses = addressResponse.getAddresses();
-                // Addresses are converted to a observable list so it can be put into our ListView suggestionList.
-                ObservableList<String> ObservableAddresses = FXCollections.observableArrayList(addresses);
+                // Addresses are converted to an observable list so it can be put into our ListView suggestionList.
+                ObservableList<String> observableAddresses = FXCollections.observableArrayList(addresses);
                 if (!addresses.isEmpty()) {
-                    suggestionsList.setItems(ObservableAddresses);
+                    suggestionsList.setItems(observableAddresses);
                     if (!suggestionsPopup.isShowing()) {
                         Bounds bounds = addressField.localToScreen(addressField.getBoundsInLocal()); // Finds the bounds for the address field
                         suggestionsPopup.show(addressField.getScene().getWindow(), bounds.getMinX(), bounds.getMaxY()); //
@@ -113,16 +118,56 @@ public class AddressLookupController {
      * After this it checks if the selected text will result in the API call "type" adresse,
      * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property */
     private void selectItem(){
-        String selected = suggestionsList.getSelectionModel().getSelectedItem();
+        String selected =  suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
-            addressField.setText(selected);
+            addressField.setText(selected + " ");
+            addressField.positionCaret(selected.length() +1);
             DawaGetType type = new DawaGetType(selected);
-            if (type.getType().equals("adresse")){
+            if (type.getType().equals("adresse")) {
+                String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
-                DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(),propertyNumbers.getCadastre());
+                DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
+
+                 if (propertyManager.checkPropertyExists(selectedAddress)) {
+                     propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
+                } else {
+                     /* Sets up the different readers for both the Geo data and the database.
+                      *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+                      *  Follows the Dependency Inversion Principle */
+                     GeoDataReader geoReader = new TiffFileReader();
+                     ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+
+                     RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
+                     double[][] polygon = to2dArray(polygonForAddress.getPolygon());
+
+                     Property newProperty = new Property(selectedAddress,polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+                     propertyManager.addProperty(newProperty);
+                     propertyManager.setCurrentProperty(newProperty);
+                 }
+
+                hydrologicalTool();
+
             }
         }
+    }
+    private double[][] to2dArray(List<List<Double>> list) {
+        double[][] arr = new double[list.size()][];
+
+        for (int i = 0; i < list.size(); i++) {
+            List<Double> inner = list.get(i);
+            arr[i] = new double[inner.size()];
+
+            for (int j = 0; j < inner.size(); j++) {
+                arr[i][j] = inner.get(j);
+            }
+        }
+        return arr;
+    }
+
+    @FXML
+    private void hydrologicalTool() {
+        mainController.setCenter("/UI/HydrologicalTool.fxml");
     }
 }

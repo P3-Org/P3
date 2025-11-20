@@ -4,6 +4,10 @@ import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 
 import java.util.List;
 
+/**
+ * Class that implements "MeasurementStrategy" and finds the average measurement
+ * @Author Batman
+ */
 public class AverageMeasurementStrategy implements MeasurementStrategy {
     @Override
     public double processValues(List<Double> samples) {

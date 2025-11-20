@@ -24,15 +24,29 @@
                                     </Label>
                                   </children>
                               </AnchorPane>
-                              <AnchorPane maxWidth="50">
-                                 <children>
-                                    <Label text="{estScore}" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                               <HBox alignment="CENTER" spacing="5">
+                                   <Button fx:id="scoreDownButton"
+                                           text="-"
+                                           onAction="#decreaseScore"
+                                           prefWidth="30"
+                                           prefHeight="30"
+                                           style="-fx-font-size: 18;" />
+
+                                   <Label fx:id="overallScoreId"
+                                          text="{estScore}"
+                                          textAlignment="CENTER">
                                        <font>
-                                          <Font size="40.0" />
+                                           <Font size="40.0" />
                                        </font>
-                                    </Label>
-                                 </children>
-                              </AnchorPane>
+                                   </Label>
+
+                                   <Button fx:id="scoreUpButton"
+                                           text="+"
+                                           onAction="#increaseScore"
+                                           prefWidth="30"
+                                           prefHeight="30"
+                                           style="-fx-font-size: 18;" />
+                               </HBox>
                            </children>
                         </HBox>
                      </top>
@@ -98,9 +112,9 @@
                                           </AnchorPane>
                                        </center>
                                         <bottom>
-                                            <AnchorPane maxHeight="20.0" BorderPane.alignment="CENTER">
+                                            <AnchorPane fx:id="cloudBurstIndicator" maxHeight="20.0" BorderPane.alignment="CENTER">
                                                 <children>
-                                                    <Pane fx:id="cloudBurstIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                    <Slider fx:id="cloudBurstThumb" styleClass="slider-indicator" disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                 </children>
                                             </AnchorPane>
                                         </bottom>
@@ -134,9 +148,9 @@
                                           </AnchorPane>
                                        </center>
                                        <bottom>
-                                          <AnchorPane BorderPane.alignment="CENTER">
+                                          <AnchorPane fx:id="groundWaterIndicator" BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="groundWaterIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Slider fx:id="groundWaterThumb" styleClass="slider-indicator" disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -170,9 +184,9 @@
                                           </AnchorPane>
                                        </center>
                                        <bottom>
-                                          <AnchorPane BorderPane.alignment="CENTER">
+                                          <AnchorPane fx:id="stormSurgeIndicator" BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="stormSurgeIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Slider fx:id="stormSurgeThumb" styleClass="slider-indicator" disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>
@@ -206,9 +220,9 @@
                                           </AnchorPane>
                                        </center>
                                        <bottom>
-                                          <AnchorPane BorderPane.alignment="CENTER">
+                                          <AnchorPane fx:id="coastalErosionIndicator" BorderPane.alignment="CENTER">
                                               <children>
-                                                  <Pane fx:id="coastalErosionIndicator" maxHeight="20" minHeight="20" style="-fx-background-radius: 5; -fx-background-color: linear-gradient(to right,red, yellow, green)" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                  <Slider fx:id="coastalErosionThumb" styleClass="slider-indicator" disable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                               </children>
                                           </AnchorPane>
                                        </bottom>

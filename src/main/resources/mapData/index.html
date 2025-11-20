@@ -107,7 +107,7 @@
     function setGroundwater(){
         // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
-            layers: '100m_rcp45_nf_median_phreatic_all_mean',
+            layers: '100m_phreatic_all_mean',
             format: 'image/png',
             transparent: "TRUE",
             version: '1.3.0',
@@ -168,6 +168,10 @@
     function removeCadastralLayer(){
         if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
         if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
+    }
+
+    function panTo(coords){
+        map.panTo(coords)
     }
 </script>
 </body>

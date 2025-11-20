@@ -86,7 +86,7 @@ public class ClimateMeasurements {
                         coverage.evaluate(new GridCoordinates2D(x, y), sample);
                         /* Since measurement where no data exist is kinda weird, we check if it's NaN
                          *  If the measurement is larger we update "easting" and "northing" that hold the coordinates */
-                        if (!Double.isNaN(sample[0]) && sample[0] >= 0) {
+                        if (!Double.isNaN(sample[0]) && sample[0] > 0 && (sample[0] != 300)) {
                             values.add(sample[0]);
                         }
                     } catch (ArrayIndexOutOfBoundsException ignored) { // Catches both checked an unchecked exceptions

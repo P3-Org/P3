@@ -1,8 +1,5 @@
-package com.aau.p3.climatetool.groundwater;
+package com.aau.p3.climatetool.geoprocessing;
 
-import com.aau.p3.climatetool.dawa.DawaAutocomplete;
-import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
-import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import com.aau.p3.platform.urlmanager.UrlGroundwater;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,11 +11,12 @@ import java.util.List;
  * Class that gets "h" values and "kote" values, to analyze distance to groundwater after certain weather conditions
  * @Author Batman
  */
-public class Groundwater {
+public class GroundwaterReader {
     private double kote;
     private List<Double> hValues;
+    private double distanceFromSurface;
 
-    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch
+    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch (slet comment senere)
     // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
     /**
@@ -28,14 +26,15 @@ public class Groundwater {
     public void groundwaterFetch(String query) {
         // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
-        System.out.println(groundwater.getUrlGroundwater().toString());
         StringBuilder response = groundwater.getUrlGroundwater();
 
         // Get kote value
-        kote = Groundwater.extractKote(response);
+        kote = GroundwaterReader.extractKote(response);
 
         // Get h values
-        hValues = Groundwater.extractHValues(response);
+        hValues = GroundwaterReader.extractHValues(response);
+
+        this.distanceFromSurface = kote - hValues.get(3);
     }
 
     /**
@@ -81,5 +80,7 @@ public class Groundwater {
     public double getKote() { return this.kote; }
 
     public List<Double> getHValues() { return this.hValues; }
+
+    public double getDistanceFromSurface() { return this.distanceFromSurface; }
 }
 
