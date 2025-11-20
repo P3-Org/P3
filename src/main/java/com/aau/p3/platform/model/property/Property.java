@@ -1,7 +1,11 @@
 package com.aau.p3.platform.model.property;
-import com.aau.p3.climatetool.ClimateStateScore;
+import com.aau.p3.Main;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 
+import java.util.ArrayList;
+import java.util.List;
+import com.aau.p3.climatetool.ClimateStateScore;
+import com.aau.p3.climatetool.utilities.RiskAssessment;
 import java.util.List;
 
 /**
@@ -16,6 +20,7 @@ public class Property {
     private final List<RiskAssessment> riskAssessment;
     private int climateScore;
     private int specialistScore = 0;
+    private List<String> comments;
 
     // Constructor, initializes final variables.
     public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
@@ -23,6 +28,7 @@ public class Property {
         this.polygonCoordinates = polygonCoordinates;
         this.latLongCoordinates = latLongCoordinates;
         this.riskAssessment = riskAssessment;
+        this.comments = new ArrayList<>();
     }
 
     // Calls "computeOverallClimateScore" and assigns to attribute
@@ -67,5 +73,13 @@ public class Property {
 
     public int getSpecialistScore() {
         return this.specialistScore;
+    }
+  
+    public void setComment(String newComment) {
+        this.comments.add(newComment);
+        System.out.println("Added a comment!");
+    }
+    public List<String> getComments() {
+        return this.comments;
     }
 }

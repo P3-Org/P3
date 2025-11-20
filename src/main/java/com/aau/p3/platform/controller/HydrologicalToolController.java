@@ -43,7 +43,16 @@ public class HydrologicalToolController implements ControlledScreen {
     public ToggleButton erosionToggle = new ToggleButton();
     public ToggleButton groundwaterToggle = new ToggleButton();
     public ToggleGroup weatherOption;
+
+    public TextArea commentArea;
+
+    public Label groundwaterDescription;
+    public Label cloudburstDescription;
+    public Label stormsurgeDescription;
+    public Label coastalerosionDescription;
+
     private WebEngine webEngine;
+
     private PropertyManager propertyManager;
     private Property currentProperty;
 
@@ -63,16 +72,13 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     Slider cloudBurstSlider = new Slider();
-
     @FXML
     Slider stormSurgeSlider = new Slider();
 
     @FXML
     private AnchorPane mapAnchor; //Anchor pane for the webmap
-
     @FXML
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
-
     @FXML
     private GridPane labelContainer;
 
@@ -100,10 +106,8 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private Label overallScoreId;
-
     @FXML
     private Button scoreDownButton;
-
     @FXML
     private Button scoreUpButton;
 
@@ -212,7 +216,6 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setSnapToTicks(true);
         stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
-
     }
 
     private void setCloudBurstSlider(){
@@ -315,6 +318,7 @@ public class HydrologicalToolController implements ControlledScreen {
         }
 
     }
+
     /**
      * Method for changing the climate score, in case any measures has been taken to better the score
      * Initializes all fields with the computed information
@@ -336,6 +340,13 @@ public class HydrologicalToolController implements ControlledScreen {
         if (specialistScoreFactor == -1) {
             scoreDownButton.setVisible(false);
         }
+
+        overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+    }
+
+    //wip
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        descriptionId.setText(textToShow);
     }
 
     @FXML
@@ -368,8 +379,15 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
+    @FXML
+    private void commentButtonHandler(ActionEvent event) {
+        String comment = commentArea.getText();
+        Main.propertyManager.currentProperty.setComment(comment);
+        commentArea.clear();
+    }
+      
     public void afterInitialize() {
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
@@ -380,6 +398,9 @@ public class HydrologicalToolController implements ControlledScreen {
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });
+
+        System.out.println(currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
 
     public void animateSliderTo(Slider slider, double targetValue) {

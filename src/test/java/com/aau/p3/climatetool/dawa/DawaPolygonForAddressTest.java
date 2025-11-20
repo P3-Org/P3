@@ -1,4 +1,4 @@
-package com.aau.p3.dawa;
+package com.aau.p3.climatetool.dawa;
 
 import com.aau.p3.climatetool.dawa.DawaPolygonForAddress;
 import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;

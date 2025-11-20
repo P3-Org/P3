@@ -19,6 +19,8 @@ target/
 # And not the runConfigurations folder
 !.idea/runConfigurations/
 
+*.pdf
+
 ### Eclipse ###
 .apt_generated
 .classpath

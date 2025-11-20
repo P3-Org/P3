@@ -1,5 +1,10 @@
 package com.aau.p3.platform.controller;
 
+import com.aau.p3.Main;
+import com.aau.p3.platform.model.pdfcontents.PdfChapter;
+import com.aau.p3.platform.model.pdfcontents.PdfClimateState;
+import com.aau.p3.platform.model.pdfcontents.PdfOverview;
+import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,9 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.List;
 
 public class MainController {
     Object ctrl;
@@ -27,7 +37,6 @@ public class MainController {
     public void initialize() {
         setCenter("/UI/AddressLookup.fxml");
     }
-
 
     /* setCenter method takes an FXML file
     type (window) and replaces the current window with that content */
@@ -103,12 +112,37 @@ public class MainController {
         setCenter("/UI/HydrologicalTool.fxml");
     }
 
+    @FXML
+    private void exportDocument (ActionEvent actionEvent) throws IOException {
+        System.out.println("Exporting document...");
 
+        // Initialize
+        PDDocument document = new PDDocument();
+        List<PdfChapter> chapters = new ArrayList<>();
+
+        // Gather information form elsewhere in the system
+        Property currentProperty = Main.propertyManager.currentProperty;
+
+        // Add chapters with content to list
+        chapters.add(new PdfOverview(currentProperty.getAddress()));
+        chapters.add(new PdfClimateState("placeholder", currentProperty));
+
+        for (PdfChapter chapter : chapters) {
+            PDPage page = new PDPage();
+            document.addPage(page);
+
+            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                chapter.render(document, contentStream);
+            }
+        }
+
+        document.save("report.pdf");
+        System.out.println("Document saved!");
+        document.close();
+    }
 
     @FXML
     private void exitApp() {
         System.exit(0);
     }
-
-
 }
