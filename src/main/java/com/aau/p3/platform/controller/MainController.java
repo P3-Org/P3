@@ -104,7 +104,7 @@ public class MainController {
     }
 
     @FXML
-    private void exportDocument (ActionEvent actionEvent) {
+    private void exportDocument (ActionEvent actionEvent) throws IOException {
         System.out.println("Exporting document...");
 
         PDDocument document = new PDDocument();
@@ -113,7 +113,7 @@ public class MainController {
         String soughtAddress = Main.propertyManager.currentProperty.getAddress();
 
         chapters.add(new PdfOverview(soughtAddress));
-        chapters.add(new PdfClimateState(3, givenComment, climateRisksInfo));
+        //chapters.add(new PdfClimateState(3, givenComment, climateRisksInfo));
 
         for (PdfChapter chapter : chapters) {
             PDPage page = new PDPage();
@@ -126,9 +126,6 @@ public class MainController {
 
         document.save("report.pdf");
         document.close();
-    } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
