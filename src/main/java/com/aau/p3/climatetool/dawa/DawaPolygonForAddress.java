@@ -7,9 +7,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
     private Integer bfeNumber;
+
 
     /**
      * Fills out the field of polygon with coordinates of the polygon

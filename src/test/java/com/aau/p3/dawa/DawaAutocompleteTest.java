@@ -1,7 +1,15 @@
 package com.aau.p3.dawa;
 
+import com.aau.p3.climatetool.dawa.DawaAutocomplete;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 class DawaAutocompleteTest {
-    /*
     private List<String> expectedCoords;
 
     @BeforeEach
@@ -24,5 +32,4 @@ class DawaAutocompleteTest {
         DawaAutocomplete addressInfo = new DawaAutocomplete("Bondag");
         Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
     }
-    */
 }

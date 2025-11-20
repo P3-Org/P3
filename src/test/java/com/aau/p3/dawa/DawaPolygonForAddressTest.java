@@ -6,19 +6,21 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 class DawaPolygonForAddressTest {
-    /*
     private DawaPolygonForAddress dawaPolygonForAddress;
     private List<String> expectedCoords;
     private List<List<Double>> expectedCoordsList;
-    DawaPropertyNumbers testProperty;
+    DawaPropertyNumbers testProperty = Mockito.mock(DawaPropertyNumbers.class);
 
 
     @BeforeEach
@@ -28,7 +30,10 @@ class DawaPolygonForAddressTest {
 
         testCoords.add("10.02245235");
         testCoords.add("56.25263942");
-        testProperty = new DawaPropertyNumbers(testCoords);
+        //testProperty = new DawaPropertyNumbers(testCoords);
+        when(testProperty.getCadastre()).thenReturn("9af");
+        when(testProperty.getOwnerLicense()).thenReturn("980251");
+
     }
 
 
@@ -53,5 +58,4 @@ class DawaPolygonForAddressTest {
         // Assert
         Assertions.assertEquals(expectedCoordsList, polygon.getPolygon());
     }
-    */
 }
