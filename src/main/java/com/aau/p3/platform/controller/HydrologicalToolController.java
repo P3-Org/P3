@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -29,6 +28,9 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that handles the hydrological tool controller and window
+ */
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -204,7 +206,6 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
-
     }
 
     // helper functions here
@@ -232,6 +233,11 @@ public class HydrologicalToolController implements ControlledScreen {
         webEngine.executeScript("panTo(" + coords + ")");
     }
 
+    /**
+     * Method for converting a List<List<double>> to a double[][]
+     * @param list List to be converted to array
+     * @return arr as a double[][]
+     */
     private double[][] to2dArray(List<List<Double>> list) {
         double[][] arr = new double[list.size()][];
 
@@ -387,7 +393,7 @@ public class HydrologicalToolController implements ControlledScreen {
         Main.propertyManager.currentProperty.setComment(comment);
         commentArea.clear();
     }
-      
+
     public void afterInitialize() {
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);

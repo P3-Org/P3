@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
  * Reads information from TIFF files and sets color from normalized measurements
- * @Author Batman
  */
 public class StormSurgeRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -24,7 +23,12 @@ public class StormSurgeRisk implements RiskAssessment {
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    // Constructor for final attributes
+    /**
+     * Constructor for final attributes of StormSurgeRisk
+     * @param geoDataReader
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public StormSurgeRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;

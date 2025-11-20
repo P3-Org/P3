@@ -8,7 +8,13 @@ public class Customer {
     private final int phoneNumber;
     private final String email;
 
-    //Constructor
+    /**
+     * Constructor for Customer
+     * @param name name
+     * @param CPR number
+     * @param phoneNumber number
+     * @param email email
+     */
     public Customer(String name, int CPR, int phoneNumber, String email) {
         this.name = name;
         this.CPR = CPR;

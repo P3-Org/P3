@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Class that holds information on a property, which in "PropertyManager" can be saved in a list.
  * Holds everything from address, location and risks
- * @Author Batman
  */
 public class Property {
     private final String address;
@@ -22,7 +21,13 @@ public class Property {
     private int specialistScore = 0;
     private List<String> comments;
 
-    // Constructor, initializes final variables.
+    /**
+     * Constructor for property - initializes final variables
+     * @param address
+     * @param polygonCoordinates
+     * @param latLongCoordinates
+     * @param riskAssessment
+     */
     public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
         this.address = address;
         this.polygonCoordinates = polygonCoordinates;
@@ -30,33 +35,65 @@ public class Property {
         this.riskAssessment = riskAssessment;
         this.comments = new ArrayList<>();
     }
-
-    // Calls "computeOverallClimateScore" and assigns to attribute
+    /**
+     * Calls "computeOverallClimateScore" and assigns to attribute climateScore in property
+     */
     public void calculateClimateScore() {
         this.climateScore = ClimateStateScore.computeOverallClimateScore(riskAssessment);
     }
 
-    // Getters and setters
+    /**
+     * Getter method
+     * @return Risk assessment for the property
+     */
     public List<RiskAssessment> getRisks() {
         return this.riskAssessment;
     }
 
+    /**
+     * Getter method
+     * @return Address for the property
+     */
     public String getAddress() {
         return this.address;
     }
 
+    /**
+     * Getter method
+     * @return Polygon coordinates
+     */
     public List<List<Double>> getPolygonCoordinates() {
         return this.polygonCoordinates;
     }
 
+    /**
+     * Getter method
+     * @return climateScore + changes by the specialist in specialistScore
+     */
     public int getClimateScore() {
         return climateScore + specialistScore;
     }
 
+    /**
+     * Getter method
+     * @return Latitude Longitude Coordinates
+     */
     public List<String> getLatLongCoordinates() {
         return latLongCoordinates;
     }
 
+    /**
+     * Getter method
+     * @return specialistScore from property class
+     */
+    public int getSpecialistScore() {
+        return this.specialistScore;
+    }
+
+    /**
+     * Setter method
+     * @param scoreEdit the score that is to be edited or set
+     */
     public void setSpecialistScore(int scoreEdit) {
         if (scoreEdit > 0) {
             specialistScore = 1;
@@ -71,10 +108,6 @@ public class Property {
         }
     }
 
-    public int getSpecialistScore() {
-        return this.specialistScore;
-    }
-  
     public void setComment(String newComment) {
         this.comments.add(newComment);
         System.out.println("Added a comment!");

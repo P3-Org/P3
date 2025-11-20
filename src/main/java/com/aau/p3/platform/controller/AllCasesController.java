@@ -3,8 +3,10 @@ package com.aau.p3.platform.controller;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
 
-/* Controller that handles actions performed in the AllCases.fxml file
-*  If we create a button in AllCases.fxml a method here will define the functionality of the button */
+/**
+ * Controller that handles actions performed in the AllCases.fxml file.
+ * If we create a button in AllCases.fxml a method here will define the functionality of the button
+ */
 public class AllCasesController implements ControlledScreen {
     private MainController mainController;
 

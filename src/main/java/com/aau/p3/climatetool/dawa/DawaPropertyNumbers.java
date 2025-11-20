@@ -5,16 +5,16 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * Class that acts as a constructor to get Cadastre and Owner license with the help from UrlPropertyNumber
+ */
 public class DawaPropertyNumbers {
-    private List<List<Double>> polygon;
     private String cadastre = "";
     private String ownerLicense = "";
 
     /** Constructor for the DawaPropertyNumbers class
-     * A list of an x and y coordinate
+     * @param coordinates list of an x and y coordinate (also known as Latitude and Longitude)
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates){
@@ -30,14 +30,14 @@ public class DawaPropertyNumbers {
     }
 
     /** Getter method
-     * @return Returns string of the cadastre code
+     * @return returns string of the cadastre code
      */
     public String getCadastre() {
         return this.cadastre;
     }
 
     /** Getter method
-     * @return Returns string of the owner license code
+     * @return returns string of the owner license code
      */
     public String getOwnerLicense() {
         return this.ownerLicense;

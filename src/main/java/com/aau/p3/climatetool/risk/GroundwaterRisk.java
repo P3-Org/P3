@@ -9,7 +9,6 @@ import com.aau.p3.climatetool.utilities.NormalizeSample;
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
  * Gets information through API call to dataforsyningen
- * @Author Batman
  */
 public class GroundwaterRisk implements RiskAssessment {
     private final ThresholdRepository thresholdRepository;
@@ -19,7 +18,10 @@ public class GroundwaterRisk implements RiskAssessment {
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    // Constructor initializes the thresholds
+    /**
+     *  Constructor that initializes the thresholds
+     * @param thresholdRepository
+     */
     public GroundwaterRisk(ThresholdRepository thresholdRepository) {
         this.thresholdRepository = thresholdRepository;
     }
