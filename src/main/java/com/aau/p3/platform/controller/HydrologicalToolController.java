@@ -327,7 +327,7 @@ public class HydrologicalToolController implements ControlledScreen {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+    }
     @FXML
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
