@@ -24,7 +24,6 @@ public class DawaGetCoordinates {
         String coordinateY = data.optString("y", ""); // In the data object, save the string "y"
         coordinates.add(coordinateY); // adds the y coordinate to our list
         coordinates.add(coordinateX); // adds the x coordinate to our List
-        //System.out.println(coordinates);
     }
     // Method for returning the coordinates.
     public List<String> getCoordinates() {

@@ -146,6 +146,14 @@
     -fx-opacity: 0.35;
     -fx-cursor: default;
 }
+.slider-indicator .thumb {
+    -fx-background-color: #ff5555;          /* visible red triangle */
+    -fx-shape: "M 0 10 L 10 10 L 5 0 Z";    /* triangle pointing down */
+    -fx-background-insets: 0;
+    -fx-padding: 6;                         /* size of triangle */
+    -fx-background-radius: 0;
+    -fx-translate-y: 6px;                   /* moves triangle downward to align tip with track */
+}
 .settings-button {
     -fx-background-image: url("images/settingsIcon.png");
     -fx-background-size: 20px 20px;

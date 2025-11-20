@@ -1,5 +1,4 @@
 package com.aau.p3.platform.model.casefile;
-import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.utilities.StatusEnum;
 
 public class Case {
@@ -9,9 +8,9 @@ public class Case {
     private StatusEnum status;
 
     // Constructor
-    public Case(int caseID, Address address, Customer owner, StatusEnum status) {
+    public Case(int caseID, String address, Customer owner, StatusEnum status) {
         this.caseID = caseID;
-        this.address = address.getStreetName() + " " + address.getHouseNumber() + ", " + address.getZipCode() + ", " + address.getCity();
+        this.address = address;
         this.owner = owner.getName();
         this.status = status;
     }

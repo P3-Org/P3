@@ -39,7 +39,6 @@ public class DawaAutocomplete {
                 coordinates.add(xMatcher.group(1));
                 coordinates.add(yMatcher.group(1));
             }
-        System.out.println(coordinates);
     }
     public List<String> getCoordinates() {
         return coordinates;

@@ -50,6 +50,11 @@ public class MainController {
             * while in theory not being linked at all with it */
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
+
+                // Run some code after maincontroller i set and variables are moved
+                if (ctrl instanceof HydrologicalToolController htc){
+                    htc.afterInitialize();
+                }
             }
 
 
@@ -90,13 +95,11 @@ public class MainController {
 
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        System.out.println("Address search activated...");
         setCenter("/UI/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        System.out.println("Hydrological tool activated...");
         setCenter("/UI/HydrologicalTool.fxml");
     }
 
