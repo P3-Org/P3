@@ -9,6 +9,10 @@ public class NormalizeSample {
      * within the minThreshold,maxThreshold range. Otherwise, the result falls outside of this interval
      */
     public static double minMaxNormalization(double measurementValue, double[] thresholds) {
+        if (Double.isNaN(measurementValue)) {
+            return 1.5;
+        }
+
         if (thresholds.length != 2) {
             throw new IllegalArgumentException("max and min threshold must differ");
         }

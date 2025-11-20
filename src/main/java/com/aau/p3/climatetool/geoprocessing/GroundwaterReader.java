@@ -16,7 +16,7 @@ public class GroundwaterReader {
     private List<Double> hValues;
     private double distanceFromSurface;
 
-    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch
+    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch (slet comment senere)
     // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
 
     /**
@@ -26,7 +26,6 @@ public class GroundwaterReader {
     public void groundwaterFetch(String query) {
         // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
-        System.out.println(groundwater.getUrlGroundwater().toString());
         StringBuilder response = groundwater.getUrlGroundwater();
 
         // Get kote value
@@ -35,7 +34,7 @@ public class GroundwaterReader {
         // Get h values
         hValues = GroundwaterReader.extractHValues(response);
 
-        this.distanceFromSurface = kote - hValues.get(4);
+        this.distanceFromSurface = kote - hValues.get(3);
     }
 
     /**

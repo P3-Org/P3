@@ -1,6 +1,5 @@
 package com.aau.p3;
 
-
 import com.aau.p3.platform.model.property.PropertyManager;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -12,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
     public static PropertyManager propertyManager = new PropertyManager();
+
     /* The start method is defined in Application and is used to create a scene with JavaFX */
     @Override
     public void start(Stage primaryStage) {
@@ -24,10 +24,7 @@ public class Main extends Application {
 
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
-;
             primaryStage.setTitle("Nykredit Platform");
-
-            System.out.println("this is the primarystage"+primaryStage);
 
             /* Displays the application at 90% of the screen,
              * with the initial window which is defined in MainWindow.fxml */
@@ -39,7 +36,9 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    @Override
+    public void stop() {
+        LocalProxyServer.stopProxy();
+    }
 
 }
-
-

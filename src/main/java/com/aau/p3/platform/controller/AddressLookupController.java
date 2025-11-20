@@ -8,7 +8,6 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
-import com.aau.p3.platform.model.common.Address;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.RiskFactory;
@@ -29,14 +28,14 @@ import javafx.stage.Popup;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.net.URLDecoder;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddressLookupController implements ControlledScreen  {
-
     private MainController mainController;
     private final PropertyManager propertyManager = Main.propertyManager;
-
 
     @Override
     public void setMainController(MainController mainController) {
@@ -60,8 +59,6 @@ public class AddressLookupController implements ControlledScreen  {
 
     @FXML
     public void initialize() {
-
-
         // Map columns using lambdas (explicit, avoids reflection issues)
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
         tableTitle.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
@@ -73,17 +70,13 @@ public class AddressLookupController implements ControlledScreen  {
         // Mock Data — adjust Address/Customer constructors to match your real classes
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
-                        new Address("Denmark", 8382, "Hinnerup", "Bondagervej", "5"),
+                        URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Alice Johnson", 9260, 22334455, "alice@johnson.com"),
                         StatusEnum.PENDING),
                 new Case(2,
-                        new Address("Denmark", 9280, "Storvorde", "Ceciliavej", "13"),
+                        URLDecoder.decode("Danmarksgade+88%2C+9000+Aalborg", StandardCharsets.UTF_8),
                         new Customer("Bob Smith", 9261, 33445566, "bob@smith.com"),
-                        StatusEnum.APPROVED),
-                new Case(3,
-                        new Address("Denmark", 9260, "Gistrup", "Mølleskoven", "28"),
-                        new Customer("Charlie Brown", 9263, 44556677, "charlie@brown.com"),
-                        StatusEnum.REJECTED)
+                        StatusEnum.APPROVED)
         );
 
         // Set data in the table
@@ -99,7 +92,6 @@ public class AddressLookupController implements ControlledScreen  {
                 // Takes the response and finds the addresses from the DawaGetAddress class and method
                 DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
                 addresses = addressResponse.getAddresses();
-
                 // Addresses are converted to an observable list so it can be put into our ListView suggestionList.
                 ObservableList<String> observableAddresses = FXCollections.observableArrayList(addresses);
                 if (!addresses.isEmpty()) {
@@ -142,6 +134,9 @@ public class AddressLookupController implements ControlledScreen  {
                  if (propertyManager.checkPropertyExists(selectedAddress)) {
                      propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
                 } else {
+                     /* Sets up the different readers for both the Geo data and the database.
+                      *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
+                      *  Follows the Dependency Inversion Principle */
                      GeoDataReader geoReader = new TiffFileReader();
                      ThresholdRepository thresholdRepo = new StaticThresholdRepository();
 
@@ -149,7 +144,7 @@ public class AddressLookupController implements ControlledScreen  {
                      double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
                      Property newProperty = new Property(selectedAddress,polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
-                      propertyManager.addProperty(newProperty);
+                     propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
                  }
 
