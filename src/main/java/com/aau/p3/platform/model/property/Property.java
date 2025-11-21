@@ -19,7 +19,7 @@ public class Property {
     private final List<RiskAssessment> riskAssessment;
     private int climateScore;
     private int specialistScore = 0;
-    private List<String> comments;
+    private List<String> comments = new ArrayList<>();
 
     /**
      * Constructor for property - initializes final variables
@@ -33,8 +33,8 @@ public class Property {
         this.polygonCoordinates = polygonCoordinates;
         this.latLongCoordinates = latLongCoordinates;
         this.riskAssessment = riskAssessment;
-        this.comments = new ArrayList<>();
     }
+
     /**
      * Calls "computeOverallClimateScore" and assigns to attribute climateScore in property
      */

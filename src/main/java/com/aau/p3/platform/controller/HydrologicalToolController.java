@@ -390,8 +390,7 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     private void updateRiskDescriptions(Label descriptionId, String textToShow) {
-        System.out.println("update-func");
-        System.out.println(textToShow);
+        System.out.println("update-func: " + textToShow);
         descriptionId.setText(textToShow);
     }
 
@@ -407,6 +406,8 @@ public class HydrologicalToolController implements ControlledScreen {
         });
 
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(0).getDescription());
+
+        System.out.println("RISKTYPE: " + currentProperty.getRisks().get(0).getDescription());
 
         System.out.println("after-init " + currentProperty.getRisks().get(0).getDescription());
     }
