@@ -117,7 +117,7 @@ public class AddressLookupController implements ControlledScreen  {
     }
     /** Method that takes the selected item from ListView and adds it to addressField.
      * After this it checks if the selected text will result in the API call "type" adresse,
-     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property
+     * and if it does it then gets coordinates, Ownerlicense and Cadastre for the according property
      */
     private void selectItem(){
         String selected =  suggestionsList.getSelectionModel().getSelectedItem();
