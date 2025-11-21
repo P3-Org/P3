@@ -1,6 +1,7 @@
 package com.aau.p3.climatetool.groundwater;
 
 import com.aau.p3.climatetool.geoprocessing.GroundwaterReader;
+import com.aau.p3.climatetool.utilities.RestDataReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +40,8 @@ class GroundwaterReaderTest {
         }
         """;
 
-        List<Double> values = GroundwaterReader.extractHValues(new StringBuilder(json));
+        RestDataReader reader = new GroundwaterReader();
+        List<Double> values = reader.extractValues(new StringBuilder(json));
 
         assertEquals(6, values.size());
         assertEquals(1.1, values.get(0), 0.0001);
