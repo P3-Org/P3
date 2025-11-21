@@ -39,8 +39,8 @@ public class GroundwaterRisk implements RiskAssessment{
         GroundwaterReader reader = new GroundwaterReader();
 
         // Get x and y coordinates to perform API call
-        this.easting = eastnorth[0][1];
-        this.northing = eastnorth[0][0];
+        this.easting = eastnorth[0][0];
+        this.northing = eastnorth[0][1];
         System.out.println(easting);
         System.out.println(northing);
 

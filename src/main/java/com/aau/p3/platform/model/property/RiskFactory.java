@@ -50,13 +50,14 @@ public class RiskFactory {
         //    risks.computeRiskMetrics(coordinates);
         //}
         // bad workaround because of bad interfaces and uses of bad double[][]........
-        double x = Double.parseDouble(xy.get(0));
-        double y = Double.parseDouble(xy.get(1));
+        double easting  = Double.parseDouble(xy.get(0)); // correct order
+        double northing = Double.parseDouble(xy.get(1));
         double[][] eastnorth = new double[1][2];
-        eastnorth[0][0] = x;
-        eastnorth[0][1] = y;
-        System.out.println("riskfactory" + x);
-        System.out.println("riskfactory" +  y);
+        eastnorth[0][0] = easting;
+        eastnorth[0][1] = northing;
+        System.out.println("riskfactory" + easting);
+        System.out.println("riskfactory" +  northing);
+        System.out.println("coordinates" + coordinates);
 
         riskAssessments.get(0).computeRiskMetrics(coordinates);
         riskAssessments.get(1).computeRiskMetrics(eastnorth);

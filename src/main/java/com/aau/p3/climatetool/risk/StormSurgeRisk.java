@@ -3,6 +3,7 @@ package com.aau.p3.climatetool.risk;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -45,6 +46,11 @@ public class StormSurgeRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        System.out.println("coords passed to TIFF: " + Arrays.deepToString(coordinates));
+
+        System.out.println("GW thresholds = " + Arrays.toString(threshold));
+        System.out.println("GW measurement = " + measurementValue);
+        System.out.println("GW normalized = " + normalizedMeasurement);
     }
 
     // Getters

@@ -27,8 +27,9 @@ public class DawaGetCoordinates {
         String coordinateX = data.optString("x", ""); // In the data object, save the string "x"
         String coordinateY = data.optString("y", ""); // In the data object, save the string "y"
 
-        coordinates.add(coordinateY); // adds the y coordinate to our list
         coordinates.add(coordinateX); // adds the x coordinate to our List
+        coordinates.add(coordinateY); // adds the y coordinate to our list
+
     }
     /** Getter method for the coordinates.
      * @return Easting Northing coordinates from the class

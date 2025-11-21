@@ -3,6 +3,7 @@ package com.aau.p3.climatetool.risk;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +30,10 @@ public class CloudburstRisk implements RiskAssessment {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;
+        System.out.println("CB thresholds = " + Arrays.toString(threshold));
+        System.out.println("CB measurement = " + measurementValue);
+        System.out.println("CB normalized = " + normalizedMeasurement);
+
     }
 
     /**

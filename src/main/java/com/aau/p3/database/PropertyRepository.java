@@ -98,6 +98,9 @@ public class PropertyRepository {
      * @param property contains the property object that needs to be added into the database matching the address.
      */
     public static void saveProperty(Property property) {
+        System.out.println("address" + property.getAddress());
+        System.out.println("east noth" + property.getEastingNorthing());
+        System.out.println("lat lon" + property.getLatLongCoordinates());
 
         for (var risk : property.getRisks()) {
             System.out.println("Risk: " + risk.getRiskType());
