@@ -36,7 +36,7 @@ public class RiskFactory {
      * @param coordinates The coordinates of the property
      * @return List of risk assessments.
      */
-    public List<RiskAssessment> createRisks(double[][] coordinates) {
+    public List<RiskAssessment> createRisks(double[][] coordinates, List<String> xy) {
         List<RiskAssessment> riskAssessments = new ArrayList<>();
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */

@@ -147,7 +147,8 @@ public class AddressLookupController implements ControlledScreen  {
                      RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
                      double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
-                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+
+                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(),latLong.getLatLong(), riskFactory.createRisks(polygon, coordinates.getCoordinates()));
                      propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
                  }
