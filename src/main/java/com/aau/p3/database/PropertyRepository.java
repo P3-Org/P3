@@ -152,24 +152,21 @@ public class PropertyRepository {
         }
     }
 
-    public static Property getProperty(String address) {
-        String sql = "SELECT propertyObject FROM properties WHERE Address = ?";
+
+    /**
+     * Wipes the properties from table properties
+     */
+    public static void wipeProperties() {
+        String sql = "DELETE FROM properties";
+
         try (Connection conn = ConnectToDB.connect("climateTool.db");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, address);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                String json = rs.getString("propertyObject");
-                Property p = new Gson().fromJson(json, Property.class);
-                return p;
-            }
+            stmt.executeUpdate();
+            System.out.println("All properties wiped.");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return null;
     }
 
     /**

@@ -43,7 +43,7 @@ public class StaticThresholdRepository implements ThresholdRepository {
      * Method for updating the thresholds within the database when the users change the thresholds within the climate tool
      * @param riskType specifies which risk will be changed in the database
      * @param lower is the minimum threshold
-     * @param upper is the maximum threshold (i.e. when the RGB values goes from
+     * @param upper is the maximum threshold (i.e. when the RGB values goes from yellow to green)
      */
     @Override
     public void updateThreshold(String riskType, double lower, double upper) {
