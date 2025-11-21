@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.aau.p3.platform.controller.settingsMenuController"
+            fx:controller="com.aau.p3.platform.controller.SettingsMenuController"
             prefHeight="400.0" prefWidth="600.0" stylesheets="@settings.css">
 
 
@@ -32,33 +26,33 @@
             <!-- Skybrud grænseværdi -->
             <Label text="Skybrud grænseværdi:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="0" GridPane.columnIndex="1" />
-            <TextField fx:id="skybrudLower" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+            <TextField fx:id="cloudBurstLower" GridPane.rowIndex="0" GridPane.columnIndex="2" />
             <Label text="Øvre:" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-            <TextField fx:id="skybrudUpper" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+            <TextField fx:id="cloudBurstUpper" GridPane.rowIndex="1" GridPane.columnIndex="2" />
 
 
             <!-- Grundvand grænseværdi -->
             <Label text="Grundvand grænseværdi:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-            <TextField fx:id="grundvandLower" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+            <TextField fx:id="groundWaterLower" GridPane.rowIndex="2" GridPane.columnIndex="2" />
             <Label text="Øvre:" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-            <TextField fx:id="grundvandUpper" GridPane.rowIndex="3" GridPane.columnIndex="2" />
+            <TextField fx:id="groundWaterUpper" GridPane.rowIndex="3" GridPane.columnIndex="2" />
 
 
             <!-- Stormflod grænseværdi -->
             <Label text="Stormflod grænseværdi:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="4" GridPane.columnIndex="1" />
-            <TextField fx:id="stormflodLower" GridPane.rowIndex="4" GridPane.columnIndex="2" />
+            <TextField fx:id="stormSurgeLower" GridPane.rowIndex="4" GridPane.columnIndex="2" />
             <Label text="Øvre:" GridPane.rowIndex="5" GridPane.columnIndex="1" />
-            <TextField fx:id="stormflodUpper" GridPane.rowIndex="5" GridPane.columnIndex="2" />
+            <TextField fx:id="stormSurgeUpper" GridPane.rowIndex="5" GridPane.columnIndex="2" />
 
 
             <!-- Kysterosion grænseværdi -->
             <Label text="Kysterosion grænseværdi:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="6" GridPane.columnIndex="1" />
-            <TextField fx:id="kysterosionLower" GridPane.rowIndex="6" GridPane.columnIndex="2" />
+            <TextField fx:id="coastalErosionLower" GridPane.rowIndex="6" GridPane.columnIndex="2" />
             <Label text="Øvre:" GridPane.rowIndex="7" GridPane.columnIndex="1" />
-            <TextField fx:id="kysterosionUpper" GridPane.rowIndex="7" GridPane.columnIndex="2" />
+            <TextField fx:id="coastalErosionUpper" GridPane.rowIndex="7" GridPane.columnIndex="2" />
         </GridPane>
     </center>
 

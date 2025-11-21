@@ -129,6 +129,29 @@ public class PropertyRepository {
         }
     }
 
+
+    /**
+     * Method for updating the database with the newly changed specialist score
+     * @param address contains the address of the property
+     * @param specialistScore contains the specialist score that is in the interval [-1..1]
+     */
+    public static void updateSpecialistScore(String address, int specialistScore) {
+        String sql = "UPDATE properties " +
+                "SET propertyObject = json_set(propertyObject, '$.specialistScore', ?) " +
+                "WHERE Address = ?;";
+
+        try (Connection conn = ConnectToDB.connect("climateTool.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, specialistScore);
+            stmt.setString(2, address);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Property getProperty(String address) {
         String sql = "SELECT propertyObject FROM properties WHERE Address = ?";
         try (Connection conn = ConnectToDB.connect("climateTool.db");

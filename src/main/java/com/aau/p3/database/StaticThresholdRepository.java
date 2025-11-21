@@ -39,14 +39,20 @@ public class StaticThresholdRepository implements ThresholdRepository {
         return null;
     }
 
+    /**
+     * Method for updating the thresholds within the database when the users change the thresholds within the climate tool
+     * @param riskType specifies which risk will be changed in the database
+     * @param lower is the minimum threshold
+     * @param upper is the maximum threshold (i.e. when the RGB values goes from
+     */
     @Override
-    public void updateThreshold(String riskType, double min, double max) {
+    public void updateThreshold(String riskType, double lower, double upper) {
         String sql = "UPDATE thresholds SET minThreshold=?, maxThreshold=? WHERE riskType=?";
         try (Connection conn = ConnectToDB.connect("climateTool.db");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setDouble(1, min);
-            stmt.setDouble(2, max);
+            stmt.setDouble(1, lower);
+            stmt.setDouble(2, upper);
             stmt.setString(3, riskType);
 
             stmt.executeUpdate();
