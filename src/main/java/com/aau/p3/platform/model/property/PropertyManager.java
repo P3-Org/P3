@@ -38,6 +38,12 @@ public class PropertyManager {
         PropertyRepository.saveProperty(property); // Saves to property to the database
     }
 
+    // Update the database with the newly changed specialist score
+    public static void updateDBSpecialistScore(Property property) {
+        String address = property.getAddress();
+        PropertyRepository.updateSpecialistScore(address, property.getSpecialistScore());
+    }
+
     /**
      * Getter method, provides the property object for the given address
      * @param address for the property

@@ -1,11 +1,8 @@
 package com.aau.p3.climatetool.risk;
 
 import com.aau.p3.climatetool.geoprocessing.GroundwaterReader;
-import com.aau.p3.climatetool.utilities.RestDataReader;
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk

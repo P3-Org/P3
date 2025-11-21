@@ -16,6 +16,7 @@ public class NormalizeSample {
         if (thresholds.length != 2) {
             throw new IllegalArgumentException("max and min threshold must differ");
         }
+
         return (measurementValue - thresholds[0]) / (thresholds[1] - thresholds[0]);
     }
 }

@@ -129,24 +129,44 @@ public class PropertyRepository {
         }
     }
 
-    public static Property getProperty(String address) {
-        String sql = "SELECT propertyObject FROM properties WHERE Address = ?";
+
+    /**
+     * Method for updating the database with the newly changed specialist score
+     * @param address contains the address of the property
+     * @param specialistScore contains the specialist score that is in the interval [-1..1]
+     */
+    public static void updateSpecialistScore(String address, int specialistScore) {
+        String sql = "UPDATE properties " +
+                "SET propertyObject = json_set(propertyObject, '$.specialistScore', ?) " +
+                "WHERE Address = ?;";
+
         try (Connection conn = ConnectToDB.connect("climateTool.db");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, address);
-            ResultSet rs = stmt.executeQuery();
+            stmt.setInt(1, specialistScore);
+            stmt.setString(2, address);
+            stmt.executeUpdate();
 
-            if (rs.next()) {
-                String json = rs.getString("propertyObject");
-                Property p = new Gson().fromJson(json, Property.class);
-                return p;
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        return null;
+
+    /**
+     * Wipes the properties from table properties
+     */
+    public static void wipeProperties() {
+        String sql = "DELETE FROM properties";
+
+        try (Connection conn = ConnectToDB.connect("climateTool.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.executeUpdate();
+            System.out.println("All properties wiped.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
