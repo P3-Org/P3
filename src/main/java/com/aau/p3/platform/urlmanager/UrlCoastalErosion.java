@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 // Takes query to complete URL for getResponse() call
 public class UrlCoastalErosion extends UrlManager{
     // The number of meters from the risk, the property must be
-    private static final int RISK_DISTANCE_FROM_PROPERTY = 500;
+    private static final int RISK_DISTANCE_FROM_PROPERTY = 250;
     private final String queryCoordinatePair;
 
     public UrlCoastalErosion(String queryCoordinatePair){

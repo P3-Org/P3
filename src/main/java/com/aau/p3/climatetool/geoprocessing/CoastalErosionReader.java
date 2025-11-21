@@ -1,5 +1,6 @@
 package com.aau.p3.climatetool.geoprocessing;
 
+import com.aau.p3.climatetool.utilities.RestDataReader;
 import com.aau.p3.platform.urlmanager.UrlCoastalErosion;
 
 import java.util.ArrayList;
@@ -11,27 +12,29 @@ import org.json.JSONObject;
  * Class for reading information about coastal erosion on a given address. Holds different methods that fetches and
  * processes data, to return for presentation.
  */
-public class CoastalErosionReader {
+public class CoastalErosionReader implements RestDataReader {
     private List<Double> riskValueArray;
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
      * @param query String of query for the URL, is made from coordinates stringified before calling method.
      */
-    public void coastalErosionFetch(String query) {
+    @Override
+    public void riskFetch(String query) {
         // Use URL class to make URL and return the response
         UrlCoastalErosion coastalErosion = new UrlCoastalErosion(query);
         StringBuilder response = coastalErosion.getUrlCoastalErosion();
 
         // Give extract values the JSON response to read from
-        extractValues(response);
+        riskValueArray = extractValues(response);
     }
 
     /**
      * Method for extracting values from the given JSON, ultimately filling out the riskValueArray field
      * @param response The list of risk assessments for a property
      */
-    public void extractValues(StringBuilder response){
+    @Override
+    public List<Double> extractValues(StringBuilder response) {
         // Make the response into a JSON object
         JSONObject responseObject = new JSONObject(response.toString());
         List<String> riskSeverityList = new ArrayList<>();
@@ -51,7 +54,7 @@ public class CoastalErosionReader {
             }
         }
         // Convert string values to doubles and assign to private field
-        riskValueArray = convertSeverityToValue(riskSeverityList);
+        return convertSeverityToValue(riskSeverityList);
     }
 
     /**
@@ -82,7 +85,7 @@ public class CoastalErosionReader {
                         riskScores.add(4.0);
                         break;
                     case "Fremrykning":
-                        riskScores.add(8.0);
+                        riskScores.add(7.0);
                         break;
                     default:
                         break;
@@ -90,6 +93,18 @@ public class CoastalErosionReader {
             }
         }
         return riskScores;
+    }
+
+    public String convertValueToString(double value) {
+        return switch ((int) value) {
+            case 8 -> "Ingen risiko";
+            case 7 -> "Fremrykning";
+            case 4 -> "Lille risiko";
+            case 3 -> "Moderat risiko";
+            case 2 -> "Stor risiko";
+            case 0 -> "Meget stor risiko";
+            default -> "";
+        };
     }
 
     // Getter

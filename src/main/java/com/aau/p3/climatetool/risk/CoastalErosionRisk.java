@@ -20,6 +20,7 @@ public class CoastalErosionRisk implements RiskAssessment {
     private double[] RGBValue;
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
+    private String severityString = "";
 
     /**
      * Constructor for final attributes
@@ -48,7 +49,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         String wktFormat = String.format(java.util.Locale.US, "%.3f, %.3f", x, y);
 
         // Get information through coastal erosion classes, with the query of the coordinates.
-        reader.coastalErosionFetch(wktFormat);
+        reader.riskFetch(wktFormat);
 
         // Data from coastal erosion inserted into list of doubles
         List<Double> value = reader.getRiskValueArray();
@@ -56,6 +57,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("coastalerosion");
         this.measurementValue = measurementStrategy.processValues(value);
+        this.severityString = reader.convertValueToString(measurementValue);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
@@ -82,7 +84,8 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     @Override
-    public void setDescription() {}
+    public void setDescription() {
+    }
 
     @Override
     public String getDescription() {
