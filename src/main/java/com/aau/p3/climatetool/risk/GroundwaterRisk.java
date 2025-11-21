@@ -41,7 +41,7 @@ public class GroundwaterRisk implements RiskAssessment {
         String wkt = String.format(java.util.Locale.US, "%.3f %.3f", x, y);
         reader.groundwaterFetch(wkt);
 
-        // Compute and initialize different fields of class
+        // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.measurementValue = reader.getDistanceFromSurface();
         this.threshold = thresholdRepository.getThreshold("groundwater");
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(measurementValue, threshold);

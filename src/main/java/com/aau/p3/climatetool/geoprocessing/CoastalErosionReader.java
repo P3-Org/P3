@@ -6,87 +6,94 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import static java.util.Collections.min;
 
-
+/**
+ * Class for reading information about coastal erosion on a given address. Holds different methods that fetches and
+ * processes data, to return for presentation.
+ */
 public class CoastalErosionReader {
-    private double riskNumber;
+    private List<Double> riskValueArray;
+
+    /**
+     * Method for constructing the different calls necessary to gather sample values from a property within a grid.
+     * @param query String of query for the URL, is made from coordinates stringified before calling method.
+     */
     public void coastalErosionFetch(String query) {
-        UrlCoastalErosion test = new UrlCoastalErosion(query);
-        StringBuilder response = test.getUrlCoastalErosion();
-        System.out.println(response);
+        // Use URL class to make URL and return the response
+        UrlCoastalErosion coastalErosion = new UrlCoastalErosion(query);
+        StringBuilder response = coastalErosion.getUrlCoastalErosion();
+
+        // Give extract values the JSON response to read from
         extractValues(response);
     }
 
+    /**
+     * Method for extracting values from the given JSON, ultimately filling out the riskValueArray field
+     * @param response The list of risk assessments for a property
+     */
     public void extractValues(StringBuilder response){
-        JSONObject obj = new JSONObject(response.toString());
-        List<String> riskClass = new ArrayList<>();
-        JSONArray features;
-        if (!obj.isEmpty()) {
-            features = obj.getJSONArray("features");
+        // Make the response into a JSON object
+        JSONObject responseObject = new JSONObject(response.toString());
+        List<String> riskSeverityList = new ArrayList<>();
 
+        // If the response has content, get the JSON array "features", which holds information.
+        // If the response has no content, empty array is intialized, meaning no risk of coastal erosion.
 
-            for (int i = 0; i < features.length(); i++){
-                JSONObject feature = features.getJSONObject(i);
+        if (!responseObject.isEmpty()) {
+            JSONArray featuresArray = responseObject.getJSONArray("features");
+
+            for (int i = 0; i < featuresArray.length(); i++){
+                // For each feature element, get the JSON object attribute and the value from key "KLASSE", add to list
+                JSONObject feature = featuresArray.getJSONObject(i);
                 JSONObject attributes = feature.getJSONObject("attributes");
-                String risk = attributes.getString("KLASSE");
-                riskClass.add(risk);
+                String riskSeverity = attributes.getString("KLASSE");
+                riskSeverityList.add(riskSeverity);
             }
         }
-        riskNumber = convertRiskToDouble(riskClass);
+        // Convert string values to doubles and assign to private field
+        riskValueArray = convertSeverityToValue(riskSeverityList);
     }
 
-    public double convertRiskToDouble(List<String> riskClass){
+    /**
+     * Methods, which converts risk serverity descriptions to double values
+     * @param riskSeverityList List of strings, with serverity descriptions
+     * @return List of doubles with serverity values
+     */
+    public List<Double> convertSeverityToValue(List<String> riskSeverityList){
         List<Double> riskScores = new ArrayList<>();
-        if (riskClass.isEmpty()) {
-            return 1.5;
+
+        // If list is empty, no risks for coastal erosioan was found.
+        // Hence, the max score is appended to the empty array, as the only element
+        if (riskSeverityList.isEmpty()) {
+            riskScores.add(8.0);
         } else {
-            for(String risk : riskClass) {
+            for(String risk : riskSeverityList) {
                 switch (risk) {
                     case "Meget Stort":
-                        riskScores.add(-0.5);
-                        break;
-                    case "Stor":
-                        riskScores.add(-0.1);
-                        break;
-                    case "Moderat":
                         riskScores.add(0.0);
                         break;
+                    case "Stort":
+                        riskScores.add(2.0);
+                        break;
+                    case "Moderat":
+                        riskScores.add(3.0);
+                        break;
                     case "Lille":
-                        riskScores.add(0.56);
+                        riskScores.add(4.0);
                         break;
                     case "Fremrykning":
-                        riskScores.add(1.0);
+                        riskScores.add(8.0);
                         break;
                     default:
-                        riskScores.add(null);
                         break;
                 }
             }
         }
-        return min(riskScores);
+        return riskScores;
     }
 
-    public double getRiskNumber(){
-        return this.riskNumber;
+    // Getter
+    public List<Double> getRiskValueArray(){
+        return this.riskValueArray;
     }
-
-    public static void main(String[] args) {
-        /*List<List<Double>> coords = List.of(
-                List.of(446747.81234, 6270806.12345),
-                List.of(446800.45678, 6270850.98765),
-                List.of(446900.11111, 6270806.22222),
-                List.of(446747.81234, 6270806.12345) // closing polygon
-        );*/
-        double[] coords = {
-                446747.81234, 6270806.12345
-        };
-
-        String wkt = String.format(java.util.Locale.US, "%.3f, %.3f", coords[0], coords[1]);
-
-        CoastalErosionReader test = new CoastalErosionReader();
-        test.coastalErosionFetch(wkt);
-        System.out.println(test.getRiskNumber());
-    }
-
 }

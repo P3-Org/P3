@@ -28,7 +28,7 @@ public class DawaPolygonForAddress{
 
                 // Get the BFE number for the property
                 JSONObject properties = results.getJSONObject("properties");
-                this.bfeNumber = Integer.parseInt(properties.optString("bfenummer", ""));
+                //this.bfeNumber = Integer.parseInt(properties.optString("bfenummer", ""));
                 // Get the "geometry" object
                 JSONObject geometry = results.getJSONObject("geometry");
 
