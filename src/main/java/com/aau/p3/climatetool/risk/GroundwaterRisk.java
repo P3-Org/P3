@@ -1,6 +1,7 @@
 package com.aau.p3.climatetool.risk;
 
 import com.aau.p3.climatetool.geoprocessing.GroundwaterReader;
+import com.aau.p3.climatetool.utilities.RestDataReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
@@ -42,9 +43,9 @@ public class GroundwaterRisk implements RiskAssessment {
 
         // Format string for the url string and perform API call
         String wkt = String.format(java.util.Locale.US, "%.3f %.3f", x, y);
-        reader.groundwaterFetch(wkt);
+        reader.riskFetch(wkt);
 
-        // Compute and initialize different fields of class
+        // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.measurementValue = reader.getDistanceFromSurface();
         this.threshold = thresholdRepository.getThreshold("groundwater");
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(measurementValue, threshold);

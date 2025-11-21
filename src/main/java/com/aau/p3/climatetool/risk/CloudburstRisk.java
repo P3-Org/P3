@@ -2,7 +2,7 @@ package com.aau.p3.climatetool.risk;
 
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-
+import com.aau.p3.climatetool.utilities.NormalizeSample;
 import java.util.List;
 
 /**
@@ -40,10 +40,10 @@ public class CloudburstRisk implements RiskAssessment {
     public void computeRiskMetrics(double[][] coordinates) {
         List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
 
-        // Compute and initialize different fields of class
+        // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("cloudburst");
         this.measurementValue = measurementStrategy.processValues(value);
-        this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, threshold);
+        this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
@@ -59,16 +59,20 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     @Override
-    public double getMeasurementValue() { return this.measurementValue; }
+    public double getMeasurementValue() {
+        return this.measurementValue; }
 
     @Override
+    public double[] getThresholds() {
+        return this.threshold;
+    }
+
     public void setDescription() {}
 
     @Override
-    public String getDescription(){
+    public String getDescription() {
         return this.description;
     }
-    public double[] getThresholds() { return this.threshold; }
 
     @Override
     public String getRiskType() {
