@@ -4,6 +4,7 @@ import com.aau.p3.climatetool.geoprocessing.CoastalErosionReader;
 import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 import com.aau.p3.climatetool.utilities.NormalizeSample;
 import java.util.List;
@@ -18,8 +19,13 @@ public class CoastalErosionRisk implements RiskAssessment {
     private double[] threshold;
     private double[] RGBValue;
     private double normalizedMeasurement;
+    private String description = "Ingen data tilgængelig";
 
-    // Constructor for final attributes
+    /**
+     * Constructor for final attributes
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public CoastalErosionRisk(ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;
@@ -73,6 +79,19 @@ public class CoastalErosionRisk implements RiskAssessment {
     @Override
     public double[] getThresholds() {
         return this.threshold;
+    }
+
+    @Override
+    public void setDescription() {}
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    @Override
+    public String getRiskType() {
+        return "coastalerosion";
     }
 
 }

@@ -1,17 +1,13 @@
 package com.aau.p3.climatetool.risk;
 
-import com.aau.p3.climatetool.utilities.GeoDataReader;
-import com.aau.p3.climatetool.utilities.MeasurementStrategy;
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-import com.aau.p3.climatetool.utilities.NormalizeSample;
 
 import java.util.List;
+
 /**
  * Class that implements "RiskAssessment" interface and handles the valuation of groundwater risk
  * Reads information from TIFF files and sets color from normalized measurements
- * @Author Batman
  */
 public class StormSurgeRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -21,8 +17,14 @@ public class StormSurgeRisk implements RiskAssessment {
     private double[] threshold;
     private double[] RGBValue;
     private double normalizedMeasurement;
+    private String description = "Ingen data tilgængelig";
 
-    // Constructor for final attributes
+    /**
+     * Constructor for final attributes of StormSurgeRisk
+     * @param geoDataReader
+     * @param thresholdRepository
+     * @param measurementStrategy
+     */
     public StormSurgeRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
@@ -60,5 +62,17 @@ public class StormSurgeRisk implements RiskAssessment {
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
+    public void setDescription() {}
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
     public double[] getThresholds() { return this.threshold; }
+
+    @Override
+    public String getRiskType() {
+        return "stormsurge";
+    }
 }

@@ -7,24 +7,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-/*
-*  * How to use:
+/**
+ * How to use:
  * Add a method containing the specific endpoint you want to access
  * Use the getResponse method to make the get request
  * Make a UrlHelper constructor with the base url
  * Handle the response JSON in your own method not in this class
-* */
-
-
+ */
 public class UrlManager {
     protected static String BASE_URL;
 
+    /**
+     * Constructor for UrlManager
+     * @param baseURL
+     */
     public UrlManager(String baseURL){
         BASE_URL = baseURL;
     }
-    /* Collective function, that with the given Url string performs and API call and returns the response
-    * Features the creation of connection, readings of information, security checks and termination.
-    */
+
+    /** Collective method, that with the given Url string performs and API call and returns the response.
+     * Features the creation of connection, readings of information, security checks and termination.
+     * @param urlString URL string to be created as a URL object
+     */
     public StringBuilder getResponse(String urlString){
         try {
             // Create URL object from url string

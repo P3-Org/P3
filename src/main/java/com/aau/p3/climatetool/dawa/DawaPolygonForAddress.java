@@ -7,16 +7,18 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+/**
+ * Class that acts as a constructor to get the Polygon coordinates with the help from UrlPolygon class
+ */
 public class DawaPolygonForAddress{
     private List<List<Double>> polygon;
     private Integer bfeNumber;
 
-
-    /**
+    /** Constructor for getting the polygon from the API dataforsyningen.
      * Fills out the field of polygon with coordinates of the polygon
-     * */
+     * @param ownerLicense one part of the query needed for the API
+     * @param cadastre the other part needed for the query
+     */
     public DawaPolygonForAddress(String ownerLicense, String cadastre){
         // Get response from urlhelper,with the search of owner license and cadastre information
         UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
@@ -53,12 +55,14 @@ public class DawaPolygonForAddress{
                     }
                 }
     }
-
     /** Getter method
-     * @return Returns the nested double list with the coordinates of the polygon
+     * @return returns the BFE number of the property
      */
     public Integer getBfeNumber() { return this.bfeNumber; }
 
+    /** Getter method
+     * @return returns the nested double list with the coordinates of the polygon
+     */
     public List<List<Double>> getPolygon() {
         return this.polygon;
     }

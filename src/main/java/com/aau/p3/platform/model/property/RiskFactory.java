@@ -20,7 +20,11 @@ public class RiskFactory {
     private final GeoDataReader geoReader;
     private final ThresholdRepository thresholdRepo;
 
-    // Constructor for final fields
+    /**
+     * Constructor for final fields in RiskFactory class
+     * @param geoReader reader for geo data
+     * @param thresholdRepo thresholds
+     */
     public RiskFactory(GeoDataReader geoReader, ThresholdRepository thresholdRepo) {
         this.geoReader = geoReader;
         this.thresholdRepo = thresholdRepo;

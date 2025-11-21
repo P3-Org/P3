@@ -154,3 +154,17 @@
     -fx-background-radius: 0;
     -fx-translate-y: 6px;                   /* moves triangle downward to align tip with track */
 }
+.settings-button {
+    -fx-background-image: url("images/settingsIcon.png");
+    -fx-background-size: 20px 20px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+}
+
+.settings-button:hover {
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 6;
+}

@@ -6,6 +6,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
+/**
+ * Class that handles popup window controller and the window that
+ */
 public class PopupWindowController {
 
     @FXML
@@ -13,11 +16,19 @@ public class PopupWindowController {
 
     private Stage stage;
 
+    /**
+     * Setter method.
+     * Set the stage to the popup windows stage
+     * @param stage object
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    // Adds the information paragraphs for the parsed climate risk, using the .properties files.
+    /**
+     * Adds the information paragraphs for the parsed climate risk, using the .properties files.
+     * @param info Risk info object to use the getters inside the class
+     */
     public void displayInfo(RiskInfo info){
         infoDisplay.getChildren().add(new Text(info.getGeneralInfo()));
         infoDisplay.getChildren().add(new Text(info.getCalculationInfo()));
@@ -25,11 +36,13 @@ public class PopupWindowController {
         infoDisplay.getChildren().add(new Text(info.getPrecautionInfo()));
     }
 
+    /**
+     * Closes the Popup window
+     */
     @FXML
     private void closePopup() {
         if (stage != null) {
             stage.close();
         }
     }
-
 }

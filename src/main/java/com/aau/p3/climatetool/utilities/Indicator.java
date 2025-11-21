@@ -7,11 +7,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Indicator {
-    private double[] mockThreshold;
+    private double[] thresholdValues;
 
     public void setThresholdsLines(String risk, AnchorPane indicator) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
-        mockThreshold = thresholdRepo.getThreshold(risk);
+        thresholdValues = thresholdRepo.getThreshold(risk);
 
         Line lowerThreshold = new Line();
         Line upperThreshold = new Line();
@@ -23,10 +23,10 @@ public class Indicator {
         upperThreshold.endYProperty().set(10);
 
         /* Sets the horizontal position of the threshold lines */
-        lowerThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[0])));
-        lowerThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[0])));
-        upperThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[1])));
-        upperThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(mockThreshold[1])));
+        lowerThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[0])));
+        lowerThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[0])));
+        upperThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[1])));
+        upperThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[1])));
 
         /* Change width of the line */
         lowerThreshold.setStrokeWidth(2);
@@ -37,6 +37,6 @@ public class Indicator {
     }
 
     private double scaleThreshold(double threshold) {
-        return threshold/(mockThreshold[0]+mockThreshold[1]);
+        return threshold/(thresholdValues[0]+thresholdValues[1]);
     }
 }

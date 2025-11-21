@@ -1,6 +1,5 @@
-package com.aau.p3.dawa;
+package com.aau.p3.climatetool.dawa;
 
-import com.aau.p3.climatetool.dawa.DawaPropertyNumbers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,15 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 class DawaPropertyNumbersTest {
-    /*
+
     DawaPropertyNumbers testProperty;
 
     @BeforeEach
-    void setUp() {
+    void setup() {
         // Arrange
         List<String> coords = new ArrayList<>();
-        coords.add("10.02245235");
         coords.add("56.25263942");
+        coords.add("10.02245235");
 
         // Act
         testProperty = new DawaPropertyNumbers(coords);
@@ -37,5 +36,4 @@ class DawaPropertyNumbersTest {
         // Assert
         Assertions.assertEquals("980251", testProperty.getOwnerLicense());
     }
-    */
 }

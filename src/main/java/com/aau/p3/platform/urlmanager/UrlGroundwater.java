@@ -3,14 +3,24 @@ package com.aau.p3.platform.urlmanager;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
-// Takes query to complete URL for getResponse() call
+/**
+ * Takes query to complete URL for getResponse() call
+ */
 public class UrlGroundwater extends UrlManager{
     private final String query;
 
+    /**
+     * Constructor for UrlGroundWater class
+     * @param query added to baseURL
+     */
     public UrlGroundwater(String query){
         super("https://api.dataforsyningen.dk");
         this.query = query;
     }
+    /**
+     * Getter for the GET response for GroundWater
+     * @return GET response
+     */
     public StringBuilder getUrlGroundwater(){
         // Encode with URLEncoder
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8).replace("+", "%20");
