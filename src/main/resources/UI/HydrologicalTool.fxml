@@ -232,7 +232,7 @@
                                 <HBox alignment="CENTER" prefHeight="26.0" prefWidth="628.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                     <children>
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
-                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skrybrud" textAlignment="CENTER">
+                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
                                             <toggleGroup>
                                                 <ToggleGroup fx:id="weatherOption" />
                                             </toggleGroup>

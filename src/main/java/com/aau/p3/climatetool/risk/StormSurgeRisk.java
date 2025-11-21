@@ -45,6 +45,7 @@ public class StormSurgeRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -63,7 +64,7 @@ public class StormSurgeRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-
+        this.description = "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + "m for, at oversvømme denne grund.";
     }
 
     @Override

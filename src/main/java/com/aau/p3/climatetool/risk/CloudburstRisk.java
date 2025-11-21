@@ -45,6 +45,7 @@ public class CloudburstRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -64,8 +65,8 @@ public class CloudburstRisk implements RiskAssessment {
     @Override
     public void setDescription() {
         // Conversion from metres to millimetres
-        System.out.println("measurement value : " + this.measurementValue);
-        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + "mm til for, at oversvømmme denne grund.";
+        double convertedMill = this.measurementValue * 100;
+        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", convertedMill) + "mm til for, at oversvømme denne grund.";
     }
 
     @Override

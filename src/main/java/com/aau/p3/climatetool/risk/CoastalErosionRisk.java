@@ -44,6 +44,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -62,7 +63,7 @@ public class CoastalErosionRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-
+        this.description = "Kysterosion i en radius af 250m for denne grund vil medføre: " + " ";
     }
 
     @Override
