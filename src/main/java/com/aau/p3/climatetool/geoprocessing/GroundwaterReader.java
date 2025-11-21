@@ -27,7 +27,6 @@ public class GroundwaterReader {
         // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
         StringBuilder response = groundwater.getUrlGroundwater();
-        System.out.println(response);
 
         // Get kote value
         kote = GroundwaterReader.extractKote(response);
@@ -38,6 +37,7 @@ public class GroundwaterReader {
         System.out.println(hValues);
 
         this.distanceFromSurface = kote - hValues.get(3);
+
     }
 
     /**

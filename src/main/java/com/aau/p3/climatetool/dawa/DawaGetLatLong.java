@@ -9,16 +9,16 @@ import org.json.JSONObject;
 /**
  * Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class
  */
-public class DawaGetCoordinates {
-    private final List<String> coordinates = new ArrayList<>();
+public class DawaGetLatLong {
+    private final List<String> latLong = new ArrayList<>();
 
     /** Constructor for getting the coordinates from the API dataforsyningen
      * @param query the search query
      */
-    public DawaGetCoordinates(String query) {
+    public DawaGetLatLong(String query) {
         // Get the response with the given query
-        UrlAutoComplete autoComplete = new UrlAutoComplete(query);
-        StringBuilder response = autoComplete.getAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
+        UrlAutoComplete autoCompleteLatLong = new UrlAutoComplete(query);
+        StringBuilder response = autoCompleteLatLong.getAutoCompleteLatLong(); // Uses the Latitude Longitude version of auto complete for those coordinates
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
         JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
@@ -27,13 +27,14 @@ public class DawaGetCoordinates {
         String coordinateX = data.optString("x", ""); // In the data object, save the string "x"
         String coordinateY = data.optString("y", ""); // In the data object, save the string "y"
 
-        coordinates.add(coordinateY); // adds the y coordinate to our list
-        coordinates.add(coordinateX); // adds the x coordinate to our List
+        latLong.add(coordinateY); // adds the y coordinate to our list
+        latLong.add(coordinateX); // adds the x coordinate to our List
+
     }
     /** Getter method for the coordinates.
-     * @return Easting Northing coordinates from the class
+     * @return LatLong coordinates from the class
      */
-    public List<String> getCoordinates() {
-        return coordinates;
+    public List<String> getLatLong() {
+        return latLong;
     }
 }

@@ -128,9 +128,12 @@ public class AddressLookupController implements ControlledScreen  {
             if (type.getType().equals("adresse")) {
                 String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
                 DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
+                DawaGetLatLong latLong = new DawaGetLatLong(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
+                System.out.println(coordinates.getCoordinates());
+                System.out.println(latLong.getLatLong());
 
                  if (propertyManager.checkPropertyExists(selectedAddress)) {
                      propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));

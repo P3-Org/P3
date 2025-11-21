@@ -16,6 +16,7 @@ public class Property {
     private final String address;
     private final List<List<Double>> polygonCoordinates;
     private final List<String> latLongCoordinates;
+    private final List<String> eastingNorthing;
     private final List<RiskAssessment> riskAssessment;
     private int climateScore;
     private int specialistScore = 0;
@@ -25,12 +26,14 @@ public class Property {
      * Constructor for property - initializes final variables
      * @param address
      * @param polygonCoordinates
+     * @param eastingNorthing
      * @param latLongCoordinates
      * @param riskAssessment
      */
-    public Property(String address, List<List<Double>> polygonCoordinates, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
+    public Property(String address, List<List<Double>> polygonCoordinates, List<String> eastingNorthing, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
         this.address = address;
         this.polygonCoordinates = polygonCoordinates;
+        this.eastingNorthing = eastingNorthing;
         this.latLongCoordinates = latLongCoordinates;
         this.riskAssessment = riskAssessment;
         this.comments = new ArrayList<>();
@@ -80,6 +83,14 @@ public class Property {
      */
     public List<String> getLatLongCoordinates() {
         return latLongCoordinates;
+    }
+
+    /**
+     * Getter method
+     * @return Latitude Longitude Coordinates
+     */
+    public List<String> getEastingNorthing() {
+        return eastingNorthing;
     }
 
     /**

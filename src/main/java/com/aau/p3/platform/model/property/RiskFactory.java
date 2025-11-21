@@ -46,9 +46,23 @@ public class RiskFactory {
         riskAssessments.add(new CoastalErosionRisk(geoReader, thresholdRepo, new MaxMeasurementStrategy()));
 
         // For each risk, use the appropriate function for making the assessment.
-        for (RiskAssessment risks : riskAssessments) {
-            risks.computeRiskMetrics(coordinates);
-        }
+        //for (RiskAssessment risks : riskAssessments) {
+        //    risks.computeRiskMetrics(coordinates);
+        //}
+        // bad workaround because of bad interfaces and uses of bad double[][]........
+        double x = Double.parseDouble(xy.get(0));
+        double y = Double.parseDouble(xy.get(1));
+        double[][] eastnorth = new double[1][2];
+        eastnorth[0][0] = x;
+        eastnorth[0][1] = y;
+        System.out.println("riskfactory" + x);
+        System.out.println("riskfactory" +  y);
+
+        riskAssessments.get(0).computeRiskMetrics(coordinates);
+        riskAssessments.get(1).computeRiskMetrics(eastnorth);
+        riskAssessments.get(2).computeRiskMetrics(coordinates);
+        riskAssessments.get(3).computeRiskMetrics(coordinates);
+
         return riskAssessments;
     }
 }

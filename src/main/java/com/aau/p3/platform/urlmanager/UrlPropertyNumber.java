@@ -25,7 +25,7 @@ public class UrlPropertyNumber extends UrlManager {
         // We extract the coordinates, to use them in the final Url
         String y = coordinates.get(0);
         String x = coordinates.get(1);
-        String property_url = BASE_URL + "/jordstykker?x="+ x + "&y=" + y;
+        String property_url = BASE_URL + "/jordstykker?x="+ x + "&y=" + y + "&srid=25832";
 
         return super.getResponse(property_url);
     }

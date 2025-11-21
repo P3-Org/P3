@@ -28,7 +28,7 @@ public class GroundwaterRisk implements RiskAssessment {
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     * @param coordinates The list of coordinates
+     * @param eastnorth The list of coordinates
      * Initializes all fields with the computed information
      */
     @Override
