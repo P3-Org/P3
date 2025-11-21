@@ -350,11 +350,6 @@ public class HydrologicalToolController implements ControlledScreen {
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
     }
 
-    //wip
-    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
-        descriptionId.setText(textToShow);
-    }
-
     @FXML
     private void popUpHandler(ActionEvent event) {
         try {
@@ -394,6 +389,12 @@ public class HydrologicalToolController implements ControlledScreen {
         commentArea.clear();
     }
 
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        System.out.println("update-func");
+        System.out.println(textToShow);
+        descriptionId.setText(textToShow);
+    }
+
     public void afterInitialize() {
         double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
@@ -405,8 +406,9 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
-        System.out.println(currentProperty.getRisks().get(1).getDescription());
-        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(0).getDescription());
+
+        System.out.println("after-init " + currentProperty.getRisks().get(0).getDescription());
     }
 
     public void animateSliderTo(Slider slider, double targetValue) {

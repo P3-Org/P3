@@ -68,13 +68,13 @@ public class GroundwaterRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-        // I tilfæde af en X-års hændelse, vil grundvandet ligge Y meter fra matriklens overflade.
-        this.description = "I tilfælde af en 50-års hændelse, vil grundvandet ligge " + String.format("%.2f", this.measurementValue) + " meter fra matriklens overflade.";
+        this.description = "I tilfælde af en 20-års hændelse, vil grundvandet ligge " + String.format("%.2f", this.measurementValue) + " meter fra matriklens overflade.";
     }
 
     @Override
     public String getDescription() { return this.description; }
 
+    @Override
     public double[] getThresholds() { return this.threshold; }
 
     @Override

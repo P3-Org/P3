@@ -156,6 +156,7 @@ public class PropertyRepository {
      */
     private static RiskToDTO convertToDTO(RiskAssessment risk) {
         RiskToDTO DTO = new RiskToDTO();
+        DTO.description = risk.getDescription();
         DTO.riskType = risk.getRiskType();
         DTO.measurementValue = risk.getMeasurementValue();
         DTO.normalizedValue = risk.getNormalizedValue();

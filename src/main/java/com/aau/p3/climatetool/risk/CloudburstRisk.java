@@ -62,12 +62,18 @@ public class CloudburstRisk implements RiskAssessment {
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
-    public void setDescription() {}
+    public void setDescription() {
+        // Conversion from metres to millimetres
+        System.out.println("measurement value : " + this.measurementValue);
+        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + "mm til for, at oversvømmme denne grund.";
+    }
 
     @Override
     public String getDescription(){
         return this.description;
     }
+
+    @Override
     public double[] getThresholds() { return this.threshold; }
 
     @Override
