@@ -21,43 +21,68 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Popup;
-
-import javafx.stage.Stage;
-
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Class that handles the hydrological tool controller and window
- */
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.control.Slider;
+import javafx.stage.Stage;
 
+import java.util.List;
+
+/**
+ * Class that handles the hydrological tool controller and window
+ */
 public class HydrologicalToolController implements ControlledScreen {
     // initialisation of toggles, s.t. they're visible to the FXML file
-    public ToggleButton cloudburstToggle = new ToggleButton();
-    public ToggleButton cadastralToggle = new ToggleButton();
-    public ToggleButton stormsurgeToggle = new ToggleButton();
-    public ToggleButton erosionToggle = new ToggleButton();
-    public ToggleButton groundwaterToggle = new ToggleButton();
-    public ToggleGroup weatherOption;
+    @FXML
+    private ToggleButton cloudburstToggle = new ToggleButton();
 
-    public TextArea commentArea;
+    @FXML
+    private ToggleButton cadastralToggle = new ToggleButton();
 
-    public Label groundwaterDescription;
-    public Label cloudburstDescription;
-    public Label stormsurgeDescription;
-    public Label coastalerosionDescription;
+    @FXML
+    private ToggleButton stormsurgeToggle = new ToggleButton();
+
+    @FXML
+    private ToggleButton erosionToggle = new ToggleButton();
+
+    @FXML
+    private ToggleButton groundwaterToggle = new ToggleButton();
+
+    @FXML
+    private ToggleGroup weatherOption;
+
+    @FXML
+    private Slider cloudBurstThumb, groundWaterThumb, stormSurgeThumb, coastalErosionThumb;
+    @FXML
+    private Slider cloudBurstSlider = new Slider();
+    @FXML
+    private Slider stormSurgeSlider = new Slider();
+
+    @FXML
+    private GridPane labelContainer;
+
+    @FXML
+    private AnchorPane cloudBurstIndicator, stormSurgeIndicator, groundWaterIndicator, coastalErosionIndicator;
+    @FXML
+    private AnchorPane mapAnchor; //Anchor pane for the webmap
+    @FXML
+    public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
+
+    @FXML
+    private Label overallScoreId, groundwaterDescription, cloudburstDescription,
+                  stormSurgeDescription, coastalErosionDescription;
+
+    @FXML
+    private TextArea commentArea;
+
+    @FXML
+    private Button scoreDownButton, scoreUpButton;
 
     private WebEngine webEngine;
-
     private PropertyManager propertyManager;
     private Property currentProperty;
-
     private MainController mainController;
 
     @Override
@@ -68,56 +93,10 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     @FXML
-    private TextField addressField; // The field where the user types the address
-    private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
-    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
-
-    @FXML
-    Slider cloudBurstSlider = new Slider();
-    @FXML
-    Slider stormSurgeSlider = new Slider();
-
-    @FXML
-    private AnchorPane mapAnchor; //Anchor pane for the webmap
-    @FXML
-    public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
-    @FXML
-    private GridPane labelContainer;
-
-    @FXML
-    private AnchorPane cloudBurstIndicator;
-    @FXML
-    private AnchorPane stormSurgeIndicator;
-    @FXML
-    private AnchorPane groundWaterIndicator;
-    @FXML
-    private AnchorPane coastalErosionIndicator;
-
-    @FXML
-    private Slider cloudBurstThumb;
-
-    @FXML
-    private Slider groundWaterThumb;
-
-    @FXML
-    private Slider stormSurgeThumb;
-
-    @FXML
-    private Slider coastalErosionThumb;
-
-
-    @FXML
-    private Label overallScoreId;
-    @FXML
-    private Button scoreDownButton;
-    @FXML
-    private Button scoreUpButton;
-
-
-    @FXML
     private void settingsMenu(ActionEvent event) {
-        mainController.setCenter("/UI/settingsMenu.fxml");
+        mainController.setCenter("/UI/SettingsMenu.fxml");
     }
+
     @FXML
     public void initialize() {
         // initialize Sliders functionality
@@ -257,7 +236,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * @param polygon The polygon of the property
      */
     private void evaluateRiskProfile(double[][] polygon){
-        currentProperty.calculateClimateScore();
+        //currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
         List <RiskAssessment> listOfRisks = currentProperty.getRisks();
@@ -277,17 +256,11 @@ public class HydrologicalToolController implements ControlledScreen {
         thumbEditor.setlimits(listOfRisks.get(2),stormSurgeThumb);
         thumbEditor.setlimits(listOfRisks.get(3),coastalErosionThumb);
 
-        System.out.println("Threshold"+Arrays.toString(listOfRisks.get(1).getThresholds()));
-        System.out.println("Measured value"+Double.toString(listOfRisks.get(1).getNormalizedValue()));
-
         animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
         animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
         animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
         animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
         //coastalErosionThumb.setValue(listOfRisks.get(3).getNormalizedValue());
-
-
-
     }
 
     /**
@@ -299,10 +272,12 @@ public class HydrologicalToolController implements ControlledScreen {
         if (currentProperty.getSpecialistScore() == -1) {
             currentProperty.setSpecialistScore(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            PropertyManager.updateDBSpecialistScore(currentProperty);
             updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(1);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            PropertyManager.updateDBSpecialistScore(currentProperty);
             updateScoreButtons();
         }
     }
@@ -316,10 +291,12 @@ public class HydrologicalToolController implements ControlledScreen {
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            PropertyManager.updateDBSpecialistScore(currentProperty);
             updateScoreButtons();
         } else {
             currentProperty.setSpecialistScore(-1);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
+            PropertyManager.updateDBSpecialistScore(currentProperty);
             updateScoreButtons();
         }
 
@@ -405,7 +382,6 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
-        System.out.println(currentProperty.getRisks().get(1).getDescription());
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
 

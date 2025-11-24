@@ -85,6 +85,7 @@ public class MainController {
             view.setManaged(true);
             view.setVisible(true);
             StackPane.setAlignment(view, Pos.TOP_LEFT); // optional, usually default
+
             if (view instanceof Region region) {
                 region.prefWidthProperty().bind(contentArea.widthProperty());
                 region.prefHeightProperty().bind(contentArea.heightProperty());

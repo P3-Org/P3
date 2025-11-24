@@ -41,7 +41,7 @@ public class StormSurgeRisk implements RiskAssessment {
     public void computeRiskMetrics(double[][] coordinates) {
         List<Double> value = geoDataReader.readValues(coordinates, "havvand_land", "SIMSEA");
 
-        // Compute and initialize different fields of class
+        // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("stormsurge");
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
