@@ -9,13 +9,13 @@ import org.json.JSONObject;
 /**
  * Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class
  */
-public class DawaGetCoordinates {
+public class DawaGetEastingNorthing {
     private final List<String> coordinates = new ArrayList<>();
 
     /** Constructor for getting the coordinates from the API dataforsyningen
      * @param query the search query
      */
-    public DawaGetCoordinates(String query) {
+    public DawaGetEastingNorthing(String query) {
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.getAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
@@ -34,7 +34,7 @@ public class DawaGetCoordinates {
     /** Getter method for the coordinates.
      * @return Easting Northing coordinates from the class
      */
-    public List<String> getCoordinates() {
+    public List<String> getEastingNorthing() {
         return coordinates;
     }
 }

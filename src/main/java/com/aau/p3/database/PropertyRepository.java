@@ -98,16 +98,6 @@ public class PropertyRepository {
      * @param property contains the property object that needs to be added into the database matching the address.
      */
     public static void saveProperty(Property property) {
-        System.out.println("address" + property.getAddress());
-        System.out.println("east noth" + property.getEastingNorthing());
-        System.out.println("lat lon" + property.getLatLongCoordinates());
-
-        for (var risk : property.getRisks()) {
-            System.out.println("Risk: " + risk.getRiskType());
-            System.out.println("measurement=" + risk.getMeasurementValue());
-            System.out.println("normalized=" + risk.getNormalizedValue());
-            System.out.println("thresholds=" + Arrays.toString(risk.getThresholds()));
-        }
 
         // The sql string that will be executed. The question marks will be filled in later, and is a placeholder at this point
         String sql = "INSERT OR REPLACE INTO properties (Address, propertyObject) VALUES (?, ?)";

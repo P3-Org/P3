@@ -25,9 +25,10 @@ class DawaPolygonForAddressTest {
         // Arrange
         List<String> testCoords = new ArrayList<>();
 
-        testCoords.add("10.02245235");
-        testCoords.add("56.25263942");
-        //testProperty = new DawaPropertyNumbers(testCoords);
+        //testCoords.add("56.25263942"); Long
+        //testCoords.add("10.02245235"); LAt
+        //expectedCoords.add("563350.22"); // Easting
+        //expectedCoords.add("6234668.27"); // Norting
         when(testProperty.getCadastre()).thenReturn("9af");
         when(testProperty.getOwnerLicense()).thenReturn("980251");
 

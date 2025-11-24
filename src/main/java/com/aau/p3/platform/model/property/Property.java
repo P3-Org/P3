@@ -87,9 +87,9 @@ public class Property {
 
     /**
      * Getter method
-     * @return Latitude Longitude Coordinates
+     * @return Easting Northing Coordinates
      */
-    public List<String> getEastingNorthing() {
+    public List<String> getEastingNorthingCoordinates() {
         return eastingNorthing;
     }
 
@@ -119,10 +119,21 @@ public class Property {
         }
     }
 
+    /**
+     * Setter method.
+     * Set comment in property object
+     * @param newComment the new comment to be added to property
+     */
     public void setComment(String newComment) {
         this.comments.add(newComment);
         System.out.println("Added a comment!");
     }
+
+    /**
+     * Getter method.
+     * Gets comment in property object
+     * @return comment from property
+     */
     public List<String> getComments() {
         return this.comments;
     }

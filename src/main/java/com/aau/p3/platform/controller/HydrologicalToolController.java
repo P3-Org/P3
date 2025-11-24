@@ -278,7 +278,7 @@ public class HydrologicalToolController implements ControlledScreen {
         thumbEditor.setlimits(listOfRisks.get(3),coastalErosionThumb);
 
         System.out.println("Threshold"+Arrays.toString(listOfRisks.get(1).getThresholds()));
-        System.out.println("Measued value"+Double.toString(listOfRisks.get(1).getNormalizedValue()));
+        System.out.println("Measured value"+Double.toString(listOfRisks.get(1).getNormalizedValue()));
 
         animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
         animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());

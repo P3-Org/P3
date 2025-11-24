@@ -33,11 +33,8 @@ public class GroundwaterReader {
 
         // Get h values
         hValues = GroundwaterReader.extractHValues(response);
-        System.out.println("kote =" + kote);
-        System.out.println("hValues = " + hValues);
 
         this.distanceFromSurface = kote - hValues.get(3);
-        System.out.println("hej1" + this.distanceFromSurface);
 
     }
 

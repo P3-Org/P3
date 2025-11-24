@@ -127,13 +127,12 @@ public class AddressLookupController implements ControlledScreen  {
             DawaGetType type = new DawaGetType(selected);
             if (type.getType().equals("adresse")) {
                 String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
-                DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
+                DawaGetEastingNorthing eastNorthCoordinates = new DawaGetEastingNorthing(selected);
                 DawaGetLatLong latLong = new DawaGetLatLong(selected);
-                DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
+                DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(eastNorthCoordinates.getEastingNorthing());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
-                System.out.println(coordinates.getCoordinates());
-                System.out.println(latLong.getLatLong());
+
 
                  if (propertyManager.checkPropertyExists(selectedAddress)) {
                      propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
@@ -148,7 +147,7 @@ public class AddressLookupController implements ControlledScreen  {
                      double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
 
-                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(),latLong.getLatLong(), riskFactory.createRisks(polygon, coordinates.getCoordinates()));
+                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), eastNorthCoordinates.getEastingNorthing(),latLong.getLatLong(), riskFactory.createRisks(polygon, eastNorthCoordinates.getEastingNorthing()));
                      propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
                  }

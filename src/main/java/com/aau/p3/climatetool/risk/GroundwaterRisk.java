@@ -41,8 +41,6 @@ public class GroundwaterRisk implements RiskAssessment{
         // Get x and y coordinates to perform API call
         this.easting = eastnorth[0][0];
         this.northing = eastnorth[0][1];
-        System.out.println(easting);
-        System.out.println(northing);
 
         // Format string for the url string and perform API call
         String wkt = String.format(java.util.Locale.US, "%.3f %.3f", easting, northing);
