@@ -90,6 +90,14 @@
         climateOverlay.setParams({ styles: stormSurgeMap[index] })
     }
 
+    const redPinIcon = L.icon({
+        iconUrl: '../UI/images/pin.png',
+        iconSize:     [35, 35],
+        iconAnchor:   [12, 41],
+        popupAnchor:  [1, -34],
+        shadowSize:   [41, 41]
+    });
+
     // Functions for setting up the API calls when the corresponding button is clicked.
     function setCloudburst(){
         // Cloudburst overlay API.
@@ -181,10 +189,11 @@
         if (propertyMarker) {
             map.removeLayer(propertyMarker);
         }
-        const lat = coords[0];
-        const lon = coords[1];
-        propertyMarker = L.marker([lat, lon]).addTo(map);
+        const lat = parseFloat(coords[0]);
+        const lon = parseFloat(coords[1]);
+        propertyMarker = L.marker([lat, lon], { icon: redPinIcon }).addTo(map);
     }
+
 </script>
 </body>
 </html>
