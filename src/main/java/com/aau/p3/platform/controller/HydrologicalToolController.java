@@ -185,6 +185,14 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
+        // listener for changing size
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            webView.widthProperty().addListener((observable, oldVal, newVal) -> {
+                webView.getEngine().executeScript("updateLegendSize(" + newVal.doubleValue() + ")");
+            });
+        });
+
     }
 
     // helper functions here
@@ -207,6 +215,8 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
+
+
 
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");

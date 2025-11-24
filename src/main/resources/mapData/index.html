@@ -21,6 +21,13 @@
             height: 100%;
             width: 100%;
         }
+
+
+        .gw-legend img {
+            height: auto;
+            display: block;
+        }
+
     </style>
 </head>
 <body>
@@ -63,6 +70,7 @@
     };
 
     // Predefine variables for later use.
+    const Legend = L.control({ position: 'bottomright' });
     let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
     map = L.map('map').setView([57.0488, 9.9217], 17);
 
@@ -117,6 +125,8 @@
             attribution: '@Dataforsyningen.dk',
             opacity: '0.345'
         }).addTo(map);
+
+        showLegend()
     }
 
     function setStormSurge(){
@@ -161,13 +171,45 @@
 
     // Removes the climateOverlay if it is turned on.
     function removeClimateLayer(){
-        if (climateOverlay){map.removeLayer(climateOverlay)}
+        if (climateOverlay){map.removeLayer(climateOverlay)};
+        hideLegend()
     }
 
     // Removes the cadastralLayer centroid and boundary if it is turned on.
     function removeCadastralLayer(){
         if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
         if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
+    }
+
+    Legend.onAdd = function () {
+        const div = L.DomUtil.create('div', 'gw-legend');
+        div.innerHTML =
+            `<img src="hip_dtg_10m_100m(400-400).png"
+     alt="Grundvand legend"
+     style="background:white; border:1px solid #666; padding:4px;">`;
+        return div;
+    };
+
+    function updateLegendSize(width) {
+        const legendImg = document.querySelector('.gw-legend img');
+        if (!legendImg) return;
+
+        // Make legend scale to 20% of WebView width
+        const size = width * 0.20;
+        legendImg.style.width = size + "px";
+        legendImg.style.height = "auto";
+    }
+
+    // Show Legend
+    function showLegend() {
+        Legend.addTo(map)
+        updateLegendSize(window.innerWidth);  // Apply correct size immediately
+
+    }
+
+    // Remove legend
+    function hideLegend() {
+        map.removeControl(Legend);
     }
 
     function panTo(coords){
