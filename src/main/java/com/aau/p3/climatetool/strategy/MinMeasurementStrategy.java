@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * Class that implements "MeasurementStrategy" and finds the minimum measurement
- * @Author Batman
  */
 public class MinMeasurementStrategy implements MeasurementStrategy {
     @Override

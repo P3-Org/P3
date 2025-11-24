@@ -49,33 +49,60 @@ public class CloudburstRisk implements RiskAssessment {
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
     }
 
-    // Getters
+    /**
+     * Getter method
+     * @return RGB Value
+     */
     @Override
     public double[] getRGB() {
         return this.RGBValue;
     }
 
+    /**
+     * Getter method
+     * @return NormalizedValue for the given risk
+     */
     @Override
     public double getNormalizedValue() {
         return this.normalizedMeasurement;
     }
 
+    /**
+     * Getter method
+     * @return Measurement value
+     */
     @Override
     public double getMeasurementValue() {
         return this.measurementValue; }
 
+    /**
+     * Getter method
+     * @return Thresholds
+     */
     @Override
     public double[] getThresholds() {
         return this.threshold;
     }
 
+    /**
+     * Setter method
+     * @param ???
+     */
     public void setDescription() {}
 
+    /**
+     * Getter method
+     * @return description
+     */
     @Override
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Getter method
+     * @return Risk type
+     */
     @Override
     public String getRiskType() {
         return "cloudburst";

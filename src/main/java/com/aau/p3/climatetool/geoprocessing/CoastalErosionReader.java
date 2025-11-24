@@ -95,6 +95,11 @@ public class CoastalErosionReader implements RestDataReader {
         return riskScores;
     }
 
+    /**
+     * Coverts the value of climate risk to a string that describe the situation.
+     * @param value the value to be converted
+     * @return String depending on the value
+     */
     public String convertValueToString(double value) {
         return switch ((int) value) {
             case 8 -> "Ingen risiko";
@@ -107,7 +112,10 @@ public class CoastalErosionReader implements RestDataReader {
         };
     }
 
-    // Getter
+    /**
+     * Getter method
+     * @return risk value array
+     */
     public List<Double> getRiskValueArray(){
         return this.riskValueArray;
     }

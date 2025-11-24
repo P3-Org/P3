@@ -6,9 +6,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
+
+/**
+ * Indicator class
+ */
 public class Indicator {
     private double[] thresholdValues;
 
+    /**
+     *
+     * @param risk
+     * @param indicator
+     */
     public void setThresholdsLines(String risk, AnchorPane indicator) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
         thresholdValues = thresholdRepo.getThreshold(risk);
