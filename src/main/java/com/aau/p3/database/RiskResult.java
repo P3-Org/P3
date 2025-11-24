@@ -40,11 +40,4 @@ public class RiskResult implements RiskAssessment {
 
     @Override
     public String getDescription() { return this.description; }
-
-    @Override public double[] getThresholds() { return thresholds; }
-
-    @Override
-    public String getRiskType() {
-        return this.riskType;
-    }
 }

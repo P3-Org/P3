@@ -382,11 +382,12 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
-        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(0).getDescription());
+        System.out.println(currentProperty.getRisks().get(2));
 
-        System.out.println("RISKTYPE: " + currentProperty.getRisks().get(0).getDescription());
-
-        System.out.println("after-init " + currentProperty.getRisks().get(0).getDescription());
+        updateRiskDescriptions(cloudburstDescription, currentProperty.getRisks().get(0).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
+        updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
     }
 
     public void animateSliderTo(Slider slider, double targetValue) {
