@@ -54,7 +54,6 @@ public class GroundwaterReader implements RestDataReader {
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     *
      * @param response The geoJSON response from the URL manager
      * @return a list of h values
      */

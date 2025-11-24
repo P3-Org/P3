@@ -16,8 +16,10 @@ class DawaPropertyNumbersTest {
     void setup() {
         // Arrange
         List<String> coords = new ArrayList<>();
-        coords.add("56.25263942");
-        coords.add("10.02245235");
+        //coords.add("56.25263942"); Long
+        //coords.add("10.02245235"); Lat
+        coords.add("563350.22"); // Easting
+        coords.add("6234668.27"); // Northing
 
         // Act
         testProperty = new DawaPropertyNumbers(coords);
