@@ -101,6 +101,7 @@ public class HydrologicalToolController implements ControlledScreen {
         mainController.setCenter("/UI/SettingsMenu.fxml");
     }
 
+    // Put map pin on property coordinates
     public void showPropertyMarker(List<String> coords) {
         // Convert List<Double> to JS array syntax
         String jsArray = "[" + coords.get(0) + "," + coords.get(1) + "]";
