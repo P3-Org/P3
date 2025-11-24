@@ -260,7 +260,6 @@ public class HydrologicalToolController implements ControlledScreen {
         animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
         animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
         animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
-        //coastalErosionThumb.setValue(listOfRisks.get(3).getNormalizedValue());
     }
 
     /**
