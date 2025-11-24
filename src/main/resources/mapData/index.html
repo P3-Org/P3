@@ -170,8 +170,20 @@
         if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
     }
 
-    function panTo(coords){
-        map.panTo(coords)
+    window.panTo = function(coords){
+        map.panTo(coords);
+    }
+
+
+    let propertyMarker = null;
+
+    window.showPropertyMarker = function(coords) {
+        if (propertyMarker) {
+            map.removeLayer(propertyMarker);
+        }
+        const lat = coords[0];
+        const lon = coords[1];
+        propertyMarker = L.marker([lat, lon]).addTo(map);
     }
 </script>
 </body>
