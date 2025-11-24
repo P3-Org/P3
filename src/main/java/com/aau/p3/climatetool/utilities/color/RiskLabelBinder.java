@@ -27,7 +27,6 @@ public class RiskLabelBinder implements RiskBinderInterface {
             double[] rgb = risk.getRGB();
             String style = String.format(Locale.US, "-fx-background-color: rgb(%f, %f, %f);", rgb[0], rgb[1], rgb[2]);
             riskLabel.setStyle(style);
-            System.out.println(risk.getRiskType() + " => " + Arrays.toString(rgb));
         }
     }
 

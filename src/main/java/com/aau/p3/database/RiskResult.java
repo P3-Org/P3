@@ -23,13 +23,17 @@ public class RiskResult implements RiskAssessment {
         this.rgb = dto.RGB;
     }
 
-    @Override
-    public void computeRiskMetrics(double[][] coordinates) {}
-
     // Implement RiskAssessment interface:
     @Override public double[] getRGB() { return rgb; }
     @Override public double getNormalizedValue() { return normalizedValue; }
     @Override public double getMeasurementValue() { return measurementValue; }
+    @Override public double[] getThresholds() { return thresholds; }
+    @Override public String getRiskType() {
+        return this.riskType;
+    }
+
+    @Override
+    public void computeRiskMetrics(double[][] coordinates) {}
 
     @Override
     public void setDescription() {}

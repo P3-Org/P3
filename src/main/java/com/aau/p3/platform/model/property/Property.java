@@ -1,12 +1,8 @@
 package com.aau.p3.platform.model.property;
-import com.aau.p3.Main;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-
 import java.util.ArrayList;
 import java.util.List;
 import com.aau.p3.climatetool.ClimateStateScore;
-import com.aau.p3.climatetool.utilities.RiskAssessment;
-import java.util.List;
 
 /**
  * Class that holds information on a property, which in "PropertyManager" can be saved in a list.

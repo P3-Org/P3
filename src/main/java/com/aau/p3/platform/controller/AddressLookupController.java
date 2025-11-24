@@ -37,16 +37,6 @@ import java.util.List;
  * Class that handles the Address look up controller and window
  */
 public class AddressLookupController implements ControlledScreen  {
-    private MainController mainController;
-    private final PropertyManager propertyManager = Main.propertyManager;
-    private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
-
-
-    @Override
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
-    }
-
     @FXML private TableView<Case> myCasesTable;
     @FXML private TableColumn<Case, Integer> tableCaseID;
     @FXML private TableColumn<Case, String> tableTitle;   // address
@@ -57,6 +47,16 @@ public class AddressLookupController implements ControlledScreen  {
     private TextField addressField; // The field where the user types the address
     private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
     private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
+
+    private MainController mainController;
+    private final PropertyManager propertyManager = Main.propertyManager;
+    private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
+
+    @Override
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
 
     @FXML
     public void initialize() {
@@ -145,6 +145,7 @@ public class AddressLookupController implements ControlledScreen  {
                      double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
                      Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+                     newProperty.calculateClimateScore();
                      propertyManager.addProperty(newProperty);
                      propertyManager.setCurrentProperty(newProperty);
                  }

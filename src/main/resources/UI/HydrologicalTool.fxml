@@ -249,6 +249,11 @@
                                 <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                             </children>
                         </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Button onAction="#settingsMenu" layoutX="566.0" layoutY="142.0" mnemonicParsing="false" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
                     </children>
                 </VBox>
             </items>
