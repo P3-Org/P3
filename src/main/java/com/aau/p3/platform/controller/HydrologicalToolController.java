@@ -8,6 +8,7 @@ import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
+import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
@@ -73,6 +74,9 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Label overallScoreId, groundwaterDescription, cloudburstDescription,
                   stormSurgeDescription, coastalErosionDescription;
+
+    @FXML
+    private TextField currentAddressField, addressSearchField;
 
     @FXML
     private TextArea commentArea;
@@ -185,6 +189,26 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
+        /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
+           responsible for calling the mainController ones the address has been filled out. */
+        PropertySearch search = new PropertySearch(addressSearchField, () -> refresh());
+        search.searchAddress();
+
+        /* Centers the map once the WebEngine has finished loading the map page. */
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                panTo(this.currentProperty.getLatLongCoordinates());
+            }
+        });
+    }
+
+    public void afterInitialize() {
+        double[][] polygonArray = PropertySearch.to2dArray(this.currentProperty.getPolygonCoordinates());
+        this.evaluateRiskProfile(polygonArray);
+
+        updateScoreButtons();
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
 
     // helper functions here
@@ -210,25 +234,6 @@ public class HydrologicalToolController implements ControlledScreen {
 
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");
-    }
-
-    /**
-     * Method for converting a List<List<double>> to a double[][]
-     * @param list List to be converted to array
-     * @return arr as a double[][]
-     */
-    private double[][] to2dArray(List<List<Double>> list) {
-        double[][] arr = new double[list.size()][];
-
-        for (int i = 0; i < list.size(); i++) {
-            List<Double> inner = list.get(i);
-            arr[i] = new double[inner.size()];
-
-            for (int j = 0; j < inner.size(); j++) {
-                arr[i][j] = inner.get(j);
-            }
-        }
-        return arr;
     }
 
     /**
@@ -371,20 +376,6 @@ public class HydrologicalToolController implements ControlledScreen {
         commentArea.clear();
     }
 
-    public void afterInitialize() {
-        double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
-        this.evaluateRiskProfile(polygonArray);
-
-        updateScoreButtons();
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                panTo(this.currentProperty.getLatLongCoordinates());
-            }
-        });
-
-        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
-    }
-
     public void animateSliderTo(Slider slider, double targetValue) {
         double middlepoint = (slider.getMin() + slider.getMax()) / 2.0;
         slider.setValue(middlepoint);
@@ -395,5 +386,22 @@ public class HydrologicalToolController implements ControlledScreen {
         );
 
         timeline.play();
+    }
+
+    /**
+     * Method used for refreshing the following: The currentProperty object, recalls afterInitialize to reevaluate risks, descriptions and receive coordinates
+     * and lastly sets the map to the correct property using panTo().
+     */
+    public void refresh() {
+        // Update controller reference to the new property
+        this.currentProperty = propertyManager.currentProperty;
+
+        // Re-evaluate risk, labels, sliders and coordinates
+        afterInitialize();
+
+        // Pans the map to the correct property
+        if (currentProperty != null) {
+            panTo(currentProperty.getLatLongCoordinates()); // always run on new selection
+        }
     }
 }
