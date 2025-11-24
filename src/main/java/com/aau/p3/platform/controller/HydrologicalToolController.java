@@ -28,6 +28,7 @@ import javafx.util.Duration;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,6 +50,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private ToggleButton groundwaterToggle = new ToggleButton();
+
+    @FXML
+    private Button returnToCenter = new Button();
 
     @FXML
     private ToggleGroup weatherOption;
@@ -95,6 +99,13 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private void settingsMenu(ActionEvent event) {
         mainController.setCenter("/UI/SettingsMenu.fxml");
+    }
+
+    // Put map pin on property coordinates
+    public void showPropertyMarker(List<String> coords) {
+        // Convert List<Double> to JS array syntax
+        String jsArray = "[" + coords.get(0) + "," + coords.get(1) + "]";
+        webEngine.executeScript("showPropertyMarker(" + jsArray + ")");
     }
 
     @FXML
@@ -193,6 +204,11 @@ public class HydrologicalToolController implements ControlledScreen {
             });
         });
 
+        returnToCenter.setOnAction(event -> {
+            List<String> coords = this.currentProperty.getLatLongCoordinates();
+
+            panTo(coords);
+        });
     }
 
     // helper functions here
@@ -389,7 +405,9 @@ public class HydrologicalToolController implements ControlledScreen {
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 panTo(this.currentProperty.getLatLongCoordinates());
+                showPropertyMarker(this.currentProperty.getLatLongCoordinates());
             }
+
         });
 
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
