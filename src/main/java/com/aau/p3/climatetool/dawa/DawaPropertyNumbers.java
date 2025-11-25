@@ -22,11 +22,20 @@ public class DawaPropertyNumbers {
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
         StringBuilder response = propertyCoordinates.getPropertyNumber();
 
-        JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
-        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
-        this.cadastre = item.optString("matrikelnr",""); // In the first object it finds the "matrikelnr" and saves it
-        JSONObject ejerlav = item.getJSONObject("ejerlav"); // In object item it finds the object "ejerlav"
-        this.ownerLicense = ejerlav.optString("kode",""); // In object ejerlav find "kode"
+        // Converts the response to a string which we then make to a JSON array.
+        JSONArray jsonArray = new JSONArray(response.toString());
+
+        // Finds the first object in the array
+        JSONObject item = jsonArray.getJSONObject(0);
+
+        // In the first object it finds the "matrikelnr" and saves it
+        this.cadastre = item.optString("matrikelnr","");
+
+        // In object item it finds the object "ejerlav"
+        JSONObject ejerlav = item.getJSONObject("ejerlav");
+
+        // In object ejerlav find "kode"
+        this.ownerLicense = ejerlav.optString("kode","");
     }
 
     /** Getter method

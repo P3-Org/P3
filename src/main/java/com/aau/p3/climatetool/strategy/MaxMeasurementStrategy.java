@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * Class that implements "MeasurementStrategy" and finds the maximum measurement
- * @Author Batman
  */
 public class MaxMeasurementStrategy implements MeasurementStrategy {
     @Override

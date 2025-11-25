@@ -17,10 +17,9 @@ import javafx.scene.layout.Region;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 
@@ -38,10 +37,8 @@ public class MainController {
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/UI/AddressLookup.fxml");
+        setCenter("/ui/fxml/AddressLookup.fxml");
     }
-
-
 
 
     /**
@@ -69,12 +66,11 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
 
-                // Run some code after maincontroller i set and variables are moved
+                // Run some code after maincontroller is set and variables are moved
                 if (ctrl instanceof HydrologicalToolController htc){
                     htc.afterInitialize();
                 }
             }
-
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
@@ -102,24 +98,14 @@ public class MainController {
         }
     }
 
-    public Object getctrl(){
-        return this.ctrl;
-    }
-
-    /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
-    @FXML
-    private void openMyCases(ActionEvent actionEvent) {
-        setCenter("/UI/MyCases.fxml");
-    }
-
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        setCenter("/UI/AddressLookup.fxml");
+        setCenter("/ui/fxml/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        setCenter("/UI/HydrologicalTool.fxml");
+        setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
 
     @FXML

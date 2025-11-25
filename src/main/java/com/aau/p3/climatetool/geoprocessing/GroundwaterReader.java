@@ -10,7 +10,6 @@ import java.util.List;
 
 /**
  * Class that gets "h" values and "kote" values, to analyze distance to groundwater after certain weather conditions
- * @Author Batman
  */
 public class GroundwaterReader implements RestDataReader {
     private double kote;
@@ -78,11 +77,22 @@ public class GroundwaterReader implements RestDataReader {
         return holder;
     }
 
-    // Getters
+    /**
+     * Getter method
+     * @return kote
+     */
     public double getKote() { return this.kote; }
 
+    /**
+     * Getter method
+     * @return H values
+     */
     public List<Double> getHValues() { return this.hValues; }
 
+    /**
+     * Getter method
+     * @return Distance from surface
+     */
     public double getDistanceFromSurface() { return this.distanceFromSurface; }
 }
 

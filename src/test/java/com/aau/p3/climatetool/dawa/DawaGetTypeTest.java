@@ -10,19 +10,19 @@ public class DawaGetTypeTest {
     }
 
     @Test
-    void getVejnavnTest(){
+    void getVejnavnTest() {
         DawaGetType addressInfo = new DawaGetType("Bondag");
         Assertions.assertEquals("vejnavn", addressInfo.getType());
     }
 
     @Test
-    void getAdgangsAddresseTest(){
+    void getAdgangsAddresseTest() {
         DawaGetType addressInfo = new DawaGetType("Bondagervej");
         Assertions.assertEquals("adgangsadresse", addressInfo.getType());
     }
 
     @Test
-    void getAddresseTest(){
+    void getAddressTest() {
         DawaGetType addressInfo = new DawaGetType("Tryvej+30+9750");
         Assertions.assertEquals("adresse", addressInfo.getType());
     }

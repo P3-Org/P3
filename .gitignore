@@ -20,6 +20,7 @@ target/
 !.idea/runConfigurations/
 
 *.pdf
+*.db
 
 ### Eclipse ###
 .apt_generated
