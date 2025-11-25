@@ -27,6 +27,14 @@
             height: auto;
             display: block;
         }
+
+        .gw-legend img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: white;
+            border: 1px solid #666;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +124,7 @@
             format: 'image/png',
             transparent: "TRUE",
             token: '614d970326f8c0bc7f7b666245c117f8',
-            attribution: '@Dataforsyningen.dk',
+            attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
     }
@@ -131,11 +139,11 @@
             service: 'WMS',
             token: '4656e62e1c57f5767255b528fb641642', // Required for access.
             styles: 'default',
-            attribution: '@Dataforsyningen.dk',
+            attribution: '@dataforsyningen.dk',
             opacity: '0.345'
         }).addTo(map);
 
-        showLegend()
+        showLegend("hip_dtg_10m_100m(400-400).png");
     }
 
     function setStormSurge(){
@@ -146,20 +154,22 @@
             format: 'image/png',
             transparent: "TRUE",
             token: '614d970326f8c0bc7f7b666245c117f8',
-            attribution: '@Dataforsyningen.dk',
+            attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
     }
 
     function setErosion(){
         climateOverlay = L.esri.dynamicMapLayer({
-            url: 'http://localhost:8080/arc_gis-nst',
+                url: 'http://localhost:8080/arc_gis-nst',
             layers: [2],
             transparent: true,
             format: 'png32',
             dpi: 96,
-            f: "image"
+            f: "image",
+            attribution: '@kyst.dk'
         }).addTo(map);
+        showLegend("coastal_legend.png");
     }
 
     // Function for the cadastral overlay when corresponding button is clicked.
@@ -170,7 +180,7 @@
             format: 'image/png',
             transparent: "TRUE",
             token: '614d970326f8c0bc7f7b666245c117f8',
-            attribution: '@Dataforsyningen.dk',
+            attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
 
@@ -180,15 +190,17 @@
             format: 'image/png',
             transparent: "TRUE",
             token: '614d970326f8c0bc7f7b666245c117f8',
-            attribution: '@Dataforsyningen.dk',
+            attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
     }
 
     // Removes the climateOverlay if it is turned on.
     function removeClimateLayer(){
-        if (climateOverlay){map.removeLayer(climateOverlay)};
-        hideLegend()
+        if (climateOverlay) {
+            map.removeLayer(climateOverlay)
+        }
+        hideLegend();
     }
 
     // Removes the cadastralLayer centroid and boundary if it is turned on.
@@ -197,12 +209,20 @@
         if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
     }
 
+    let currentLegendImg = null;
+
     Legend.onAdd = function () {
         const div = L.DomUtil.create('div', 'gw-legend');
-        div.innerHTML =
-            `<img src="hip_dtg_10m_100m(400-400).png"
-     alt="Grundvand legend"
-     style="background:white; border:1px solid #666; padding:4px;">`;
+        if (currentLegendImg) {
+            const img = document.createElement('img');
+            img.src = currentLegendImg;
+            img.style.width = "100%";
+            img.style.height = "auto";
+            div.appendChild(img);
+        } else {
+            // Fallback hvis ingen src er sat
+            div.textContent = "No legend available";
+        }
         return div;
     };
 
@@ -217,7 +237,9 @@
     }
 
     // Show Legend
-    function showLegend() {
+    function showLegend(imageUrl) {
+        currentLegendImg = imageUrl;
+
         Legend.addTo(map)
         updateLegendSize(window.innerWidth);  // Apply correct size immediately
 
@@ -225,6 +247,8 @@
 
     // Remove legend
     function hideLegend() {
+        currentLegendImg = null;
+
         map.removeControl(Legend);
     }
 
@@ -243,7 +267,6 @@
         const lon = parseFloat(coords[1]);
         propertyMarker = L.marker([lat, lon], { icon: redPinIcon }).addTo(map);
     }
-
 </script>
 </body>
 </html>

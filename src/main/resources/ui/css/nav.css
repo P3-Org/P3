@@ -86,11 +86,6 @@ titled-pane > .content {
     -fx-translate-y: 6px;
 }
 
-/* Risk title */
-.riskTitle {
-    -fx-text-fill: black;
-    -fx-effect: dropshadow(one-pass-box, white, 2, 0.0, 0, 0);
-}
 
 /* Override global .button for export button */
 .export-btn {
@@ -115,4 +110,14 @@ titled-pane > .content {
     -fx-background-color: transparent;
     -fx-padding: 10;
     -fx-cursor: hand;
+}
+
+.riskTitle {
+    -fx-text-fill: black;
+    -fx-font-size: 1.8em;
+    -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
+}
+
+.riskDescriptions {
+    -fx-font-size: 1.4em;
 }
