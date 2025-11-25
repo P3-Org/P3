@@ -9,7 +9,7 @@
         <ScrollPane fitToWidth="true" maxWidth="250.0" minWidth="-Infinity" prefWidth="250.0">
             <content>
                 <!-- LEFT: Navigation -->
-                <VBox prefWidth="200.0" spacing="8.0" styleClass="sidebar">
+                <VBox prefHeight="698.0" prefWidth="250.0" spacing="8.0" styleClass="sidebar">
                     <children>
                         <AnchorPane />
                         <Button maxWidth="Infinity" onAction="#openAddressLookup" styleClass="nav-item" text="Mine cases" />
@@ -32,7 +32,7 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <AnchorPane fx:id="contentArea" prefHeight="200.0" prefWidth="200.0">
+        <AnchorPane fx:id="contentArea" prefHeight="200.0" prefWidth="200.0" styleClass="sidebar">
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
             </padding></AnchorPane>
