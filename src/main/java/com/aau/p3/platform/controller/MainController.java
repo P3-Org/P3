@@ -17,10 +17,9 @@ import javafx.scene.layout.Region;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 
@@ -38,7 +37,7 @@ public class MainController {
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/UI/AddressLookup.fxml");
+        setCenter("/UI/FXML/AddressLookup.fxml");
     }
 
 
@@ -69,7 +68,7 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
 
-                // Run some code after maincontroller i set and variables are moved
+                // Run some code after maincontroller is set and variables are moved
                 if (ctrl instanceof HydrologicalToolController htc){
                     htc.afterInitialize();
                 }
@@ -109,17 +108,17 @@ public class MainController {
     /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
     @FXML
     private void openMyCases(ActionEvent actionEvent) {
-        setCenter("/UI/MyCases.fxml");
+        setCenter("/UI/FXML/MyCases.fxml");
     }
 
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        setCenter("/UI/AddressLookup.fxml");
+        setCenter("/UI/FXML/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        setCenter("/UI/HydrologicalTool.fxml");
+        setCenter("/UI/FXML/HydrologicalTool.fxml");
     }
 
     @FXML
