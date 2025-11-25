@@ -58,8 +58,8 @@ public class PropertySearch {
                 suggestionsPopup.hide();
             }
         });
-        // calls the methods selectItem on mouse click in suggestionsList
-        suggestionsList.setOnMouseClicked(e -> selectItem());
+        // Calls the methods selectItem on mouse click in suggestionsList
+            suggestionsList.setOnMouseClicked(e -> selectItem());
         // Calls the method selectItem on a keypress, but only if it is the ENTER Key.
         suggestionsList.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
