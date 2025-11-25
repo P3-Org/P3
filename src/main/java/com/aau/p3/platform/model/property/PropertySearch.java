@@ -72,7 +72,7 @@ public class PropertySearch {
      * After this it checks if the selected text will result in the API call "type" adresse,
      * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property
      */
-    private void selectItem(){
+    private void selectItem() {
         String selected =  suggestionsList.getSelectionModel().getSelectedItem();
         if (selected != null){
             addressSearchField.setText(selected + " ");
@@ -80,8 +80,9 @@ public class PropertySearch {
             DawaGetType type = new DawaGetType(selected);
             if (type.getType().equals("adresse")) {
                 String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
-                DawaGetCoordinates coordinates = new DawaGetCoordinates(selected);
-                DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(coordinates.getCoordinates());
+                DawaGetEastingNorthing eastNorthCoordinates = new DawaGetEastingNorthing(selected);
+                DawaGetLatLong latLong = new DawaGetLatLong(selected);
+                DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(eastNorthCoordinates.getEastingNorthing());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
                 suggestionsPopup.hide();
 
@@ -97,7 +98,7 @@ public class PropertySearch {
                     RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
                     double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
-                    Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), coordinates.getCoordinates(), riskFactory.createRisks(polygon));
+                    Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), eastNorthCoordinates.getEastingNorthing(), latLong.getLatLong(), riskFactory.createRisks(polygon, eastNorthCoordinates.getEastingNorthing()));
                     newProperty.calculateClimateScore();
                     propertyManager.addProperty(newProperty);
                     propertyManager.setCurrentProperty(newProperty);

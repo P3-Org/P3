@@ -30,6 +30,8 @@ import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,6 +53,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private ToggleButton groundwaterToggle = new ToggleButton();
+
+    @FXML
+    private Button returnToCenter = new Button();
 
     @FXML
     private ToggleGroup weatherOption;
@@ -100,6 +105,13 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private void settingsMenu(ActionEvent event) {
         mainController.setCenter("/UI/FXML/SettingsMenu.fxml");
+    }
+
+    // Put map pin on property coordinates
+    public void showPropertyMarker(List<String> coords) {
+        // Convert List<Double> to JS array syntax
+        String jsArray = "[" + coords.get(0) + "," + coords.get(1) + "]";
+        webEngine.executeScript("showPropertyMarker(" + jsArray + ")");
     }
 
     @FXML
@@ -191,6 +203,20 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
+        returnToCenter.setOnAction(event -> {
+            List<String> coords = this.currentProperty.getLatLongCoordinates();
+
+            panTo(coords);
+        });
+
+        // listener for changing size
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            webView.widthProperty().addListener((observable, oldVal, newVal) -> {
+                webView.getEngine().executeScript("updateLegendSize(" + newVal.doubleValue() + ")");
+            });
+        });
+
+
         /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
            responsible for refreshing the climate information regarding the new property ones the address has been filled out. */
         PropertySearch search = new PropertySearch(addressSearchField, () -> refresh());
@@ -200,6 +226,7 @@ public class HydrologicalToolController implements ControlledScreen {
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 panTo(this.currentProperty.getLatLongCoordinates());
+                showPropertyMarker(this.currentProperty.getLatLongCoordinates());
             }
         });
     }
@@ -216,7 +243,10 @@ public class HydrologicalToolController implements ControlledScreen {
         // Displays the current address
         addressLabel.setText(decodedAddress);
 
+        updateRiskDescriptions(cloudburstDescription, currentProperty.getRisks().get(0).getDescription());
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
+        updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
     }
 
     private void setStormSurgeSlider() {
@@ -238,6 +268,8 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
+
+
 
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");
@@ -339,11 +371,6 @@ public class HydrologicalToolController implements ControlledScreen {
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
     }
 
-    //wip
-    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
-        descriptionId.setText(textToShow);
-    }
-
     @FXML
     private void popUpHandler(ActionEvent event) {
         try {
@@ -381,6 +408,10 @@ public class HydrologicalToolController implements ControlledScreen {
         String comment = commentArea.getText();
         Main.propertyManager.currentProperty.setComment(comment);
         commentArea.clear();
+    }
+
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        descriptionId.setText(textToShow);
     }
 
     public void animateSliderTo(Slider slider, double targetValue) {

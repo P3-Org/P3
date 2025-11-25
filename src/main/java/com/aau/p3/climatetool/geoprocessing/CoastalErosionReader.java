@@ -21,7 +21,6 @@ public class CoastalErosionReader implements RestDataReader {
      */
     @Override
     public void riskFetch(String query) {
-        System.out.println(query);
         // Use URL class to make URL and return the response
         UrlCoastalErosion coastalErosion = new UrlCoastalErosion(query);
         StringBuilder response = coastalErosion.getUrlCoastalErosion();
@@ -98,12 +97,12 @@ public class CoastalErosionReader implements RestDataReader {
 
     public String convertValueToString(double value) {
         return switch ((int) value) {
-            case 8 -> "Ingen risiko";
-            case 7 -> "Fremrykning";
-            case 4 -> "Lille risiko";
-            case 3 -> "Moderat risiko";
-            case 2 -> "Stor risiko";
-            case 0 -> "Meget stor risiko";
+            case 8 -> "Ingen risiko for erosion";
+            case 7 -> "Fremrykning af kysten";
+            case 4 -> "Lille risiko for erosion";
+            case 3 -> "Moderat risiko for erosion";
+            case 2 -> "Stor risiko for erosion";
+            case 0 -> "Meget stor risiko for erosion";
             default -> "";
         };
     }

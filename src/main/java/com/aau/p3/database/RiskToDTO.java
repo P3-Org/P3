@@ -6,6 +6,7 @@ package com.aau.p3.database;
  * This is part of the workaround to make it possible to store objects and all the associated values in the DB.
  */
 public class RiskToDTO {
+    public String description;
     public String riskType;
     public double measurementValue;
     public double normalizedValue;

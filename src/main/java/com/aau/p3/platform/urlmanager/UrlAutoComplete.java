@@ -23,7 +23,16 @@ public class UrlAutoComplete extends UrlManager {
      * @return GET response
      */
     public StringBuilder getAutoComplete(){
+        String urlString = BASE_URL + "/autocomplete?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&srid=25832";
+        return super.getResponse(urlString);
+    }
+    /**
+     * Getter for the GET response
+     * @return GET response
+     */
+    public StringBuilder getAutoCompleteLatLong(){
         String urlString = BASE_URL + "/autocomplete?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
         return super.getResponse(urlString);
     }
+
 }
