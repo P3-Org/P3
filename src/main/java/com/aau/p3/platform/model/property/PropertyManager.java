@@ -46,8 +46,8 @@ public class PropertyManager {
 
     /**
      * Method that adds a new comment to the database.
-     * @param property the property that we want to add a comment to
-     * @param newComment the comment to be added to property
+     * @param property the property, that the comment is to be added.
+     * @param newComment the comment to be added.
      */
     public static void addComment(Property property, String newComment) {
         String address = property.getAddress();
