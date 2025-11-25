@@ -135,7 +135,7 @@ public class MainController {
 
         // Add chapters with content to list
         chapters.add(new PdfOverview(currentProperty.getAddress()));
-        chapters.add(new PdfClimateState("placeholder", currentProperty));
+        chapters.add(new PdfClimateState(currentProperty));
 
         for (PdfChapter chapter : chapters) {
             PDPage page = new PDPage();

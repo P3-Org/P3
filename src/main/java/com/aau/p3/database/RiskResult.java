@@ -3,6 +3,7 @@ package com.aau.p3.database;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 
 public class RiskResult implements RiskAssessment {
+    private final String description;
     private final String riskType;
     private final double measurementValue;
     private final double normalizedValue;
@@ -14,6 +15,7 @@ public class RiskResult implements RiskAssessment {
      * @param dto contains the data values originally converted from RiskAssessment objects.
      */
     public RiskResult(RiskToDTO dto) {
+        this.description = dto.description;
         this.riskType = dto.riskType;
         this.measurementValue = dto.measurementValue;
         this.normalizedValue = dto.normalizedValue;
@@ -37,5 +39,5 @@ public class RiskResult implements RiskAssessment {
     public void setDescription() {}
 
     @Override
-    public String getDescription() { return ""; }
+    public String getDescription() { return this.description; }
 }

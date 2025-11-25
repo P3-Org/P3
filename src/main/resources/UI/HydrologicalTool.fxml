@@ -153,7 +153,7 @@
                                                                     <center>
                                                                         <AnchorPane>
                                                                             <children>
-                                                                                <Label fx:id="stormsurgeDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="stormSurgeDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
@@ -189,7 +189,7 @@
                                                                     <center>
                                                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="coastalerosionDescription" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="coastalErosionDescription" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
