@@ -89,7 +89,6 @@ public class LocalProxyServer {
         // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
         String fullQuery = queryNullCheck(targetUrl, query);
         handleRequest(exchange, fullQuery);
-        System.out.println(fullQuery);
     }
 
     // Method for handling the requests aimed at the server
