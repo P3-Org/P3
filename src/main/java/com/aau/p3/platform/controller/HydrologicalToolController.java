@@ -142,7 +142,8 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setLeftAnchor(webView, 0.0);
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
-        mapAnchor.getChildren().add(webView);
+        mapAnchor.getChildren().add(0, webView); // adds webView behind all existing children
+
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.

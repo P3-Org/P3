@@ -5,6 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
         <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -255,12 +257,25 @@
                 <VBox prefHeight="443.0" prefWidth="399.0">
                     <children>
                         <AnchorPane fx:id="mapAnchor" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <children>
+                                <Button fx:id="returnToCenter"
+                                        text=""
+                                        AnchorPane.bottomAnchor="10.0"
+                                        AnchorPane.leftAnchor="10.0">
+                                    <graphic>
+                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="https://www.freeiconspng.com/uploads/maps-center-direction-icon-24.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
                         </AnchorPane>
                         <AnchorPane>
                             <children>
                         <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                            <buttons>
-                                        <Button fx:id="returnToCenter" alignment="CENTER" mnemonicParsing="false" text="Centrer kort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
                                             <toggleGroup>
