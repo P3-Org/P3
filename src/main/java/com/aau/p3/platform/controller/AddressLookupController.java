@@ -125,7 +125,7 @@ public class AddressLookupController implements ControlledScreen  {
             addressField.setText(selected + " ");
             addressField.positionCaret(selected.length() +1);
             DawaGetType type = new DawaGetType(selected);
-            if (type.getType().equals("adresse")) {
+            if (type.getType().equals("adresse") || type.getType().equals("adgangsadresse")) {
                 String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
                 DawaGetEastingNorthing eastNorthCoordinates = new DawaGetEastingNorthing(selected);
                 DawaGetLatLong latLong = new DawaGetLatLong(selected);
