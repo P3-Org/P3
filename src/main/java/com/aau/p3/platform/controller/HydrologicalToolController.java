@@ -81,7 +81,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private Label overallScoreId, groundwaterDescription, addressLabel, cloudburstDescription,
-                  stormSurgeDescription, coastalErosionDescription;
+            stormSurgeDescription, coastalErosionDescription;
 
     @FXML
     private TextField addressSearchField;
