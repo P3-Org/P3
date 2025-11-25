@@ -1,159 +1,112 @@
-/* Sidebar container */
+/* nav.css (updated) */
+
+/* Global background override */
+.root, .sidebar {
+    -fx-background-color: #EDE8E6;
+}
+
+/* All buttons background + text */
+.button,
+.button.nav-item,
+.submenu .button.nav-item,
+.icon-button,
+.toggle-button{
+    -fx-background-color: #E1E3EF;
+    -fx-text-fill: #07094A;
+    -fx-border-color: #a5abd0;
+    -fx-border-width: 1;
+}
+
+.button:hover,
+.button.nav-item:hover,
+.submenu .button.nav-item:hover,
+.icon-button:hover,
+.settings-button:hover,
+.toggle-button:hover{
+    -fx-background-color: derive(#E1E3EF, -10%);
+    -fx-border-color: black;
+}
+
+/* Sidebar */
 .sidebar {
-    -fx-background-color: #f7f9fc;
     -fx-padding: 8;
 }
 
-/* TitledPane header style */
-.titled-pane > .title {
-    -fx-background-color: #b7cdf6;   /* light blue */
+/* TitledPane header */
+titled-pane > .title {
+    -fx-background-color: #b7cdf6;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-padding: 10 12 10 12;
+    -fx-padding: 10 12;
 }
 
-/* Remove default border around TitledPane content */
-.titled-pane > .content {
+/* TitledPane content */
+titled-pane > .content {
     -fx-background-color: transparent;
     -fx-padding: 8 0 0 0;
 }
 
-/* Submenu buttons */
-.submenu .button.nav-item {
-    -fx-background-color: #c9d8f7;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 8 10 8 16;
-    -fx-font-size: 14px;
-}
-
-/* Top-level nav buttons */
-.button.nav-item {
-    -fx-background-color: white;
-    -fx-alignment: CENTER_LEFT;
-    -fx-padding: 10 12;
-    -fx-font-size: 15px;
-    -fx-border-color: #c9c9c9;
-    -fx-border-width: 1;
-}
-
-/* Hover/selected states */
-.button.nav-item:hover {
-    -fx-background-color: #e9eefc;
-}
-.button.nav-item:focused {
-    -fx-background-insets: 0;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.2, 0, 1);
-}
-
-/* Basic style for the search bar */
+/* Search bar */
 .search-bar {
-    -fx-background-color: white;
+    -fx-background-color: derive(#EDE8E6, -10%);;
     -fx-background-radius: 20;
     -fx-border-radius: 20;
     -fx-border-color: #cccccc;
     -fx-border-width: 1;
-    -fx-padding: 5 10 5 35; /* Left padding for icon space */
+    -fx-padding: 5 10 5 35;
     -fx-font-size: 14px;
     -fx-text-fill: #333;
-}
-
-/* Placeholder text (promptText) color */
-.search-bar .text-field {
-    -fx-prompt-text-fill: #999999;
-}
-
-/* On hover */
-.search-bar:hover {
-    -fx-border-color: #999999;
-}
-
-/* On focus */
-.search-bar:focused {
-    -fx-border-color: #3f8efc;
-    -fx-effect: dropshadow(three-pass-box, rgba(63, 142, 252, 0.3), 8, 0, 0, 0);
-}
-
-/* Optional: Add a search icon on the left using a background image */
-.search-bar {
-    -fx-background-image: url("../images/search.png"); /* your search icon path */
+    -fx-background-image: url("../images/search.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 10 center;
     -fx-background-size: 16px 16px;
 }
 
-.label,
-.text-field,
-.text-area,
-.combo-box,
-.check-box,
-.radio-button,
-.choice-box,
-.slider,
-.progress-bar,
-.menu-button {
-    -fx-background-radius: 10;
-    -fx-border-radius: 10;
+.search-bar:hover {
+    -fx-border-color: #999999;
 }
 
+.search-bar:focused {
+    -fx-border-color: #3f8efc;
+    -fx-effect: dropshadow(three-pass-box, rgba(63,142,252,0.3), 8, 0, 0, 0);
+}
+
+/* Progress bar gradient */
 .progress-bar-gradient > .bar {
     -fx-background-color: linear-gradient(to right, red 0%, yellow 50%, green 100%);
 }
 
-.icon-button {
-    /* Make button circular */
-    -fx-background-color: rgba(255, 255, 255, 0.15); /* semi-transparent white background */
-    -fx-background-radius: 50%;
-    -fx-border-radius: 50%;
-
-    /* White circular outline with slightly more opacity */
-    -fx-border-color: rgba(255, 255, 255, 0.4); /* slightly less transparent white */
-    -fx-border-width: 2px;
-
-    /* Size — adjust as you prefer */
-    -fx-min-width: 22px;
-    -fx-min-height: 22px;
-    -fx-pref-width: 22px;
-    -fx-pref-height: 22px;
-
-    /* Text (the "i") */
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-padding: 0;
-
-    -fx-alignment: center;
-    -fx-cursor: hand;
-
-    /* Optional: subtle blur effect for glassy feel */
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.1) , 5 , 0.0 , 0 , 0 );
-}
-
-/* Hover effect: slightly stronger background tint and border */
-.icon-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.25);
-    -fx-border-color: rgba(255, 255, 255, 0.6);
-    -fx-opacity: 1;
-}
-
-/* Press effect */
-.icon-button:pressed {
-    -fx-background-color: rgba(255, 255, 255, 0.35);
-    -fx-opacity: 0.9;
-}
-
-/* Disabled effect */
-.icon-button:disabled {
-    -fx-opacity: 0.35;
-    -fx-cursor: default;
-}
+/* Slider indicator */
 .slider-indicator .thumb {
-    -fx-background-color: #ff5555;          /* visible red triangle */
-    -fx-shape: "M 0 10 L 10 10 L 5 0 Z";    /* triangle pointing down */
+    -fx-background-color: #ff5555;
+    -fx-shape: "M 0 10 L 10 10 L 5 0 Z";
     -fx-background-insets: 0;
-    -fx-padding: 6;                         /* size of triangle */
+    -fx-padding: 6;
     -fx-background-radius: 0;
-    -fx-translate-y: 6px;                   /* moves triangle downward to align tip with track */
+    -fx-translate-y: 6px;
 }
+
+/* Risk title */
+.riskTitle {
+    -fx-text-fill: black;
+    -fx-effect: dropshadow(one-pass-box, white, 2, 0.0, 0, 0);
+}
+
+/* Override global .button for export button */
+.export-btn {
+    -fx-background-color: #ccc3b9;  /* whatever you want */
+    -fx-text-fill: #07094A;
+    -fx-border-color: #948d86;
+}
+
+/* Override global .button for exit button */
+.exit-btn {
+    -fx-background-color: #FFDDDD;
+    -fx-text-fill: #8A0000;
+    -fx-font-weight: bold;
+    -fx-border-color: #998484;
+}
+
 .settings-button {
     -fx-background-image: url("../images/settingsIcon.png");
     -fx-background-size: 20px 20px;
@@ -162,14 +115,4 @@
     -fx-background-color: transparent;
     -fx-padding: 10;
     -fx-cursor: hand;
-}
-
-.settings-button:hover {
-    -fx-background-color: rgba(0,0,0,0.05);
-    -fx-background-radius: 6;
-}
-
-.riskTitle {
-    -fx-text-fill: black;
-    -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
 }
