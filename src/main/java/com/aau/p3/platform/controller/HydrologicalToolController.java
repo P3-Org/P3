@@ -243,6 +243,8 @@ public class HydrologicalToolController implements ControlledScreen {
         double[][] polygonArray = PropertySearch.to2dArray(this.currentProperty.getPolygonCoordinates());
         this.evaluateRiskProfile(polygonArray);
 
+        setupSliderIndicators(currentProperty.getRisks());
+
         updateScoreButtons();
 
         // Decode URL string to UTF-8
@@ -315,27 +317,9 @@ public class HydrologicalToolController implements ControlledScreen {
     private void evaluateRiskProfile(double[][] polygon) {
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
-        List <RiskAssessment> listOfRisks = currentProperty.getRisks();
 
         // Calling applyColors to apply the correct colors to the labels inside JavaFX
-        riskLabelBinder.applyColors(listOfRisks, polygon);
-
-        Indicator indicator = new Indicator();
-        indicator.setThresholdsLines("cloudburst", cloudBurstIndicator);
-        indicator.setThresholdsLines("groundwater", groundWaterIndicator);
-        indicator.setThresholdsLines("stormsurge", stormSurgeIndicator);
-        indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
-
-        ThumbEditor thumbEditor = new ThumbEditor();
-        thumbEditor.setLimits(listOfRisks.get(0), cloudBurstThumb);
-        thumbEditor.setLimits(listOfRisks.get(1), groundWaterThumb);
-        thumbEditor.setLimits(listOfRisks.get(2), stormSurgeThumb);
-        thumbEditor.setLimits(listOfRisks.get(3), coastalErosionThumb);
-
-        animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
-        animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
-        animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
-        animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
+        riskLabelBinder.applyColors(currentProperty.getRisks(), polygon);
     }
 
     /**
@@ -445,13 +429,42 @@ public class HydrologicalToolController implements ControlledScreen {
         descriptionId.setText(textToShow);
     }
 
-    public void animateSliderTo(Slider slider, double targetValue) {
+    /**
+     * Method for inputting the overlay elements over the slider. These include threshold Lines, threshold values and moving the slider appropriately
+     * @param listOfRisks Takes the list of all the risk objects, as we need to read the values for each of these
+     */
+    private void setupSliderIndicators(List<RiskAssessment> listOfRisks) {
+        Indicator indicator = new Indicator();
+        indicator.setThresholdsLines(cloudBurstIndicator,"cloudburst", "mm");
+        indicator.setThresholdsLines(groundWaterIndicator,"groundwater", "m");
+        indicator.setThresholdsLines(stormSurgeIndicator,"stormsurge", "m");
+        indicator.setThresholdsLines(coastalErosionIndicator,"coastalerosion", "m");
+
+        ThumbEditor thumbEditor = new ThumbEditor();
+        thumbEditor.setLimits(listOfRisks.get(0), cloudBurstThumb);
+        thumbEditor.setLimits(listOfRisks.get(1), groundWaterThumb);
+        thumbEditor.setLimits(listOfRisks.get(2), stormSurgeThumb);
+        thumbEditor.setLimits(listOfRisks.get(3), coastalErosionThumb);
+
+        animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
+        animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
+        animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
+        animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
+
+    }
+
+    /***
+     * Helper function to setupSliderIndicators. It controls the logic for animating the thumb of the slider. It uses javaFX.Animations to achieve this
+     * @param slider A reference to the slider object that we want to animate
+     * @param targetValue corresponds to the normalized measurement value. And defines what the thumb should move towards and stop at
+     */
+    private void animateSliderTo(Slider slider, double targetValue) {
         double middlepoint = (slider.getMin() + slider.getMax()) / 2.0;
         slider.setValue(middlepoint);
 
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.seconds(0.5), new KeyValue(slider.valueProperty(), middlepoint)),
-                new KeyFrame(Duration.seconds(3), new KeyValue(slider.valueProperty(), targetValue))
+                new KeyFrame(Duration.seconds(0.8), new KeyValue(slider.valueProperty(), targetValue))
         );
 
         timeline.play();

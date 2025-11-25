@@ -8,17 +8,8 @@ public class ThumbEditor {
     public void setLimits(RiskAssessment risk, Slider thumb) {
         thresholdValues = risk.getThresholds();
 
-        thumb.setMax(setMaxLimit());
-        thumb.setMin(setMinLimit());
+        thumb.setMax(NormalizeSample.minMaxNormalization(thresholdValues[0]+thresholdValues[1], thresholdValues));
+        thumb.setMin(NormalizeSample.minMaxNormalization(0, thresholdValues));
 
-    }
-
-    private double setMaxLimit() {
-        return (thresholdValues[0]+thresholdValues[1] - thresholdValues[0]) / (thresholdValues[1] - thresholdValues[0]);
-
-    }
-
-    private double setMinLimit(){
-        return (0 - thresholdValues[0]) / (thresholdValues[1] - thresholdValues[0]);
     }
 }
