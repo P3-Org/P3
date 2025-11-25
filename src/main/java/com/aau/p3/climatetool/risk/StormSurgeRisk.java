@@ -43,7 +43,11 @@ public class StormSurgeRisk implements RiskAssessment {
 
         // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("stormsurge");
-        this.measurementValue = measurementStrategy.processValues(value);
+
+        double tempVal = measurementStrategy.processValues(value);
+        // If process value is NaN - no risk data is found on the property, and the measure value is set to -1
+        this.measurementValue = Double.isNaN(tempVal) ? 999.9 : tempVal;
+
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
         this.setDescription();
@@ -65,7 +69,7 @@ public class StormSurgeRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-        this.description = "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + "m for, at oversvømme denne grund.";
+        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + "m for, at oversvømme denne grund.";
     }
 
     @Override
