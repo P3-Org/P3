@@ -221,7 +221,7 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double value) {
-                return value + " m";
+                return value + "m";
             }
             @Override
             public Double fromString(String s) {
@@ -242,7 +242,8 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double value) {
-                return value + " mm";
+                int i = value.intValue();
+                return i + "mm";
             }
             @Override
             public Double fromString(String s) {
