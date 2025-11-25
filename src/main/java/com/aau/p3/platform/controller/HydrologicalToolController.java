@@ -99,6 +99,7 @@ public class HydrologicalToolController implements ControlledScreen {
         this.mainController = mainController;
         this.propertyManager = Main.propertyManager;
         this.currentProperty = propertyManager.currentProperty;
+        mainController.updateClimateButtonVisibility();
     }
 
     @FXML
