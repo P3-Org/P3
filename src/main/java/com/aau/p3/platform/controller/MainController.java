@@ -42,7 +42,8 @@ public class MainController {
         updateClimateButtonVisibility();
     }
 
-
+    /* Void method that called after initialization, if no currentProperty is not assigned, hide the "Klimaopslag"
+    * button, if assigned showcase it. setManaged() ensures the tool bar does not leave a blank space*/
     public void updateClimateButtonVisibility() {
         boolean hasProperty = Main.propertyManager.currentProperty != null;
         climateLookupButton.setVisible(hasProperty);
