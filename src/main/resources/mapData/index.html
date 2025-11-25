@@ -27,7 +27,6 @@
             height: auto;
             display: block;
         }
-
     </style>
 </head>
 <body>
@@ -37,6 +36,7 @@
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
         crossorigin=""
 ></script>
+<script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 <script>
     // The different storm surge styles, signify increase in sea level in m.
     const stormSurgeMap = {
@@ -152,7 +152,14 @@
     }
 
     function setErosion(){
-
+        climateOverlay = L.esri.dynamicMapLayer({
+            url: 'http://localhost:8080/arc_gis-nst',
+            layers: [2],
+            transparent: true,
+            format: 'png32',
+            dpi: 96,
+            f: "image"
+        }).addTo(map);
     }
 
     // Function for the cadastral overlay when corresponding button is clicked.

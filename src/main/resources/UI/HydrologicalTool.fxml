@@ -240,6 +240,8 @@
                                         </ToggleButton>
                                         <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" />
                                         <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
+                                        <ToggleButton fx:id="coastalToggle" mnemonicParsing="false" text="Kyst erosion" textAlignment="CENTER" toggleGroup="$weatherOption" />
+
                            </buttons>
                         </ButtonBar>
                             </children>
