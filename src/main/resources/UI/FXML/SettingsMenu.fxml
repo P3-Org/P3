@@ -6,7 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.aau.p3.platform.controller.SettingsMenuController"
-            prefHeight="400.0" prefWidth="600.0" stylesheets="@settings.css">
+            prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/settings.css">
 
 
     <center>

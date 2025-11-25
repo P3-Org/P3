@@ -36,7 +36,7 @@ import java.util.List;
  * Class that handles the hydrological tool controller and window
  */
 public class HydrologicalToolController implements ControlledScreen {
-    // initialisation of toggles, s.t. they're visible to the FXML file
+    // Initialisation of toggles, s.t. they're visible to the FXML file
     @FXML
     private ToggleButton cloudburstToggle = new ToggleButton();
 
@@ -99,12 +99,12 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private void settingsMenu(ActionEvent event) {
-        mainController.setCenter("/UI/SettingsMenu.fxml");
+        mainController.setCenter("/UI/FXML/SettingsMenu.fxml");
     }
 
     @FXML
     public void initialize() {
-        // initialize Sliders functionality
+        // Initialize sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
@@ -192,7 +192,7 @@ public class HydrologicalToolController implements ControlledScreen {
         });
 
         /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
-           responsible for calling the mainController ones the address has been filled out. */
+           responsible for refreshing the climate information regarding the new property ones the address has been filled out. */
         PropertySearch search = new PropertySearch(addressSearchField, () -> refresh());
         search.searchAddress();
 
@@ -210,15 +210,16 @@ public class HydrologicalToolController implements ControlledScreen {
 
         updateScoreButtons();
 
+        // Decode URL string to UTF-8
         String encodedAddress = currentProperty.getAddress();
         String decodedAddress = URLDecoder.decode(encodedAddress, StandardCharsets.UTF_8);
+        // Displays the current address
         addressLabel.setText(decodedAddress);
 
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
 
-    // helper functions here
-    private void setStormSurgeSlider(){
+    private void setStormSurgeSlider() {
         stormSurgeSlider.setMin(0);// Value bound settings
         stormSurgeSlider.setMax(6);
         stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
@@ -228,7 +229,7 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
     }
 
-    private void setCloudBurstSlider(){
+    private void setCloudBurstSlider() {
         cloudBurstSlider.setMin(0); // Value bound settings
         cloudBurstSlider.setMax(150);
         cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
@@ -246,7 +247,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * Method for computing the climate score and setting appropriate colors for page
      * @param polygon The polygon of the property
      */
-    private void evaluateRiskProfile(double[][] polygon){
+    private void evaluateRiskProfile(double[][] polygon) {
         //currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
@@ -298,7 +299,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * @param event Event that triggers
      */
     @FXML
-    private void decreaseScore(ActionEvent event){
+    private void decreaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
@@ -347,7 +348,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private void popUpHandler(ActionEvent event) {
         try {
             // Readies the popup scene, much like the main stage.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/PopupWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/FXML/PopupWindow.fxml"));
             VBox popupRoot = loader.load();
 
             // When the button is clicked, the correct .properties file is found using the fx:id.

@@ -1,17 +1,8 @@
 package com.aau.p3.platform.controller;
 
-import com.aau.p3.Main;
-import com.aau.p3.climatetool.dawa.*;
-import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
-import com.aau.p3.climatetool.utilities.GeoDataReader;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
-import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
-import com.aau.p3.platform.model.property.Property;
-import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.PropertySearch;
-import com.aau.p3.platform.model.property.RiskFactory;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.platform.utilities.StatusEnum;
 import javafx.beans.property.SimpleObjectProperty;
@@ -19,20 +10,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.geometry.Bounds;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.stage.Popup;
 
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.net.URLDecoder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class that handles the Address look up controller and window
@@ -89,6 +72,6 @@ public class AddressLookupController implements ControlledScreen  {
      */
     @FXML
     private void setWindowHydrologicalTool() {
-        mainController.setCenter("/UI/HydrologicalTool.fxml");
+        mainController.setCenter("/UI/FXML/HydrologicalTool.fxml");
     }
 }

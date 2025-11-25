@@ -10,8 +10,17 @@
         <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <VBox alignment="TOP_RIGHT">
+                    <HBox spacing="10" HBox.hgrow="ALWAYS">
+                        <children>
+                            <TextField fx:id="addressSearchField"
+                                       styleClass="search-bar"
+                                       prefWidth="250"
+                                       promptText="Søg efter en adresse"
+                                       HBox.hgrow="ALWAYS"/>
+                        </children>
+                    </HBox>
                     <children>
-                  <HBox prefWidth="924.0">
+                         <HBox prefWidth="924.0">
                      <children>
                         <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
                            <font>
@@ -49,21 +58,6 @@
                                     <padding>
                                         <Insets top="5" left="5" right="15" bottom="5"/>
                                     </padding>
-                                    <HBox spacing="10" HBox.hgrow="ALWAYS">
-                                        <children>
-                                            <TextField fx:id="currentAddressField"
-                                                       prefWidth="250"
-                                                       promptText="Nuværende adresse"
-                                                       editable="false"
-                                                       HBox.hgrow="ALWAYS"/>
-
-                                            <TextField fx:id="addressSearchField"
-                                                       styleClass="search-bar"
-                                                       prefWidth="250"
-                                                       promptText="Søg efter en adresse"
-                                                       HBox.hgrow="ALWAYS"/>
-                                        </children>
-                                    </HBox>
                                     <AnchorPane prefHeight="200" prefWidth="200">
                                         <children>
                                             <TextArea fx:id="commentArea"
@@ -76,7 +70,6 @@
                                                       AnchorPane.bottomAnchor="5"/>
                                         </children>
                                     </AnchorPane>
-
                                 </VBox>
                             </center>
                             <bottom>

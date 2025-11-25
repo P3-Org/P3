@@ -8,13 +8,11 @@ import com.aau.p3.climatetool.utilities.ThresholdRepository;
 import com.aau.p3.database.StaticThresholdRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Popup;
-
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class PropertySearch {
     private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
     private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
     private final Runnable onAddressSelected;
-
     private final PropertyManager propertyManager = Main.propertyManager;
 
     public PropertySearch(TextField addressSearchField, Runnable onAddressSelected) {
@@ -34,6 +31,9 @@ public class PropertySearch {
         this.onAddressSelected = onAddressSelected;
     }
 
+    /**
+     * Method for searching up addresses in the address field. Used by both the HydrologicalToolController and AddressLookupController.
+     */
     public void searchAddress() {
         // Configuration for the Popup window to contain the ListView suggestionList, and auto hide it.
         suggestionsPopup.getContent().add(suggestionsList);
@@ -129,6 +129,4 @@ public class PropertySearch {
         }
         return arr;
     }
-
-
 }
