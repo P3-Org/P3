@@ -37,7 +37,7 @@ public class MainController {
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/UI/FXML/AddressLookup.fxml");
+        setCenter("/ui/fxml/AddressLookup.fxml");
     }
 
 
@@ -100,12 +100,12 @@ public class MainController {
 
     @FXML
     private void openAddressLookup(ActionEvent actionEvent) {
-        setCenter("/UI/FXML/AddressLookup.fxml");
+        setCenter("/ui/fxml/AddressLookup.fxml");
     }
 
     @FXML
     private void openHydrologicalTool(ActionEvent actionEvent) {
-        setCenter("/UI/FXML/HydrologicalTool.fxml");
+        setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
 
     @FXML

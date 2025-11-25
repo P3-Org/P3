@@ -31,7 +31,6 @@ import javafx.stage.Stage;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,7 +103,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private void settingsMenu(ActionEvent event) {
-        mainController.setCenter("/UI/FXML/SettingsMenu.fxml");
+        mainController.setCenter("/ui/fxml/SettingsMenu.fxml");
     }
 
     // Put map pin on property coordinates
@@ -278,7 +277,6 @@ public class HydrologicalToolController implements ControlledScreen {
      * @param polygon The polygon of the property
      */
     private void evaluateRiskProfile(double[][] polygon) {
-        //currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
         List <RiskAssessment> listOfRisks = currentProperty.getRisks();
@@ -293,10 +291,10 @@ public class HydrologicalToolController implements ControlledScreen {
         indicator.setThresholdsLines("coastalerosion", coastalErosionIndicator);
 
         ThumbEditor thumbEditor = new ThumbEditor();
-        thumbEditor.setlimits(listOfRisks.get(0),cloudBurstThumb);
-        thumbEditor.setlimits(listOfRisks.get(1),groundWaterThumb);
-        thumbEditor.setlimits(listOfRisks.get(2),stormSurgeThumb);
-        thumbEditor.setlimits(listOfRisks.get(3),coastalErosionThumb);
+        thumbEditor.setLimits(listOfRisks.get(0), cloudBurstThumb);
+        thumbEditor.setLimits(listOfRisks.get(1), groundWaterThumb);
+        thumbEditor.setLimits(listOfRisks.get(2), stormSurgeThumb);
+        thumbEditor.setLimits(listOfRisks.get(3), coastalErosionThumb);
 
         animateSliderTo(cloudBurstThumb, listOfRisks.get(0).getNormalizedValue());
         animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
@@ -372,7 +370,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private void popUpHandler(ActionEvent event) {
         try {
             // Readies the popup scene, much like the main stage.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/FXML/PopupWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/PopupWindow.fxml"));
             VBox popupRoot = loader.load();
 
             // When the button is clicked, the correct .properties file is found using the fx:id.

@@ -25,7 +25,7 @@ public class SettingsMenuController implements ControlledScreen {
 
     @FXML
     private void goBack() {
-        mainController.setCenter("/UI/FXML/HydrologicalTool.fxml");
+        mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
 
     /**

@@ -21,7 +21,7 @@ public class Main extends Application {
             /* Makes a new FXMLLoader object the parsed parameter,
              * gets the entire path to the fxml file that we wish to display.
              * The purpose of this is to create a link between the fxml and a java object */
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/UI/FXML/MainWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ui/fxml/MainWindow.fxml"));
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
             primaryStage.setTitle("Nykredit Platform");
