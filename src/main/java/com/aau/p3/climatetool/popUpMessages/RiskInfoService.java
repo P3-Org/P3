@@ -25,6 +25,12 @@ public class RiskInfoService {
 
     }
 
+    /**
+     *
+     * @param description
+     * @param threshold
+     * @return
+     */
     private String formatString(String description, double[] threshold){
         description = description.replace("{lowerThresh}", Double.toString(threshold[0]));
         description = description.replace("{upperThresh}", Double.toString(threshold[1]));

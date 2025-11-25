@@ -50,22 +50,36 @@ public class CloudburstRisk implements RiskAssessment {
         this.setDescription();
     }
 
-    // Getters
+    /**
+     * Getter method
+     * @return RGB Value
+     */
     @Override
     public double[] getRGB() {
         return this.RGBValue;
     }
 
+    /**
+     * Getter method
+     * @return NormalizedValue for the given risk
+     */
     @Override
     public double getNormalizedValue() {
         return this.normalizedMeasurement;
     }
 
+    /**
+     * Getter method
+     * @return Measurement value
+     */
     @Override
     public double getMeasurementValue() {
         return this.measurementValue;
     }
 
+    /**
+     * Setter method. Sets description.
+     */
     @Override
     public void setDescription() {
         // Conversion from metres to millimetres
@@ -73,16 +87,28 @@ public class CloudburstRisk implements RiskAssessment {
         this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", convertedMill) + "mm til for, at oversvømme denne grund.";
     }
 
+    /**
+     * Getter method
+     * @return description
+     */
     @Override
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Getter method
+     * @return Thresholds
+     */
     @Override
     public double[] getThresholds() {
         return this.threshold;
     }
 
+    /**
+     * Getter method
+     * @return Risk type
+     */
     @Override
     public String getRiskType() {
         return "cloudburst";

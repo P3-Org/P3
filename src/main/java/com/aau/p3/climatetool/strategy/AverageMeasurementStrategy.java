@@ -6,7 +6,6 @@ import java.util.List;
 
 /**
  * Class that implements "MeasurementStrategy" and finds the average measurement
- * @Author Batman
  */
 public class AverageMeasurementStrategy implements MeasurementStrategy {
     @Override

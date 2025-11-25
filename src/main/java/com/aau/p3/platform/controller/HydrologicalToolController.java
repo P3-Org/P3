@@ -30,8 +30,11 @@ import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import javafx.util.StringConverter;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class that handles the hydrological tool controller and window
@@ -251,6 +254,17 @@ public class HydrologicalToolController implements ControlledScreen {
     private void setStormSurgeSlider() {
         stormSurgeSlider.setMin(0);// Value bound settings
         stormSurgeSlider.setMax(6);
+        stormSurgeSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double value) {
+                return value + "m";
+            }
+            @Override
+            public Double fromString(String s) {
+                String digits = s.replaceAll("[^0-9.-]","");
+                return Double.parseDouble(digits);
+            }
+        });
         stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
         stormSurgeSlider.setShowTickLabels(true);
         stormSurgeSlider.setSnapToTicks(true);
@@ -261,6 +275,18 @@ public class HydrologicalToolController implements ControlledScreen {
     private void setCloudBurstSlider() {
         cloudBurstSlider.setMin(0); // Value bound settings
         cloudBurstSlider.setMax(150);
+        cloudBurstSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double value) {
+                int i = value.intValue();
+                return i + "mm";
+            }
+            @Override
+            public Double fromString(String s) {
+                String digits = s.replaceAll("[^0-9.-]","");
+                return Double.parseDouble(digits);
+            }
+        });
         cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
         cloudBurstSlider.setShowTickLabels(true);
         cloudBurstSlider.setSnapToTicks(true);
@@ -268,6 +294,10 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
 
+    /**
+     * Method that calls JavaScript code. The function called is a leaflet function that can panTo coordinates.
+     * @param coords the coordinates to pan to
+     */
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");
     }
