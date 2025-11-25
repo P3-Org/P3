@@ -20,10 +20,12 @@ class DawaGetCoordinatesTest  {
     @Test
     @DisplayName("autocomplete")
     void autocomplete() {
-        expectedCoords.add("56.25263942");
-        expectedCoords.add("10.02245235");
-        DawaGetCoordinates addressInfo =  new DawaGetCoordinates("Bondagervej+5+8382");
-        Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
+        //expectedCoords.add("56.25263942");
+        //expectedCoords.add("10.02245235");
+        expectedCoords.add("563350.22");
+        expectedCoords.add("6234668.27");
+        DawaGetEastingNorthing addressInfo =  new DawaGetEastingNorthing("Bondagervej+5+8382");
+        Assertions.assertEquals(expectedCoords, addressInfo.getEastingNorthing());
     }
 
     @Test
@@ -31,7 +33,7 @@ class DawaGetCoordinatesTest  {
     void autocompleteFailure() {
         expectedCoords.add("");
         expectedCoords.add("");
-        DawaGetCoordinates addressInfo = new DawaGetCoordinates("Bondag");
-        Assertions.assertEquals(expectedCoords, addressInfo.getCoordinates());
+        DawaGetEastingNorthing addressInfo = new DawaGetEastingNorthing("Bondag");
+        Assertions.assertEquals(expectedCoords, addressInfo.getEastingNorthing());
     }
 }

@@ -3,6 +3,7 @@ package com.aau.p3.climatetool.risk;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**

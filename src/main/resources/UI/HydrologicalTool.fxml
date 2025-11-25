@@ -229,8 +229,9 @@
                         </AnchorPane>
                         <AnchorPane>
                             <children>
-                                <HBox alignment="CENTER" prefHeight="26.0" prefWidth="628.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                                    <children>
+                        <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <buttons>
+                                        <Button fx:id="returnToCenter" alignment="CENTER" mnemonicParsing="false" text="Centrer kort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
                                             <toggleGroup>
@@ -238,9 +239,9 @@
                                             </toggleGroup>
                                         </ToggleButton>
                                         <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvand" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                    </children>
-                                </HBox>
+                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
+                           </buttons>
+                        </ButtonBar>
                             </children>
                         </AnchorPane>
                         <AnchorPane>
@@ -251,7 +252,7 @@
                         </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button onAction="#settingsMenu" layoutX="566.0" layoutY="142.0" mnemonicParsing="false" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <Button layoutX="566.0" layoutY="142.0" mnemonicParsing="false" onAction="#settingsMenu" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                      </children>
                   </AnchorPane>
                     </children>

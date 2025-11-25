@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PropertyRepository {
@@ -97,6 +98,7 @@ public class PropertyRepository {
      * @param property contains the property object that needs to be added into the database matching the address.
      */
     public static void saveProperty(Property property) {
+
         // The sql string that will be executed. The question marks will be filled in later, and is a placeholder at this point
         String sql = "INSERT OR REPLACE INTO properties (Address, propertyObject) VALUES (?, ?)";
 
