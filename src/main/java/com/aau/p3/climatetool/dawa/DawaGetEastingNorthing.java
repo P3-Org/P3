@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class
+ * Class that acts as a constructor to get Easting Northing coordinates with the help from the UrlAutoComplete class
  */
 public class DawaGetEastingNorthing {
     private final List<String> coordinates = new ArrayList<>();

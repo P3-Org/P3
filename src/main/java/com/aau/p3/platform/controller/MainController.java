@@ -9,6 +9,7 @@ import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -38,8 +39,16 @@ public class MainController {
     @FXML
     public void initialize() {
         setCenter("/ui/fxml/AddressLookup.fxml");
+        updateClimateButtonVisibility();
     }
 
+    /* Void method that called after initialization, if no currentProperty is not assigned, hide the "Klimaopslag"
+    * button, if assigned showcase it. setManaged() ensures the tool bar does not leave a blank space*/
+    public void updateClimateButtonVisibility() {
+        boolean hasProperty = Main.propertyManager.currentProperty != null;
+        climateLookupButton.setVisible(hasProperty);
+        climateLookupButton.setManaged(hasProperty);
+    }
 
     /**
      * Method set center takes an FXML file type (window),
@@ -136,6 +145,9 @@ public class MainController {
         System.out.println("Document saved!");
         document.close();
     }
+
+    @FXML
+    private Button climateLookupButton;
 
     @FXML
     private void exitApp() {

@@ -30,8 +30,11 @@ import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import javafx.util.StringConverter;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Class that handles the hydrological tool controller and window
@@ -42,13 +45,13 @@ public class HydrologicalToolController implements ControlledScreen {
     private ToggleButton cloudburstToggle = new ToggleButton();
 
     @FXML
+    public ToggleButton coastalToggle = new ToggleButton();
+
+    @FXML
     private ToggleButton cadastralToggle = new ToggleButton();
 
     @FXML
     private ToggleButton stormsurgeToggle = new ToggleButton();
-
-    @FXML
-    private ToggleButton erosionToggle = new ToggleButton();
 
     @FXML
     private ToggleButton groundwaterToggle = new ToggleButton();
@@ -78,7 +81,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private Label overallScoreId, groundwaterDescription, addressLabel, cloudburstDescription,
-                  stormSurgeDescription, coastalErosionDescription;
+            stormSurgeDescription, coastalErosionDescription;
 
     @FXML
     private TextField addressSearchField;
@@ -99,6 +102,7 @@ public class HydrologicalToolController implements ControlledScreen {
         this.mainController = mainController;
         this.propertyManager = Main.propertyManager;
         this.currentProperty = propertyManager.currentProperty;
+        mainController.updateClimateButtonVisibility();
     }
 
     @FXML
@@ -141,7 +145,8 @@ public class HydrologicalToolController implements ControlledScreen {
         AnchorPane.setLeftAnchor(webView, 0.0);
         AnchorPane.setRightAnchor(webView, 0.0);
         // Inserts the webView into the JavaFX anchorpane
-        mapAnchor.getChildren().add(webView);
+        mapAnchor.getChildren().add(0, webView); // adds webView behind all existing children
+
 
         /* Add listener to the valueProperty of our Slider. Then get and save the value with .getValue(),
          *  and parse that value to the javascript function "setMapStyle" in @index.html.
@@ -169,6 +174,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 cloudBurstSlider.setValue(0);
             }
         });
+
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 stormSurgeSlider.setVisible(true);
@@ -180,13 +186,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 stormSurgeSlider.setValue(0);
             }
         });
-        erosionToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
-                webEngine.executeScript("setErosion()");
-            } else {
-                webEngine.executeScript("removeClimateLayer()");
-            }
-        });
+
         groundwaterToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setGroundwater()");
@@ -194,6 +194,15 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeClimateLayer()");
             }
         });
+
+        coastalToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setErosion()");
+            } else {
+                webEngine.executeScript("removeClimateLayer()");
+            }
+        });
+
         cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCadastral()");
@@ -253,6 +262,17 @@ public class HydrologicalToolController implements ControlledScreen {
     private void setStormSurgeSlider() {
         stormSurgeSlider.setMin(0);// Value bound settings
         stormSurgeSlider.setMax(6);
+        stormSurgeSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double value) {
+                return value + "m";
+            }
+            @Override
+            public Double fromString(String s) {
+                String digits = s.replaceAll("[^0-9.-]","");
+                return Double.parseDouble(digits);
+            }
+        });
         stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
         stormSurgeSlider.setShowTickLabels(true);
         stormSurgeSlider.setSnapToTicks(true);
@@ -263,6 +283,18 @@ public class HydrologicalToolController implements ControlledScreen {
     private void setCloudBurstSlider() {
         cloudBurstSlider.setMin(0); // Value bound settings
         cloudBurstSlider.setMax(150);
+        cloudBurstSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double value) {
+                int i = value.intValue();
+                return i + "mm";
+            }
+            @Override
+            public Double fromString(String s) {
+                String digits = s.replaceAll("[^0-9.-]","");
+                return Double.parseDouble(digits);
+            }
+        });
         cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
         cloudBurstSlider.setShowTickLabels(true);
         cloudBurstSlider.setSnapToTicks(true);
@@ -270,6 +302,10 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
 
+    /**
+     * Method that calls JavaScript code. The function called is a leaflet function that can panTo coordinates.
+     * @param coords the coordinates to pan to
+     */
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");
     }
