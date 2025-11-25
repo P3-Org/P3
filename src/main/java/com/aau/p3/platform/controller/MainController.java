@@ -41,8 +41,6 @@ public class MainController {
     }
 
 
-
-
     /**
      * Method set center takes an FXML file type (window),
      * and replaces the current window with that content.
@@ -74,7 +72,6 @@ public class MainController {
                 }
             }
 
-
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
             * with id contentArea in the MainWindow.fxml */
@@ -99,16 +96,6 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public Object getctrl(){
-        return this.ctrl;
-    }
-
-    /* @FXML tag is used to grab a hold of the specific onAction id "openHomePage" inside MainWindow.fxml */
-    @FXML
-    private void openMyCases(ActionEvent actionEvent) {
-        setCenter("/UI/FXML/MyCases.fxml");
     }
 
     @FXML
