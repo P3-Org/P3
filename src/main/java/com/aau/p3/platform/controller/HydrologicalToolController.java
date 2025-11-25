@@ -269,8 +269,6 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
 
-
-
     public void panTo(List<String> coords) {
         webEngine.executeScript("panTo(" + coords + ")");
     }
@@ -304,7 +302,6 @@ public class HydrologicalToolController implements ControlledScreen {
         animateSliderTo(groundWaterThumb, listOfRisks.get(1).getNormalizedValue());
         animateSliderTo(stormSurgeThumb, listOfRisks.get(2).getNormalizedValue());
         animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
-        //coastalErosionThumb.setValue(listOfRisks.get(3).getNormalizedValue());
     }
 
     /**
@@ -440,6 +437,7 @@ public class HydrologicalToolController implements ControlledScreen {
         // Pans the map to the correct property
         if (currentProperty != null) {
             panTo(currentProperty.getLatLongCoordinates()); // always run on new selection
+            showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
 }

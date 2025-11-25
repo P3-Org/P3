@@ -127,9 +127,9 @@
                                                         </AnchorPane>
                                                     </center>
                                                     <bottom>
-                                                        <AnchorPane fx:id="cloudBurstIndicator" maxHeight="20.0" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="cloudBurstIndicator" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <Slider fx:id="cloudBurstThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                <Slider fx:id="cloudBurstThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
@@ -165,7 +165,7 @@
                                                     <bottom>
                                                         <AnchorPane fx:id="groundWaterIndicator" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <Slider fx:id="groundWaterThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                <Slider fx:id="groundWaterThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
@@ -201,7 +201,7 @@
                                                     <bottom>
                                                         <AnchorPane fx:id="stormSurgeIndicator" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <Slider fx:id="stormSurgeThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                <Slider fx:id="stormSurgeThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
@@ -237,7 +237,7 @@
                                                     <bottom>
                                                         <AnchorPane fx:id="coastalErosionIndicator" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <Slider fx:id="coastalErosionThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                <Slider fx:id="coastalErosionThumb" disable="true" styleClass="slider-indicator" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
