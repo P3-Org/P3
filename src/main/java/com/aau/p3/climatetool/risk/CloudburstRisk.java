@@ -47,6 +47,7 @@ public class CloudburstRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -62,18 +63,24 @@ public class CloudburstRisk implements RiskAssessment {
 
     @Override
     public double getMeasurementValue() {
-        return this.measurementValue; }
-
-    @Override
-    public double[] getThresholds() {
-        return this.threshold;
+        return this.measurementValue;
     }
 
-    public void setDescription() {}
+    @Override
+    public void setDescription() {
+        // Conversion from metres to millimetres
+        double convertedMill = this.measurementValue * 100;
+        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", convertedMill) + "mm til for, at oversvømme denne grund.";
+    }
 
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    @Override
+    public double[] getThresholds() {
+        return this.threshold;
     }
 
     @Override

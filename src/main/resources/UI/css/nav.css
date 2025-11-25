@@ -75,7 +75,7 @@
 
 /* Optional: Add a search icon on the left using a background image */
 .search-bar {
-    -fx-background-image: url("images/search.png"); /* your search icon path */
+    -fx-background-image: url("../images/search.png"); /* your search icon path */
     -fx-background-repeat: no-repeat;
     -fx-background-position: 10 center;
     -fx-background-size: 16px 16px;
@@ -155,7 +155,7 @@
     -fx-translate-y: 6px;                   /* moves triangle downward to align tip with track */
 }
 .settings-button {
-    -fx-background-image: url("images/settingsIcon.png");
+    -fx-background-image: url("../images/settingsIcon.png");
     -fx-background-size: 20px 20px;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -167,4 +167,9 @@
 .settings-button:hover {
     -fx-background-color: rgba(0,0,0,0.05);
     -fx-background-radius: 6;
+}
+
+.riskTitle {
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
 }

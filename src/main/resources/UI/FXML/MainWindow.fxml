@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.1953551912568306" prefHeight="700.0" prefWidth="1100.0" stylesheets="@nav.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.MainController">
+<SplitPane dividerPositions="0.1953551912568306" prefHeight="700.0" prefWidth="1100.0" stylesheets="@../css/nav.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.MainController">
     <items>
       <ScrollPane fitToWidth="true" maxWidth="250.0" minWidth="-Infinity" prefWidth="250.0">
          <content>

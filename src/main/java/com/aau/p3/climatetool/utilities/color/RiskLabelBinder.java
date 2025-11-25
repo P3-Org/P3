@@ -3,8 +3,6 @@ package com.aau.p3.climatetool.utilities.color;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,7 +23,8 @@ public class RiskLabelBinder implements RiskBinderInterface {
         for (RiskAssessment risk : riskAssessment) {
             AnchorPane riskLabel = findLabelForRisk(risk);
             double[] rgb = risk.getRGB();
-            String style = String.format(Locale.US, "-fx-background-color: rgb(%f, %f, %f);", rgb[0], rgb[1], rgb[2]);
+            double alpha = 0.7;
+            String style = String.format(Locale.US, "-fx-background-color: rgba(%f, %f, %f, %.3f);", rgb[0], rgb[1], rgb[2], alpha);
             riskLabel.setStyle(style);
         }
     }
