@@ -72,6 +72,6 @@ public class AddressLookupController implements ControlledScreen  {
      */
     @FXML
     private void setWindowHydrologicalTool() {
-        mainController.setCenter("/UI/FXML/HydrologicalTool.fxml");
+        mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
 }

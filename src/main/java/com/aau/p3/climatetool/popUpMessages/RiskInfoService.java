@@ -13,7 +13,7 @@ public class RiskInfoService {
      */
     public RiskInfo loadInfo(String filename) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
-        ResourceBundle bundle = ResourceBundle.getBundle("UI/Drilldowns/"+filename);
+        ResourceBundle bundle = ResourceBundle.getBundle("ui/drilldowns/" +filename);
         String general = bundle.getString("general") + "\n\n";
         String threshold = bundle.getString("threshold") + "\n\n";
         String calculation = bundle.getString("calculation") + "\n\n";

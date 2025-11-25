@@ -5,7 +5,7 @@ import javafx.scene.control.Slider;
 public class ThumbEditor {
     double[] thresholdValues;
 
-    public void setlimits(RiskAssessment risk, Slider thumb){
+    public void setLimits(RiskAssessment risk, Slider thumb) {
         thresholdValues = risk.getThresholds();
 
         thumb.setMax(setMaxLimit());
@@ -13,7 +13,7 @@ public class ThumbEditor {
 
     }
 
-    private double setMaxLimit(){
+    private double setMaxLimit() {
         return (thresholdValues[0]+thresholdValues[1] - thresholdValues[0]) / (thresholdValues[1] - thresholdValues[0]);
 
     }

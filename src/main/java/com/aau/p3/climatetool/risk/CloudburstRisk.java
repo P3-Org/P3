@@ -22,7 +22,7 @@ public class CloudburstRisk implements RiskAssessment {
     private String description = "Ingen data tilgængelig";
 
     /**
-     *  Constructor for final attributes in CloudburstRisk class
+     * Constructor for final attributes in CloudburstRisk class
      * @param geoDataReader
      * @param thresholdRepository
      * @param measurementStrategy

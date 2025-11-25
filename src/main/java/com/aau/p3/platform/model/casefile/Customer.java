@@ -1,8 +1,6 @@
 package com.aau.p3.platform.model.casefile;
 
 public class Customer {
-    public static class ValuationDocument {
-    }
     private final String name;
     private final int CPR;
     private final int phoneNumber;
@@ -35,6 +33,4 @@ public class Customer {
     public String getEmail() {
         return this.email;
     }
-
 }
-
