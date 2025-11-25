@@ -294,9 +294,9 @@
                                 <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane prefHeight="400.0" prefWidth="200.0">
                             <children>
-                                <Button layoutX="566.0" layoutY="142.0"
+                                <Button layoutX="500.0" layoutY="142.0"
                                         onAction="#settingsMenu"
                                         text="Indstil grænseværdier"
                                         AnchorPane.bottomAnchor="5.0"
