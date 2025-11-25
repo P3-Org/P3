@@ -5,6 +5,10 @@
     -fx-background-color: #EDE8E6;
 }
 
+.scroll-pane .viewport {
+    -fx-background-color: #EDE8E6;
+}
+
 /* All buttons background + text */
 .button,
 .button.nav-item,
