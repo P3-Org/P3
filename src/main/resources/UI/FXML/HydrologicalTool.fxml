@@ -10,14 +10,31 @@
         <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <VBox alignment="TOP_RIGHT">
+                    <HBox spacing="10" HBox.hgrow="ALWAYS">
+                        <children>
+                            <TextField fx:id="addressSearchField"
+                                       styleClass="search-bar"
+                                       prefWidth="250"
+                                       promptText="Søg efter en adresse"
+                                       HBox.hgrow="ALWAYS"/>
+                        </children>
+                    </HBox>
                     <children>
+                         <HBox prefWidth="924.0">
+                     <children>
+                        <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
                         <BorderPane prefHeight="220.0" prefWidth="359.0">
                             <top>
                                 <HBox prefHeight="55.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <AnchorPane prefHeight="80.0" prefWidth="283.0">
+                                        <AnchorPane prefHeight="55.0" prefWidth="202.0">
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="202.0" text="Estimeret klimastand:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="229.0" text="Estimeret klimastand:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
@@ -37,20 +54,32 @@
                                 </HBox>
                             </top>
                             <center>
-                                <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <TextArea fx:id="commentArea" prefRowCount="5" promptText="Yderligere kommentarer..." wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                                    </children>
-                                </AnchorPane>
+                                <VBox spacing="10" BorderPane.alignment="CENTER">
+                                    <padding>
+                                        <Insets top="5" left="5" right="15" bottom="5"/>
+                                    </padding>
+                                    <AnchorPane prefHeight="200" prefWidth="200">
+                                        <children>
+                                            <TextArea fx:id="commentArea"
+                                                      prefRowCount="5"
+                                                      promptText="Yderligere kommentarer..."
+                                                      wrapText="true"
+                                                      AnchorPane.topAnchor="5"
+                                                      AnchorPane.leftAnchor="0"
+                                                      AnchorPane.rightAnchor="5"
+                                                      AnchorPane.bottomAnchor="5"/>
+                                        </children>
+                                    </AnchorPane>
+                                </VBox>
                             </center>
                             <bottom>
-                                <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                     <buttons>
                                         <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
                                     </buttons>
-                                    <BorderPane.margin>
-                                        <Insets right="5.0" />
-                                    </BorderPane.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                                 </ButtonBar>
                             </bottom>
                         </BorderPane>
@@ -86,7 +115,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Skybrud" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Skybrud" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -122,7 +151,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Grundvand" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Grundvand" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -153,12 +182,12 @@
                                                                     <center>
                                                                         <AnchorPane>
                                                                             <children>
-                                                                                <Label fx:id="stormsurgeDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="stormSurgeDescription" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Stormflod" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Stormflod" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -189,12 +218,12 @@
                                                                     <center>
                                                                         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="coastalerosionDescription" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="coastalErosionDescription" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Kysterosion" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Kysterosion" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -229,18 +258,19 @@
                         </AnchorPane>
                         <AnchorPane>
                             <children>
-                                <HBox alignment="CENTER" prefHeight="26.0" prefWidth="628.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                                    <children>
+                        <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <buttons>
+                                        <Button fx:id="returnToCenter" alignment="CENTER" mnemonicParsing="false" text="Centrer kort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
-                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skrybrud" textAlignment="CENTER">
+                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
                                             <toggleGroup>
                                                 <ToggleGroup fx:id="weatherOption" />
                                             </toggleGroup>
                                         </ToggleButton>
                                         <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvand" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                    </children>
-                                </HBox>
+                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
+                           </buttons>
+                        </ButtonBar>
                             </children>
                         </AnchorPane>
                         <AnchorPane>

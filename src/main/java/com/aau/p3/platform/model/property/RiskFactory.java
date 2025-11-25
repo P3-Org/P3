@@ -32,11 +32,12 @@ public class RiskFactory {
 
     /**
      * Method that adds the different risks to the list of risk assessments. Each is called with the geodata reader,
-     * thresholds and for some, either average/max measurement strategy
-     * @param coordinates The coordinates of the property
+     * thresholds and for some, either average/max measurement strategy.
+     * @param PolygonCoordinates The polygon coordinates of the property.
+     * @param eastingNorthing easting northing coordinates
      * @return List of risk assessments.
      */
-    public List<RiskAssessment> createRisks(double[][] coordinates) {
+    public List<RiskAssessment> createRisks(double[][] PolygonCoordinates, List<String> eastingNorthing) {
         List<RiskAssessment> riskAssessments = new ArrayList<>();
 
         /* Adds a risk to the list of risks. All risks include the same information and follows the Liskov Substitution Principle */
@@ -47,9 +48,21 @@ public class RiskFactory {
 
 
         // For each risk, use the appropriate function for making the assessment.
-        for (RiskAssessment risks : riskAssessments) {
-            risks.computeRiskMetrics(coordinates);
-        }
+        //for (RiskAssessment risks : riskAssessments) {
+        //    risks.computeRiskMetrics(coordinates);
+        //}
+        // bad workaround because of bad interfaces and uses of bad double[][]........
+        double easting  = Double.parseDouble(eastingNorthing.get(0)); // correct order
+        double northing = Double.parseDouble(eastingNorthing.get(1));
+        double[][] eastNorth = new double[1][2];
+        eastNorth[0][0] = easting;
+        eastNorth[0][1] = northing;
+
+
+        riskAssessments.get(0).computeRiskMetrics(PolygonCoordinates);
+        riskAssessments.get(1).computeRiskMetrics(eastNorth);
+        riskAssessments.get(2).computeRiskMetrics(PolygonCoordinates);
+        riskAssessments.get(3).computeRiskMetrics(PolygonCoordinates);
 
         return riskAssessments;
     }

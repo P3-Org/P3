@@ -8,6 +8,7 @@ import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
+import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
 import javafx.concurrent.Worker;
@@ -27,14 +28,17 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class that handles the hydrological tool controller and window
  */
 public class HydrologicalToolController implements ControlledScreen {
-    // initialisation of toggles, s.t. they're visible to the FXML file
+    // Initialisation of toggles, s.t. they're visible to the FXML file
     @FXML
     private ToggleButton cloudburstToggle = new ToggleButton();
 
@@ -49,6 +53,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private ToggleButton groundwaterToggle = new ToggleButton();
+
+    @FXML
+    private Button returnToCenter = new Button();
 
     @FXML
     private ToggleGroup weatherOption;
@@ -71,8 +78,11 @@ public class HydrologicalToolController implements ControlledScreen {
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
 
     @FXML
-    private Label overallScoreId, groundwaterDescription, cloudburstDescription,
+    private Label overallScoreId, groundwaterDescription, addressLabel, cloudburstDescription,
                   stormSurgeDescription, coastalErosionDescription;
+
+    @FXML
+    private TextField addressSearchField;
 
     @FXML
     private TextArea commentArea;
@@ -94,12 +104,19 @@ public class HydrologicalToolController implements ControlledScreen {
 
     @FXML
     private void settingsMenu(ActionEvent event) {
-        mainController.setCenter("/UI/SettingsMenu.fxml");
+        mainController.setCenter("/UI/FXML/SettingsMenu.fxml");
+    }
+
+    // Put map pin on property coordinates
+    public void showPropertyMarker(List<String> coords) {
+        // Convert List<Double> to JS array syntax
+        String jsArray = "[" + coords.get(0) + "," + coords.get(1) + "]";
+        webEngine.executeScript("showPropertyMarker(" + jsArray + ")");
     }
 
     @FXML
     public void initialize() {
-        // initialize Sliders functionality
+        // Initialize sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
 
@@ -185,10 +202,54 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeCadastralLayer()");
             }
         });
+
+        returnToCenter.setOnAction(event -> {
+            List<String> coords = this.currentProperty.getLatLongCoordinates();
+
+            panTo(coords);
+        });
+
+        // listener for changing size
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            webView.widthProperty().addListener((observable, oldVal, newVal) -> {
+                webView.getEngine().executeScript("updateLegendSize(" + newVal.doubleValue() + ")");
+            });
+        });
+
+
+        /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
+           responsible for refreshing the climate information regarding the new property ones the address has been filled out. */
+        PropertySearch search = new PropertySearch(addressSearchField, () -> refresh());
+        search.searchAddress();
+
+        /* Centers the map once the WebEngine has finished loading the map page. */
+        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                panTo(this.currentProperty.getLatLongCoordinates());
+                showPropertyMarker(this.currentProperty.getLatLongCoordinates());
+            }
+        });
     }
 
-    // helper functions here
-    private void setStormSurgeSlider(){
+    public void afterInitialize() {
+        double[][] polygonArray = PropertySearch.to2dArray(this.currentProperty.getPolygonCoordinates());
+        this.evaluateRiskProfile(polygonArray);
+
+        updateScoreButtons();
+
+        // Decode URL string to UTF-8
+        String encodedAddress = currentProperty.getAddress();
+        String decodedAddress = URLDecoder.decode(encodedAddress, StandardCharsets.UTF_8);
+        // Displays the current address
+        addressLabel.setText(decodedAddress);
+
+        updateRiskDescriptions(cloudburstDescription, currentProperty.getRisks().get(0).getDescription());
+        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+        updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
+        updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
+    }
+
+    private void setStormSurgeSlider() {
         stormSurgeSlider.setMin(0);// Value bound settings
         stormSurgeSlider.setMax(6);
         stormSurgeSlider.setShowTickMarks(true); // Tick mark settings
@@ -198,7 +259,7 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
     }
 
-    private void setCloudBurstSlider(){
+    private void setCloudBurstSlider() {
         cloudBurstSlider.setMin(0); // Value bound settings
         cloudBurstSlider.setMax(150);
         cloudBurstSlider.setShowTickMarks(true); // Tick mark settings
@@ -213,29 +274,10 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     /**
-     * Method for converting a List<List<double>> to a double[][]
-     * @param list List to be converted to array
-     * @return arr as a double[][]
-     */
-    private double[][] to2dArray(List<List<Double>> list) {
-        double[][] arr = new double[list.size()][];
-
-        for (int i = 0; i < list.size(); i++) {
-            List<Double> inner = list.get(i);
-            arr[i] = new double[inner.size()];
-
-            for (int j = 0; j < inner.size(); j++) {
-                arr[i][j] = inner.get(j);
-            }
-        }
-        return arr;
-    }
-
-    /**
      * Method for computing the climate score and setting appropriate colors for page
      * @param polygon The polygon of the property
      */
-    private void evaluateRiskProfile(double[][] polygon){
+    private void evaluateRiskProfile(double[][] polygon) {
         //currentProperty.calculateClimateScore();
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
         RiskBinderInterface riskLabelBinder = new RiskLabelBinder(labelContainer);
@@ -286,7 +328,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * @param event Event that triggers
      */
     @FXML
-    private void decreaseScore(ActionEvent event){
+    private void decreaseScore(ActionEvent event) {
         if (currentProperty.getSpecialistScore() == 1) {
             currentProperty.setSpecialistScore(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
@@ -326,16 +368,11 @@ public class HydrologicalToolController implements ControlledScreen {
         overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
     }
 
-    //wip
-    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
-        descriptionId.setText(textToShow);
-    }
-
     @FXML
     private void popUpHandler(ActionEvent event) {
         try {
             // Readies the popup scene, much like the main stage.
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/PopupWindow.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UI/FXML/PopupWindow.fxml"));
             VBox popupRoot = loader.load();
 
             // When the button is clicked, the correct .properties file is found using the fx:id.
@@ -370,18 +407,8 @@ public class HydrologicalToolController implements ControlledScreen {
         commentArea.clear();
     }
 
-    public void afterInitialize() {
-        double[][] polygonArray = this.to2dArray(this.currentProperty.getPolygonCoordinates());
-        this.evaluateRiskProfile(polygonArray);
-
-        updateScoreButtons();
-        webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (newState == Worker.State.SUCCEEDED) {
-                panTo(this.currentProperty.getLatLongCoordinates());
-            }
-        });
-
-        updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
+    private void updateRiskDescriptions(Label descriptionId, String textToShow) {
+        descriptionId.setText(textToShow);
     }
 
     public void animateSliderTo(Slider slider, double targetValue) {
@@ -394,5 +421,23 @@ public class HydrologicalToolController implements ControlledScreen {
         );
 
         timeline.play();
+    }
+
+    /**
+     * Method used for refreshing the following: The currentProperty object, recalls afterInitialize to reevaluate risks, descriptions and receive coordinates
+     * and lastly sets the map to the correct property using panTo().
+     */
+    public void refresh() {
+        // Update controller reference to the new property
+        this.currentProperty = propertyManager.currentProperty;
+
+        // Re-evaluate risk, labels, sliders and coordinates
+        afterInitialize();
+
+        // Pans the map to the correct property
+        if (currentProperty != null) {
+            panTo(currentProperty.getLatLongCoordinates()); // always run on new selection
+            showPropertyMarker(this.currentProperty.getLatLongCoordinates());
+        }
     }
 }

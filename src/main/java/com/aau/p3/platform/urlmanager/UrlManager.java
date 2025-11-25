@@ -33,6 +33,7 @@ public class UrlManager {
         try {
             // Create URL object from url string
             URL url = new URL(urlString);
+            //System.out.println(url); // Used for API debug
 
             // Create connection and request "GET"
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -20,7 +20,7 @@ public class AllCasesController implements ControlledScreen {
      *  This method sends the fxml file to MainControllers method setCenter */
     @FXML
     private void handleMyCases() {
-        mainController.setCenter("/UI/MyCases.fxml");
+        mainController.setCenter("/UI/FXML/MyCases.fxml");
     }
 
     @FXML
