@@ -6,6 +6,7 @@ import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.climatetool.utilities.*;
+import com.aau.p3.database.PropertyRepository;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.PropertySearch;
