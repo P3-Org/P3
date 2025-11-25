@@ -45,13 +45,13 @@ public class HydrologicalToolController implements ControlledScreen {
     private ToggleButton cloudburstToggle = new ToggleButton();
 
     @FXML
+    public ToggleButton coastalToggle = new ToggleButton();
+
+    @FXML
     private ToggleButton cadastralToggle = new ToggleButton();
 
     @FXML
     private ToggleButton stormsurgeToggle = new ToggleButton();
-
-    @FXML
-    private ToggleButton erosionToggle = new ToggleButton();
 
     @FXML
     private ToggleButton groundwaterToggle = new ToggleButton();
@@ -172,6 +172,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 cloudBurstSlider.setValue(0);
             }
         });
+
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 stormSurgeSlider.setVisible(true);
@@ -183,13 +184,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 stormSurgeSlider.setValue(0);
             }
         });
-        erosionToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
-                webEngine.executeScript("setErosion()");
-            } else {
-                webEngine.executeScript("removeClimateLayer()");
-            }
-        });
+
         groundwaterToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setGroundwater()");
@@ -197,6 +192,15 @@ public class HydrologicalToolController implements ControlledScreen {
                 webEngine.executeScript("removeClimateLayer()");
             }
         });
+
+        coastalToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("setErosion()");
+            } else {
+                webEngine.executeScript("removeClimateLayer()");
+            }
+        });
+
         cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCadastral()");

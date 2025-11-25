@@ -24,6 +24,7 @@ public class LocalProxyServer {
             server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
             server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
             server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
+            server.createContext("/arc_gis-nst/export", LocalProxyServer::handleNst);
             // Sets 4 threads available for requests for the server
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
@@ -78,6 +79,17 @@ public class LocalProxyServer {
         // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
         String fullQuery = queryNullCheck(targetUrl, query);
         handleRequest(exchange, fullQuery);
+    }
+
+    private static void handleNst(HttpExchange exchange) throws IOException{
+        // Converts the request to a string
+        String query = exchange.getRequestURI().getRawQuery();
+        String targetUrl = "https://gis.nst.dk/server/rest/services/ekstern/KDI_KystAtlas/MapServer/export";
+
+        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
+        System.out.println(fullQuery);
     }
 
     // Method for handling the requests aimed at the server
