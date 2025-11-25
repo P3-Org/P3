@@ -171,5 +171,10 @@
 
 .riskTitle {
     -fx-text-fill: black;
+    -fx-font-size: 1.8em;
     -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
+}
+
+.riskDescriptions {
+    -fx-font-size: 1.4em;
 }

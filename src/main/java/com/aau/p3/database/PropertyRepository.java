@@ -131,7 +131,6 @@ public class PropertyRepository {
         }
     }
 
-
     /**
      * Method for updating the database with the newly changed specialist score
      * @param address contains the address of the property
