@@ -1,5 +1,6 @@
 package com.aau.p3.climatetool.utilities;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,6 +11,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import static com.aau.p3.platform.utilities.AlertPopup.errorMessage;
 
 public class URLFileUtil {
     /**
@@ -52,6 +54,7 @@ public class URLFileUtil {
         URL url = new URL(urlString);
 
         if(!urlExists(url)){
+            errorMessage("Adressen findes ikke i databasen!");
             throw new IOException("Url not found: " + url);
         }
 

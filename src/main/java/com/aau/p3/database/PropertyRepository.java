@@ -10,8 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import static com.aau.p3.platform.utilities.AlertPopup.errorMessage;
 
 public class PropertyRepository {
 
@@ -116,7 +117,12 @@ public class PropertyRepository {
             }
 
             // Add DTO list to JSON
-            json.add("RiskToDTOs", gson.toJsonTree(dtos));
+            try {
+                json.add("RiskToDTOs", gson.toJsonTree(dtos));
+            } catch (Exception e) {
+                errorMessage("NaN fejl: Ingen data fundet for ejendommen");
+                throw new RuntimeException("NaN error: " + e); // Throw a runTimeException to make sure the program doesn't continue with faulty data
+            }
 
             // Remove original riskAssessment from JSON
             json.remove("riskAssessment");
