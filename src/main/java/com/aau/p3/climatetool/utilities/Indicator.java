@@ -42,9 +42,6 @@ public class Indicator {
 
         /* Add to parent */
         indicator.getChildren().addAll(lowerThreshold, upperThreshold, lowerLabel, upperLabel);
-
-
-
     }
 
     private double scaleThreshold(double threshold) {

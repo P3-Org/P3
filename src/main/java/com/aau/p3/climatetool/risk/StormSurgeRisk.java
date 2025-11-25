@@ -22,7 +22,7 @@ public class StormSurgeRisk implements RiskAssessment {
 
     /**
      * Constructor for final attributes of StormSurgeRisk
-     * @param geoDataReader
+     * @param geoDataReader is the geospatial reader
      * @param thresholdRepository
      * @param measurementStrategy
      */

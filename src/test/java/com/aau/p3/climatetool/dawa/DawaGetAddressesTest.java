@@ -16,7 +16,6 @@ public class DawaGetAddressesTest {
         expectedAddresses = new ArrayList<String>();
     }
 
-
     @Test
     @DisplayName("Test for auto completion of addresses")
     void getAddresses(){
