@@ -99,53 +99,56 @@
     -fx-background-color: linear-gradient(to right, red 0%, yellow 50%, green 100%);
 }
 
+/* Base */
 .icon-button {
-    /* Make button circular */
-    -fx-background-color: rgba(255, 255, 255, 0.15); /* semi-transparent white background */
+    -fx-background-color: rgba(0, 0, 0, 0.30);
+    -fx-border-color: rgba(255, 255, 255, 0.85);
+    -fx-border-width: 1.5;
+
+    /* Circle shape */
     -fx-background-radius: 50%;
     -fx-border-radius: 50%;
 
-    /* White circular outline with slightly more opacity */
-    -fx-border-color: rgba(255, 255, 255, 0.4); /* slightly less transparent white */
-    -fx-border-width: 2px;
+    /* Ensures enough room for the "i" */
+    -fx-min-width: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-width: 28px;
+    -fx-pref-height: 28px;
 
-    /* Size — adjust as you prefer */
-    -fx-min-width: 22px;
-    -fx-min-height: 22px;
-    -fx-pref-width: 22px;
-    -fx-pref-height: 22px;
-
-    /* Text (the "i") */
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
     -fx-padding: 0;
-
-    -fx-alignment: center;
-    -fx-cursor: hand;
-
-    /* Optional: subtle blur effect for glassy feel */
-    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.1) , 5 , 0.0 , 0 , 0 );
-}
-
-/* Hover effect: slightly stronger background tint and border */
-.icon-button:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.25);
-    -fx-border-color: rgba(255, 255, 255, 0.6);
     -fx-opacity: 1;
+
+    /* Text/Icon */
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+
+    /* Visibility on bright backgrounds */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 0);
 }
 
-/* Press effect */
+/* Hover */
+.icon-button:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.40);
+    -fx-border-color: rgba(255, 255, 255, 1.0);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0, 0, 0);
+}
+
+/* Pressed */
 .icon-button:pressed {
-    -fx-background-color: rgba(255, 255, 255, 0.35);
-    -fx-opacity: 0.9;
+    -fx-background-color: rgba(0, 0, 0, 0.50);
+    -fx-opacity: 0.95;
 }
 
-/* Disabled effect */
+/* Disabled */
 .icon-button:disabled {
-    -fx-opacity: 0.35;
-    -fx-cursor: default;
+    -fx-opacity: 0.40;
+    -fx-border-color: rgba(255, 255, 255, 0.6);
+    -fx-effect: none;
 }
+
+
 .slider-indicator .thumb {
     -fx-background-color: #ff5555;          /* visible red triangle */
     -fx-shape: "M 0 10 L 10 10 L 5 0 Z";    /* triangle pointing down */
