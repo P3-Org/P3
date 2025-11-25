@@ -46,6 +46,10 @@ titled-pane > .content {
     -fx-padding: 8 0 0 0;
 }
 
+.mineCases {
+    -fx-text-fill: #07094A;
+}
+
 /* Search bar */
 .search-bar {
     -fx-background-color: derive(#EDE8E6, -10%);;
@@ -71,10 +75,6 @@ titled-pane > .content {
     -fx-effect: dropshadow(three-pass-box, rgba(63,142,252,0.3), 8, 0, 0, 0);
 }
 
-/* Progress bar gradient */
-.progress-bar-gradient > .bar {
-    -fx-background-color: linear-gradient(to right, red 0%, yellow 50%, green 100%);
-}
 
 /* Slider indicator */
 .slider-indicator .thumb {

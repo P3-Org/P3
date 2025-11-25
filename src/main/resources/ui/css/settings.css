@@ -1,9 +1,10 @@
 /* settings.css (updated) */
 
 /* Global background */
-.root, .hej {
+.root, .splitPane, .BorderPane {
     -fx-background-color: #EDE8E6;
 }
+
 
 /* Input fields */
 .text-field {
@@ -20,6 +21,8 @@
     -fx-border-color: derive(#1976d2, -10%);
     -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.12), 6, 0, 0, 2);
 }
+
+
 
 /* Buttons (global override) */
 .button,

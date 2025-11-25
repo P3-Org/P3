@@ -7,11 +7,11 @@
 
 <AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
-        <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.6" layoutY="74.0" styleClass="splitPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
-                <ScrollPane fitToWidth="true" vbarPolicy="NEVER">
+                <ScrollPane fitToWidth="true" vbarPolicy="NEVER" styleClass="splitPane">
                     <content>
-                        <VBox alignment="TOP_RIGHT">
+                        <VBox alignment="TOP_RIGHT" styleClass="splitPane">
                             <children>
                                 <HBox spacing="5.0" HBox.hgrow="ALWAYS">
                                     <children>
@@ -68,10 +68,10 @@
                                 </Separator>
                                 <AnchorPane prefHeight="300.0">
                                     <children>
-                                        <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" prefHeight="195.0" prefWidth="359.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                        <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="ALWAYS" prefWidth="100.0" />
                                             </columnConstraints>
                                             <rowConstraints>
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -230,9 +230,9 @@
                                     </VBox.margin>
                                 </AnchorPane>
                                 <Separator prefWidth="200.0" />
-                                <BorderPane prefHeight="220.0" prefWidth="359.0">
+                                <BorderPane prefHeight="220.0" prefWidth="359.0" >
                                     <center>
-                                        <VBox spacing="10" BorderPane.alignment="CENTER">
+                                        <VBox spacing="10" BorderPane.alignment="CENTER" >
                                             <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                             </padding>
@@ -267,7 +267,7 @@
                         </AnchorPane>
                         <AnchorPane>
                             <children>
-                                <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                <ButtonBar buttonMinWidth="0.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                     <buttons>
                                         <Button fx:id="returnToCenter" alignment="CENTER" mnemonicParsing="false" text="Centrer kort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
