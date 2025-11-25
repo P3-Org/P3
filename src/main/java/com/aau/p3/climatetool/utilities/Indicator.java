@@ -8,7 +8,7 @@ import javafx.scene.shape.Line;
 public class Indicator {
     private double[] thresholdValues;
 
-    public void setThresholdsLines(String risk, AnchorPane indicator) {
+    public void setThresholdsLines(AnchorPane indicator, String risk, String siPrefix) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
         thresholdValues = thresholdRepo.getThreshold(risk);
 
@@ -18,8 +18,8 @@ public class Indicator {
         lowerThreshold.setStrokeWidth(2);
         upperThreshold.setStrokeWidth(2);
 
-        Label lowerLabel = new Label(thresholdValues[0] + " m");
-        Label upperLabel = new Label(thresholdValues[1] + " m");
+        Label lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
+        Label upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
 
         /* Set line heights, currently hardcoded because cba*/
         lowerThreshold.setStartY(19);
@@ -27,7 +27,7 @@ public class Indicator {
         upperThreshold.setStartY(19);
         upperThreshold.setEndY(23);
 
-        /* Set the line X position - This scales with the length of the AncorPane(indicator) that the lines are contained within.
+        /* Set the line X position - This scales with the length of the AnchorPane(indicator) that the lines are contained within.
         example: indicator.width = 100      Threshold = {10,20}
                  100 * scaleThreshold(10) = 100 * 0.33
                  So the  lowerThreshold is positioned at the first 33% or the slider*/
