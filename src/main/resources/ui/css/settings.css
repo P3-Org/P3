@@ -1,15 +1,21 @@
-/* Base */
+/* settings.css (updated) */
+
+/* Global background */
+.root, .splitPane, .BorderPane {
+    -fx-background-color: #EDE8E6;
+}
+
+
 /* Input fields */
 .text-field {
-    -fx-background-color: white;
+    -fx-background-color: #948d86;
     -fx-background-radius: 6;
     -fx-border-radius: 6;
     -fx-border-color: rgba(17,78,138,0.12);
     -fx-border-width: 1;
-    -fx-padding: 6 8 6 8;
+    -fx-padding: 6 8;
     -fx-pref-width: 180px;
 }
-
 
 .text-field:focused {
     -fx-border-color: derive(#1976d2, -10%);
@@ -17,50 +23,46 @@
 }
 
 
-/* Buttons */
-.button {
-    -fx-font-weight: 600;
+
+/* Buttons (global override) */
+.button,
+.button#saveButton,
+.button#cancelButton,
+.button.primary,
+.button.ghost {
+    -fx-background-color: #E1E3EF;
+    -fx-text-fill: #07094A;
     -fx-background-radius: 8;
     -fx-border-radius: 8;
-    -fx-padding: 8 14 8 14;
+    -fx-padding: 8 14;
 }
 
-
-.button#saveButton, .button.primary {
-    -fx-background-color: linear-gradient(#2a9df4, #1e6fd8);
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(30,111,216,0.18), 8, 0.2, 0, 3);
+/* Save button gradient removed due to override */
+.button#saveButton:hover,
+.button.primary:hover {
+    -fx-opacity: 0.9;
 }
 
-
-.button#saveButton:hover, .button.primary:hover {
-    -fx-background-color: linear-gradient(#3aaaf9, #266fe0);
-}
-
-
-.button#cancelButton, .button.ghost {
-    -fx-background-color: transparent;
+/* Cancel/ghost buttons */
+.button#cancelButton,
+.button.ghost {
     -fx-border-color: rgba(17,78,138,0.15);
-    -fx-text-fill: #114e8a;
 }
 
-
-.button#cancelButton:hover, .button.ghost:hover {
+.button#cancelButton:hover,
+.button.ghost:hover {
     -fx-background-color: rgba(17,78,138,0.04);
 }
 
-
-/* HBox at bottom */
+/* Footer */
 .hbox.footer {
     -fx-padding: 12 18 18 18;
 }
 
-
-/* Responsive tweaks */
+/* Responsive */
 @media screen and (max-width: 480px) {
     .text-field { -fx-pref-width: 120px; }
 }
-
 
 /* Utility */
 .spacer { -fx-min-width: 12; }

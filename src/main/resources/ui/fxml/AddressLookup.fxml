@@ -6,7 +6,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.AddressLookupController">
     <children>
-        <SplitPane dividerPositions="0.25" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.25" styleClass="splitPane" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <AnchorPane>
                     <children>
@@ -17,10 +17,11 @@
                     <children>
                   <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" spacing="10.0">
                      <children>
-                              <Label text="Mine cases">
+                              <Label text="Mine cases" styleClass="mineCases">
                                   <font>
                                       <Font size="35.0" />
                                   </font>
+
                               </Label>
                               <TableView fx:id="myCasesTable">
                                   <columns>

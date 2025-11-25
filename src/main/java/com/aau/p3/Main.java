@@ -36,7 +36,14 @@ public class Main extends Application {
             /* Displays the application at 90% of the screen,
              * with the initial window which is defined in MainWindow.fxml */
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-            primaryStage.setScene(new Scene(root, bounds.getWidth() * 0.9, bounds.getHeight() * 0.9));
+
+            Scene scene = new Scene(root, bounds.getWidth() * 0.9, bounds.getHeight() * 0.9);
+
+            // Add CSS here
+            scene.getStylesheets().add(getClass().getResource("/ui/css/settings.css").toExternalForm());
+            scene.getStylesheets().add(getClass().getResource("/ui/css/nav.css").toExternalForm());
+
+            primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

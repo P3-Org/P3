@@ -9,7 +9,7 @@
 <?import javafx.scene.image.Image?>
 <AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
-        <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" styleClass="splitPane" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
                 <VBox alignment="TOP_RIGHT">
                     <HBox spacing="10" HBox.hgrow="ALWAYS">
@@ -22,14 +22,14 @@
                         </children>
                     </HBox>
                     <children>
-                         <HBox prefWidth="924.0">
-                     <children>
-                        <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font></Label>
-                     </children>
-                  </HBox>
+                        <HBox prefWidth="924.0">
+                            <children>
+                                <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font></Label>
+                            </children>
+                        </HBox>
                         <BorderPane prefHeight="220.0" prefWidth="359.0">
                             <top>
                                 <HBox prefHeight="55.0" BorderPane.alignment="CENTER">
@@ -45,11 +45,11 @@
                                         </AnchorPane>
                                         <HBox alignment="CENTER" spacing="5">
                                             <Button fx:id="scoreDownButton" onAction="#decreaseScore" prefHeight="30" prefWidth="40.0" style="-fx-font-size: 18;" text="-" />
-                                                <Label fx:id="overallScoreId" text="{estScore}" textAlignment="CENTER">
-                                                    <font>
-                                                        <Font size="40.0" />
-                                                    </font>
-                                                </Label>
+                                            <Label fx:id="overallScoreId" text="{estScore}" textAlignment="CENTER">
+                                                <font>
+                                                    <Font size="40.0" />
+                                                </font>
+                                            </Label>
                                             <Button fx:id="scoreUpButton" onAction="#increaseScore" prefHeight="40.0" prefWidth="40.0" style="-fx-font-size: 18;" text="+" />
                                         </HBox>
                                     </children>
@@ -79,9 +79,9 @@
                                     <buttons>
                                         <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
                                     </buttons>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
                                 </ButtonBar>
                             </bottom>
                         </BorderPane>
@@ -364,8 +364,8 @@
                         </AnchorPane>
                         <AnchorPane>
                             <children>
-                        <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                           <buttons>
+                                <ButtonBar buttonMinWidth="90.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                    <buttons>
                                         <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
                                         <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
                                             <toggleGroup>
@@ -376,8 +376,8 @@
                                         <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
                                         <ToggleButton fx:id="coastalToggle" mnemonicParsing="false" text="Kysterosion" textAlignment="CENTER" toggleGroup="$weatherOption" />
 
-                           </buttons>
-                        </ButtonBar>
+                                    </buttons>
+                                </ButtonBar>
                             </children>
                         </AnchorPane>
                         <AnchorPane>
