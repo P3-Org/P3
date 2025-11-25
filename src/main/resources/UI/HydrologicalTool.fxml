@@ -11,13 +11,21 @@
             <items>
                 <VBox alignment="TOP_RIGHT">
                     <children>
+                  <HBox prefWidth="924.0">
+                     <children>
+                        <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="24.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
                         <BorderPane prefHeight="220.0" prefWidth="359.0">
                             <top>
                                 <HBox prefHeight="55.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <AnchorPane prefHeight="80.0" prefWidth="283.0">
+                                        <AnchorPane prefHeight="55.0" prefWidth="202.0">
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="202.0" text="Estimeret klimastand:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="229.0" text="Estimeret klimastand:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                     <font>
                                                         <Font size="20.0" />
                                                     </font>
@@ -72,13 +80,13 @@
                                 </VBox>
                             </center>
                             <bottom>
-                                <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                     <buttons>
                                         <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
                                     </buttons>
-                                    <BorderPane.margin>
-                                        <Insets right="5.0" />
-                                    </BorderPane.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                                 </ButtonBar>
                             </bottom>
                         </BorderPane>
@@ -114,7 +122,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Skybrud" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Skybrud" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -150,7 +158,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Grundvand" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Grundvand" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -186,7 +194,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Stormflod" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Stormflod" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -222,7 +230,7 @@
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" text="Kysterosion" BorderPane.alignment="CENTER">
+                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Kysterosion" BorderPane.alignment="CENTER">
                                                                             <font>
                                                                                 <Font size="20.0" />
                                                                             </font>
@@ -279,7 +287,7 @@
                         </AnchorPane>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button onAction="#settingsMenu" layoutX="566.0" layoutY="142.0" mnemonicParsing="false" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <Button layoutX="566.0" layoutY="142.0" mnemonicParsing="false" onAction="#settingsMenu" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                      </children>
                   </AnchorPane>
                     </children>
