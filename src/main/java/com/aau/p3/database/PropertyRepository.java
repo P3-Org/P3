@@ -139,7 +139,7 @@ public class PropertyRepository {
 
     /**
      * Method for updating the database with the newly changed specialist score
-     * @param address contains the address of the property
+     * @param address
      * @param specialistScore contains the specialist score that is in the interval [-1..1]
      */
     public static void updateSpecialistScore(String address, int specialistScore) {
@@ -153,6 +153,32 @@ public class PropertyRepository {
             stmt.setInt(1, specialistScore);
             stmt.setString(2, address);
             stmt.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method for adding a comment to the database.
+     * @param address contains the address of the property
+     * @param newComment contains the comment to be added to the database
+     */
+    public static void addComment(String address, String newComment) {
+        String sql = "UPDATE properties " +
+                "SET propertyObject = json_insert(propertyObject, '$.comments[#]', ?) " +
+                "WHERE Address = ?;";
+
+        try (Connection conn = ConnectToDB.connect("climateTool.db");
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, newComment);
+            stmt.setString(2, address);
+            int rowsUpdated = stmt.executeUpdate();
+
+            if (rowsUpdated == 0 ){
+                System.out.println("No property found with address " + address);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

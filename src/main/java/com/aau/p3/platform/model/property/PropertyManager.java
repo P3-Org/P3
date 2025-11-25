@@ -45,6 +45,16 @@ public class PropertyManager {
     }
 
     /**
+     * Method that adds a new comment to the database.
+     * @param property the property, that the comment is to be added.
+     * @param newComment the comment to be added.
+     */
+    public static void addComment(Property property, String newComment) {
+        String address = property.getAddress();
+        PropertyRepository.addComment(address, newComment);
+    }
+
+    /**
      * Getter method, provides the property object for the given address
      * @param address for the property
      * @return property object with the given address
