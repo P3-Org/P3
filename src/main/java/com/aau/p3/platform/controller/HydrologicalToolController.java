@@ -6,11 +6,15 @@ import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.climatetool.utilities.*;
+import com.aau.p3.database.PropertyRepository;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -253,6 +257,8 @@ public class HydrologicalToolController implements ControlledScreen {
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
         updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
         updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
+
+        showPreviousComments();
     }
 
     private void setStormSurgeSlider() {
@@ -297,6 +303,7 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
+
 
     /**
      * Method that calls JavaScript code. The function called is a leaflet function that can panTo coordinates.
@@ -436,8 +443,33 @@ public class HydrologicalToolController implements ControlledScreen {
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
         Main.propertyManager.currentProperty.setComment(comment);
+        PropertyManager.addComment(currentProperty, comment);
         commentArea.clear();
     }
+
+    /**
+     * Method for showing previous comments on a property.
+     * Gets comments in currentProperty as a List, then loops through the list and adds each comment to a Label.
+     */
+    private void showPreviousComments(){
+
+        VBox commentBox = new VBox(5);
+        commentBox.setFillWidth(true);
+        ListProperty<String> allRightComments = new SimpleListProperty<>(FXCollections.observableArrayList());
+        allRightComments.addAll(Main.propertyManager.currentProperty.getComments());
+        StringBuilder comments = new StringBuilder();
+        List<String> prevComments = Main.propertyManager.currentProperty.getComments();
+        if (!prevComments.isEmpty()) {
+            System.out.println(prevComments);
+            for (String comment : prevComments) {
+                Label label = new Label(comment);
+                label.setWrapText(true);
+                commentBox.getChildren().add(label);
+            }
+            System.out.println("Test for tidligere kommentar\n" + allRightComments);
+        }
+    }
+
 
     private void updateRiskDescriptions(Label descriptionId, String textToShow) {
         descriptionId.setText(textToShow);
