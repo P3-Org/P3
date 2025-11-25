@@ -1,12 +1,8 @@
 package com.aau.p3.climatetool.utilities;
 
 import com.aau.p3.database.StaticThresholdRepository;
-import javafx.application.Platform;
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 
 public class Indicator {
@@ -14,53 +10,39 @@ public class Indicator {
 
     public void setThresholdsLines(String risk, AnchorPane indicator) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+        thresholdValues = thresholdRepo.getThreshold(risk);
+
         Line lowerThreshold = new Line();
         Line upperThreshold = new Line();
 
-        Label lowerThresholdLabel = new Label();
-        Label upperThresholdLabel = new Label();
-        thresholdValues = thresholdRepo.getThreshold(risk);
+        lowerThreshold.setStrokeWidth(2);
+        upperThreshold.setStrokeWidth(2);
 
-        Platform.runLater(() -> {
-        thresholdValues = thresholdRepo.getThreshold(risk);
+        Label lowerLabel = new Label(thresholdValues[0] + " m");
+        Label upperLabel = new Label(thresholdValues[1] + " m");
 
-        /* Sets the height of the threshold lines */
-        lowerThreshold.startYProperty().set(19);
-        lowerThreshold.endYProperty().set(23);
-        upperThreshold.startYProperty().set(19);
-        upperThreshold.endYProperty().set(23);
+        /* Set line heights, currently hardcoded because cba*/
+        lowerThreshold.setStartY(19);
+        lowerThreshold.setEndY(23);
+        upperThreshold.setStartY(19);
+        upperThreshold.setEndY(23);
 
-        lowerThresholdLabel.setPrefWidth(Label.USE_COMPUTED_SIZE);
-        lowerThresholdLabel.setPrefHeight(Label.USE_COMPUTED_SIZE);
-        lowerThresholdLabel.setLayoutY(0);
-
-        upperThresholdLabel.setPrefWidth(Label.USE_COMPUTED_SIZE);
-        upperThresholdLabel.setPrefHeight(Label.USE_COMPUTED_SIZE);
-        upperThresholdLabel.setLayoutY(0);
-
-
-
-        /* Sets the horizontal position of the threshold lines */
+        /* Set the line X position - This scales with the length of the AncorPane(indicator) that the lines are contained within.
+        example: indicator.width = 100      Threshold = {10,20}
+                 100 * scaleThreshold(10) = 100 * 0.33
+                 So the  lowerThreshold is positioned at the first 33% or the slider*/
         lowerThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[0])));
         lowerThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[0])));
         upperThreshold.startXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[1])));
         upperThreshold.endXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[1])));
 
-        lowerThresholdLabel.layoutXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[0])).subtract(lowerThresholdLabel.widthProperty().divide(2)));
-        upperThresholdLabel.layoutXProperty().bind(indicator.widthProperty().multiply(scaleThreshold(thresholdValues[1])).subtract(upperThresholdLabel.widthProperty().divide(2)));
+        /* Bind label positions - This is done using the position of the already positioned lines */
+        lowerLabel.translateXProperty().bind(lowerThreshold.startXProperty().subtract(lowerLabel.widthProperty().divide(2)));
+        upperLabel.translateXProperty().bind(upperThreshold.startXProperty().subtract(upperLabel.widthProperty().divide(2)));
 
-        /* Change width of the line */
-        lowerThreshold.setStrokeWidth(2);
-        upperThreshold.setStrokeWidth(2);
+        /* Add to parent */
+        indicator.getChildren().addAll(lowerThreshold, upperThreshold, lowerLabel, upperLabel);
 
-
-        });
-
-        lowerThresholdLabel.setText(Double.toString(thresholdValues[0])+" m");
-        upperThresholdLabel.setText(Double.toString(thresholdValues[1])+" m");
-
-        /* Apply the lines to the FXML UI */
-        indicator.getChildren().addAll(lowerThreshold, upperThreshold, lowerThresholdLabel, upperThresholdLabel);
 
 
     }
