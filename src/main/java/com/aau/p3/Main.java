@@ -26,6 +26,13 @@ public class Main extends Application {
             Parent root = loader.load();
             primaryStage.setTitle("Nykredit Platform");
 
+            // Adds the nykredit logo to the application
+            primaryStage.getIcons().add(
+                    new javafx.scene.image.Image(
+                            Main.class.getResourceAsStream("/ui/icons/nykredit_icon.png")
+                    )
+            );
+
             /* Displays the application at 90% of the screen,
              * with the initial window which is defined in MainWindow.fxml */
             Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
