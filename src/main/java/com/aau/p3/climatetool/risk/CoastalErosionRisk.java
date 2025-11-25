@@ -79,6 +79,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         return this.measurementValue;
     }
 
+
     @Override
     public void setDescription() {
         this.description = "Kystændringer i en radius af 250m for denne grund vil medføre: " + this.severityString + ".";

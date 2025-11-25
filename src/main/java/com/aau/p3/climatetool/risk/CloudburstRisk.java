@@ -2,8 +2,6 @@ package com.aau.p3.climatetool.risk;
 
 import com.aau.p3.climatetool.utilities.*;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
-
-import java.util.Arrays;
 import com.aau.p3.climatetool.utilities.NormalizeSample;
 import java.util.List;
 
@@ -44,7 +42,11 @@ public class CloudburstRisk implements RiskAssessment {
 
         // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("cloudburst");
-        this.measurementValue = measurementStrategy.processValues(value) * 1000;
+
+        double tempVal = measurementStrategy.processValues(value) * 1000;
+        // If process value is NaN - no risk data is found on the property, and the measure value is set to -1
+        this.measurementValue = Double.isNaN(tempVal) ? 999.9 : tempVal;
+
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
         this.setDescription();
@@ -82,9 +84,7 @@ public class CloudburstRisk implements RiskAssessment {
      */
     @Override
     public void setDescription() {
-        // Conversion from metres to millimetres
-        double convertedMill = this.measurementValue;
-        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", convertedMill) + "mm til for, at oversvømme denne grund.";
+        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + "mm til for, at oversvømme denne grund.";
     }
 
     /**
