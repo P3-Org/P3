@@ -20,7 +20,7 @@ public class CoastalErosionRisk implements RiskAssessment {
     private double[] RGBValue;
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
-    private String severityString = "";
+    private String severityString;
 
     /**
      * Constructor for final attributes
@@ -60,6 +60,7 @@ public class CoastalErosionRisk implements RiskAssessment {
         this.severityString = reader.convertValueToString(measurementValue);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     // Getters
@@ -79,17 +80,16 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     @Override
+    public void setDescription() {
+        this.description = "Kystændringer i en radius af 250m for denne grund vil medføre: " + this.severityString + ".";
+    }
+
+    @Override
+    public String getDescription() { return this.description; }
+
+    @Override
     public double[] getThresholds() {
         return this.threshold;
-    }
-
-    @Override
-    public void setDescription() {
-    }
-
-    @Override
-    public String getDescription() {
-        return this.description;
     }
 
     @Override

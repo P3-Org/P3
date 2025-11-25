@@ -22,7 +22,7 @@ public class CloudburstRisk implements RiskAssessment {
     private String description = "Ingen data tilgængelig";
 
     /**
-     *  Constructor for final attributes in CloudburstRisk class
+     * Constructor for final attributes in CloudburstRisk class
      * @param geoDataReader
      * @param thresholdRepository
      * @param measurementStrategy
@@ -47,6 +47,7 @@ public class CloudburstRisk implements RiskAssessment {
         this.measurementValue = measurementStrategy.processValues(value);
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+        this.setDescription();
     }
 
     /**
@@ -73,22 +74,18 @@ public class CloudburstRisk implements RiskAssessment {
      */
     @Override
     public double getMeasurementValue() {
-        return this.measurementValue; }
-
-    /**
-     * Getter method
-     * @return Thresholds
-     */
-    @Override
-    public double[] getThresholds() {
-        return this.threshold;
+        return this.measurementValue;
     }
 
     /**
-     * Setter method
-     * @param ???
+     * Setter method. Sets description.
      */
-    public void setDescription() {}
+    @Override
+    public void setDescription() {
+        // Conversion from metres to millimetres
+        double convertedMill = this.measurementValue * 100;
+        this.description = "Som resultat af kraftig regn, skal der " + String.format("%.2f", convertedMill) + "mm til for, at oversvømme denne grund.";
+    }
 
     /**
      * Getter method
@@ -97,6 +94,15 @@ public class CloudburstRisk implements RiskAssessment {
     @Override
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Getter method
+     * @return Thresholds
+     */
+    @Override
+    public double[] getThresholds() {
+        return this.threshold;
     }
 
     /**
