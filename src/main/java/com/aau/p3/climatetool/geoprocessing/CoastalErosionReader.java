@@ -21,6 +21,7 @@ public class CoastalErosionReader implements RestDataReader {
      */
     @Override
     public void riskFetch(String query) {
+        System.out.println(query);
         // Use URL class to make URL and return the response
         UrlCoastalErosion coastalErosion = new UrlCoastalErosion(query);
         StringBuilder response = coastalErosion.getUrlCoastalErosion();

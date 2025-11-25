@@ -168,3 +168,8 @@
     -fx-background-color: rgba(0,0,0,0.05);
     -fx-background-radius: 6;
 }
+
+.riskTitle {
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
+}

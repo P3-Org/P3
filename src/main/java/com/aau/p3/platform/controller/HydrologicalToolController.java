@@ -28,6 +28,8 @@ import javafx.util.Duration;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
 
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -71,7 +73,7 @@ public class HydrologicalToolController implements ControlledScreen {
     public AnchorPane climateToolScene; //Anchor pane for the entire climate tool page
 
     @FXML
-    private Label overallScoreId, groundwaterDescription, cloudburstDescription,
+    private Label overallScoreId, groundwaterDescription, addressLabel, cloudburstDescription,
                   stormSurgeDescription, coastalErosionDescription;
 
     @FXML
@@ -381,6 +383,10 @@ public class HydrologicalToolController implements ControlledScreen {
                 panTo(this.currentProperty.getLatLongCoordinates());
             }
         });
+
+        String encodedAddress = currentProperty.getAddress();
+        String decodedAddress = URLDecoder.decode(encodedAddress, StandardCharsets.UTF_8);
+        addressLabel.setText(decodedAddress);
 
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
     }
