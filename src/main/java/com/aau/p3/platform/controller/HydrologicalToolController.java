@@ -393,6 +393,10 @@ public class HydrologicalToolController implements ControlledScreen {
         descriptionId.setText(textToShow);
     }
 
+    /**
+     * Method for inputting the overlay elements over the slider. These include threshold Lines, threshold values and moving the slider appropriately
+     * @param listOfRisks Takes the list of all the risk objects, as we need to read the values for each of these
+     */
     private void setupSliderIndicators(List<RiskAssessment> listOfRisks) {
         Indicator indicator = new Indicator();
         indicator.setThresholdsLines(cloudBurstIndicator,"cloudburst", "mm");
@@ -413,6 +417,11 @@ public class HydrologicalToolController implements ControlledScreen {
 
     }
 
+    /***
+     * Helper function to setupSliderIndicators. It controls the logic for animating the thumb of the slider. It uses javaFX.Animations to achieve this
+     * @param slider A reference to the slider object that we want to animate
+     * @param targetValue corresponds to the normalized measurement value. And defines what the thumb should move towards and stop at
+     */
     private void animateSliderTo(Slider slider, double targetValue) {
         double middlepoint = (slider.getMin() + slider.getMax()) / 2.0;
         slider.setValue(middlepoint);
