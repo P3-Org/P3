@@ -263,7 +263,7 @@
                                         AnchorPane.bottomAnchor="10.0"
                                         AnchorPane.leftAnchor="10.0">
                                     <graphic>
-                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true" smooth="false">
                                             <image>
                                                 <Image url="https://www.freeiconspng.com/uploads/maps-center-direction-icon-24.png"/>
                                             </image>
@@ -294,11 +294,23 @@
                                 <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                             </children>
                         </AnchorPane>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <Button layoutX="566.0" layoutY="142.0" mnemonicParsing="false" onAction="#settingsMenu" styleClass="settings-button" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                     </children>
-                  </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                            <children>
+                                <Button layoutX="566.0" layoutY="142.0"
+                                        onAction="#settingsMenu"
+                                        text="Indstil grænseværdier"
+                                        AnchorPane.bottomAnchor="5.0"
+                                        AnchorPane.rightAnchor="5.0">
+                                    <graphic>
+                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="/ui/images/settings.png"/>
+                                            </image>
+                                        </ImageView>
+                                    </graphic>
+                                </Button>
+                            </children>
+                        </AnchorPane>
                     </children>
                 </VBox>
             </items>
