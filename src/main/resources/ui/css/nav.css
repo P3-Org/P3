@@ -13,7 +13,6 @@
 .button,
 .button.nav-item,
 .submenu .button.nav-item,
-.icon-button,
 .toggle-button{
     -fx-background-color: #E1E3EF;
     -fx-text-fill: #07094A;
@@ -24,11 +23,45 @@
 .button:hover,
 .button.nav-item:hover,
 .submenu .button.nav-item:hover,
-.icon-button:hover,
 .settings-button:hover,
 .toggle-button:hover{
     -fx-background-color: derive(#E1E3EF, -10%);
     -fx-border-color: black;
+}
+
+.icon-button {
+    /* Make button circular */
+    -fx-background-color: rgba(255, 255, 255, 0.15); /* semi-transparent white background */
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+
+    /* White circular outline with slightly more opacity */
+    -fx-border-color: rgba(255, 255, 255, 0.4); /* slightly less transparent white */
+    -fx-border-width: 2px;
+
+    /* Size — adjust as you prefer */
+    -fx-min-width: 22px;
+    -fx-min-height: 22px;
+    -fx-pref-width: 22px;
+    -fx-pref-height: 22px;
+
+    /* Text (the "i") */
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+
+    -fx-alignment: center;
+    -fx-cursor: hand;
+
+    /* Optional: subtle blur effect for glassy feel */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.1), 5, 0.0, 0, 0);
+}
+
+.icon-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.25);
+    -fx-border-color: rgba(255, 255, 255, 0.6);
+    -fx-opacity: 1;
 }
 
 /* Sidebar */
