@@ -93,24 +93,24 @@
                               </Separator>
       
                               <!-- GridPane Main Risk Layout -->
-                              <AnchorPane prefHeight="500.0">
+                              <AnchorPane prefHeight="500.0" prefWidth="500.0">
                                   <children>
       
                                       <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" hgap="20" vgap="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
       
                                           <columnConstraints>
-                                              <ColumnConstraints hgrow="ALWAYS" />
+                                              <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
                                               <ColumnConstraints hgrow="ALWAYS" />
                                           </columnConstraints>
       
                                           <rowConstraints>
-                                              <RowConstraints minHeight="50" vgrow="ALWAYS" />
+                                              <RowConstraints minHeight="150.0" percentHeight="50.0" vgrow="ALWAYS" />
                                               <RowConstraints minHeight="50" vgrow="ALWAYS" />
                                           </rowConstraints>
                                           <children>
       
                                               <!-- CLOUDBURST CELL -->
-                                              <AnchorPane>
+                                              <AnchorPane minWidth="150.0">
                                                   <children>
                                                       <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                           <center>
@@ -159,7 +159,7 @@
                                               </AnchorPane>
       
                                               <!-- GROUNDWATER CELL -->
-                                              <AnchorPane GridPane.columnIndex="1">
+                                              <AnchorPane minWidth="150.0" GridPane.columnIndex="1">
                                                   <children>
                                                       <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                           <center>
@@ -206,7 +206,7 @@
                                               </AnchorPane>
       
                                               <!-- STORM SURGE CELL -->
-                                              <AnchorPane GridPane.rowIndex="1">
+                                              <AnchorPane minWidth="150.0" GridPane.rowIndex="1">
                                                   <children>
                                                       <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                                                           <center>
@@ -253,7 +253,7 @@
                                               </AnchorPane>
       
                                               <!-- COASTAL EROSION CELL -->
-                                              <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                              <AnchorPane minWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                   <children>
                                                       <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
       
