@@ -82,7 +82,7 @@ public class CoastalErosionRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-        this.description = "Kystændringer i en radius af 250m for denne grund vil medføre: " + this.severityString + ".";
+        this.description = "Kystændringer i en radius af 250 meter for denne grund vil medføre: " + this.severityString + ".";
     }
 
     @Override
