@@ -334,6 +334,16 @@
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
+                           <top>
+                              <Label text="Kommentarfelt:" wrapText="true" BorderPane.alignment="TOP_LEFT">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <BorderPane.margin>
+                                    <Insets bottom="5.0" right="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </Label>
+                           </top>
                               </BorderPane>
                         <AnchorPane>
                            <VBox.margin>
