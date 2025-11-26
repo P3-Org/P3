@@ -2,6 +2,7 @@ package com.aau.p3.platform.controller;
 
 import com.aau.p3.database.PropertyRepository;
 import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -40,6 +41,7 @@ public class SettingsMenuController implements ControlledScreen {
 
         writeToThresholdFieldInDB(thresholdRepository);
         PropertyRepository.wipeProperties();
+        PropertyManager.emptyMemory();
 
         goBack();
 
