@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Allows to save information on specific properties both in the hash map but also the database, to easily access again later
  */
 public class PropertyManager {
-    private static final HashMap<String, Property> propertyList = new HashMap<>(); // read from DB instead of making new hashmap
+    private static HashMap<String, Property> propertyList = new HashMap<>(); // read from DB instead of making new hashmap
 
     // Current property holds the last searched property, allowing for it to be easily accessible until a new one is searched
     public Property currentProperty;
@@ -69,5 +69,9 @@ public class PropertyManager {
      */
     public void setCurrentProperty(Property newCurrentProperty ){
         this.currentProperty = newCurrentProperty;
+    }
+
+    public static void emptyMemory() {
+        propertyList = new HashMap<>();
     }
 }
