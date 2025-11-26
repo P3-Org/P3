@@ -24,6 +24,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.animation.KeyFrame;
@@ -36,6 +38,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import javafx.util.StringConverter;
 
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -431,28 +435,34 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
-        Main.propertyManager.currentProperty.setComment(comment);
-        PropertyManager.addComment(currentProperty, comment);
-        commentArea.clear();
+        if (!comment.isEmpty()) {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            String timestamp = LocalDate.now().format(dateFormatter);
+            String fullComment = comment + " - " + timestamp;
+            Main.propertyManager.currentProperty.setComment(fullComment);
+            PropertyManager.addCommentToDB(currentProperty, fullComment);
+            showPreviousComments();
+            commentArea.clear();
+        } else {
+            System.out.println("The comment box is empty");
+        }
     }
 
     /**
      * Method for showing previous comments on a property.
-     * Gets comments in currentProperty as a List, then loops through the list and adds each comment to a Label.
+     * Gets comments in currentProperty as a List, then loops through the list and creates a Label for each comment,
+     * and adds them to Vbox previousComments.
      */
     private void showPreviousComments(){
-        ListProperty<String> allRightComments = new SimpleListProperty<>(FXCollections.observableArrayList());
-        allRightComments.addAll(Main.propertyManager.currentProperty.getComments());
-        StringBuilder comments = new StringBuilder();
+        previousComments.getChildren().clear();
         List<String> prevComments = Main.propertyManager.currentProperty.getComments();
         if (!prevComments.isEmpty()) {
-            System.out.println(prevComments);
             for (String comment : prevComments) {
                 Label label = new Label(comment);
                 label.setWrapText(true);
+                label.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
                 previousComments.getChildren().add(label);
             }
-            System.out.println("Test for tidligere kommentar\n" + allRightComments);
         }
     }
 

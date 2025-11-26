@@ -49,7 +49,7 @@ public class PropertyManager {
      * @param property the property, that the comment is to be added.
      * @param newComment the comment to be added.
      */
-    public static void addComment(Property property, String newComment) {
+    public static void addCommentToDB(Property property, String newComment) {
         String address = property.getAddress();
         PropertyRepository.addComment(address, newComment);
     }
