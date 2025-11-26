@@ -346,7 +346,7 @@
             </ScrollPane>
 
                 <!-- RIGHT SIDE OF SPLITPANE -->
-                <VBox prefHeight="443.0" prefWidth="399.0">
+                <VBox>
                     <children>
 
                         <!-- Map Anchor -->
@@ -365,30 +365,26 @@
                                 </Button>
                             </children>
                         </AnchorPane>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0">
+                     <children>
+                                  <ToggleButton fx:id="cadastralToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Matrikelkort" textAlignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+
+                                        <ToggleButton fx:id="cloudburstToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" >
+                                      <toggleGroup>
+                                          <ToggleGroup fx:id="weatherOption" />
+                                      </toggleGroup>
+                                  </ToggleButton>
+
+                                        <ToggleButton fx:id="stormsurgeToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+
+                                        <ToggleButton fx:id="groundwaterToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+
+                                        <ToggleButton fx:id="coastalToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Kysterosion" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                     </children>
+                  </HBox>
 
                         <!-- Toggle Buttons Section -->
-                        <AnchorPane>
-                            <children>
-
-                                <ButtonBar buttonMinWidth="0.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                                    <buttons>
-                                        <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
-
-                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
-                                            <toggleGroup>
-                                                <ToggleGroup fx:id="weatherOption" />
-                                            </toggleGroup>
-                                        </ToggleButton>
-
-                                        <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" />
-
-                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
-
-                                        <ToggleButton fx:id="coastalToggle" mnemonicParsing="false" text="Kyst erosion" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                    </buttons>
-                                </ButtonBar>
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane />
 
                         <!-- Sliders Section -->
                         <AnchorPane>
