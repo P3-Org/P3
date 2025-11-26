@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 
@@ -15,16 +16,20 @@ import java.util.concurrent.Executors;
  */
 public class LocalProxyServer {
     private static HttpServer server;
+    // Maps the path on the request to a base URL
+    private static Map<String, String> Route
+            = Map.of("/wms-dmh-proxy", "https://api.dataforsyningen.dk/wms/dhm",
+            "/wms-hip-proxy", "https://api.dataforsyningen.dk/hip_dtg_10m_100m",
+            "/wms-daf-proxy", "https://api.dataforsyningen.dk/wms/MatGaeldendeOgForeloebigWMS_DAF",
+            "/arc_gis-nst/export", "https://gis.nst.dk/server/rest/services/ekstern/KDI_KystAtlas/MapServer/export");
+
     // Method for setting up the necessary tools for starting a proxy server
     public static void startProxy(int port) {
         try {
             // Creates a httpserver which binds to a socket-address object with the specified port number
             server = HttpServer.create(new InetSocketAddress(port), 0);
             // The HTTP context specifies what to do when receiving requests on the given port + path
-            server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
-            server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
-            server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
-            server.createContext("/arc_gis-nst/export", LocalProxyServer::handleNst);
+            server.createContext("/", LocalProxyServer::handleURL);
             // Sets 4 threads available for requests for the server
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
@@ -34,72 +39,49 @@ public class LocalProxyServer {
         }
     }
 
+
+    // Server stop method so we can stop the server manually
     public static void stopProxy() {
         server.stop(0);
     }
+
+
     /*
     * Helper method that checks if the query path is null,
     * and after combines the targetUrl and query for the fullQuery.
     */
     private static String queryNullCheck(String targetUrl, String query){
-        String fullQuery = "";
-        if (query != null) {
-            fullQuery = targetUrl + "?" + query;
+        return (query == null) ? targetUrl : targetUrl + "?" + query;
+    }
+
+
+    // Dynamic url handler that works for all paths that are specified in the map "Route"
+    private static void handleURL(HttpExchange exchange)  throws IOException{
+        String path = exchange.getRequestURI().getPath();
+
+        // Get the base url from the map
+        String targetUrl = Route.get(path);
+
+        // Closes the exchange if the requests is not on a path we know
+        if (targetUrl == null){
+            exchange.close();
         }
-        return fullQuery;
-    }
 
-    // Method that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
-    private static void handleDmh(HttpExchange exchange)  throws IOException{
-        // Converts the request to a string
         String query = exchange.getRequestURI().getRawQuery();
-        String targetUrl = "https://api.dataforsyningen.dk/wms/dhm";
-
-        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
         String fullQuery = queryNullCheck(targetUrl, query);
         handleRequest(exchange, fullQuery);
     }
 
-    // Method that handles the request for hip WMS, and forwards the targetUrl to handleRequest
-    private static void handleHip(HttpExchange exchange) throws IOException{
-        // Converts the request to a string
-        String query = exchange.getRequestURI().getRawQuery();
-        String targetUrl = "https://api.dataforsyningen.dk/hip_dtg_10m_100m";
-
-        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
-        String fullQuery = queryNullCheck(targetUrl, query);
-        handleRequest(exchange, fullQuery);
-    }
-
-    private static void handleDaf(HttpExchange exchange) throws IOException{
-        // Converts the request to a string
-        String query = exchange.getRequestURI().getRawQuery();
-        String targetUrl = "https://api.dataforsyningen.dk/wms/MatGaeldendeOgForeloebigWMS_DAF";
-
-        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
-        String fullQuery = queryNullCheck(targetUrl, query);
-        handleRequest(exchange, fullQuery);
-    }
-
-    private static void handleNst(HttpExchange exchange) throws IOException{
-        // Converts the request to a string
-        String query = exchange.getRequestURI().getRawQuery();
-        String targetUrl = "https://gis.nst.dk/server/rest/services/ekstern/KDI_KystAtlas/MapServer/export";
-
-        // Checks if the query is null and builds it into a full queryPath with the targetUrl for the given WMS.
-        String fullQuery = queryNullCheck(targetUrl, query);
-        handleRequest(exchange, fullQuery);
-    }
-
-    // Method for handling the requests aimed at the server
+    // Method for handling the GET requests
     private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {
         // Opens the connection between the proxy server and the api endpoint
         HttpURLConnection conn = (HttpURLConnection) new URL(targetUrl).openConnection();
         conn.setRequestProperty("User-Agent", "JavaFX-Proxy");
         conn.setConnectTimeout(10000);
         conn.setReadTimeout(15000);
+        System.out.println(targetUrl);
 
-        // Adds headers
+        // Adds CORS headers
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         exchange.getResponseHeaders().add("Content-Type", conn.getContentType());
 
