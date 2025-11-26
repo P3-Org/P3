@@ -132,7 +132,7 @@
     function setGroundwater(){
         // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
-            layers: '100m_phreatic_all_mean',
+            layers: '100m_phreatic_all_T50',
             format: 'image/png',
             transparent: "TRUE",
             version: '1.3.0',
