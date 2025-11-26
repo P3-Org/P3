@@ -42,11 +42,7 @@ public class LocalProxyServer {
     * and after combines the targetUrl and query for the fullQuery.
     */
     private static String queryNullCheck(String targetUrl, String query){
-        String fullQuery = "";
-        if (query != null) {
-            fullQuery = targetUrl + "?" + query;
-        }
-        return fullQuery;
+        return (query == null) ? targetUrl : targetUrl + "?" + query;
     }
 
     // Method that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
