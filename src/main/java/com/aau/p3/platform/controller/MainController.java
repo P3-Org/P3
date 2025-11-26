@@ -22,7 +22,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import com.aau.p3.platform.utilities.openPdfFile;
 
 /**
  * Class that handles the main controller and the windows that can be called from the main controller
@@ -143,6 +143,7 @@ public class MainController {
 
         document.save("report.pdf");
         System.out.println("Document saved!");
+        openPdfFile.openPdf();
         document.close();
     }
 

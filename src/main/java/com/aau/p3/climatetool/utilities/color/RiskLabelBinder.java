@@ -23,7 +23,7 @@ public class RiskLabelBinder implements RiskBinderInterface {
         for (RiskAssessment risk : riskAssessment) {
             AnchorPane riskLabel = findLabelForRisk(risk);
             double[] rgb = risk.getRGB();
-            double alpha = 0.7;
+            double alpha = 0.65;
             String style = String.format(Locale.US, "-fx-background-color: rgba(%f, %f, %f, %.3f);", rgb[0], rgb[1], rgb[2], alpha);
             riskLabel.setStyle(style);
         }
