@@ -269,7 +269,7 @@ public class HydrologicalToolController implements ControlledScreen {
         updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
         updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
 
-        showPreviousComments(); 
+        showPreviousComments();
     }
 
     private void setStormSurgeSlider() {
