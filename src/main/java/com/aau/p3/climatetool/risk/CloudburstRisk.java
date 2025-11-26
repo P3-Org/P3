@@ -84,7 +84,7 @@ public class CloudburstRisk implements RiskAssessment {
      */
     @Override
     public void setDescription() {
-        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + "mm til for, at oversvømme denne grund.";
+        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + " millimeter til for, at oversvømme denne grund.";
     }
 
     /**

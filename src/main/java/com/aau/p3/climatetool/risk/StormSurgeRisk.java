@@ -69,7 +69,7 @@ public class StormSurgeRisk implements RiskAssessment {
 
     @Override
     public void setDescription() {
-        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + "m for, at oversvømme denne grund.";
+        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + " meter for, at oversvømme denne grund.";
     }
 
     @Override
