@@ -79,7 +79,6 @@ public class LocalProxyServer {
         conn.setRequestProperty("User-Agent", "JavaFX-Proxy");
         conn.setConnectTimeout(10000);
         conn.setReadTimeout(15000);
-        System.out.println(targetUrl);
 
         // Adds CORS headers
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");

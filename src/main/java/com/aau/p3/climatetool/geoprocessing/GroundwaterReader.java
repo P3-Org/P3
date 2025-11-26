@@ -35,7 +35,7 @@ public class GroundwaterReader implements RestDataReader {
         // Get h values
         hValues = extractValues(response);
 
-        this.distanceFromSurface = kote - hValues.get(3);
+        this.distanceFromSurface = kote - hValues.get(4);
     }
 
     /**
