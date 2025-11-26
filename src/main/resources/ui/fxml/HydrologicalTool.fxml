@@ -335,6 +335,15 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                               </BorderPane>
+                        <AnchorPane prefHeight="55.0" prefWidth="202.0">
+                           <children>
+                              <Label alignment="TOP_LEFT" prefHeight="52.0" prefWidth="229.0" text=" Tidligere kommentarer:" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                         <VBox fx:id="previousComments" prefHeight="200.0" prefWidth="100.0">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
