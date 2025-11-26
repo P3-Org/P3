@@ -22,8 +22,6 @@
     -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.12), 6, 0, 0, 2);
 }
 
-
-
 /* Buttons (global override) */
 .button,
 .button#saveButton,
