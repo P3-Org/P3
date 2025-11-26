@@ -96,6 +96,9 @@ public class HydrologicalToolController implements ControlledScreen {
     @FXML
     private Button scoreDownButton, scoreUpButton;
 
+    @FXML
+    private VBox previousComments;
+
     private WebEngine webEngine;
     private PropertyManager propertyManager;
     private Property currentProperty;
@@ -438,9 +441,6 @@ public class HydrologicalToolController implements ControlledScreen {
      * Gets comments in currentProperty as a List, then loops through the list and adds each comment to a Label.
      */
     private void showPreviousComments(){
-
-        VBox commentBox = new VBox(5);
-        commentBox.setFillWidth(true);
         ListProperty<String> allRightComments = new SimpleListProperty<>(FXCollections.observableArrayList());
         allRightComments.addAll(Main.propertyManager.currentProperty.getComments());
         StringBuilder comments = new StringBuilder();
@@ -450,7 +450,7 @@ public class HydrologicalToolController implements ControlledScreen {
             for (String comment : prevComments) {
                 Label label = new Label(comment);
                 label.setWrapText(true);
-                commentBox.getChildren().add(label);
+                previousComments.getChildren().add(label);
             }
             System.out.println("Test for tidligere kommentar\n" + allRightComments);
         }
