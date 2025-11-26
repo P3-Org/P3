@@ -269,7 +269,7 @@ public class HydrologicalToolController implements ControlledScreen {
         updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
         updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
 
-        showPreviousComments();
+        showPreviousComments(); 
     }
 
     private void setStormSurgeSlider() {
@@ -438,7 +438,7 @@ public class HydrologicalToolController implements ControlledScreen {
         if (!comment.isEmpty()) {
             DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
             String timestamp = LocalDate.now().format(dateFormatter);
-            String fullComment = comment + " - " + timestamp;
+            String fullComment = timestamp + "\n" + comment;
             Main.propertyManager.currentProperty.setComment(fullComment);
             PropertyManager.addCommentToDB(currentProperty, fullComment);
             showPreviousComments();

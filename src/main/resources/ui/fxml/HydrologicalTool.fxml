@@ -23,7 +23,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+<AnchorPane fx:id="climateToolScene" prefHeight="1000.0" prefWidth="1600" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
         <SplitPane dividerPositions="0.6" layoutY="74.0" styleClass="splitPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -36,7 +36,7 @@
                               <!-- Search Bar HBox -->
                               <HBox spacing="10" HBox.hgrow="ALWAYS">
                                   <children>
-                                      <TextField fx:id="addressSearchField" prefWidth="250" promptText="Søg efter en adresse" styleClass="search-bar" HBox.hgrow="ALWAYS">
+                                      <TextField fx:id="addressSearchField" promptText="Søg efter en adresse" styleClass="search-bar" HBox.hgrow="ALWAYS">
                                  <HBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </HBox.margin>
@@ -86,7 +86,7 @@
                                 </HBox>
       
                               <!-- Separator -->
-                              <Separator prefWidth="200.0">
+                              <Separator>
                                   <padding>
                                       <Insets bottom="5.0" top="5.0" />
                                   </padding>
@@ -99,8 +99,8 @@
                                       <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" hgap="20" vgap="20" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
       
                                           <columnConstraints>
-                                              <ColumnConstraints hgrow="ALWAYS" minWidth="300" />
-                                              <ColumnConstraints hgrow="ALWAYS" minWidth="300" />
+                                              <ColumnConstraints hgrow="ALWAYS" />
+                                              <ColumnConstraints hgrow="ALWAYS" />
                                           </columnConstraints>
       
                                           <rowConstraints>
@@ -310,9 +310,9 @@
                               </AnchorPane>
       
                               <!-- BorderPane for climate score -->
-                              <BorderPane prefHeight="220.0" prefWidth="359.0">
+                              <BorderPane>
                                   <bottom>
-                                      <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                                      <ButtonBar prefHeight="40.0">
                                           <buttons>
                                               <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
                                           </buttons>
@@ -325,9 +325,9 @@
                                       </ButtonBar>
                                   </bottom>
                            <center>
-                                        <AnchorPane prefHeight="200" prefWidth="200" BorderPane.alignment="CENTER">
+                                        <AnchorPane BorderPane.alignment="CENTER">
                                             <children>
-                                                <TextArea fx:id="commentArea" prefRowCount="5" promptText="Yderligere kommentarer..." wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                <TextArea fx:id="commentArea" prefRowCount="5" prefWidth="942.0" promptText="Yderligere kommentarer..." wrapText="true" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                            </center>
@@ -335,16 +335,19 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
                               </BorderPane>
-                        <AnchorPane prefHeight="55.0" prefWidth="202.0">
+                        <AnchorPane>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
                            <children>
-                              <Label alignment="TOP_LEFT" prefHeight="52.0" prefWidth="229.0" text=" Tidligere kommentarer:" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                              <Label text=" Tidligere kommentarer:" wrapText="true" AnchorPane.leftAnchor="0.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
                            </children>
                         </AnchorPane>
-                        <VBox fx:id="previousComments" prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="previousComments" spacing="15.0">
                            <VBox.margin>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </VBox.margin>
@@ -376,19 +379,19 @@
                         </AnchorPane>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0">
                      <children>
-                                  <ToggleButton fx:id="cadastralToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Matrikelkort" textAlignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                                  <ToggleButton fx:id="cadastralToggle" contentDisplay="CENTER" maxWidth="Infinity" mnemonicParsing="false" text="Matrikelkort" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
 
-                                        <ToggleButton fx:id="cloudburstToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity" >
+                                        <ToggleButton fx:id="cloudburstToggle" contentDisplay="CENTER" maxWidth="Infinity" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                       <toggleGroup>
                                           <ToggleGroup fx:id="weatherOption" />
                                       </toggleGroup>
                                   </ToggleButton>
 
-                                        <ToggleButton fx:id="stormsurgeToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                                        <ToggleButton fx:id="stormsurgeToggle" contentDisplay="CENTER" maxWidth="Infinity" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" />
 
-                                        <ToggleButton fx:id="groundwaterToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                                        <ToggleButton fx:id="groundwaterToggle" contentDisplay="CENTER" maxWidth="Infinity" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" />
 
-                                        <ToggleButton fx:id="coastalToggle" contentDisplay="CENTER" mnemonicParsing="false" text="Kysterosion" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                                        <ToggleButton fx:id="coastalToggle" contentDisplay="CENTER" maxWidth="Infinity" mnemonicParsing="false" text="Kysterosion" textAlignment="CENTER" toggleGroup="$weatherOption" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
 
