@@ -4,53 +4,88 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+
+<AnchorPane fx:id="climateToolScene" prefHeight="700" prefWidth="1600"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
-        <SplitPane dividerPositions="0.6" layoutY="74.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" styleClass="splitPane" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.6" layoutY="74.0"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                   styleClass="splitPane">
             <items>
+                <!-- LEFT SIDE -->
                 <VBox alignment="TOP_RIGHT">
-                    <HBox spacing="10" HBox.hgrow="ALWAYS">
-                        <children>
-                            <TextField fx:id="addressSearchField"
-                                       styleClass="search-bar"
-                                       prefWidth="250"
-                                       promptText="Søg efter en adresse"
-                                       HBox.hgrow="ALWAYS"/>
-                        </children>
-                    </HBox>
                     <children>
-                        <HBox prefWidth="924.0">
+
+                        <!-- Search Bar HBox -->
+                        <HBox spacing="10" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label fx:id="addressLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="952.0" text="{propertyAdress}" textAlignment="CENTER">
-                                    <font>
-                                        <Font name="System Bold" size="24.0" />
-                                    </font></Label>
+                                <TextField fx:id="addressSearchField"
+                                           styleClass="search-bar"
+                                           prefWidth="250"
+                                           promptText="Søg efter en adresse"
+                                           HBox.hgrow="ALWAYS"/>
                             </children>
                         </HBox>
+
+                        <!-- Address Label Section -->
+                        <HBox prefWidth="924.0">
+                            <children>
+                                <Label fx:id="addressLabel" alignment="CENTER"
+                                       contentDisplay="CENTER"
+                                       prefHeight="45.0" prefWidth="952.0"
+                                       textAlignment="CENTER">
+                                    <font>
+                                        <Font name="System Bold" size="24.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- BorderPane for climate score -->
                         <BorderPane prefHeight="220.0" prefWidth="359.0">
                             <top>
                                 <HBox prefHeight="55.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <AnchorPane prefHeight="55.0" prefWidth="202.0">
                                             <children>
-                                                <Label alignment="CENTER" prefHeight="52.0" prefWidth="229.0" text="Estimeret klimastand:" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                                                    <font>
-                                                        <Font size="20.0" />
-                                                    </font>
+                                                <Label alignment="CENTER"
+                                                       prefHeight="52.0" prefWidth="229.0"
+                                                       text="Estimeret klimastand:"
+                                                       textAlignment="CENTER"
+                                                       wrapText="true"
+                                                       AnchorPane.bottomAnchor="5.0"
+                                                       AnchorPane.leftAnchor="5.0"
+                                                       AnchorPane.rightAnchor="5.0"
+                                                       AnchorPane.topAnchor="5.0">
+                                                    <font><Font size="20.0"/></font>
                                                 </Label>
                                             </children>
                                         </AnchorPane>
+
                                         <HBox alignment="CENTER" spacing="5">
-                                            <Button fx:id="scoreDownButton" onAction="#decreaseScore" prefHeight="30" prefWidth="40.0" style="-fx-font-size: 16;" text="-" />
-                                            <Label fx:id="overallScoreId" text="{estScore}" textAlignment="CENTER">
-                                                <font>
-                                                    <Font size="40.0" />
-                                                </font>
-                                            </Label>
-                                            <Button fx:id="scoreUpButton" onAction="#increaseScore" prefHeight="40.0" prefWidth="40.0" style="-fx-font-size: 16;" text="+" />
+                                            <children>
+                                                <Button fx:id="scoreDownButton"
+                                                        onAction="#decreaseScore"
+                                                        prefHeight="30" prefWidth="40.0"
+                                                        style="-fx-font-size: 16;"
+                                                        text="-"/>
+
+                                                <Label fx:id="overallScoreId"
+                                                       textAlignment="CENTER">
+                                                    <font><Font size="40.0"/></font>
+                                                </Label>
+
+                                                <Button fx:id="scoreUpButton"
+                                                        onAction="#increaseScore"
+                                                        prefHeight="40.0" prefWidth="40.0"
+                                                        style="-fx-font-size: 16;"
+                                                        text="+"/>
+                                            </children>
                                         </HBox>
                                     </children>
                                 </HBox>
@@ -60,86 +95,130 @@
                                     <padding>
                                         <Insets top="5" left="5" right="15" bottom="5"/>
                                     </padding>
-                                    <AnchorPane prefHeight="200" prefWidth="200">
-                                        <children>
-                                            <TextArea fx:id="commentArea"
-                                                      prefRowCount="5"
-                                                      promptText="Yderligere kommentarer..."
-                                                      wrapText="true"
-                                                      AnchorPane.topAnchor="5"
-                                                      AnchorPane.leftAnchor="0"
-                                                      AnchorPane.rightAnchor="5"
-                                                      AnchorPane.bottomAnchor="5"/>
-                                        </children>
-                                    </AnchorPane>
+                                    <children>
+                                        <AnchorPane prefHeight="200" prefWidth="200">
+                                            <children>
+                                                <TextArea fx:id="commentArea"
+                                                          prefRowCount="5"
+                                                          promptText="Yderligere kommentarer..."
+                                                          wrapText="true"
+                                                          AnchorPane.topAnchor="5"
+                                                          AnchorPane.leftAnchor="0"
+                                                          AnchorPane.rightAnchor="5"
+                                                          AnchorPane.bottomAnchor="5"/>
+                                            </children>
+                                        </AnchorPane>
+                                    </children>
                                 </VBox>
                             </center>
                             <bottom>
                                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
                                     <buttons>
-                                        <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
+                                        <Button fx:id="sendComment"
+                                                mnemonicParsing="false"
+                                                onAction="#commentButtonHandler"
+                                                text="Send kommentar"/>
                                     </buttons>
-                                    <opaqueInsets>
-                                        <Insets />
-                                    </opaqueInsets>
+                                    <opaqueInsets><Insets/></opaqueInsets>
                                 </ButtonBar>
                             </bottom>
                         </BorderPane>
+
+                        <!-- Separator -->
                         <Separator prefWidth="200.0">
                             <padding>
-                                <Insets bottom="5.0" top="5.0" />
+                                <Insets bottom="5.0" top="5.0"/>
                             </padding>
                         </Separator>
+
+                        <!-- GridPane Main Risk Layout -->
                         <AnchorPane prefHeight="500.0">
                             <children>
-                                <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" hgap="20" vgap="20">
+
+                                <GridPane fx:id="labelContainer"
+                                          alignment="BOTTOM_LEFT"
+                                          AnchorPane.bottomAnchor="10.0"
+                                          AnchorPane.leftAnchor="10.0"
+                                          AnchorPane.rightAnchor="10.0"
+                                          AnchorPane.topAnchor="0.0"
+                                          hgap="20" vgap="20">
+
                                     <columnConstraints>
-                                        <ColumnConstraints minWidth="300" maxWidth="Infinity" hgrow="ALWAYS"/>
-                                        <ColumnConstraints minWidth="300" maxWidth="Infinity" hgrow="ALWAYS"/>
+                                        <ColumnConstraints minWidth="300" hgrow="ALWAYS"/>
+                                        <ColumnConstraints minWidth="300" hgrow="ALWAYS"/>
                                     </columnConstraints>
 
                                     <rowConstraints>
-                                        <RowConstraints minHeight="50" maxHeight="Infinity" vgrow="ALWAYS"/>
-                                        <RowConstraints minHeight="50" maxHeight="Infinity" vgrow="ALWAYS"/>
+                                        <RowConstraints minHeight="50" vgrow="ALWAYS"/>
+                                        <RowConstraints minHeight="50" vgrow="ALWAYS"/>
                                     </rowConstraints>
-
                                     <children>
+
+                                        <!-- CLOUDBURST CELL -->
                                         <AnchorPane>
                                             <children>
-                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                            AnchorPane.leftAnchor="5.0"
+                                                            AnchorPane.rightAnchor="5.0"
+                                                            AnchorPane.topAnchor="5.0">
                                                     <center>
-                                                        <AnchorPane fx:id="cloudburst" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="cloudburst"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+
+                                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                                            AnchorPane.leftAnchor="5.0"
+                                                                            AnchorPane.rightAnchor="5.0"
+                                                                            AnchorPane.topAnchor="5.0">
                                                                     <center>
                                                                         <AnchorPane BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="cloudburstDescription" styleClass="riskDescriptions" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="cloudburstDescription"
+                                                                                       styleClass="riskDescriptions"
+                                                                                       alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Ingen tilgængelig data"
+                                                                                       textAlignment="CENTER"
+                                                                                       wrapText="true"
+                                                                                       AnchorPane.bottomAnchor="5.0"
+                                                                                       AnchorPane.leftAnchor="5.0"
+                                                                                       AnchorPane.rightAnchor="5.0"
+                                                                                       AnchorPane.topAnchor="5.0"/>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Skybrud" BorderPane.alignment="CENTER" />
+                                                                        <Label alignment="CENTER"
+                                                                               styleClass="riskTitle"
+                                                                               text="Skybrud"
+                                                                               BorderPane.alignment="CENTER"/>
                                                                     </top>
                                                                 </BorderPane>
-                                                                <Button fx:id="cloudburstPopup" mnemonicParsing="false" onAction="#popUpHandler" styleClass="icon-button" text="i" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+
+                                                                <Button fx:id="cloudburstPopup"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#popUpHandler"
+                                                                        styleClass="icon-button"
+                                                                        text="i"
+                                                                        AnchorPane.rightAnchor="5.0"
+                                                                        AnchorPane.topAnchor="5.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </center>
                                                     <bottom>
-                                                        <AnchorPane fx:id="cloudBurstIndicator" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="cloudBurstIndicator"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
 
-                                                                <!-- Slider -->
                                                                 <Slider fx:id="cloudBurstThumb"
                                                                         disable="true"
                                                                         styleClass="slider-indicator"
                                                                         AnchorPane.leftAnchor="0"
                                                                         AnchorPane.rightAnchor="0"
-                                                                        AnchorPane.topAnchor="10" />
+                                                                        AnchorPane.topAnchor="10"/>
 
-                                                                <!-- Left icon (below slider) -->
-                                                                <ImageView fitWidth="27" fitHeight="27" preserveRatio="true"
+                                                                <ImageView fitWidth="27" fitHeight="27"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.leftAnchor="0"
                                                                            AnchorPane.topAnchor="30">
                                                                     <image>
@@ -147,57 +226,84 @@
                                                                     </image>
                                                                 </ImageView>
 
-                                                                <!-- Right icon (below slider) -->
-                                                                <ImageView fitWidth="18" fitHeight="18" preserveRatio="true"
+                                                                <ImageView fitWidth="18" fitHeight="18"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.rightAnchor="0"
                                                                            AnchorPane.topAnchor="35">
                                                                     <image>
                                                                         <Image url="@../icons/accept.png"/>
                                                                     </image>
                                                                 </ImageView>
-
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
                                                 </BorderPane>
                                             </children>
                                         </AnchorPane>
+
+                                        <!-- GROUNDWATER CELL -->
                                         <AnchorPane GridPane.columnIndex="1">
                                             <children>
-                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                            AnchorPane.leftAnchor="5.0"
+                                                            AnchorPane.rightAnchor="5.0"
+                                                            AnchorPane.topAnchor="5.0">
                                                     <center>
-                                                        <AnchorPane fx:id="groundwater" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="groundwater"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                                            AnchorPane.leftAnchor="5.0"
+                                                                            AnchorPane.rightAnchor="5.0"
+                                                                            AnchorPane.topAnchor="5.0">
                                                                     <center>
                                                                         <AnchorPane>
                                                                             <children>
-                                                                                <Label fx:id="groundwaterDescription" styleClass="riskDescriptions" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="groundwaterDescription"
+                                                                                       styleClass="riskDescriptions"
+                                                                                       alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Ingen tilgængelig data"
+                                                                                       textAlignment="CENTER"
+                                                                                       wrapText="true"
+                                                                                       AnchorPane.bottomAnchor="5.0"
+                                                                                       AnchorPane.leftAnchor="5.0"
+                                                                                       AnchorPane.rightAnchor="5.0"
+                                                                                       AnchorPane.topAnchor="5.0"/>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Grundvand" BorderPane.alignment="CENTER"/>
+                                                                        <Label alignment="CENTER"
+                                                                               styleClass="riskTitle"
+                                                                               text="Grundvand"
+                                                                               BorderPane.alignment="CENTER"/>
                                                                     </top>
                                                                 </BorderPane>
-                                                                <Button fx:id="groundwaterPopup" mnemonicParsing="false" onAction="#popUpHandler" styleClass="icon-button" text="i" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                <Button fx:id="groundwaterPopup"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#popUpHandler"
+                                                                        styleClass="icon-button"
+                                                                        text="i"
+                                                                        AnchorPane.rightAnchor="5.0"
+                                                                        AnchorPane.topAnchor="5.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </center>
-                                                    <bottom>
-                                                        <AnchorPane fx:id="groundWaterIndicator" BorderPane.alignment="CENTER">
-                                                            <children>
 
-                                                                <!-- Slider -->
+                                                    <bottom>
+                                                        <AnchorPane fx:id="groundWaterIndicator"
+                                                                    BorderPane.alignment="CENTER">
+                                                            <children>
                                                                 <Slider fx:id="groundWaterThumb"
                                                                         disable="true"
                                                                         styleClass="slider-indicator"
                                                                         AnchorPane.leftAnchor="0"
                                                                         AnchorPane.rightAnchor="0"
-                                                                        AnchorPane.topAnchor="10" />
+                                                                        AnchorPane.topAnchor="10"/>
 
-                                                                <!-- Left icon (below slider) -->
-                                                                <ImageView fitWidth="27" fitHeight="27" preserveRatio="true"
+                                                                <ImageView fitWidth="27" fitHeight="27"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.leftAnchor="0"
                                                                            AnchorPane.topAnchor="30">
                                                                     <image>
@@ -205,57 +311,84 @@
                                                                     </image>
                                                                 </ImageView>
 
-                                                                <!-- Right icon (below slider) -->
-                                                                <ImageView fitWidth="18" fitHeight="18" preserveRatio="true"
+                                                                <ImageView fitWidth="18" fitHeight="18"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.rightAnchor="0"
                                                                            AnchorPane.topAnchor="35">
                                                                     <image>
                                                                         <Image url="@../icons/accept.png"/>
                                                                     </image>
                                                                 </ImageView>
-
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
                                                 </BorderPane>
                                             </children>
                                         </AnchorPane>
+
+                                        <!-- STORM SURGE CELL -->
                                         <AnchorPane GridPane.rowIndex="1">
                                             <children>
-                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                            AnchorPane.leftAnchor="5.0"
+                                                            AnchorPane.rightAnchor="5.0"
+                                                            AnchorPane.topAnchor="5.0">
                                                     <center>
-                                                        <AnchorPane fx:id="stormsurge" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="stormsurge"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+
+                                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                                            AnchorPane.leftAnchor="5.0"
+                                                                            AnchorPane.rightAnchor="5.0"
+                                                                            AnchorPane.topAnchor="5.0">
                                                                     <center>
                                                                         <AnchorPane BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="stormSurgeDescription" styleClass="riskDescriptions" alignment="CENTER" contentDisplay="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="stormSurgeDescription"
+                                                                                       styleClass="riskDescriptions"
+                                                                                       alignment="CENTER"
+                                                                                       contentDisplay="CENTER"
+                                                                                       text="Ingen tilgængelig data"
+                                                                                       textAlignment="CENTER"
+                                                                                       wrapText="true"
+                                                                                       AnchorPane.bottomAnchor="5.0"
+                                                                                       AnchorPane.leftAnchor="5.0"
+                                                                                       AnchorPane.rightAnchor="5.0"
+                                                                                       AnchorPane.topAnchor="5.0"/>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
                                                                     <top>
-                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Stormflod" BorderPane.alignment="CENTER"/>
+                                                                        <Label alignment="CENTER"
+                                                                               styleClass="riskTitle"
+                                                                               text="Stormflod"
+                                                                               BorderPane.alignment="CENTER"/>
                                                                     </top>
                                                                 </BorderPane>
-                                                                <Button fx:id="stormsurgePopup" mnemonicParsing="false" onAction="#popUpHandler" styleClass="icon-button" text="i" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                <Button fx:id="stormsurgePopup"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#popUpHandler"
+                                                                        styleClass="icon-button"
+                                                                        text="i"
+                                                                        AnchorPane.rightAnchor="5.0"
+                                                                        AnchorPane.topAnchor="5.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </center>
                                                     <bottom>
-                                                        <AnchorPane fx:id="stormSurgeIndicator" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="stormSurgeIndicator"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
-
-                                                                <!-- Slider -->
                                                                 <Slider fx:id="stormSurgeThumb"
                                                                         disable="true"
                                                                         styleClass="slider-indicator"
                                                                         AnchorPane.leftAnchor="0"
                                                                         AnchorPane.rightAnchor="0"
-                                                                        AnchorPane.topAnchor="10" />
+                                                                        AnchorPane.topAnchor="10"/>
 
-                                                                <!-- Left icon (below slider) -->
-                                                                <ImageView fitWidth="27" fitHeight="27" preserveRatio="true"
+                                                                <ImageView fitWidth="27" fitHeight="27"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.leftAnchor="0"
                                                                            AnchorPane.topAnchor="30">
                                                                     <image>
@@ -263,57 +396,89 @@
                                                                     </image>
                                                                 </ImageView>
 
-                                                                <!-- Right icon (below slider) -->
-                                                                <ImageView fitWidth="18" fitHeight="18" preserveRatio="true"
+                                                                <ImageView fitWidth="18" fitHeight="18"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.rightAnchor="0"
                                                                            AnchorPane.topAnchor="35">
                                                                     <image>
                                                                         <Image url="@../icons/accept.png"/>
                                                                     </image>
                                                                 </ImageView>
-
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
                                                 </BorderPane>
                                             </children>
                                         </AnchorPane>
+
+                                        <!-- COASTAL EROSION CELL -->
                                         <AnchorPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                            AnchorPane.leftAnchor="5.0"
+                                                            AnchorPane.rightAnchor="5.0"
+                                                            AnchorPane.topAnchor="5.0">
+
                                                     <center>
-                                                        <AnchorPane fx:id="coastalerosion" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="coastalerosion"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+
+                                                                <BorderPane AnchorPane.bottomAnchor="5.0"
+                                                                            AnchorPane.leftAnchor="5.0"
+                                                                            AnchorPane.rightAnchor="5.0"
+                                                                            AnchorPane.topAnchor="5.0">
+
                                                                     <center>
                                                                         <AnchorPane BorderPane.alignment="CENTER">
                                                                             <children>
-                                                                                <Label fx:id="coastalErosionDescription" styleClass="riskDescriptions" alignment="CENTER" text="Ingen tilgængelig data" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                                                                <Label fx:id="coastalErosionDescription"
+                                                                                       styleClass="riskDescriptions"
+                                                                                       alignment="CENTER"
+                                                                                       text="Ingen tilgængelig data"
+                                                                                       textAlignment="CENTER"
+                                                                                       wrapText="true"
+                                                                                       AnchorPane.bottomAnchor="5.0"
+                                                                                       AnchorPane.leftAnchor="5.0"
+                                                                                       AnchorPane.rightAnchor="5.0"
+                                                                                       AnchorPane.topAnchor="5.0"/>
                                                                             </children>
                                                                         </AnchorPane>
                                                                     </center>
+
                                                                     <top>
-                                                                        <Label alignment="CENTER" styleClass="riskTitle" text="Kysterosion" BorderPane.alignment="CENTER"/>
+                                                                        <Label alignment="CENTER"
+                                                                               styleClass="riskTitle"
+                                                                               text="Kysterosion"
+                                                                               BorderPane.alignment="CENTER"/>
                                                                     </top>
+
                                                                 </BorderPane>
-                                                                <Button fx:id="coastalerosionPopup" mnemonicParsing="false" onAction="#popUpHandler" styleClass="icon-button" text="i" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+
+                                                                <Button fx:id="coastalerosionPopup"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#popUpHandler"
+                                                                        styleClass="icon-button"
+                                                                        text="i"
+                                                                        AnchorPane.rightAnchor="5.0"
+                                                                        AnchorPane.topAnchor="5.0"/>
                                                             </children>
                                                         </AnchorPane>
                                                     </center>
                                                     <bottom>
-                                                        <AnchorPane fx:id="coastalErosionIndicator" BorderPane.alignment="CENTER">
+                                                        <AnchorPane fx:id="coastalErosionIndicator"
+                                                                    BorderPane.alignment="CENTER">
                                                             <children>
 
-                                                                <!-- Slider -->
                                                                 <Slider fx:id="coastalErosionThumb"
                                                                         disable="true"
                                                                         styleClass="slider-indicator"
                                                                         AnchorPane.leftAnchor="0"
                                                                         AnchorPane.rightAnchor="0"
-                                                                        AnchorPane.topAnchor="10" />
+                                                                        AnchorPane.topAnchor="10"/>
 
-                                                                <!-- Left icon (below slider) -->
-                                                                <ImageView fitWidth="27" fitHeight="27" preserveRatio="true"
+                                                                <ImageView fitWidth="27" fitHeight="27"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.leftAnchor="0"
                                                                            AnchorPane.topAnchor="30">
                                                                     <image>
@@ -321,15 +486,14 @@
                                                                     </image>
                                                                 </ImageView>
 
-                                                                <!-- Right icon (below slider) -->
-                                                                <ImageView fitWidth="18" fitHeight="18" preserveRatio="true"
+                                                                <ImageView fitWidth="18" fitHeight="18"
+                                                                           preserveRatio="true"
                                                                            AnchorPane.rightAnchor="0"
                                                                            AnchorPane.topAnchor="35">
                                                                     <image>
                                                                         <Image url="@../icons/accept.png"/>
                                                                     </image>
                                                                 </ImageView>
-
                                                             </children>
                                                         </AnchorPane>
                                                     </bottom>
@@ -339,63 +503,126 @@
                                     </children>
                                 </GridPane>
                             </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
                         </AnchorPane>
-                    </children></VBox>
+                    </children>
+                </VBox>
+
+                <!-- RIGHT SIDE OF SPLITPANE -->
                 <VBox prefHeight="443.0" prefWidth="399.0">
                     <children>
-                        <AnchorPane fx:id="mapAnchor" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+
+                        <!-- Map Anchor -->
+                        <AnchorPane fx:id="mapAnchor"
+                                    prefHeight="500.0"
+                                    AnchorPane.bottomAnchor="0.0"
+                                    AnchorPane.leftAnchor="10.0"
+                                    AnchorPane.rightAnchor="10.0"
+                                    AnchorPane.topAnchor="10.0">
                             <children>
+
+                                <!-- Return to center button -->
                                 <Button fx:id="returnToCenter"
                                         text=""
                                         AnchorPane.bottomAnchor="10.0"
                                         AnchorPane.leftAnchor="10.0">
                                     <graphic>
-                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                        <ImageView fitWidth="30" fitHeight="30"
+                                                   pickOnBounds="true"
+                                                   preserveRatio="true"
+                                                   smooth="false">
                                             <image>
-                                                <Image url="https://www.freeiconspng.com/uploads/maps-center-direction-icon-24.png"/>
+                                                <Image url="@../images/recenter.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
                                 </Button>
                             </children>
                         </AnchorPane>
+
+                        <!-- Toggle Buttons Section -->
                         <AnchorPane>
                             <children>
-                                <ButtonBar buttonMinWidth="0.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+
+                                <ButtonBar buttonMinWidth="0.0"
+                                           layoutX="5.0" layoutY="5.0"
+                                           AnchorPane.bottomAnchor="5.0"
+                                           AnchorPane.leftAnchor="5.0"
+                                           AnchorPane.rightAnchor="5.0"
+                                           AnchorPane.topAnchor="5.0">
                                     <buttons>
-                                        <ToggleButton fx:id="cadastralToggle" mnemonicParsing="false" prefHeight="26.0" text="Matrikelkort" textAlignment="CENTER" />
-                                        <ToggleButton fx:id="cloudburstToggle" mnemonicParsing="false" text="Skybrud" textAlignment="CENTER">
+                                        <ToggleButton fx:id="cadastralToggle"
+                                                      mnemonicParsing="false"
+                                                      prefHeight="26.0"
+                                                      text="Matrikelkort"
+                                                      textAlignment="CENTER"/>
+
+                                        <ToggleButton fx:id="cloudburstToggle"
+                                                      mnemonicParsing="false"
+                                                      text="Skybrud"
+                                                      textAlignment="CENTER">
                                             <toggleGroup>
-                                                <ToggleGroup fx:id="weatherOption" />
+                                                <ToggleGroup fx:id="weatherOption"/>
                                             </toggleGroup>
                                         </ToggleButton>
-                                        <ToggleButton fx:id="stormsurgeToggle" mnemonicParsing="false" text="Stormflod" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                        <ToggleButton fx:id="groundwaterToggle" mnemonicParsing="false" text="Grundvandsstand" textAlignment="CENTER" toggleGroup="$weatherOption" />
-                                        <ToggleButton fx:id="coastalToggle" mnemonicParsing="false" text="Kyst erosion" textAlignment="CENTER" toggleGroup="$weatherOption" />
+
+                                        <ToggleButton fx:id="stormsurgeToggle"
+                                                      mnemonicParsing="false"
+                                                      text="Stormflod"
+                                                      textAlignment="CENTER"
+                                                      toggleGroup="$weatherOption"/>
+
+                                        <ToggleButton fx:id="groundwaterToggle"
+                                                      mnemonicParsing="false"
+                                                      text="Grundvandsstand"
+                                                      textAlignment="CENTER"
+                                                      toggleGroup="$weatherOption"/>
+
+                                        <ToggleButton fx:id="coastalToggle"
+                                                      mnemonicParsing="false"
+                                                      text="Kyst erosion"
+                                                      textAlignment="CENTER"
+                                                      toggleGroup="$weatherOption"/>
                                     </buttons>
                                 </ButtonBar>
                             </children>
                         </AnchorPane>
+
+                        <!-- Sliders Section -->
                         <AnchorPane>
                             <children>
-                                <Slider fx:id="cloudBurstSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                <Slider fx:id="stormSurgeSlider" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+
+                                <Slider fx:id="cloudBurstSlider"
+                                        visible="false"
+                                        AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="10.0"
+                                        AnchorPane.rightAnchor="10.0"
+                                        AnchorPane.topAnchor="10.0"/>
+
+                                <Slider fx:id="stormSurgeSlider"
+                                        visible="false"
+                                        AnchorPane.bottomAnchor="0.0"
+                                        AnchorPane.leftAnchor="10.0"
+                                        AnchorPane.rightAnchor="10.0"
+                                        AnchorPane.topAnchor="10.0"/>
+
                             </children>
                         </AnchorPane>
+
+                        <!-- Settings Button Section -->
                         <AnchorPane prefHeight="400.0" prefWidth="200.0">
                             <children>
+
                                 <Button layoutX="500.0" layoutY="142.0"
                                         onAction="#settingsMenu"
                                         text="Indstil grænseværdier"
                                         AnchorPane.bottomAnchor="5.0"
                                         AnchorPane.rightAnchor="5.0">
                                     <graphic>
-                                        <ImageView fitWidth="30" fitHeight="30" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitWidth="30" fitHeight="30"
+                                                   pickOnBounds="true"
+                                                   preserveRatio="true">
                                             <image>
-                                                <Image url="/ui/images/settings.png"/>
+                                                <Image url="@../images/settings.png"/>
                                             </image>
                                         </ImageView>
                                     </graphic>
