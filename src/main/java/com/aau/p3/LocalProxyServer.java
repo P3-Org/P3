@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.*;
+import java.util.Map;
 import java.util.concurrent.Executors;
 
 
@@ -15,16 +16,23 @@ import java.util.concurrent.Executors;
  */
 public class LocalProxyServer {
     private static HttpServer server;
+    private static Map<String, String> Route
+            = Map.of("/wms-dmh-proxy", "https://api.dataforsyningen.dk/wms/dhm",
+            "/wms-hip-proxy", "https://api.dataforsyningen.dk/hip_dtg_10m_100m",
+            "/wms-daf-proxy", "https://api.dataforsyningen.dk/wms/MatGaeldendeOgForeloebigWMS_DAF",
+            "/arc_gis-nst/export", "https://gis.nst.dk/server/rest/services/ekstern/KDI_KystAtlas/MapServer/export");
+
     // Method for setting up the necessary tools for starting a proxy server
     public static void startProxy(int port) {
         try {
             // Creates a httpserver which binds to a socket-address object with the specified port number
             server = HttpServer.create(new InetSocketAddress(port), 0);
             // The HTTP context specifies what to do when receiving requests on the given port + path
-            server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
-            server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
-            server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
-            server.createContext("/arc_gis-nst/export", LocalProxyServer::handleNst);
+            server.createContext("/", LocalProxyServer::handleURL);
+            //server.createContext("/wms-dmh-proxy", LocalProxyServer::handleDmh);
+            //server.createContext("/wms-hip-proxy", LocalProxyServer::handleHip);
+            //server.createContext("/wms-daf-proxy", LocalProxyServer::handleDaf);
+            //server.createContext("/arc_gis-nst/export", LocalProxyServer::handleNst);
             // Sets 4 threads available for requests for the server
             server.setExecutor(Executors.newFixedThreadPool(4));
             server.start();
@@ -43,6 +51,22 @@ public class LocalProxyServer {
     */
     private static String queryNullCheck(String targetUrl, String query){
         return (query == null) ? targetUrl : targetUrl + "?" + query;
+    }
+
+    private static void handleURL(HttpExchange exchange)  throws IOException{
+        String path = exchange.getRequestURI().getPath();
+
+        // map path
+        String targetUrl = Route.get(path);
+
+        if (targetUrl == null){
+            exchange.close();
+        }
+
+
+        String query = exchange.getRequestURI().getRawQuery();
+        String fullQuery = queryNullCheck(targetUrl, query);
+        handleRequest(exchange, fullQuery);
     }
 
     // Method that handles the request for dmh WMS, and forwards the targetUrl to handleRequest
