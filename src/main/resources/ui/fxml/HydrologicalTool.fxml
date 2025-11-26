@@ -94,13 +94,13 @@
                             <children>
                                 <GridPane fx:id="labelContainer" alignment="BOTTOM_LEFT" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" hgap="20" vgap="20">
                                     <columnConstraints>
-                                        <ColumnConstraints minWidth="450" maxWidth="Infinity" hgrow="ALWAYS"/>
-                                        <ColumnConstraints minWidth="450" maxWidth="Infinity" hgrow="ALWAYS"/>
+                                        <ColumnConstraints minWidth="300" maxWidth="Infinity" hgrow="ALWAYS"/>
+                                        <ColumnConstraints minWidth="300" maxWidth="Infinity" hgrow="ALWAYS"/>
                                     </columnConstraints>
 
                                     <rowConstraints>
-                                        <RowConstraints minHeight="200" maxHeight="Infinity" vgrow="ALWAYS"/>
-                                        <RowConstraints minHeight="200" maxHeight="Infinity" vgrow="ALWAYS"/>
+                                        <RowConstraints minHeight="50" maxHeight="Infinity" vgrow="ALWAYS"/>
+                                        <RowConstraints minHeight="50" maxHeight="Infinity" vgrow="ALWAYS"/>
                                     </rowConstraints>
 
                                     <children>
