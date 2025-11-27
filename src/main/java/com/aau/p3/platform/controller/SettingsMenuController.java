@@ -5,6 +5,7 @@ import com.aau.p3.database.StaticThresholdRepository;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
@@ -19,6 +20,45 @@ public class SettingsMenuController implements ControlledScreen {
     private TextField cloudBurstLower, cloudBurstUpper, groundWaterLower, groundWaterUpper,
                       stormSurgeLower, stormSurgeUpper, coastalErosionLower, coastalErosionUpper;
 
+
+    @FXML
+    private Label cloudBurstCurrentLower, cloudBurstCurrentUpper,
+            groundWaterCurrentLower, groundWaterCurrentUpper,
+            stormSurgeCurrentLower, stormSurgeCurrentUpper,
+            coastalErosionCurrentLower, coastalErosionCurrentUpper;
+
+    @FXML
+    public void initialize() {
+        StaticThresholdRepository repo = new StaticThresholdRepository();
+
+        setThresholdLabels(repo.getThreshold("cloudburst"), cloudBurstCurrentLower, cloudBurstCurrentUpper);
+        setThresholdLabels(repo.getThreshold("groundwater"), groundWaterCurrentLower, groundWaterCurrentUpper);
+        setThresholdLabels(repo.getThreshold("stormsurge"), stormSurgeCurrentLower, stormSurgeCurrentUpper);
+        setThresholdLabels(repo.getThreshold("coastalerosion"), coastalErosionCurrentLower, coastalErosionCurrentUpper);
+
+    }
+
+    private void setThresholdLabels(double[] arr, Label lowerLbl, Label upperLbl) {
+        if (arr == null || arr.length < 2) {
+            lowerLbl.setText("-");
+            upperLbl.setText("-");
+            return;
+        }
+
+        lowerLbl.setText(String.valueOf(arr[0]));
+        upperLbl.setText(String.valueOf(arr[1]));
+        System.out.println(lowerLbl.getText());
+        System.out.println(upperLbl.getText());
+    }
+
+
+    // Small helper to avoid “null”
+    private String getFormatted(Double val) {
+        return val == null ? "-" : String.valueOf(val);
+    }
+
+
+
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -28,6 +68,7 @@ public class SettingsMenuController implements ControlledScreen {
     private void goBack() {
         mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
+
 
     /**
      * When the "gem" button is clicked this method is initialized.

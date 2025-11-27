@@ -20,6 +20,7 @@
                 <ColumnConstraints halignment="RIGHT"/>
                 <ColumnConstraints halignment="LEFT"/>
                 <ColumnConstraints halignment="LEFT"/>
+                <ColumnConstraints halignment="LEFT"/>   <!-- 3 → Current values -->
             </columnConstraints>
 
 
@@ -27,32 +28,74 @@
             <Label text="Skybrud grænseværdi:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="0" GridPane.columnIndex="1" />
             <TextField fx:id="cloudBurstLower" GridPane.rowIndex="0" GridPane.columnIndex="2" />
+            <HBox spacing="5" GridPane.rowIndex="0" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="cloudBurstCurrentLower" style="-fx-text-fill: blue;" />
+                <Label text="mm regnfald" />
+            </HBox>
+
             <Label text="Øvre:" GridPane.rowIndex="1" GridPane.columnIndex="1" />
             <TextField fx:id="cloudBurstUpper" GridPane.rowIndex="1" GridPane.columnIndex="2" />
-
+            <HBox spacing="5" GridPane.rowIndex="1" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="cloudBurstCurrentUpper" style="-fx-text-fill: blue;" />
+                <Label text="mm regnfald" />
+            </HBox>
 
             <!-- Grundvand grænseværdi -->
             <Label text="Grundvand grænseværdi:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="2" GridPane.columnIndex="1" />
             <TextField fx:id="groundWaterLower" GridPane.rowIndex="2" GridPane.columnIndex="2" />
+            <HBox spacing="5" GridPane.rowIndex="2" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="groundWaterCurrentLower" style="-fx-text-fill: blue;" />
+                <Label text="m fra overfladen ved en 50 års hændelse" />
+            </HBox>
+
             <Label text="Øvre:" GridPane.rowIndex="3" GridPane.columnIndex="1" />
             <TextField fx:id="groundWaterUpper" GridPane.rowIndex="3" GridPane.columnIndex="2" />
-
+            <HBox spacing="5" GridPane.rowIndex="3" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="groundWaterCurrentUpper" style="-fx-text-fill: blue;" />
+                <Label text="m fra overfladen ved en 50 års hændelse" />
+            </HBox>
 
             <!-- Stormflod grænseværdi -->
             <Label text="Stormflod grænseværdi:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="4" GridPane.columnIndex="1" />
             <TextField fx:id="stormSurgeLower" GridPane.rowIndex="4" GridPane.columnIndex="2" />
+            <HBox spacing="5" GridPane.rowIndex="4" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="stormSurgeCurrentLower" style="-fx-text-fill: blue;" />
+                <Label text="m havvandsstigning" />
+            </HBox>
+
             <Label text="Øvre:" GridPane.rowIndex="5" GridPane.columnIndex="1" />
             <TextField fx:id="stormSurgeUpper" GridPane.rowIndex="5" GridPane.columnIndex="2" />
-
+            <HBox spacing="5" GridPane.rowIndex="5" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="stormSurgeCurrentUpper" style="-fx-text-fill: blue;" />
+                <Label text="m havvandsstigning" />
+            </HBox>
 
             <!-- Kysterosion grænseværdi -->
             <Label text="Kysterosion grænseværdi:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
             <Label text="Nedre:" GridPane.rowIndex="6" GridPane.columnIndex="1" />
             <TextField fx:id="coastalErosionLower" GridPane.rowIndex="6" GridPane.columnIndex="2" />
+            <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="coastalErosionCurrentLower" style="-fx-text-fill: blue;" />
+                <Label text="m havvandsstigning" />
+            </HBox>
+
             <Label text="Øvre:" GridPane.rowIndex="7" GridPane.columnIndex="1" />
             <TextField fx:id="coastalErosionUpper" GridPane.rowIndex="7" GridPane.columnIndex="2" />
+            <HBox spacing="5" GridPane.rowIndex="7" GridPane.columnIndex="3" alignment="CENTER_LEFT">
+                <Label text="Nuværende grænseværdi:" />
+                <Label fx:id="coastalErosionCurrentUpper" style="-fx-text-fill: blue;" />
+                <Label text="mm/t" />
+            </HBox>
+
         </GridPane>
     </center>
 
