@@ -49,12 +49,16 @@ public class AddressLookupController implements ControlledScreen  {
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
                         URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
-                        new Customer("Alice Johnson", 9260, 22334455, "alice@johnson.com"),
-                        StatusEnum.PENDING),
+                        new Customer("Alice Johnson", 432907621, 22334455, "alice@johnson.com"),
+                        StatusEnum.APPROVED),
                 new Case(2,
                         URLDecoder.decode("Danmarksgade+88%2C+9000+Aalborg", StandardCharsets.UTF_8),
-                        new Customer("Bob Smith", 9261, 33445566, "bob@smith.com"),
-                        StatusEnum.APPROVED)
+                        new Customer("Bob Smith", 829451765, 33445566, "bob@smith.com"),
+                        StatusEnum.REJECTED),
+                new Case(3,
+                        URLDecoder.decode("Heimdalsgade+12%2C+9000+Aalborg", StandardCharsets.UTF_8),
+                        new Customer("Marcus Jonathan", 675443284, 66554433, "marcus97@jonathan.com"),
+                        StatusEnum.PENDING)
         );
 
         // Set data in the table
@@ -64,7 +68,6 @@ public class AddressLookupController implements ControlledScreen  {
            responsible for calling the mainController ones the address has been filled out. */
         PropertySearch search = new PropertySearch(addressSearchField, () -> setWindowHydrologicalTool());
         search.searchAddress();
-
     }
 
     /**
