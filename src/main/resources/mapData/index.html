@@ -49,20 +49,44 @@
     // The different storm surge styles, signify increase in sea level in m.
     const stormSurgeMap = {
         0: 'havvandpaaland_0',
-        0.5: 'havvandpaaland_0.5',
+        0.1: 'havvandpaaland_0_1',
+        0.2: 'havvandpaaland_0_2',
+        0.3: 'havvandpaaland_0_3',
+        0.4: 'havvandpaaland_0_4',
+        0.5: 'havvandpaaland_0_5',
+        0.6: 'havvandpaaland_0_6',
+        0.7: 'havvandpaaland_0_7',
+        0.8: 'havvandpaaland_0_8',
+        0.9: 'havvandpaaland_0_9',
         1: 'havvandpaaland_1',
+        1.1: 'havvandpaaland_1_1',
+        1.2: 'havvandpaaland_1_2',
+        1.3: 'havvandpaaland_1_3',
+        1.4: 'havvandpaaland_1_4',
         1.5: 'havvandpaaland_1_5',
+        1.6: 'havvandpaaland_1_6',
+        1.7: 'havvandpaaland_1_7',
+        1.8: 'havvandpaaland_1_8',
+        1.9: 'havvandpaaland_1_9',
         2: 'havvandpaaland_2',
+        2.1: 'havvandpaaland_2_1',
+        2.2: 'havvandpaaland_2_2',
+        2.3: 'havvandpaaland_2_3',
+        2.4: 'havvandpaaland_2_4',
         2.5: 'havvandpaaland_2_5',
+        2.6: 'havvandpaaland_2_6',
+        2.7: 'havvandpaaland_2_7',
+        2.8: 'havvandpaaland_2_8',
+        2.9: 'havvandpaaland_2_9',
         3: 'havvandpaaland_3',
-        3.5: 'havvandpaaland_3_5',
-        4: 'havvandpaaland_4',
-        4.5: 'havvandpaaland_4_5',
-        5: 'havvandpaaland_5',
-        5.5: 'havvandpaaland_5_5',
-        6: 'havvandpaaland_6'
+        // 3.5: 'havvandpaaland_3_5', not in use atm
+        // 4: 'havvandpaaland_4',
+        // 4.5: 'havvandpaaland_4_5',
+        // 5: 'havvandpaaland_5',
+        // 5.5: 'havvandpaaland_5_5',
+        // 6: 'havvandpaaland_6'
     };
-    // The different cloud burst styles, signify rainfall given in m. (Object key in mm)
+    // The different cloudBurst styles, signify rainfall given in m. (Object key in mm)
     const cloudBurstMap = {
         0: 'bluespot_ekstremregn_0',
         15: 'bluespot_ekstremregn_0_015',
@@ -76,7 +100,15 @@
         135: 'bluespot_ekstremregn_0_135',
         150: 'bluespot_ekstremregn_0_150'
     };
-
+    // The different ground water layers, signify year event given in years. (object key in years)
+    const groundWaterMap = {
+        2: '100m_phreatic_all_T2',
+        5: '100m_phreatic_all_T5',
+        10: '100m_phreatic_all_T10',
+        20: '100m_phreatic_all_T20',
+        50: '100m_phreatic_all_T50',
+        100: '100m_phreatic_all_T100'
+    };
     // Predefine variables for later use.
     const Legend = L.control({ position: 'bottomright' });
     let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
@@ -106,6 +138,11 @@
         climateOverlay.setParams({ styles: stormSurgeMap[index] })
     }
 
+    function groundWaterLayers(index) {
+        climateOverlay.setParams({ layers: groundWaterMap[index] })
+    }
+
+
     // Map pin for property
     const redPinIcon = L.icon({
         iconUrl: '../UI/images/pin.png',
@@ -132,7 +169,7 @@
     function setGroundwater(){
         // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
-            layers: '100m_phreatic_all_T50',
+            layers: '100m_phreatic_all_T2',
             format: 'image/png',
             transparent: "TRUE",
             version: '1.3.0',

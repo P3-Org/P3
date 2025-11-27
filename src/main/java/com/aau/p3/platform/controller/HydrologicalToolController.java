@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -76,6 +77,12 @@ public class HydrologicalToolController implements ControlledScreen {
     private Slider cloudBurstSlider = new Slider();
     @FXML
     private Slider stormSurgeSlider = new Slider();
+
+    @FXML
+    private ToggleButton cloudBurst2year, cloudBurst20year, cloudBurst50year, stormSurge20year, stormSurge50year, stormSurge100year, groundWater2year, groundWater5year, groundWater10year, groundWater20year, groundWater50year, groundWater100year;
+
+    @FXML
+    private HBox cloudBurstReturnEvent, stormSurgeReturnEvent, groundWaterReturnEvent;
 
     @FXML
     private GridPane labelContainer;
@@ -173,38 +180,112 @@ public class HydrologicalToolController implements ControlledScreen {
         });
 
 
-        // Event listeners for Toggle buttons
+
+
+        // Event listeners for Toggle buttons weather option
         cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
+
                 cloudBurstSlider.setVisible(true);
+                cloudBurstReturnEvent.setVisible(true);
                 webEngine.executeScript("setCloudburst()");
 
             } else {
                 webEngine.executeScript("removeClimateLayer()");
                 cloudBurstSlider.setVisible(false);
+                cloudBurstReturnEvent.setVisible(false);
                 cloudBurstSlider.setValue(0);
+            }
+        });
+
+        // Event listeners for Toggle buttons return event cloudBurst
+        cloudBurst2year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                cloudBurstSlider.setValue(15);
+            }
+        });
+        cloudBurst20year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                cloudBurstSlider.setValue(30);
+            }
+        });
+        cloudBurst50year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                cloudBurstSlider.setValue(45);
             }
         });
 
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 stormSurgeSlider.setVisible(true);
+                stormSurgeReturnEvent.setVisible(true);
                 webEngine.executeScript("setStormSurge()");
 
             } else {
                 webEngine.executeScript("removeClimateLayer()");
                 stormSurgeSlider.setVisible(false);
+                stormSurgeReturnEvent.setVisible(false);
                 stormSurgeSlider.setValue(0);
+            }
+        });
+
+        // Event listeners for Toggle buttons return event stormSurge
+        stormSurge20year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                stormSurgeSlider.setValue(2);
+            }
+        });
+        stormSurge50year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                stormSurgeSlider.setValue(2.1);
+            }
+        });
+        stormSurge100year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue) {
+                stormSurgeSlider.setValue(2.2);
             }
         });
 
         groundwaterToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
+                groundWaterReturnEvent.setVisible(true);
                 webEngine.executeScript("setGroundwater()");
             } else {
+                groundWaterReturnEvent.setVisible(false);
                 webEngine.executeScript("removeClimateLayer()");
             }
         });
+        groundWater2year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 2 + ")");
+                }
+        });
+        groundWater5year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 5 + ")");
+            }
+        });
+        groundWater10year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 10 + ")");
+            }
+        });
+        groundWater20year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 20 + ")");
+            }
+        });
+        groundWater50year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 50 + ")");
+            }
+        });
+        groundWater100year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
+            if (newValue){
+                webEngine.executeScript("groundWaterLayers(" + 100 + ")");
+            }
+        });
+
 
         coastalToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
@@ -274,7 +355,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
     private void setStormSurgeSlider() {
         stormSurgeSlider.setMin(0);// Value bound settings
-        stormSurgeSlider.setMax(6);
+        stormSurgeSlider.setMax(3);
         stormSurgeSlider.setLabelFormatter(new StringConverter<Double>() {
             @Override
             public String toString(Double value) {
@@ -290,7 +371,7 @@ public class HydrologicalToolController implements ControlledScreen {
         stormSurgeSlider.setShowTickLabels(true);
         stormSurgeSlider.setSnapToTicks(true);
         stormSurgeSlider.setMajorTickUnit(0.5); // Value between major ticks
-        stormSurgeSlider.setMinorTickCount(0); //Value between minor ticks
+        stormSurgeSlider.setMinorTickCount(4); //Value between minor ticks
     }
 
     private void setCloudBurstSlider() {
@@ -314,6 +395,7 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
+
 
 
     /**
