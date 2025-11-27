@@ -32,7 +32,7 @@ class ClimateMeasurementsTest {
         assertEquals(2.0, result[0].y);
         assertEquals(3.0, result[1].x);
         assertEquals(4.0, result[1].y);
-        assertEquals(1.0, result[3].x); // closing coordinate should match first
+        assertEquals(1.0, result[3].x); // Closing coordinate should match first
         assertEquals(2.0, result[3].y);
     }
 }
