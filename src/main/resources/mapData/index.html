@@ -46,7 +46,7 @@
 ></script>
 <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 <script>
-    // The different storm surge styles, signify increase in sea level in m.
+    // The different stormsurge styles, signify increase in sea level in m.
     const stormSurgeMap = {
         0: 'havvandpaaland_0',
         0.1: 'havvandpaaland_0_1',
@@ -86,6 +86,7 @@
         // 5.5: 'havvandpaaland_5_5',
         // 6: 'havvandpaaland_6'
     };
+
     // The different cloudBurst styles, signify rainfall given in m. (Object key in mm)
     const cloudBurstMap = {
         0: 'bluespot_ekstremregn_0',
@@ -100,7 +101,7 @@
         135: 'bluespot_ekstremregn_0_135',
         150: 'bluespot_ekstremregn_0_150'
     };
-    // The different ground water layers, signify year event given in years. (object key in years)
+    // The different groundwater layers, signify year event given in years. (object key in years)
     const groundWaterMap = {
         2: '100m_phreatic_all_T2',
         5: '100m_phreatic_all_T5',
@@ -110,20 +111,52 @@
         100: '100m_phreatic_all_T100'
     };
     // Predefine variables for later use.
-    const Legend = L.control({ position: 'bottomright' });
     let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
-    map = L.map('map').setView([57.0488, 9.9217], 17);
 
-    // When the window is opened and loaded, call the api for the map.
+    // Adds a placeholder for the Legend to where it will be located
+    const Legend = L.control({ position: 'bottomright' });
+
+    // Variables for getting the satellite map from arcgisonline.com as well as attributions
+    var esri_attribution = '© Esri © OpenStreetMap Contributors';
+    var esri_url ='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+    // Variables for getting the street map from openstreetmap.org as well as attributions
+    var OSM_attribution = '@openstreetmap.org'
+    var OSM_url = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+    // Sets the tile layer for leaflet to use the url from satellite map and sets the zoom levels
+    var satelliteMap = L.tileLayer(esri_url, {
+        maxZoom: 18,
+        attribution: esri_attribution,
+        zIndex: 1
+    });
+
+    // Sets the tile layer for leaflet to use the url from street map and sets the zoom levels
+    var streetMap =  L.tileLayer(OSM_url, {
+        maxZoom: 18,
+        attribution: OSM_attribution,
+        zIndex: 1
+    })
+
+    // Creates the map
+    var map = L.map('map', {
+        center: [57.0488, 9.9217],
+        zoom: 17,
+        layers: [streetMap, satelliteMap]
+    });
+
+    // The map objects that will be added to the map
+    var baseMaps = {
+        "Satellite": satelliteMap,
+        "Streets": streetMap
+    };
+
+    // When the window is opened and loaded, add the tilelayers from the API's to the leaflet map.
     document.addEventListener('DOMContentLoaded', () => {
         L.Browser.any3d = false; // Force Leaflet to use 2D transforms.
 
-        // Uses openstreetmap api for a map.
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 18,
-            attribution: '@openstreetmap.org',
-            zIndex: 1
-        }).addTo(map);
+        // Control layers gives the ability to swap between the map objects satelliteMap and streetMap and display it on the map
+        L.control.layers(baseMaps).addTo(map);
 
         // Variable used for inserting the different overlays from wms.
         climateOverlay;
@@ -153,7 +186,7 @@
     });
 
     // Functions for setting up the API calls when the corresponding button is clicked.
-    function setCloudburst(){
+    function setCloudburst() {
         // Cloudburst overlay API.
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
             layers: 'dhm_bluespot_ekstremregn',
@@ -166,7 +199,7 @@
         }).addTo(map);
     }
 
-    function setGroundwater(){
+    function setGroundwater() {
         // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
             layers: '100m_phreatic_all_T2',
@@ -177,13 +210,14 @@
             token: '4656e62e1c57f5767255b528fb641642', // Required for access.
             styles: 'default',
             attribution: '@dataforsyningen.dk',
-            opacity: '0.345'
+            opacity: '0.345',
+            zIndex: 5
         }).addTo(map);
 
         showLegend("hip_dtg_10m_100m(400-400).png");
     }
 
-    function setStormSurge(){
+    function setStormSurge() {
         // Storm surge seawater levels overlay api
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
             layers: 'dhm_havvandpaaland',
@@ -196,7 +230,7 @@
         }).addTo(map);
     }
 
-    function setErosion(){
+    function setErosion() {
         climateOverlay = L.esri.dynamicMapLayer({
                 url: 'http://localhost:8080/arc_gis-nst',
             layers: [2],
@@ -210,7 +244,7 @@
     }
 
     // Function for the cadastral overlay when corresponding button is clicked.
-    function setCadastral(){
+    function setCadastral() {
         cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
             layers: 'Centroide_Gaeldende',
             styles: 'Roede_centroider',
@@ -233,7 +267,7 @@
     }
 
     // Removes the climateOverlay if it is turned on.
-    function removeClimateLayer(){
+    function removeClimateLayer() {
         if (climateOverlay) {
             map.removeLayer(climateOverlay)
         }
@@ -263,6 +297,7 @@
         return div;
     };
 
+    // Updates the legend size for the different legends
     function updateLegendSize(width) {
         const legendImg = document.querySelector('.gw-legend img');
         if (!legendImg) return;
@@ -289,13 +324,14 @@
         map.removeControl(Legend);
     }
 
-    window.panTo = function(coords){
+    // Pans to a specific coordinate on the map
+    window.panTo = function(coords) {
         map.panTo(coords);
     }
 
-
     let propertyMarker = null;
 
+    // Adds a property marker to the correct location defined by the input coordinates
     window.showPropertyMarker = function(coords) {
         if (propertyMarker) {
             map.removeLayer(propertyMarker);

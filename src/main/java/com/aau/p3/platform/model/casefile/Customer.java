@@ -24,9 +24,7 @@ public class Customer {
     public String getName() {
         return this.name;
     }
-    public int getCPR() {
-        return this.CPR;
-    }
+    public int getCPR() { return this.CPR; }
     public int getPhoneNumber() {
         return this.phoneNumber;
     }
