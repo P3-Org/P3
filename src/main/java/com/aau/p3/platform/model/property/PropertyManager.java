@@ -45,6 +45,10 @@ public class PropertyManager {
         PropertyRepository.updateSpecialistScore(address, property.getSpecialistScore());
     }
 
+    public static HashMap<String, Property> getPropertyList() {
+        return propertyList;
+    }
+
     /**
      * Method that adds a new comment to the database.
      * @param property the property, that the comment is to be added.
