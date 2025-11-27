@@ -80,4 +80,5 @@ class ClimateStateScoreTest {
         // Assert
         assertEquals(expectedScore, resultScore);
     }
+
 }
