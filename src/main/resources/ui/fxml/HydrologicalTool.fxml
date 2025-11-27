@@ -1,29 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="climateToolScene" prefHeight="1000.0" prefWidth="1600" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
+<AnchorPane fx:id="climateToolScene" prefHeight="1000.0" prefWidth="1600" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.aau.p3.platform.controller.HydrologicalToolController">
     <children>
         <SplitPane dividerPositions="0.6" layoutY="74.0" styleClass="splitPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <items>
@@ -432,7 +415,68 @@
                                         </ImageView>
                                     </graphic>
                                 </Button>
+
+                                <HBox fx:id="cloudBurstReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0" visible="false">
+
+
+                                    <children>
+
+                                        <ToggleButton fx:id="cloudBurst2year" contentDisplay="CENTER" maxWidth="Infinity" text="2 årshændelse : 16,94 mm" toggleGroup="$cloudBurstToggleReturnEvent" textAlignment="CENTER" >
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="cloudBurstToggleReturnEvent" />
+                                            </toggleGroup>
+                                        </ToggleButton>
+
+                                        <ToggleButton fx:id="cloudBurst20year" contentDisplay="CENTER" maxWidth="Infinity" text="20 årshændelse : 33,11 mm" toggleGroup="$cloudBurstToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="cloudBurst50year" contentDisplay="CENTER" maxWidth="Infinity" text="50 årshændelse : 42,27 mm" toggleGroup="$cloudBurstToggleReturnEvent" textAlignment="CENTER" />
+
+                                    </children>
+
+                                </HBox>
+
+
+                                <HBox fx:id="stormSurgeReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0" visible="false">
+
+                                    <children>
+
+                                        <ToggleButton fx:id="stormSurge20year" contentDisplay="CENTER" maxWidth="Infinity" text="20 årshændelse : 2,05 m" toggleGroup="$stormSurgeToggleReturnEvent" textAlignment="CENTER">
+                                        <toggleGroup>
+                                            <ToggleGroup fx:id="stormSurgeToggleReturnEvent" />
+                                        </toggleGroup>
+                                    </ToggleButton>
+
+
+                                        <ToggleButton fx:id="stormSurge50year" contentDisplay="CENTER" maxWidth="Infinity" text="50 årshændelse : 2.17 m" toggleGroup="$stormSurgeToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="stormSurge100year" contentDisplay="CENTER" maxWidth="Infinity" text="100 årshændelse : 2.24 m" toggleGroup="$stormSurgeToggleReturnEvent" textAlignment="CENTER" />
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="groundWaterReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0" visible="false">
+
+                                    <children>
+
+                                        <ToggleButton fx:id="groundWater2year" contentDisplay="CENTER" maxWidth="Infinity" text="2 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER">
+                                            <toggleGroup>
+                                                <ToggleGroup fx:id="groundWaterToggleReturnEvent" />
+                                            </toggleGroup>
+                                        </ToggleButton>
+
+                                        <ToggleButton fx:id="groundWater5year" contentDisplay="CENTER" maxWidth="Infinity" text="5 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="groundWater10year" contentDisplay="CENTER" maxWidth="Infinity" text="10 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="groundWater20year" contentDisplay="CENTER" maxWidth="Infinity" text="20 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="groundWater50year" contentDisplay="CENTER" maxWidth="Infinity" text="50 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
+
+                                        <ToggleButton fx:id="groundWater100year" contentDisplay="CENTER" maxWidth="Infinity" text="100 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
+                                    </children>
+                                </HBox>
+
+
                             </children>
+
                         </AnchorPane>
                     </children>
                 </VBox>

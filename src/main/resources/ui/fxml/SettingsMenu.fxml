@@ -101,12 +101,36 @@
 
 
     <bottom>
-        <HBox spacing="10" alignment="CENTER_RIGHT">
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
-            <Button text="Gem" fx:id="saveButton" onAction="#storeNewThresholdValues"/>
-            <Button text="Annuller" fx:id="cancelButton" onAction="#goBack"/>
-        </HBox>
+        <VBox spacing="10">
+            <!-- New dropdown row -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="Udledningsscenarie:"/>
+                <MenuButton fx:id="scenarioMenu" text="Udledningsscenarie">
+                    <items>
+                        <MenuItem text="Lavt (RCP2.6)"/>
+                        <MenuItem text="Mellemhøjt (RCP4.5)"/>
+                        <MenuItem text="Meget højt (RCP8.5)"/>
+                    </items>
+                </MenuButton>
+
+                <Label text="Tidsperiode:"/>
+                <MenuButton fx:id="periodMenu" text="Tidsperiode">
+                    <items>
+                        <MenuItem text="1981–2010"/>
+                        <MenuItem text="2011–2040"/>
+                        <MenuItem text="2071–2100"/>
+                    </items>
+                </MenuButton>
+            </HBox>
+
+            <!-- Existing button row (unchanged) -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Button text="Gem" fx:id="saveButton" onAction="#storeNewThresholdValues"/>
+                <Button text="Annuller" fx:id="cancelButton" onAction="#goBack"/>
+            </HBox>
+        </VBox>
     </bottom>
 </BorderPane>
