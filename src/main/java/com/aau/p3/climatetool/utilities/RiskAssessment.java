@@ -5,6 +5,7 @@ public interface RiskAssessment {
     String getRiskType();
     double getNormalizedValue();
     double getMeasurementValue();
+    String getSeverityString();
     void setDescription();
     String getDescription();
     double[] getRGB();

@@ -3,6 +3,7 @@ package com.aau.p3.platform.controller;
 import com.aau.p3.Main;
 import com.aau.p3.platform.model.pdfcontents.PdfChapter;
 import com.aau.p3.platform.model.pdfcontents.PdfClimateState;
+import com.aau.p3.platform.model.pdfcontents.PdfMaps;
 import com.aau.p3.platform.model.pdfcontents.PdfOverview;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.utilities.ControlledScreen;
@@ -131,6 +132,7 @@ public class MainController {
         // Add chapters with content to list
         chapters.add(new PdfOverview(currentProperty.getAddress()));
         chapters.add(new PdfClimateState(currentProperty));
+        chapters.add(new PdfMaps(currentProperty.getRisks()));
 
         for (PdfChapter chapter : chapters) {
             PDPage page = new PDPage();

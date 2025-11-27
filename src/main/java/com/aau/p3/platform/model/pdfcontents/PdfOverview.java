@@ -39,5 +39,4 @@ public class PdfOverview extends PdfChapter {
         contentStream.showText("Address: " + decodedAddress);
         contentStream.endText();
     }
-
 }

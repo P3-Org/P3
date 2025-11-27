@@ -79,6 +79,8 @@ public class CoastalErosionRisk implements RiskAssessment {
         return this.measurementValue;
     }
 
+    @Override
+    public String getSeverityString() { return this.severityString; }
 
     @Override
     public void setDescription() {

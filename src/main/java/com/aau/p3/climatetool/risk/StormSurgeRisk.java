@@ -68,6 +68,9 @@ public class StormSurgeRisk implements RiskAssessment {
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
+    public String getSeverityString() { return ""; }
+
+    @Override
     public void setDescription() {
         this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af stormflod, skal havniveauet stige med " + String.format("%.2f", this.measurementValue) + " meter for, at oversvømme denne grund.";
     }

@@ -67,6 +67,9 @@ public class GroundwaterRisk implements RiskAssessment{
     public double getMeasurementValue() { return this.measurementValue; }
 
     @Override
+    public String getSeverityString() { return ""; }
+
+    @Override
     public void setDescription() {
         this.description = "I tilfælde af en 50-års hændelse, vil grundvandet ligge " + String.format("%.2f", this.measurementValue) + " meter fra matriklens overflade.";
     }

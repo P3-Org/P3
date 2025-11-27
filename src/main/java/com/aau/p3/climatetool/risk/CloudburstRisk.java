@@ -79,6 +79,9 @@ public class CloudburstRisk implements RiskAssessment {
         return this.measurementValue;
     }
 
+    @Override
+    public String getSeverityString() { return ""; }
+
     /**
      * Setter method. Sets description.
      */
