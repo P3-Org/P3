@@ -26,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextFlow;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.animation.KeyFrame;
@@ -37,7 +38,7 @@ import javafx.stage.Stage;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import javafx.util.StringConverter;
-
+import javafx.scene.text.Text;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.List;
@@ -458,10 +459,15 @@ public class HydrologicalToolController implements ControlledScreen {
         List<String> prevComments = Main.propertyManager.currentProperty.getComments();
         if (!prevComments.isEmpty()) {
             for (String comment : prevComments) {
-                Label label = new Label(comment);
-                label.setWrapText(true);
-                label.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
-                previousComments.getChildren().add(label);
+                // Make the comment a Text, so it may parse
+                Text text = new Text(comment);
+                text.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
+                // Insert the text in a TextFlow, to then insert it in the Vbox
+                TextFlow flow = new TextFlow(text);
+                flow.setMaxWidth(previousComments.getWidth());
+                flow.setPrefWidth(previousComments.getWidth());
+                flow.setLineSpacing(1.5);
+                previousComments.getChildren().add(flow);
             }
         }
     }
