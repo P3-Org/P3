@@ -21,10 +21,11 @@ public class PropertyManager {
             return true;
         }
 
-        // If the property doesn't exit in the local cache we check if it exists in the Database
+        /* If the property doesn't exit in the local cache we check if it exists in the Database
+        *  */
         Property loaded = PropertyRepository.loadProperty(address);
         if (loaded != null) {
-            addProperty(loaded);
+            propertyList.put(loaded.getAddress(), loaded); // Adds the property to property which is stored in memory
             return true;
         }
 
