@@ -43,8 +43,11 @@ public class CloudburstRisk implements RiskAssessment {
         // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
         this.threshold = thresholdRepository.getThreshold("cloudburst");
 
+        // Temporary measured value that is multiplied by 1000 to convert meters to milli meters
         double tempVal = measurementStrategy.processValues(value) * 1000;
-        // If process value is NaN - no risk data is found on the property, and the measure value is set to -1
+
+        /* If process value is NaN - no risk data is found on the property the measure value is set to 999.9
+        *  This is done if a property doesn't contain any data of cloudburst risk the label container will be green */
         this.measurementValue = Double.isNaN(tempVal) ? 999.9 : tempVal;
 
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);

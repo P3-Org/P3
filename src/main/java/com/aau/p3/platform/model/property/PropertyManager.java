@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Allows to save information on specific properties both in the hash map but also the database, to easily access again later
  */
 public class PropertyManager {
-    private static HashMap<String, Property> propertyList = new HashMap<>(); // read from DB instead of making new hashmap
+    private static HashMap<String, Property> propertyList = new HashMap<>();
 
     // Current property holds the last searched property, allowing for it to be easily accessible until a new one is searched
     public Property currentProperty;
@@ -21,10 +21,11 @@ public class PropertyManager {
             return true;
         }
 
-        // If the property doesn't exit in the local cache we check if it exists in the Database
+        /* If the property doesn't exit in the local cache we check if it exists in the Database.
+        *  If it exists in the DB we add it to the local cache and return true. */
         Property loaded = PropertyRepository.loadProperty(address);
         if (loaded != null) {
-            addProperty(loaded);
+            propertyList.put(loaded.getAddress(), loaded); // Adds the property to property which is stored in memory
             return true;
         }
 
@@ -42,6 +43,10 @@ public class PropertyManager {
     public static void updateDBSpecialistScore(Property property) {
         String address = property.getAddress();
         PropertyRepository.updateSpecialistScore(address, property.getSpecialistScore());
+    }
+
+    public static HashMap<String, Property> getPropertyList() {
+        return propertyList;
     }
 
     /**
