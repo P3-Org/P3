@@ -23,13 +23,20 @@ public class Indicator {
 
         Line lowerThreshold = new Line();
         Line upperThreshold = new Line();
+        Label lowerLabel;
+        Label upperLabel;
 
         lowerThreshold.setStrokeWidth(2);
         upperThreshold.setStrokeWidth(2);
 
-        Label lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
-        Label upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
-
+        if (risk.equals("coastalerosion")) {
+            lowerLabel = new Label("Lille fremrykning");
+            upperLabel = new Label("Stor fremrykning");
+        }
+        else {
+            lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
+            upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
+        }
         /* Set line heights, currently hardcoded because cba*/
         lowerThreshold.setStartY(14);
         lowerThreshold.setEndY(19);
