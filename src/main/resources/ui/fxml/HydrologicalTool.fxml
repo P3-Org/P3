@@ -416,7 +416,7 @@
                                     </graphic>
                                 </Button>
 
-                                <HBox fx:id="cloudBurstReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0" visible="false">
+                                <VBox fx:id="cloudBurstReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0" visible="false">
 
 
                                     <children>
@@ -433,10 +433,10 @@
 
                                     </children>
 
-                                </HBox>
+                                </VBox>
 
 
-                                <HBox fx:id="stormSurgeReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="10.0" visible="false">
+                                <VBox fx:id="stormSurgeReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0" visible="false">
 
                                     <children>
 
@@ -451,8 +451,8 @@
 
                                         <ToggleButton fx:id="stormSurge100year" contentDisplay="CENTER" maxWidth="Infinity" text="100 årshændelse : 2.24 m" toggleGroup="$stormSurgeToggleReturnEvent" textAlignment="CENTER" />
                                     </children>
-                                </HBox>
-                                <HBox fx:id="groundWaterReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="10.0" visible="false">
+                                </VBox>
+                                <VBox fx:id="groundWaterReturnEvent" layoutX="7.0" prefHeight="77.0" prefWidth="140.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="5.0" visible="false">
 
                                     <children>
 
@@ -472,7 +472,7 @@
 
                                         <ToggleButton fx:id="groundWater100year" contentDisplay="CENTER" maxWidth="Infinity" text="100 årshændelse" toggleGroup="$groundWaterToggleReturnEvent" textAlignment="CENTER" />
                                     </children>
-                                </HBox>
+                                </VBox>
 
 
                             </children>

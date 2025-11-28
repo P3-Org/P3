@@ -83,7 +83,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private ToggleButton cloudBurst2year, cloudBurst20year, cloudBurst50year, stormSurge20year, stormSurge50year, stormSurge100year, groundWater2year, groundWater5year, groundWater10year, groundWater20year, groundWater50year, groundWater100year;
 
     @FXML
-    private HBox cloudBurstReturnEvent, stormSurgeReturnEvent, groundWaterReturnEvent;
+    private VBox cloudBurstReturnEvent, stormSurgeReturnEvent, groundWaterReturnEvent;
 
     @FXML
     private GridPane labelContainer;
