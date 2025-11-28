@@ -138,6 +138,9 @@
         zIndex: 1
     })
 
+    // Force Leaflet to use 2D transforms.
+    L.Browser.any3d = false;
+
     // Creates the map
     var map = L.map('map', {
         center: [57.0488, 9.9217],
@@ -153,7 +156,6 @@
 
     // When the window is opened and loaded, add the tilelayers from the API's to the leaflet map.
     document.addEventListener('DOMContentLoaded', () => {
-        L.Browser.any3d = false; // Force Leaflet to use 2D transforms.
 
         // Control layers gives the ability to swap between the map objects satelliteMap and streetMap and display it on the map
         L.control.layers(baseMaps).addTo(map);
