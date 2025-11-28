@@ -31,13 +31,13 @@ public class Indicator {
 
         if (risk.equals("coastalerosion")) {
             lowerLabel = new Label("Stor erosion");
-            upperLabel = new Label("lille erosion");
+            upperLabel = new Label("Lille erosion");
         }
         else {
             lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
             upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
         }
-        /* Set line heights, currently hardcoded because cba*/
+
         lowerThreshold.setStartY(14);
         lowerThreshold.setEndY(19);
         upperThreshold.setStartY(14);
