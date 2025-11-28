@@ -30,8 +30,8 @@ public class Indicator {
         upperThreshold.setStrokeWidth(2);
 
         if (risk.equals("coastalerosion")) {
-            lowerLabel = new Label("Lille fremrykning");
-            upperLabel = new Label("Stor fremrykning");
+            lowerLabel = new Label("Stor erosion");
+            upperLabel = new Label("lille erosion");
         }
         else {
             lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
