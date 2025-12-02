@@ -123,14 +123,4 @@ class PropertyRepositoryTest {
         //Assertions.assertEquals(expectedSpecialistScore, loadedProperty.getSpecialistScore());
     }
 
-    @Test
-    void addCommentToDBTest(){
-
-        // Add a comment to property object
-
-        // check if the comment has been added to the DB
-
-        // Compare the comment
-
-    }
 }
