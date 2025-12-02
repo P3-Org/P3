@@ -27,7 +27,6 @@ public class RiskResult implements RiskAssessment {
     @Override public double[] getRGB() { return rgb; }
     @Override public double getNormalizedValue() { return normalizedValue; }
     @Override public double getMeasurementValue() { return measurementValue; }
-
     @Override public double[] getThresholds() { return thresholds; }
     @Override public String getRiskType() {
         return this.riskType;

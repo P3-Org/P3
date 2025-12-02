@@ -83,7 +83,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private ToggleButton cloudBurst2year, cloudBurst20year, cloudBurst50year, stormSurge20year, stormSurge50year, stormSurge100year, groundWater2year, groundWater5year, groundWater10year, groundWater20year, groundWater50year, groundWater100year;
 
     @FXML
-    private HBox cloudBurstReturnEvent, stormSurgeReturnEvent, groundWaterReturnEvent;
+    private VBox cloudBurstReturnEvent, stormSurgeReturnEvent, groundWaterReturnEvent;
 
     @FXML
     private GridPane labelContainer;
@@ -338,7 +338,9 @@ public class HydrologicalToolController implements ControlledScreen {
 
         setupSliderIndicators(currentProperty.getRisks());
 
+
         updateScoreButtons();
+        showPreviousComments();
 
         // Decode URL string to UTF-8
         String encodedAddress = currentProperty.getAddress();
@@ -350,8 +352,6 @@ public class HydrologicalToolController implements ControlledScreen {
         updateRiskDescriptions(groundwaterDescription, currentProperty.getRisks().get(1).getDescription());
         updateRiskDescriptions(stormSurgeDescription, currentProperty.getRisks().get(2).getDescription());
         updateRiskDescriptions(coastalErosionDescription, currentProperty.getRisks().get(3).getDescription());
-
-        showPreviousComments();
     }
 
     private void setStormSurgeSlider() {
@@ -455,7 +455,6 @@ public class HydrologicalToolController implements ControlledScreen {
             PropertyManager.updateDBSpecialistScore(currentProperty);
             updateScoreButtons();
         }
-
     }
 
     /**
@@ -533,22 +532,32 @@ public class HydrologicalToolController implements ControlledScreen {
 
     /**
      * Method for showing previous comments on a property.
-     * Gets comments in currentProperty as a List, then loops through the list and creates a Label for each comment,
+     * Gets comments in currentProperty as a List, then loops through the list and creates a Text for each comment,
      * and adds them to Vbox previousComments.
      */
     private void showPreviousComments(){
+        // Clears comments so when the function is called again when submitting a new comment, the new comment is also shown.
         previousComments.getChildren().clear();
+
+        // Gathers previous comments from the current property
         List<String> prevComments = Main.propertyManager.currentProperty.getComments();
+
         if (!prevComments.isEmpty()) {
             for (String comment : prevComments) {
                 // Make the comment a Text, so it may parse
                 Text text = new Text(comment);
                 text.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
-                // Insert the text in a TextFlow, to then insert it in the Vbox
+
+                // Bind wrapping width to previousComments width property, so it works on first launch
+                text.wrappingWidthProperty().bind(previousComments.widthProperty().subtract(10));
+
+                // Convert to a TextFlow, set width and line spacing
                 TextFlow flow = new TextFlow(text);
-                flow.setMaxWidth(previousComments.getWidth());
-                flow.setPrefWidth(previousComments.getWidth());
+                flow.prefWidthProperty().bind(previousComments.widthProperty());
+                flow.maxWidthProperty().bind(previousComments.widthProperty());
                 flow.setLineSpacing(1.5);
+
+                // Adds the TextFlow element to the Vbox
                 previousComments.getChildren().add(flow);
             }
         }

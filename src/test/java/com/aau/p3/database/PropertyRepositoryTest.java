@@ -122,5 +122,4 @@ class PropertyRepositoryTest {
         // Compare the new changed value to the one in the DB
         //Assertions.assertEquals(expectedSpecialistScore, loadedProperty.getSpecialistScore());
     }
-
 }

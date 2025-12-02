@@ -49,7 +49,7 @@ public class AddressLookupController implements ControlledScreen  {
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
                         URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
-                        new Customer("Alice Johnson", 432907621, 22334455, "alice@johnson.com"),
+                        new Customer("Alice Johnson", 432907620, 22334455, "alice@johnson.com"),
                         StatusEnum.APPROVED),
                 new Case(2,
                         URLDecoder.decode("Danmarksgade+88%2C+9000+Aalborg", StandardCharsets.UTF_8),
@@ -57,7 +57,15 @@ public class AddressLookupController implements ControlledScreen  {
                         StatusEnum.REJECTED),
                 new Case(3,
                         URLDecoder.decode("Heimdalsgade+12%2C+9000+Aalborg", StandardCharsets.UTF_8),
-                        new Customer("Marcus Jonathan", 675443284, 66554433, "marcus97@jonathan.com"),
+                        new Customer("Marcus Jonathan", 675443283, 44556677, "marcus@jonathan.com"),
+                        StatusEnum.PENDING),
+                new Case(4,
+                        URLDecoder.decode("Bispensgade+10A%2C+9000+Aalborg", StandardCharsets.UTF_8),
+                        new Customer("Louise Madsen", 215745284, 55667788, "louise@madsen.com"),
+                        StatusEnum.PENDING),
+                new Case(5,
+                        URLDecoder.decode("H%C3%B8kervej+5%2C+9492+Blokhus", StandardCharsets.UTF_8),
+                        new Customer("Martin Ødegaard", 528421577, 66778899, "martin@oedegaard.com"),
                         StatusEnum.PENDING)
         );
 

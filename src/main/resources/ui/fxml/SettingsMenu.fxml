@@ -85,7 +85,6 @@
             <HBox spacing="5" GridPane.rowIndex="6" GridPane.columnIndex="3" alignment="CENTER_LEFT">
                 <Label text="Nuværende grænseværdi:" />
                 <Label fx:id="coastalErosionCurrentLower" style="-fx-text-fill: blue;" />
-                <Label text="m havvandsstigning" />
             </HBox>
 
             <Label text="Øvre:" GridPane.rowIndex="7" GridPane.columnIndex="1" />
@@ -93,7 +92,6 @@
             <HBox spacing="5" GridPane.rowIndex="7" GridPane.columnIndex="3" alignment="CENTER_LEFT">
                 <Label text="Nuværende grænseværdi:" />
                 <Label fx:id="coastalErosionCurrentUpper" style="-fx-text-fill: blue;" />
-                <Label text="mm/t" />
             </HBox>
 
         </GridPane>

@@ -23,18 +23,28 @@ public class Indicator {
 
         Line lowerThreshold = new Line();
         Line upperThreshold = new Line();
+        Label lowerLabel;
+        Label upperLabel;
 
         lowerThreshold.setStrokeWidth(2);
         upperThreshold.setStrokeWidth(2);
 
-        Label lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
-        Label upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
+        if (risk.equals("coastalerosion")) {
+            lowerLabel = new Label("Stor erosion");
+            upperLabel = new Label("Lille erosion");
+        }
+        else {
+            lowerLabel = new Label(thresholdValues[0] + " " + siPrefix);
+            upperLabel = new Label(thresholdValues[1] + " " + siPrefix);
+        }
 
-        /* Set line heights, currently hardcoded because cba*/
-        lowerThreshold.setStartY(19);
-        lowerThreshold.setEndY(23);
-        upperThreshold.setStartY(19);
-        upperThreshold.setEndY(23);
+        lowerThreshold.setStartY(14);
+        lowerThreshold.setEndY(19);
+        upperThreshold.setStartY(14);
+        upperThreshold.setEndY(19);
+
+        lowerLabel.setLayoutY(-2);
+        upperLabel.setLayoutY(-2);
 
         /* Set the line X position - This scales with the length of the AnchorPane(indicator) that the lines are contained within.
         example: indicator.width = 100      Threshold = {10,20}
