@@ -62,7 +62,7 @@ public class RiskFactory {
         riskAssessments.get(0).computeRiskMetrics(PolygonCoordinates);
         riskAssessments.get(1).computeRiskMetrics(eastNorth);
         riskAssessments.get(2).computeRiskMetrics(PolygonCoordinates);
-        riskAssessments.get(3).computeRiskMetrics(PolygonCoordinates);
+        riskAssessments.get(3).computeRiskMetrics(eastNorth);
 
         return riskAssessments;
     }
