@@ -12,6 +12,8 @@ public class ColorManager {
         PolynomialInterface green = new GreenPolynomial(normalizedMeasurement);
         PolynomialInterface blue = new BluePolynomial(normalizedMeasurement);
 
+        System.out.println("Red: " + red.getColorValue() + " green: " + green.getColorValue() + " blue: " + blue.getColorValue());
+
         return new double[]{red.getColorValue(), green.getColorValue(), blue.getColorValue()};
     }
 }
