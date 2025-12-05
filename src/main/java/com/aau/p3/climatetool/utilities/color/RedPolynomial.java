@@ -27,7 +27,7 @@ public class RedPolynomial implements PolynomialInterface {
         }
         // If the measurement is over the middle of the thresholds and under the upper threshold
         else if (normalizedMeasurement > 0.5 && normalizedMeasurement < 1) {
-            return 560 * Math.pow((normalizedMeasurement - 0.5), 2) - 680 * (normalizedMeasurement - 0.5) + 250;
+            return -560 * Math.pow((1 - normalizedMeasurement), 2) + 680 * (1 - normalizedMeasurement) + 50;
         }
         // If the measurement is over the upper threshold
         else {
