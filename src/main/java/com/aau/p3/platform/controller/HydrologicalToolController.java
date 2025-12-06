@@ -6,15 +6,11 @@ import com.aau.p3.climatetool.popUpMessages.RiskInfoService;
 import com.aau.p3.climatetool.utilities.color.RiskBinderInterface;
 import com.aau.p3.climatetool.utilities.color.RiskLabelBinder;
 import com.aau.p3.climatetool.utilities.*;
-import com.aau.p3.database.PropertyRepository;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import com.aau.p3.climatetool.utilities.Indicator;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,13 +37,13 @@ import javafx.util.StringConverter;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Class that handles the hydrological tool controller and window
  */
 public class HydrologicalToolController implements ControlledScreen {
+    @FXML
+    public Button screenshot;
     // Initialisation of toggles, s.t. they're visible to the FXML file
     @FXML
     private ToggleButton cloudburstToggle = new ToggleButton();
@@ -138,6 +134,10 @@ public class HydrologicalToolController implements ControlledScreen {
         WebView webView = new WebView();
         webEngine = webView.getEngine();
 
+        // Callback for pictures
+
+
+
         // Make variable for HTML file with all relevant map data and information
         var mapResource = getClass().getResource("/mapData/index.html");
 
@@ -214,6 +214,13 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
+        // Take screenshots
+        screenshot.setOnAction(event ->{
+            String res = (String) webEngine.executeScript("getEmptyMapScreenshot()");
+            System.out.println("img: " + res);
+
+        });
+
         cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setCadastral()");
@@ -248,6 +255,7 @@ public class HydrologicalToolController implements ControlledScreen {
                 showPropertyMarker(this.currentProperty.getLatLongCoordinates());
             }
         });
+
     }
 
     public void afterInitialize() {
@@ -529,4 +537,9 @@ public class HydrologicalToolController implements ControlledScreen {
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
+
+    private void handle(String value) {
+        System.out.println("Got from JS: " + value);
+    }
+
 }

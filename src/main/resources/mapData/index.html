@@ -45,6 +45,8 @@
         crossorigin=""
 ></script>
 <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-simple-map-screenshoter"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
     // The different storm surge styles, signify increase in sea level in m.
     const stormSurgeMap = {
@@ -78,9 +80,20 @@
     };
 
     // Predefine variables for later use.
+    let emptyMap = "";
     const Legend = L.control({ position: 'bottomright' });
     let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
-    map = L.map('map').setView([57.0488, 9.9217], 17);
+        map = L.map('map');
+        map.on('load', getEmptyMapScreenshot);
+        map.setView([57.0488, 9.9217], 17);
+
+    const screenshoter = L.simpleMapScreenshoter({
+        hidden: true,         // don't show the default button
+        screenName: "map",    // default filename for save
+        mimeType: "image/png",
+        preventDownload: true // VERY IMPORTANT → we want to capture as base64 string
+    }).addTo(map);
+
 
     // When the window is opened and loaded, call the api for the map.
     document.addEventListener('DOMContentLoaded', () => {
@@ -95,6 +108,7 @@
 
         // Variable used for inserting the different overlays from wms.
         climateOverlay;
+        takeEmptyMapScreenshot();
     });
 
     // Functions for changing the API calls when moving the slider.
@@ -267,6 +281,80 @@
         const lon = parseFloat(coords[1]);
         propertyMarker = L.marker([lat, lon], { icon: redPinIcon }).addTo(map);
     }
+
+    window.getMapScreenshotBlob = async function() {
+        const blob = await screenshoter.takeScreen("blob");
+
+        return await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result); // Base64 data URL
+            reader.readAsDataURL(blob);
+        });
+    };
+
+    window.getMapScreenshot = async function() {
+        return await screenshoter.takeScreen("image")
+    };
+
+    let pngArray = [];
+
+    async function takeAllScreenshots() {
+
+        setCloudburst();
+        pngArray.push(await getMapScreenshot());
+        removeClimateLayer();
+
+        setGroundwater();
+        pngArray.push(await getMapScreenshot());
+        removeClimateLayer();
+
+        setStormSurge();
+        pngArray.push(await getMapScreenshot());
+        removeClimateLayer();
+
+        setErosion();
+        pngArray.push(await getMapScreenshot());
+        removeClimateLayer();
+    }
+
+    function getScreenshotCloudburst() {
+        return pngArray[0];
+    }
+
+    function getScreenshotGroundwater() {
+        return pngArray[1];
+    }
+
+    function getScreenshotStormSurge() {
+        return pngArray[2];
+    }
+
+    function getScreenshotCoastalErosion() {
+        return pngArray[3];
+    }
+
+    function testPng() {
+        let res;
+        setErosion();
+        res = getMapScreenshot();
+        removeClimateLayer();
+        return res
+    }
+
+    async function takeEmptyMapScreenshot() {
+        emptyMap = await getMapScreenshot2();
+    }
+
+    function getEmptyMapScreenshot() {
+        return emptyMap;
+    }
+
+    async function getMapScreenshot2() {
+        const mapDiv = document.getElementById("map");
+        const canvas = await html2canvas(mapDiv);
+        return canvas.toDataURL("image/png");
+    }
+
 </script>
 </body>
 </html>

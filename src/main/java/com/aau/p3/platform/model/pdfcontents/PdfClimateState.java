@@ -63,6 +63,7 @@ public class PdfClimateState extends PdfChapter{
             String firstLinePrefix = riskTitles.get(i);
             contentStream.showText(firstLinePrefix);
             contentStream.newLineAtOffset(0, -15);
+            contentStream.showText("Hey mama");
 
             float indent = font.getStringWidth(firstLinePrefix) / 1000 * fontSize;
 
