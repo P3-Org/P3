@@ -40,6 +40,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import javafx.util.StringConverter;
 import javafx.scene.text.Text;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 import java.util.List;
@@ -330,6 +332,9 @@ public class HydrologicalToolController implements ControlledScreen {
                 showPropertyMarker(this.currentProperty.getLatLongCoordinates());
             }
         });
+
+        // Listeners for save-at-exit
+
     }
 
     public void afterInitialize() {
@@ -518,8 +523,8 @@ public class HydrologicalToolController implements ControlledScreen {
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
         if (!comment.isEmpty()) {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-            String timestamp = LocalDate.now().format(dateFormatter);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+            String timestamp = LocalDateTime.now().format(dateFormatter);
             String fullComment = timestamp + "\n" + comment;
             Main.propertyManager.currentProperty.setComment(fullComment);
             PropertyManager.addCommentToDB(currentProperty, fullComment);
@@ -626,4 +631,6 @@ public class HydrologicalToolController implements ControlledScreen {
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
+
+
 }
