@@ -10,11 +10,11 @@ public class NormalizeSample {
      */
     public static double minMaxNormalization(double measurementValue, double[] thresholds) {
         if (Double.isNaN(measurementValue)) {
-            return 1.5;
+            return 1.25;
         }
 
         if (thresholds.length != 2) {
-            throw new IllegalArgumentException("max and min threshold must differ");
+            throw new IllegalArgumentException("Only pass two elements inside the thresholds array");
         }
 
         return (measurementValue - thresholds[0]) / (thresholds[1] - thresholds[0]);
