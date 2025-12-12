@@ -152,7 +152,7 @@ public class HydrologicalToolController implements ControlledScreen {
         // Initialize sliders functionality
         this.setStormSurgeSlider();
         this.setCloudBurstSlider();
-
+        System.out.println("Vi har fundet en adresse!");
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
         WebView webView = new WebView();
         webEngine = webView.getEngine();

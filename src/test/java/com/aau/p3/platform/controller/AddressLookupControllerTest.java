@@ -58,15 +58,17 @@ class AddressLookupControllerTest extends ApplicationTest {
 
         // Simulate a user
         // Change address search filed to test Address
+        System.out.println("Søger adresse!");
         interact(() -> lookup("#addressSearchField").queryAs(TextField.class)
                 .setText(testAddress));
         push(KeyCode.ENTER);
+        System.out.println("Adresse søgt!");
 
         // Wait max 20 seconds for data to be gathered from API/DB
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () ->
                 lookup("#mapAnchor").tryQuery().isPresent()
         );
-
+        System.out.println("Vi fandt et map anchor!");
         activeScreen = MainController.getActiveScreen();
         Assertions.assertEquals("HydrologicalToolController", activeScreen.toString());
 
