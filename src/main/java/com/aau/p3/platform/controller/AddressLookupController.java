@@ -85,4 +85,10 @@ public class AddressLookupController implements ControlledScreen  {
     private void setWindowHydrologicalTool() {
         mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
+
+    @Override
+    public String toString(){
+        return "AddressLookupController";
+    }
+
 }
