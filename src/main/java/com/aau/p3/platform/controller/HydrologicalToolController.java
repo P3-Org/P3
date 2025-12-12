@@ -641,5 +641,9 @@ public class HydrologicalToolController implements ControlledScreen {
         }
     }
 
+    @Override
+    public String toString(){
+        return "HydrologicalToolController";
+    }
 
 }

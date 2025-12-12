@@ -11,5 +11,7 @@ public interface ControlledScreen {
 
     // Called when the view is about to be replaced
     default void onHide() {};
+
+
 }
 
