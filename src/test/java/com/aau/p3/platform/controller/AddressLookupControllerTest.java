@@ -66,7 +66,8 @@ class AddressLookupControllerTest extends ApplicationTest {
 
         // Wait max 20 seconds for data to be gathered from API/DB
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () ->
-                lookup("#mapAnchor").tryQuery().isPresent()
+                lookup("#scoreDownButton").tryQuery().isPresent()
+
         );
         System.out.println("Vi fandt et map anchor!");
         activeScreen = MainController.getActiveScreen();
