@@ -33,15 +33,15 @@ jobs:
         sudo apt-get install -y \
           libgtk-3-0 \
           libgtk-3-dev \
-          libglu1-mesa \
           libgl1-mesa-dri \
-          libgl1-mesa-glx \
+          libgl1-mesa-dev \
           libxext6 \
           libxrender1 \
           libxtst6 \
           libxrandr2 \
           libxi6 \
-          libasound2
+          libasound2t64
+
           
     - name: Build with Maven
       run: xvfb-run -a mvn -B package --file pom.xml
