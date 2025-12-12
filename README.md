@@ -1,14 +1,30 @@
 # P3
-P3 Project giga chads
-Oppan Gangnam seutail
-Gangnam seutail
+## Collaborators
 
-Run configurations for JavaFX:
-1. Download denne først: https://gluonhq.com/products/javafx/
-1. Edit configuration
-2. Add main class ved at trykke på plusset i venstre hjørne
-2. Motify options (drop down menu)
-    3. Add VM-option
-3. Tilføj følgende linje til dette felt men ændrer til den sti hvor du har gemt mappen. GEM IKKE I PROJEKT MAPPEN
+- Frederik Sperling Schacksen (https://github.com/FrederikSperling)
+- Søren Emil Schmidt-Laugesen (https://github.com/SorenAAU)
+- Mathias Østerskov Kejser (https://github.com/GakkiOne)
+- David Henning Bach (https://github.com/DrMachoo)
+- Mads Møller Pedersen (https://github.com/MadsMoneyCrank)
+- Victoria Myrup Pedersen (https://github.com/Venil0u)
+- William Strandby Bauer (https://github.com/TheGingong)
 
---add-modules javafx.controls,javafx.fxml --module-path "C:\Users\frede\javafx-sdk-25.0.1\lib"
+
+## How To Run The Program
+
+- Download the files from Github
+- Have Maven installed and added to path
+- To run the program:
+  - With IntelliJ run the configuration "Run"
+  - Else run "mvn javafx::run" in terminal from project root
+ 
+## How to use the program
+
+- Search for an address (only in Aalborg, Herning or Blokhus)
+- Observe the data:
+  - Visualize map overlays
+  - Change climatescore
+  - Write comment
+  - Change thresholds
+- Export the valuation document to PDF
+- Search for another address
