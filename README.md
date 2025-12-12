@@ -13,11 +13,11 @@
 ## How To Run The Program
 
 - Download the files from Github
-- Have version 25+ of Java installed and added to **`PATH`**
-- Have Maven installed and added to **`PATH`**
+- Have version 25+ of Java installed and added to **`PATH`** (Windows menu ->  Edit the system environment variables -> Environment Variables -> System variables, find PATH, press Edit, and then add Java)
+- Have Maven installed and added to **`PATH`** (Windows menu ->  Edit the system environment variables -> Environment Variables -> System variables, find PATH, press Edit, and then add Maven)
 - To run the program:
   - With IntelliJ run the configuration "Run"
-  - Else run "mvn javafx::run" in terminal from project root
+  - Else run "mvn javafx::run" in terminal from project root **P3**
  
 ## How to use the program
 
@@ -25,7 +25,7 @@
 - Observe the data:
   - Visualize map overlays
   - Change climatescore
-  - Write comment
+  - Write comments
   - Change thresholds
 - Export the valuation document to PDF
 - Search for another address
