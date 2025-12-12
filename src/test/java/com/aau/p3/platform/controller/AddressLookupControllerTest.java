@@ -63,6 +63,7 @@ class AddressLookupControllerTest extends ApplicationTest {
                 .setText(testAddress));
         push(KeyCode.ENTER);
         System.out.println("Adresse søgt!");
+        System.out.println("Active screen: " + activeScreen);
 
         // Wait max 20 seconds for data to be gathered from API/DB
         WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () ->
