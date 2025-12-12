@@ -57,6 +57,7 @@ public class MainController {
      * @param fxml file
      */
     public void setCenter(String fxml) {
+        System.out.println("setCenter() CALLED with: " + fxml);
         try {
             // Call onHide() on the previous screen if it exists
             if (activeScreen != null) {

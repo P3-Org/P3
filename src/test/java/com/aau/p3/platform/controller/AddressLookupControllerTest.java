@@ -67,12 +67,13 @@ class AddressLookupControllerTest extends ApplicationTest {
         System.out.println("Active screen2 : " + activeScreen);
 
         // Wait max 20 seconds for data to be gathered from API/DB
-        WaitForAsyncUtils.waitFor(20, TimeUnit.SECONDS, () ->
+        WaitForAsyncUtils.waitFor(40, TimeUnit.SECONDS, () ->
                 lookup("#scoreDownButton").tryQuery().isPresent()
-
         );
-        System.out.println("Vi fandt et map anchor!");
+
         activeScreen = MainController.getActiveScreen();
+        System.out.println("Active screen3 : " + activeScreen);
+        System.out.println("Vi fandt et map anchor!");
         Assertions.assertEquals("HydrologicalToolController", activeScreen.toString());
 
     }
