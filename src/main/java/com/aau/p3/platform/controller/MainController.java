@@ -39,7 +39,7 @@ public class MainController {
     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
-        setCenter("/ui/fxml/AddressLookup.fxml");
+        //setCenter("/ui/fxml/AddressLookup.fxml");
         updateClimateButtonVisibility();
     }
 
@@ -58,6 +58,7 @@ public class MainController {
      */
     public void setCenter(String fxml) {
         System.out.println("setCenter() CALLED with: " + fxml);
+        //Thread.dumpStack();
         try {
             // Call onHide() on the previous screen if it exists
             if (activeScreen != null) {

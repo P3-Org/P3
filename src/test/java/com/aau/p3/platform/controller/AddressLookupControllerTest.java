@@ -4,6 +4,7 @@ import com.aau.p3.Main;
 import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
@@ -49,13 +50,15 @@ class AddressLookupControllerTest extends ApplicationTest {
 
     @Test
     void HydrologicalToolIntergration() throws TimeoutException {
-        System.out.println("Active screen1 : " + activeScreen);
-        Assertions.assertEquals("AddressLookupController", activeScreen.toString());
 
         // Wait max 10 seconds for program to start
         WaitForAsyncUtils.waitFor(10, TimeUnit.SECONDS, () ->
                         lookup("#addressSearchField").tryQuery().isPresent()
         );
+
+        System.out.println("Active screen1 : " + activeScreen);
+        Assertions.assertEquals("AddressLookupController", activeScreen.toString());
+
 
         // Simulate a user
         // Change address search filed to test Address

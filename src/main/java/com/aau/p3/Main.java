@@ -1,7 +1,9 @@
 package com.aau.p3;
 
+import com.aau.p3.platform.controller.MainController;
 import com.aau.p3.platform.model.property.PropertyManager;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,6 +27,8 @@ public class Main extends Application {
             /* .load() returns a reference to the outermost tag in the fxml file (<splitPane> in mainWindow), which is needed to display the gui */
             Parent root = loader.load();
             primaryStage.setTitle("Nykredit Platform");
+
+            MainController mainController = loader.getController();
 
             // Adds the nykredit logo to the application
             primaryStage.getIcons().add(
