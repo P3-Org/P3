@@ -13,7 +13,8 @@
 ## How To Run The Program
 
 - Download the files from Github
-- Have Maven installed and added to path
+- Have version 25+ of Java installed and added to **`PATH`**
+- Have Maven installed and added to **`PATH`**
 - To run the program:
   - With IntelliJ run the configuration "Run"
   - Else run "mvn javafx::run" in terminal from project root
