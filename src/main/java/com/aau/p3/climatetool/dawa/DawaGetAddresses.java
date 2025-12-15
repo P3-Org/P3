@@ -7,9 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class
- */
+/** Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class */
 public class DawaGetAddresses {
     private final List<String> addresses = new ArrayList<>();
 
@@ -31,7 +29,7 @@ public class DawaGetAddresses {
     }
 
     /** Getter method for the list of address suggestions.
-     * @return addresses
+     * @return list of addresses
      */
     public List<String> getAddresses(){
         return addresses;
