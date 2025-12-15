@@ -1,6 +1,5 @@
 package com.aau.p3.climatetool.utilities;
 
-public interface ThresholdRepositoryInterface {
 /**
  * Interface that implements a threshold repository and methods for getting and updating them.
  */
