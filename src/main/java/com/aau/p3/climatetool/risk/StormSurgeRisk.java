@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class StormSurgeRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
-    private final ThresholdRepository thresholdRepository;
+    private final ThresholdRepositoryInterface thresholdRepository;
     private final MeasurementStrategy measurementStrategy;
     private double measurementValue;
     private double[] threshold;
@@ -19,7 +19,7 @@ public class StormSurgeRisk implements RiskAssessment {
     private String description = "Ingen data tilgængelig";
 
     /* Constructor for final attributes */
-    public StormSurgeRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
+    public StormSurgeRisk(GeoDataReader geoDataReader, ThresholdRepositoryInterface thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;

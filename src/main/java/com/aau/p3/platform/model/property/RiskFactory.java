@@ -5,11 +5,10 @@ import com.aau.p3.climatetool.risk.CoastalErosionRisk;
 import com.aau.p3.climatetool.risk.GroundwaterRisk;
 import com.aau.p3.climatetool.risk.StormSurgeRisk;
 import com.aau.p3.climatetool.strategy.AverageMeasurementStrategy;
-import com.aau.p3.climatetool.strategy.MaxMeasurementStrategy;
 import com.aau.p3.climatetool.strategy.MinMeasurementStrategy;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
+import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +18,14 @@ import java.util.List;
  */
 public class RiskFactory {
     private final GeoDataReader geoReader;
-    private final ThresholdRepository thresholdRepo;
+    private final ThresholdRepositoryInterface thresholdRepo;
 
     /**
      * Constructor for final fields in RiskFactory class
      * @param geoReader reader for geo data
      * @param thresholdRepo reader for database thresholds
      */
-    public RiskFactory(GeoDataReader geoReader, ThresholdRepository thresholdRepo) {
+    public RiskFactory(GeoDataReader geoReader, ThresholdRepositoryInterface thresholdRepo) {
         this.geoReader = geoReader;
         this.thresholdRepo = thresholdRepo;
     }

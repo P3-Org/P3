@@ -7,7 +7,6 @@ import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -15,21 +14,16 @@ import java.util.Arrays;
 public class SettingsMenuController implements ControlledScreen {
     private MainController mainController;
     private List<List<TextField>> textFieldList = new ArrayList<>();
-
-    @FXML
-    private TextField cloudBurstLower, cloudBurstUpper, groundWaterLower, groundWaterUpper,
-                      stormSurgeLower, stormSurgeUpper, coastalErosionLower, coastalErosionUpper;
-
-
-    @FXML
-    private Label cloudBurstCurrentLower, cloudBurstCurrentUpper,
-            groundWaterCurrentLower, groundWaterCurrentUpper,
-            stormSurgeCurrentLower, stormSurgeCurrentUpper,
-            coastalErosionCurrentLower, coastalErosionCurrentUpper;
+    @FXML private TextField cloudBurstLower, cloudBurstUpper, groundWaterLower, groundWaterUpper, stormSurgeLower, stormSurgeUpper, coastalErosionLower, coastalErosionUpper;
+    @FXML private Label cloudBurstCurrentLower, cloudBurstCurrentUpper, groundWaterCurrentLower, groundWaterCurrentUpper, stormSurgeCurrentLower, stormSurgeCurrentUpper, coastalErosionCurrentLower, coastalErosionCurrentUpper;
 
     /**
      * Method called upon loading the controller, retrives the currect threshold values stored in the database
      * and displays then on a label.
+     */
+    /**
+     * Initialization method. This method is run to assemble contents of the page.
+     * In this case, it simply gets a hold of where to define the thresholds, and fills that with the given values.
      */
     @FXML
     public void initialize() {
@@ -39,7 +33,6 @@ public class SettingsMenuController implements ControlledScreen {
         setThresholdLabels(repo.getThreshold("groundwater"), groundWaterCurrentLower, groundWaterCurrentUpper);
         setThresholdLabels(repo.getThreshold("stormsurge"), stormSurgeCurrentLower, stormSurgeCurrentUpper);
         setThresholdLabels(repo.getThreshold("coastalerosion"), coastalErosionCurrentLower, coastalErosionCurrentUpper);
-
     }
 
     private void setThresholdLabels(double[] thresholdValues, Label lowerLbl, Label upperLbl) {

@@ -1,19 +1,18 @@
 package com.aau.p3.platform.model.pdfcontents;
-
-import com.aau.p3.Main;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.platform.model.property.Property;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.json.JSONArray;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PdfClimateState extends PdfChapter{
+/**
+ * Class to represent a chapter in a PDF containing climate state information.
+ */
+public class PDFClimateState extends PDFChapter{
     private int climateScore;
     private List<String> comments;
     private List<RiskAssessment> risks;
@@ -24,24 +23,37 @@ public class PdfClimateState extends PdfChapter{
         add("Kysterosion: ");
     }};
 
-    public PdfClimateState(Property currentProperty) {
+    /**
+     * Constructor to create a chapter based on a given (current) property.
+     */
+    public PDFClimateState(Property currentProperty) {
         this.climateScore = currentProperty.getClimateScore();
         this.risks = currentProperty.getRisks();
+
         if (currentProperty.getComments() != null && !currentProperty.getComments().isEmpty()) {
             this.comments = currentProperty.getComments();
         }
     }
 
+    /**
+     * Method to provide the title of the chapter.
+     * @return The title "Klimastand".
+     */
     @Override
     public String getTitle(){
         return "Klimastand";
     }
 
+    /**
+     * Method to render the contents of the chapter following the title.
+     * @param document The PDDocument in which the following content will be inserted and formatted as instructed.
+     * @param contentStream The sequence of instructions on how to construct the pages of the PDF.
+     */
     @Override
     public void render(PDDocument document, PDPageContentStream contentStream) throws IOException {
-        // General normal font and size for repeated use
         PDFont font = PDType1Font.HELVETICA;
         float fontSize = 12;
+
         // Writes the chapter title.
         contentStream.beginText();
         contentStream.setFont(PDType1Font.HELVETICA_BOLD, 16);
@@ -56,7 +68,7 @@ public class PdfClimateState extends PdfChapter{
         contentStream.showText("Estimeret klimastand: " + climateScore);
         contentStream.newLineAtOffset(0, -15);
 
-        // Writes the descriptions for all the risks
+        // Writes the descriptions for all the risks.
         contentStream.setFont(font, fontSize);
         contentStream.newLineAtOffset(0, -15);
         for (int i = 0; i < riskTitles.size(); i++){
@@ -72,27 +84,26 @@ public class PdfClimateState extends PdfChapter{
             contentStream.newLineAtOffset(0, -15);
         }
 
-
-        // If any comments were given, display those
+        // If any comments were given, display those.
         if (comments != null && !comments.isEmpty()) {
             contentStream.newLineAtOffset(0, -15);
 
             for (String comment : comments) {
-                String[] lines = comment.split("\\R"); // Split at newlines given by specialist
+                String[] lines = comment.split("\\R"); // Split at possible newlines given by specialist.
 
                 if (lines.length > 0) {
-                    // First line with "Kommentar: "
+                    // First line is written as "Kommentar: ".
                     String firstLinePrefix = "Kommentar: ";
                     contentStream.showText(firstLinePrefix + lines[0]);
                     contentStream.newLineAtOffset(0, -15);
 
-                    // Calculate dynamic indent for subsequent lines
+                    // Calculate dynamic indent for subsequent lines.
                     float indent = font.getStringWidth(firstLinePrefix) / 1000 * fontSize;
 
                     for (int j = 1; j < lines.length; j++) {
-                        contentStream.newLineAtOffset(indent, 0); // Move right by indent, then show text
+                        contentStream.newLineAtOffset(indent, 0); // Move right by indent, then show text.
                         contentStream.showText(lines[j]);
-                        contentStream.newLineAtOffset(-indent, -15); // Move back to original X, down by line height
+                        contentStream.newLineAtOffset(-indent, -15); // Move back to original X, down by line height.
                     }
                 }
             }
