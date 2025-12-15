@@ -54,27 +54,24 @@ class AddressLookupControllerTest extends ApplicationTest {
                         lookup("#addressSearchField").tryQuery().isPresent()
         );
 
-        System.out.println("Active screen1 : " + activeScreen);
+        // Assert if the active page is "AddressLookup"
         Assertions.assertEquals("AddressLookupController", activeScreen.toString());
 
 
         // Simulate a user
         // Change address search filed to test Address
-        System.out.println("Søger adresse!");
         interact(() -> lookup("#addressSearchField").queryAs(TextField.class)
                 .setText(testAddress));
         push(KeyCode.ENTER);
-        System.out.println("Adresse søgt!");
-        System.out.println("Active screen2 : " + activeScreen);
 
-        // Wait max 20 seconds for data to be gathered from API/DB
-        WaitForAsyncUtils.waitFor(40, TimeUnit.SECONDS, () ->
+
+        // Wait max 30 seconds for data to be gathered from API/DB
+        WaitForAsyncUtils.waitFor(30, TimeUnit.SECONDS, () ->
                 lookup("#scoreDownButton").tryQuery().isPresent()
         );
 
+        // Assert the screen has changed
         activeScreen = MainController.getActiveScreen();
-        System.out.println("Active screen3 : " + activeScreen);
-        System.out.println("Vi fandt et map anchor!");
         Assertions.assertEquals("HydrologicalToolController", activeScreen.toString());
 
     }
