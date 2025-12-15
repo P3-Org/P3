@@ -297,7 +297,7 @@
                                   <bottom>
                                       <ButtonBar prefHeight="40.0">
                                           <buttons>
-                                              <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Gem kommentar" />
+                                              <Button fx:id="sendComment" mnemonicParsing="false" onAction="#commentButtonHandler" text="Send kommentar" />
                                           </buttons>
                                           <opaqueInsets>
                                     <Insets />
