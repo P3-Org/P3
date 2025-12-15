@@ -18,13 +18,13 @@ public class SelectTiff {
                 listOfTifFiles.add(name);
             }
         }
-
         return listOfTifFiles;
     }
 
     /**
-     * Helper method used to find tif files corresponding to the given coordinates given.
+     * Helper method used to complete the entire file name of the tif files
      * @param coordinates double array
+     * @param fileTag string that specifies the prefix of geotiff file naming e.g. "SIMRAIN"
      * @return tif file name
      */
     private static String getFileName(double[] coordinates, String fileTag) {
