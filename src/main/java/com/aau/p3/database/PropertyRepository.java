@@ -144,17 +144,17 @@ public class PropertyRepository {
     /**
      * Method for updating the database with the newly changed specialist score
      * @param address contains the address of the property
-     * @param specialistScore contains the specialist score that is in the interval [-1..1]
+     * @param specialistAdjustment contains the specialist score that is in the interval [-1..1]
      */
-    public static void updateSpecialistScore(String address, int specialistScore) {
+    public static void updateSpecialistAdjustment(String address, int specialistAdjustment) {
         String sql = "UPDATE properties " +
-                "SET propertyObject = json_set(propertyObject, '$.specialistScore', ?) " +
+                "SET propertyObject = json_set(propertyObject, '$.specialistAdjustment', ?) " +
                 "WHERE Address = ?;";
 
         try (Connection conn = ConnectToDB.connect("climateTool.db");
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setInt(1, specialistScore);
+            stmt.setInt(1, specialistAdjustment);
             stmt.setString(2, address);
             stmt.executeUpdate();
 

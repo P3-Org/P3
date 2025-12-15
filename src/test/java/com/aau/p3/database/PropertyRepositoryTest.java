@@ -111,11 +111,11 @@ class PropertyRepositoryTest {
 
         // Insert a specialist score into a property and save.
         property.calculateClimateScore();
-        property.setSpecialistScore(-1);
+        property.applySpecialistAdjustment(-1);
         PropertyRepository.saveProperty(property);
 
         // Change the score
-        PropertyRepository.updateSpecialistScore(property.getAddress(), property.getSpecialistScore());
+        PropertyRepository.updateSpecialistAdjustment(property.getAddress(), property.getSpecialistAdjustment());
 
         Property loadedProperty = PropertyRepository.loadProperty(testAddress);
 
