@@ -70,9 +70,6 @@ public class HydrologicalToolController implements ControlledScreen {
     private Button returnToCenter = new Button();
 
     @FXML
-    private ToggleGroup weatherOption;
-
-    @FXML
     private Slider cloudBurstThumb, groundWaterThumb, stormSurgeThumb, coastalErosionThumb;
     @FXML
     private Slider cloudBurstSlider = new Slider();
@@ -180,9 +177,6 @@ public class HydrologicalToolController implements ControlledScreen {
             webEngine.executeScript("stormSurgeStyles(" + value + ")");
         });
 
-
-
-
         // Event listeners for Toggle buttons weather option
         cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
@@ -287,7 +281,6 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
 
-
         coastalToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue){
                 webEngine.executeScript("setErosion()");
@@ -317,7 +310,6 @@ public class HydrologicalToolController implements ControlledScreen {
             });
         });
 
-
         /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
            responsible for refreshing the climate information regarding the new property ones the address has been filled out. */
         PropertySearch search = new PropertySearch(addressSearchField, () -> refresh());
@@ -337,7 +329,6 @@ public class HydrologicalToolController implements ControlledScreen {
         this.evaluateRiskProfile(polygonArray);
 
         setupSliderIndicators(currentProperty.getRisks());
-
 
         updateScoreButtons();
         showPreviousComments();
@@ -396,8 +387,6 @@ public class HydrologicalToolController implements ControlledScreen {
         cloudBurstSlider.setMajorTickUnit(15); // Value between major ticks
         cloudBurstSlider.setMinorTickCount(0); //Value between minor ticks
     }
-
-
 
     /**
      * Method that calls JavaScript code. The function called is a leaflet function that can panTo coordinates.
@@ -562,7 +551,6 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         }
     }
-
 
     private void updateRiskDescriptions(Label descriptionId, String textToShow) {
         descriptionId.setText(textToShow);

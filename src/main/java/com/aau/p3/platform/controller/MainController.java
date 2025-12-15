@@ -30,6 +30,9 @@ import com.aau.p3.platform.utilities.openPdfFile;
 public class MainController {
     Object ctrl;
 
+    @FXML
+    private Button climateLookupButton;
+
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
     @FXML private AnchorPane contentArea;
@@ -42,8 +45,10 @@ public class MainController {
         updateClimateButtonVisibility();
     }
 
-    /* Void method that called after initialization, if no currentProperty is not assigned, hide the "Klimaopslag"
-    * button, if assigned showcase it. setManaged() ensures the tool bar does not leave a blank space*/
+    /**
+     * Void method that called after initialization, if no currentProperty is not assigned, hide the "Klimaopslag"
+     * button, if assigned showcase it. setManaged() ensures the tool bar does not leave a blank space
+     */
     public void updateClimateButtonVisibility() {
         boolean hasProperty = Main.propertyManager.currentProperty != null;
         climateLookupButton.setVisible(hasProperty);
@@ -146,9 +151,6 @@ public class MainController {
         openPdfFile.openPdf();
         document.close();
     }
-
-    @FXML
-    private Button climateLookupButton;
 
     @FXML
     private void exitApp() {
