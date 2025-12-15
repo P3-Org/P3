@@ -1,12 +1,9 @@
-/* settings.css (updated) */
-
 /* Global background */
 .root, .splitPane, .BorderPane {
     -fx-background-color: #EDE8E6;
 }
 
-
-/* Input fields */
+/* Input fields' design. */
 .text-field {
     -fx-background-color: #948d86;
     -fx-background-radius: 6;
@@ -17,17 +14,15 @@
     -fx-pref-width: 180px;
 }
 
+/* Input fields upon ongoing write. */
 .text-field:focused {
     -fx-border-color: derive(#1976d2, -10%);
     -fx-effect: dropshadow(gaussian, rgba(25,118,210,0.12), 6, 0, 0, 2);
 }
 
-/* Buttons (global override) */
-.button,
-.button#saveButton,
-.button#cancelButton,
-.button.primary,
-.button.ghost {
+/* Buttons global override */
+.button, .button#saveButton, .button#cancelButton,
+.button.primary, .button.ghost {
     -fx-background-color: #E1E3EF;
     -fx-text-fill: #07094A;
     -fx-background-radius: 8;
@@ -35,32 +30,30 @@
     -fx-padding: 8 14;
 }
 
-/* Save button gradient removed due to override */
-.button#saveButton:hover,
-.button.primary:hover {
+/* Save button gradient removed due to override. */
+.button#saveButton:hover, .button.primary:hover {
     -fx-opacity: 0.9;
 }
 
-/* Cancel/ghost buttons */
-.button#cancelButton,
-.button.ghost {
+/* Cancel/ghost buttons. */
+.button#cancelButton, .button.ghost {
     -fx-border-color: rgba(17,78,138,0.15);
 }
 
-.button#cancelButton:hover,
-.button.ghost:hover {
+/* Cancel/ghost buttons upon hover. */
+.button#cancelButton:hover, .button.ghost:hover {
     -fx-background-color: rgba(17,78,138,0.04);
 }
 
-/* Footer */
+/* Footer of the page. */
 .hbox.footer {
     -fx-padding: 12 18 18 18;
 }
 
-/* Responsive */
+/* Responsive to dynamic window size. */
 @media screen and (max-width: 480px) {
     .text-field { -fx-pref-width: 120px; }
 }
 
-/* Utility */
+/* Sets minimum witch between elements. */
 .spacer { -fx-min-width: 12; }

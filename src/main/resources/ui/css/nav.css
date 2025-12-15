@@ -1,15 +1,15 @@
-/* nav.css (updated) */
 
-/* Global background override */
+/* Global background override, including the sidebar. */
 .root, .sidebar {
     -fx-background-color: #EDE8E6;
 }
 
+/* Background for scroll-panes. */
 .scroll-pane .viewport {
     -fx-background-color: #EDE8E6;
 }
 
-/* All buttons background + text */
+/* All buttons' background and the text displayed in them. */
 .button,
 .button.nav-item,
 .submenu .button.nav-item,
@@ -20,6 +20,7 @@
     -fx-border-width: 1;
 }
 
+/* All buttons' background and border, upon hovering. */
 .button:hover,
 .button.nav-item:hover,
 .submenu .button.nav-item:hover,
@@ -29,22 +30,23 @@
     -fx-border-color: black;
 }
 
+/* Retains hover color for a toggles button. */
 .toggle-button:selected {
     -fx-background-color: derive(#E1E3EF, -10%);
     -fx-border-color: black;
 }
 
-/* Base */
+/* Design of info-buttons. */
 .icon-button {
     -fx-background-color: rgba(0, 0, 0, 0.30);
     -fx-border-color: rgba(255, 255, 255, 0.85);
     -fx-border-width: 1.5;
 
-    /* Circle shape */
+    /* Circle shape. */
     -fx-background-radius: 50%;
     -fx-border-radius: 50%;
 
-    /* Ensures enough room for the "i" */
+    /* Ensures enough room for the "i". */
     -fx-min-width: 28px;
     -fx-min-height: 28px;
     -fx-pref-width: 28px;
@@ -53,42 +55,42 @@
     -fx-padding: 0;
     -fx-opacity: 1;
 
-    /* Text/Icon */
+    /* Text/Icon design. */
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
 
-    /* Visibility on bright backgrounds */
+    /* Visibility on bright backgrounds. */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 0);
 }
 
-/* Hover */
+/* Hover on info-button. */
 .icon-button:hover {
     -fx-background-color: rgba(0, 0, 0, 0.40);
     -fx-border-color: rgba(255, 255, 255, 1.0);
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 5, 0, 0, 0);
 }
 
-/* Pressed */
+/* Pressing the info-button. */
 .icon-button:pressed {
     -fx-background-color: rgba(0, 0, 0, 0.50);
     -fx-opacity: 0.95;
 }
 
-/* Disabled */
+/* Disable of the info-button. */
 .icon-button:disabled {
     -fx-opacity: 0.40;
     -fx-border-color: rgba(255, 255, 255, 0.6);
     -fx-effect: none;
 }
 
-/* Sidebar */
+/* Sidebar, general padding. */
 .sidebar {
     -fx-padding: 8;
 }
 
-/* TitledPane header */
+/* TitledPane header. */
 titled-pane > .title {
     -fx-background-color: #b7cdf6;
     -fx-font-size: 16px;
@@ -96,17 +98,18 @@ titled-pane > .title {
     -fx-padding: 10 12;
 }
 
-/* TitledPane content */
+/* TitledPane content. */
 titled-pane > .content {
     -fx-background-color: transparent;
     -fx-padding: 8 0 0 0;
 }
 
+/* Color of the "Mine cases" title on the Address Lookup. */
 .mineCases {
     -fx-text-fill: #07094A;
 }
 
-/* Search bar */
+/* Search bar design. */
 .search-bar {
     -fx-background-color: derive(#EDE8E6, -10%);;
     -fx-background-radius: 20;
@@ -122,16 +125,18 @@ titled-pane > .content {
     -fx-background-size: 16px 16px;
 }
 
+/* Search bar design upon hover. */
 .search-bar:hover {
     -fx-border-color: #999999;
 }
 
+/* Search bar design upon ongoing write. */
 .search-bar:focused {
     -fx-border-color: #3f8efc;
     -fx-effect: dropshadow(three-pass-box, rgba(63,142,252,0.3), 8, 0, 0, 0);
 }
 
-/* Slider indicator */
+/* Risk-slider triangle indicator design. */
 .slider-indicator .thumb {
     -fx-background-color: #ff5555;
     -fx-shape: "M 0 10 L 10 10 L 5 0 Z";
@@ -141,14 +146,14 @@ titled-pane > .content {
     -fx-translate-y: 6px;
 }
 
-/* Override global .button for export button */
+/* Override global .button for export button. */
 .export-btn {
-    -fx-background-color: #ccc3b9;  /* whatever you want */
+    -fx-background-color: #ccc3b9;
     -fx-text-fill: #07094A;
     -fx-border-color: #948d86;
 }
 
-/* Override global .button for exit button */
+/* Override global .button for exit button. */
 .exit-btn {
     -fx-background-color: #FFDDDD;
     -fx-text-fill: #8A0000;
@@ -156,6 +161,7 @@ titled-pane > .content {
     -fx-border-color: #998484;
 }
 
+/* Override global .button for exit button. */
 .settings-button {
     -fx-background-image: url("../images/settingsIcon.png");
     -fx-background-size: 20px 20px;
@@ -166,12 +172,14 @@ titled-pane > .content {
     -fx-cursor: hand;
 }
 
+/* Design of the titles in the risk boxes. */
 .riskTitle {
     -fx-text-fill: black;
     -fx-font-size: 1.4em;
     -fx-effect: dropshadow( one-pass-box , white , 2 , 0.0 , 0 , 0 );
 }
 
+/* Design of the descriptions in the risk boxes. */
 .riskDescriptions {
     -fx-font-size: 1.2em;
 }
