@@ -8,6 +8,12 @@ import java.util.List;
  * Class that implements "MeasurementStrategy" and finds the minimum measurement
  */
 public class MinMeasurementStrategy implements MeasurementStrategy {
+
+    /**
+     * Finds the minimum measurement.
+     * @param samples List of samples as doubles.
+     * @return the minimum measurement value.
+     */
     @Override
     public double processValues(List<Double> samples) {
         return samples.stream().min(Double::compare).orElse(Double.NaN);

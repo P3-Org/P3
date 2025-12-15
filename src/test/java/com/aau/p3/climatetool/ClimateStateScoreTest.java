@@ -17,12 +17,15 @@ import static com.aau.p3.climatetool.ClimateStateScore.computeOverallClimateScor
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test that checks whether the logic of computeOverallClimateScore returns the expected value
+ */
 class ClimateStateScoreTest {
     List<RiskAssessment> riskList = new ArrayList<>();
 
     @BeforeEach
     void setup() {
-        // Arrange
+        // Arrange: Create RiskAssessments for each risk with mockito and add them to riskList.
         RiskAssessment cloudBurst = Mockito.mock(CloudburstRisk.class);
         RiskAssessment coastalErosion = Mockito.mock(CoastalErosionRisk.class);
         RiskAssessment groundWater = Mockito.mock(GroundwaterRisk.class);
@@ -35,49 +38,49 @@ class ClimateStateScoreTest {
 
     @Test
     void computeOverallClimateScoreTestTwo() {
-        // Arrange
+        // Arrange: Give fixed values for each risk
         when(riskList.get(0).getNormalizedValue()).thenReturn(1.2);
         when(riskList.get(1).getNormalizedValue()).thenReturn(0.6);
         when(riskList.get(2).getNormalizedValue()).thenReturn(-0.1);
         when(riskList.get(3).getNormalizedValue()).thenReturn(1.0);
         int expectedScore = 2;
 
-        // Act
+        // Act: Compute the climate score from the riskList.
         int resultScore = computeOverallClimateScore(riskList);
 
-        // Assert
+        // Assert: Does it calculate the expected climate score.
         assertEquals(expectedScore, resultScore);
     }
 
     @Test
     void computeOverallClimateScoreTestFive() {
-        // Arrange
+        // Arrange: Give fixed values for each risk
         when(riskList.get(0).getNormalizedValue()).thenReturn(2.2);
         when(riskList.get(1).getNormalizedValue()).thenReturn(1.6);
         when(riskList.get(2).getNormalizedValue()).thenReturn(1.1);
         when(riskList.get(3).getNormalizedValue()).thenReturn(5.0);
         int expectedScore = 5;
 
-        // Act
+        // Act: Compute the climate score from the riskList.
         int resultScore = computeOverallClimateScore(riskList);
 
-        // Assert
+        // Assert: Does it calculate the expected climate score.
         assertEquals(expectedScore, resultScore);
     }
 
     @Test
     void computeOverallClimateScoreTestOne() {
-        // Arrange
+        // Arrange: Give fixed values for each risk
         when(riskList.get(0).getNormalizedValue()).thenReturn(-0.5);
         when(riskList.get(1).getNormalizedValue()).thenReturn(-0.5);
         when(riskList.get(2).getNormalizedValue()).thenReturn(-0.5);
         when(riskList.get(3).getNormalizedValue()).thenReturn(-5.0);
         int expectedScore = 1;
 
-        // Act
+        // Act: Compute the climate score from the riskList.
         int resultScore = computeOverallClimateScore(riskList);
 
-        // Assert
+        // Assert: Does it calculate the expected climate score.
         assertEquals(expectedScore, resultScore);
     }
 

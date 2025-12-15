@@ -30,6 +30,7 @@ public class ClimateStateScore {
         if (overallClimateScore < 1) {
             overallClimateScore = 1;
         }
+
         return overallClimateScore;
     }
 }

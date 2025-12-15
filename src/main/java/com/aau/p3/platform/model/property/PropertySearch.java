@@ -4,8 +4,8 @@ import com.aau.p3.Main;
 import com.aau.p3.climatetool.dawa.*;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
-import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
+import com.aau.p3.database.ThresholdRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Bounds;
@@ -18,36 +18,47 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class responsible for handling the search of a property and utilizing the DAWA API
+ */
 public class PropertySearch {
     private final TextField addressSearchField;
     private final Popup suggestionsPopup = new Popup(); // Popup window with the suggested addresses
-    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window.
-    private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
+    private final ListView<String> suggestionsList = new ListView<>(); // List of the addresses for the popup window
     private final Runnable onAddressSelected;
+    private List<String> addresses = new ArrayList<>(); // List over the addresses that will be suggested to auto complete.
     private final PropertyManager propertyManager = Main.propertyManager;
 
+    /**
+     * Constructor for PropertySearch
+     * @param addressSearchField contains the text field where the address can be searched
+     * @param onAddressSelected is a runnable variable that will run lambda functions which will be explicitly defined in the creation of a PropertySearch object
+     */
     public PropertySearch(TextField addressSearchField, Runnable onAddressSelected) {
         this.addressSearchField = addressSearchField;
         this.onAddressSelected = onAddressSelected;
     }
 
     /**
-     * Method for searching up addresses in the address field. Used by both the HydrologicalToolController and AddressLookupController.
+     * Method for searching up addresses in the address field. Used by both the {@code HydrologicalToolController} and {@code AddressLookupController}.
      */
     public void searchAddress() {
-        // Configuration for the Popup window to contain the ListView suggestionList, and auto hide it.
+        // Configuration for the Popup window to contain the ListView suggestionList, and auto hide it
         suggestionsPopup.getContent().add(suggestionsList);
         suggestionsPopup.setAutoHide(true);
 
-        // When the user types in the address field
+        // When the user types in the address field, the event listener will be called
         addressSearchField.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.isEmpty()) {
-                // Takes the response and finds the addresses from the DawaGetAddress class and method
+                // Fetch the response from DAWA and find the addresses from the DawaGetAddress class and method
                 DawaGetAddresses addressResponse = new DawaGetAddresses(newText);
                 addresses = addressResponse.getAddresses();
+
                 // Addresses are converted to an observable list so it can be put into our ListView suggestionList.
                 ObservableList<String> observableAddresses = FXCollections.observableArrayList(addresses);
+
                 if (!addresses.isEmpty()) {
+                    // Display suggestions in popup below the text field
                     suggestionsList.setItems(observableAddresses);
                     if (!suggestionsPopup.isShowing()) {
                         Bounds bounds = addressSearchField.localToScreen(addressSearchField.getBoundsInLocal()); // Finds the bounds for the address field
@@ -55,11 +66,14 @@ public class PropertySearch {
                     }
                 }
             } else {
+                // Hide suggestions when input field is empty
                 suggestionsPopup.hide();
             }
         });
+
         // Calls the methods selectItem on mouse click in suggestionsList
-            suggestionsList.setOnMouseClicked(e -> selectItem());
+        suggestionsList.setOnMouseClicked(e -> selectItem());
+
         // Calls the method selectItem on a keypress, but only if it is the ENTER Key.
         suggestionsList.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.ENTER) {
@@ -69,45 +83,68 @@ public class PropertySearch {
     }
 
     /** Method that takes the selected item from ListView and adds it to addressSearchField.
-     * After this it checks if the selected text will result in the API call "type" adresse,
-     * and if it does it then get the coordinates, Ownerlicense and Cadastre for the according property
+     * Following this, it checks if the selected text will result in the API call "type" address,
+     * and if it does it then get the coordinates, OwnerLicense and Cadastre for the according property
      */
     private void selectItem() {
-        String selected =  suggestionsList.getSelectionModel().getSelectedItem();
-        if (selected != null){
+        // Selected is the selected address from the text field
+        String selected = suggestionsList.getSelectionModel().getSelectedItem();
+
+        if (selected != null) {
+            /* Helps auto complete the address search.
+             * Example: Writing Danmarksgade, which is just a road, and pressing it will paste it to the text field, make a space and positon the caret there. */
             addressSearchField.setText(selected + " ");
-            addressSearchField.positionCaret(selected.length() +1);
+            addressSearchField.positionCaret(selected.length() + 1);
+
+            // The type of the searched text is checked and returned
             DawaGetType type = new DawaGetType(selected);
+
+            /* Checks if the type is an address or simply a road name etc. If it is anything other than a concrete address, it will not run. */
             if (type.getType().equals("adresse") || type.getType().equals("adgangsadresse")) {
+                // The following code calls the DAWA API and gathers all relevant data needed for the property creation
                 String selectedAddress = URLEncoder.encode(selected, StandardCharsets.UTF_8);
                 DawaGetEastingNorthing eastNorthCoordinates = new DawaGetEastingNorthing(selected);
                 DawaGetLatLong latLong = new DawaGetLatLong(selected);
                 DawaPropertyNumbers propertyNumbers = new DawaPropertyNumbers(eastNorthCoordinates.getEastingNorthing());
                 DawaPolygonForAddress polygonForAddress = new DawaPolygonForAddress(propertyNumbers.getOwnerLicense(), propertyNumbers.getCadastre());
+
+                // Hides the popup window
                 suggestionsPopup.hide();
 
+                // Checks if the property exists either within the local cache or the database. If it does, set it to the current property
                 if (propertyManager.checkPropertyExists(selectedAddress)) {
                     propertyManager.setCurrentProperty(propertyManager.getProperty(selectedAddress));
                 } else {
-                    /* Sets up the different readers for both the Geo data and the database.
+                    /* Sets up the different readers for both the Geo data and the threshold database reader.
                      *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
                      *  Follows the Dependency Inversion Principle */
                     GeoDataReader geoReader = new TiffFileReader();
-                    ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+                    ThresholdRepositoryInterface thresholdRepo = new ThresholdRepository();
 
+                    // Initializes the riskFactory that will be used to create the risks for the property
                     RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);
+
+                    // Finds the polygon coordinates for the property (lat/long coordinates)
                     double[][] polygon = to2dArray(polygonForAddress.getPolygon());
 
+                    // Creates a new property object with relevant input parameters, like creating the risks from RiskFactory
                     Property newProperty = new Property(selectedAddress, polygonForAddress.getPolygon(), eastNorthCoordinates.getEastingNorthing(), latLong.getLatLong(), riskFactory.createRisks(polygon, eastNorthCoordinates.getEastingNorthing()));
+
+                    // Calculates the climate score for the property
                     newProperty.calculateClimateScore();
+
+                    // Add the property to the local cache and the database
                     propertyManager.addProperty(newProperty);
+
+                    // Set the current property to the newly created property
                     propertyManager.setCurrentProperty(newProperty);
                 }
 
+                /* Runnable method that will be run as long as it isn't null.
+                 * Thus, when the PropertySearch object is created, the function will be called here, as long as the passed parameter isn't null */
                 if (onAddressSelected != null) {
                     onAddressSelected.run();
                 }
-
             }
         }
     }

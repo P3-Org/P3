@@ -6,9 +6,7 @@ import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/**
- * Class that acts as a constructor to get Easting Northing coordinates with the help from the UrlAutoComplete class
- */
+/** Class that acts as a constructor to get Easting Northing coordinates with the help from the UrlAutoComplete class */
 public class DawaGetEastingNorthing {
     private final List<String> coordinates = new ArrayList<>();
 
@@ -18,10 +16,10 @@ public class DawaGetEastingNorthing {
     public DawaGetEastingNorthing(String query) {
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
-        StringBuilder response = autoComplete.getAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
+        StringBuilder response = autoComplete.GETAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
-        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
+        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array.
         JSONObject data = item.getJSONObject("data"); // In the Object item, get the Object data with the key: "data".
 
         String coordinateX = data.optString("x", ""); // In the data object, save the string "x"

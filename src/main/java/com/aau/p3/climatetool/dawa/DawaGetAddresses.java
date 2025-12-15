@@ -7,9 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class
- */
+/** Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class */
 public class DawaGetAddresses {
     private final List<String> addresses = new ArrayList<>();
 
@@ -19,7 +17,7 @@ public class DawaGetAddresses {
     public DawaGetAddresses(String query){
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
-        StringBuilder response = autoComplete.getAutoComplete();
+        StringBuilder response = autoComplete.GETAutoComplete();
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
 
@@ -31,7 +29,7 @@ public class DawaGetAddresses {
     }
 
     /** Getter method for the list of address suggestions.
-     * @return addresses
+     * @return list of addresses
      */
     public List<String> getAddresses(){
         return addresses;

@@ -23,7 +23,7 @@ public class CoastalErosionReader implements RestDataReader {
     public void riskFetch(String query) {
         // Use URL class to make URL and return the response
         UrlCoastalErosion coastalErosion = new UrlCoastalErosion(query);
-        StringBuilder response = coastalErosion.getUrlCoastalErosion();
+        StringBuilder response = coastalErosion.GETUrlCoastalErosion();
 
         // Give extract values the JSON response to read from
         riskValueArray = extractValues(response);
@@ -41,7 +41,6 @@ public class CoastalErosionReader implements RestDataReader {
 
         // If the response has content, get the JSON array "features", which holds information.
         // If the response has no content, empty array is intialized, meaning no risk of coastal erosion.
-
         if (!responseObject.isEmpty()) {
             JSONArray featuresArray = responseObject.getJSONArray("features");
 
@@ -62,11 +61,11 @@ public class CoastalErosionReader implements RestDataReader {
      * @param riskSeverityList List of strings, with serverity descriptions
      * @return List of doubles with serverity values
      */
-    public List<Double> convertSeverityToValue(List<String> riskSeverityList){
+    public List<Double> convertSeverityToValue(List<String> riskSeverityList) {
         List<Double> riskScores = new ArrayList<>();
 
-        // If list is empty, no risks for coastal erosioan was found.
-        // Hence, the max score is appended to the empty array, as the only element
+        /* If list is empty, no risks for coastal erosion was found.
+        Hence, the max score is appended to the empty array, as the only element. */
         if (riskSeverityList.isEmpty()) {
             riskScores.add(8.0);
         } else {

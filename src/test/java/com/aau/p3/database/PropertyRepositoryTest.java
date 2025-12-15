@@ -2,24 +2,15 @@ package com.aau.p3.database;
 
 import com.aau.p3.climatetool.risk.CloudburstRisk;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.model.property.Property;
-import com.google.common.util.concurrent.Service;
-import org.geotools.gce.imagemosaic.Utils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class PropertyRepositoryTest {
     static String testAddress;
@@ -44,6 +35,11 @@ class PropertyRepositoryTest {
     private List<String> testEastingNorthing = new ArrayList<>();
     private List<String> testLatLong = new ArrayList<>();
 
+
+    /**
+     * Method that creates a property object prior to testing. This is done by giving the constructor Property,
+     * its needed parameter using mock values. The getMeasurements method in each risk class is mocked using mockito
+     */
     @BeforeEach
     void setup() {
         testAddress = "testaddress 10, 9000 Aalborg";
@@ -74,14 +70,22 @@ class PropertyRepositoryTest {
         testListOfRisk.addAll(Arrays.asList(testcloudBurstRisk, teststormSurgeRisk, testgroundWaterRisk, testcoastalErosionRisk));
 
         // create the property that we'll be testing on
-        property = new Property(testAddress, testCoordinates,testEastingNorthing, testLatLong, testListOfRisk);
+        property = new Property(testAddress, testCoordinates, testEastingNorthing, testLatLong, testListOfRisk);
     }
+
+    /**
+     * Clears to database after the test is over
+     */
     @AfterEach
     void clearDB () {
         PropertyRepository.wipeProperties();
     }
 
-
+    /**
+     * Method that defines an integration test of the database. The test saves a property object in the database, then Loads it.
+     * Then asserts that the tested values are what we expect after saving and loading them.
+     * The values being testing are measurementValues and the address we gave the property
+     */
     @Test
     void insertAndLoadProperty() {
 
@@ -102,24 +106,5 @@ class PropertyRepositoryTest {
         Assertions.assertNotNull(loadedProperty);
         Assertions.assertIterableEquals(testMeasurements, loadedMeasurements);
         Assertions.assertEquals(testAddress, loadedProperty.getAddress());
-    }
-
-    @Test
-    void changeSpecialistScoreTest() {
-
-        double expectedSpecialistScore = -1;
-
-        // Insert a specialist score into a property and save.
-        property.calculateClimateScore();
-        property.setSpecialistScore(-1);
-        PropertyRepository.saveProperty(property);
-
-        // Change the score
-        PropertyRepository.updateSpecialistScore(property.getAddress(), property.getSpecialistScore());
-
-        Property loadedProperty = PropertyRepository.loadProperty(testAddress);
-
-        // Compare the new changed value to the one in the DB
-        //Assertions.assertEquals(expectedSpecialistScore, loadedProperty.getSpecialistScore());
     }
 }

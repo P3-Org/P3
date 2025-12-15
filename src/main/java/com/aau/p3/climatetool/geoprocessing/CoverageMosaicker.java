@@ -22,7 +22,7 @@ public class CoverageMosaicker {
             throw new IOException("No valid raster coverages could be loaded for mosaic.");
         }
 
-        // If just one coverage, return it
+        // If just one coverage, return it as there no need to mosaic it.
         if (coverages.size() == 1) {
             return coverages.get(0);
         }
@@ -45,7 +45,7 @@ public class CoverageMosaicker {
         params.parameter("backgroundValues").setValue(new double[] { Double.NaN }); // Could also have been set to 0.0
 
         // Execute the mosaic operation and return the resulting combined GridCoverage2D.
-        // The second argument hints can be null for it to use the default hints unless specific rendering options are required.
+        // The second argument "hints" can be null for it to use the default hints unless specific rendering options are required.
         return (GridCoverage2D) processor.doOperation(params, null);
     }
 }

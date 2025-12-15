@@ -98,7 +98,7 @@
             <artifactId>aircompressor</artifactId>
             <version>0.27</version>
         </dependency>
-        <!-- ✅ GeoTools -->
+        <!-- GeoTools -->
         <dependency>
             <groupId>org.geotools</groupId>
             <artifactId>gt-main</artifactId>
@@ -150,13 +150,13 @@
             <version>29.0</version>
         </dependency>
 
-        <!-- ✅ Logging for GeoTools -->
+        <!-- Logging for GeoTools -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>2.0.16</version>
         </dependency>
-        <!-- ✅ Testing -->
+        <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -205,6 +205,12 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testfx</groupId>
+            <artifactId>testfx-junit5</artifactId>
+            <version>4.0.16-alpha</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
