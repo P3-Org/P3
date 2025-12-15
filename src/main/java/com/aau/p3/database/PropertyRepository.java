@@ -14,6 +14,9 @@ import java.util.List;
 
 import static com.aau.p3.platform.utilities.AlertPopup.errorMessage;
 
+/**
+ *  Class for handling the database regarding properties we store information about
+ */
 public class PropertyRepository {
 
     /**
@@ -37,12 +40,14 @@ public class PropertyRepository {
 
     /**
      * loadProperty looks if a previously stored property matches the searched address.
-     * IMPORTANT SIDE NOTE: since Property objects are stores as strings in the database we need to reconstruct it, once we find a matching address in the database. However we cant restore our List<RiskAssessment> since the reference type is an interface.
-     * To work around this, We replace the List<RiskAssessments> with a new list where we only store the actual results from the risk objects.
+     * IMPORTANT SIDE NOTE: since Property objects are stored as strings in the database we need to reconstruct it, once we find a matching address in the database.
+     * However, we cant restore our List<RiskAssessment> since the reference type is an interface.
+     * To work around this, we replace the List<RiskAssessments> with a new list where we only store the actual results from the risk objects.
      * @param address contains the address that is being looked up
-     * @return the reconstructed property object found in the database. If no mathcing object exists it returns null
+     * @return the reconstructed property object found in the database. If no matching object exists it returns null
      */
     public static Property loadProperty(String address) {
+        // The sql string that will be executed. The question mark will be filled in later, and is a placeholder at this point
         String sql = "SELECT propertyObject FROM properties WHERE Address = ?";
 
         /* Try-catch block that handles the connection to the database, and prepares a statement to be executed to the database.
@@ -60,10 +65,11 @@ public class PropertyRepository {
             JsonObject json = JsonParser.parseString(rs.getString("propertyObject")).getAsJsonObject();
 
             /* Beginning of reconstruction : The idea of the reconstruction is to transplant our placeholder information in the form of a List<RiskToDTO> back to a List<RiskAssessment> */
-            // Create a new list which will contain our saved results.
-            List<RiskToDTO> dtos = new ArrayList<>();
+            List<RiskToDTO> dtos = new ArrayList<>(); // Create a new list which will contain our saved results.
+
+            // Checks if the json object contains RiskToDTOs before we attempts to retrieve it
             if (json.has("RiskToDTOs")) {
-                // create a new list of type <RiskToDTO> from the json data
+                // Create a new list of type <RiskToDTO> from the JSON data
                 dtos = gson.fromJson(json.get("RiskToDTOs"),
                         new TypeToken<List<RiskToDTO>>() {}.getType());
             }
@@ -71,7 +77,7 @@ public class PropertyRepository {
             // Remove the placeholder information from the json object as we will replace it with a List<RiskAssessment>
             json.remove("RiskToDTOs");
 
-            // Restore the json file back to a property object - This property object is still missing the RiskAssessment,s we will add that next
+            // Restore the json file back to a property object - This property object is still missing the RiskAssessments list, we will add that next
             Property property = gson.fromJson(json, Property.class);
 
             // Reconstruct the List<RiskAssessment> using the placeholder information stored in List<RisktoDTO>
@@ -80,7 +86,7 @@ public class PropertyRepository {
                 restoredRisks.add(new RiskResult(dto));
             }
 
-            // We add our reconstructed List<RiskAssessment> to the field "riskAssessment" defined in the Property class. This is possible via. java reflections
+            // We add our reconstructed List<RiskAssessment> to the field "riskAssessment" defined in the Property class. This is possible via. Java Reflections
             var field = Property.class.getDeclaredField("riskAssessment");
             field.setAccessible(true);
             field.set(property, restoredRisks); // Takes the object "property" that needs to be modified, and puts restoredRisks (The List<RiskAssessment>)
@@ -90,16 +96,14 @@ public class PropertyRepository {
         } catch (SQLException | NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
     /**
-     * Method for saving a property into the database. This method utilizes the helper method {@code convertToDTO()} and the custom Gson instance {@code gson} for doing this appropriately.
+     * Method for saving a property into the database. This method utilizes the helper method {@code convertToDTO()} and the custom Gson instance {@code gson} for proper execution.
      * @param property contains the property object that needs to be added into the database matching the address.
      */
     public static void saveProperty(Property property) {
-
         // The sql string that will be executed. The question marks will be filled in later, and is a placeholder at this point
         String sql = "INSERT OR REPLACE INTO properties (Address, propertyObject) VALUES (?, ?)";
 
@@ -110,7 +114,7 @@ public class PropertyRepository {
             JsonObject json = (JsonObject) gson.toJsonTree(property);
 
             /* For loop that iterates over the property's risks and converts the risks into a DTO object and appends it to the arraylist dtos.
-             * This essentially becomes the new RiskAssessment list but now with only data values instead of geodata readers, thresholds repository readers and such. */
+             * This essentially becomes the new RiskAssessment list but now with only data values instead of geodata readers, thresholds repository readers and such that the database can't read. */
             List<RiskToDTO> dtos = new ArrayList<>();
             for (var risk : property.getRisks()) {
                 dtos.add(convertToDTO(risk));
@@ -121,13 +125,13 @@ public class PropertyRepository {
                 json.add("RiskToDTOs", gson.toJsonTree(dtos));
             } catch (Exception e) {
                 errorMessage("NaN fejl: Ingen data fundet for ejendommen");
-                throw new RuntimeException("NaN error: " + e); // Throw a runTimeException to make sure the program doesn't continue with faulty data
+                throw new RuntimeException("NaN error: " + e); // Throw a runTimeException to make sure the program stops
             }
 
             // Remove original riskAssessment from JSON
             json.remove("riskAssessment");
 
-            // Fill in the ? in the SQL string
+            // Fill in the question marks in the SQL string
             stmt.setString(1, property.getAddress());
             stmt.setString(2, json.toString());
             stmt.executeUpdate();
@@ -139,7 +143,7 @@ public class PropertyRepository {
 
     /**
      * Method for updating the database with the newly changed specialist score
-     * @param address
+     * @param address contains the address of the property
      * @param specialistScore contains the specialist score that is in the interval [-1..1]
      */
     public static void updateSpecialistScore(String address, int specialistScore) {
@@ -174,10 +178,12 @@ public class PropertyRepository {
 
             stmt.setString(1, newComment);
             stmt.setString(2, address);
+
+            // Executes the UPDATE SQL statement and returns number of affected rows
             int rowsUpdated = stmt.executeUpdate();
 
-            if (rowsUpdated == 0 ){
-                System.out.println("No property found with address " + address);
+            if (rowsUpdated == 0) {
+                throw new RuntimeException("No property found with address: " + address);
             }
 
         } catch (Exception e) {
@@ -185,9 +191,8 @@ public class PropertyRepository {
         }
     }
 
-
     /**
-     * Wipes the properties from table properties
+     * Method for wiping the data of properties from the table "properties"
      */
     public static void wipeProperties() {
         String sql = "DELETE FROM properties";
@@ -196,7 +201,7 @@ public class PropertyRepository {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.executeUpdate();
-            System.out.println("All properties wiped.");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
