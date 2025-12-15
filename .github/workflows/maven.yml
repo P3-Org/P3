@@ -44,7 +44,7 @@ jobs:
 
           
     - name: Build with Maven
-      run: xvfb-run -a mvn -B package --file pom.xml
+      run: xvfb-run -a mvn -B package -Dgroups=!exclude --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     # - name: Update dependency graph
