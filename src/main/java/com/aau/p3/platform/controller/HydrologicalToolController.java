@@ -125,13 +125,11 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     @Override
-    public void onShow() {
-        System.out.println("It showed!");
-    }
-
-    @Override
     public void onHide() {
-        System.out.println("Saved all comments!");
+        String comment = commentArea.getText();
+        if (!comment.isEmpty()) {
+            addComment(comment);
+        }
     }
 
 
@@ -532,13 +530,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
         if (!comment.isEmpty()) {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-            String timestamp = LocalDateTime.now().format(dateFormatter);
-            String fullComment = timestamp + "\n" + comment;
-            Main.propertyManager.currentProperty.setComment(fullComment);
-            PropertyManager.addCommentToDB(currentProperty, fullComment);
-            showPreviousComments();
-            commentArea.clear();
+            addComment(comment);
         } else {
             System.out.println("The comment box is empty");
         }
@@ -575,6 +567,15 @@ public class HydrologicalToolController implements ControlledScreen {
                 previousComments.getChildren().add(flow);
             }
         }
+    }
+    private void addComment(String comment) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        String timestamp = LocalDateTime.now().format(dateFormatter);
+        String fullComment = timestamp + "\n" + comment;
+        Main.propertyManager.currentProperty.setComment(fullComment);
+        PropertyManager.addCommentToDB(currentProperty, fullComment);
+        showPreviousComments();
+        commentArea.clear();
     }
 
 

@@ -28,7 +28,7 @@ import com.aau.p3.platform.utilities.openPdfFile;
  * Class that handles the main controller and the windows that can be called from the main controller
  */
 public class MainController {
-    private ControlledScreen activeScreen;
+    private static ControlledScreen activeScreen;
     Object ctrl;
 
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
@@ -156,11 +156,16 @@ public class MainController {
         document.close();
     }
 
+    public static void onHideActiveScreen() {
+        activeScreen.onHide();
+    }
+
     @FXML
     private Button climateLookupButton;
 
     @FXML
     private void exitApp() {
+        onHideActiveScreen();
         System.exit(0);
     }
 }

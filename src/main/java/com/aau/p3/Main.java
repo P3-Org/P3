@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import static com.aau.p3.platform.controller.MainController.onHideActiveScreen;
 
 public class Main extends Application {
     public static PropertyManager propertyManager = new PropertyManager();
@@ -52,5 +53,7 @@ public class Main extends Application {
     @Override
     public void stop() {
         LocalProxyServer.stopProxy();
+        // Primarily for saving comments on force-exit
+        onHideActiveScreen();
     }
 }
