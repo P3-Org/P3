@@ -1,7 +1,7 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.database.PropertyRepository;
-import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.database.ThresholdRepository;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
@@ -27,9 +27,13 @@ public class SettingsMenuController implements ControlledScreen {
             stormSurgeCurrentLower, stormSurgeCurrentUpper,
             coastalErosionCurrentLower, coastalErosionCurrentUpper;
 
+    /**
+     * Method called upon loading the controller, retrives the currect threshold values stored in the database
+     * and displays then on a label.
+     */
     @FXML
     public void initialize() {
-        StaticThresholdRepository repo = new StaticThresholdRepository();
+        ThresholdRepository repo = new ThresholdRepository();
 
         setThresholdLabels(repo.getThreshold("cloudburst"), cloudBurstCurrentLower, cloudBurstCurrentUpper);
         setThresholdLabels(repo.getThreshold("groundwater"), groundWaterCurrentLower, groundWaterCurrentUpper);
@@ -38,32 +42,31 @@ public class SettingsMenuController implements ControlledScreen {
 
     }
 
-    private void setThresholdLabels(double[] arr, Label lowerLbl, Label upperLbl) {
-        if (arr == null || arr.length < 2) {
+    private void setThresholdLabels(double[] thresholdValues, Label lowerLbl, Label upperLbl) {
+        // checks if there is no value, and sets to label to display empty if true
+        if (thresholdValues == null || thresholdValues.length < 2) {
             lowerLbl.setText("-");
             upperLbl.setText("-");
             return;
         }
 
-        lowerLbl.setText(String.valueOf(arr[0]));
-        upperLbl.setText(String.valueOf(arr[1]));
-        System.out.println(lowerLbl.getText());
-        System.out.println(upperLbl.getText());
+        // Set the label text to the values of the thresholds
+        lowerLbl.setText(String.valueOf(thresholdValues[0]));
+        upperLbl.setText(String.valueOf(thresholdValues[1]));
     }
 
-
-    // Small helper to avoid “null”
-    private String getFormatted(Double val) {
-        return val == null ? "-" : String.valueOf(val);
-    }
-
-
-
+    /**
+     * Sets SettingMenuController as the current main controller
+     * @param mainController the controller that we want to set as the new main controller
+     */
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Method that is called when the "cancel" button is clicked. Sets the window back to the climate tool
+     */
     @FXML
     private void goBack() {
         mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
@@ -72,13 +75,13 @@ public class SettingsMenuController implements ControlledScreen {
 
     /**
      * When the "gem" button is clicked this method is initialized.
-     * Calls Updates the thresholdValues in the database
-     * Clears existing properties as these are outdated and needs to be recalculated
+     * Updates the thresholdValues in the database
+     * Clears existing properties both in the database and memory as these are outdated and needs to be recalculated
      */
     @FXML
     private void storeNewThresholdValues() {
 
-        StaticThresholdRepository thresholdRepository = new StaticThresholdRepository();
+        ThresholdRepository thresholdRepository = new ThresholdRepository();
 
         writeToThresholdFieldInDB(thresholdRepository);
         PropertyRepository.wipeProperties();
@@ -92,7 +95,7 @@ public class SettingsMenuController implements ControlledScreen {
      * Reads values from inputs fields in the settings window, and writes them to the database
      * @param thresholdRepository Object of the StaticThesholdReposity, allows us to update the database
      */
-     private void writeToThresholdFieldInDB(StaticThresholdRepository thresholdRepository) {
+     private void writeToThresholdFieldInDB(ThresholdRepository thresholdRepository) {
          textFieldList.addAll(Arrays.asList(
                  Arrays.asList(cloudBurstLower, cloudBurstUpper),
                  Arrays.asList(groundWaterLower, groundWaterUpper),
@@ -106,7 +109,7 @@ public class SettingsMenuController implements ControlledScreen {
              Double lower = tryParseDouble(pair.get(0));
              Double upper = tryParseDouble(pair.get(1));
 
-             // If statement pases if both fields for a thresholdtype is filled out with a valid input
+             // If statement pases when both fields for a threshold type is filled out with a valid input
              if (lower != null && upper != null) {
                  thresholdRepository.updateThreshold(getRiskName(pair), lower, upper);
              }
@@ -131,7 +134,7 @@ public class SettingsMenuController implements ControlledScreen {
     /**
      * This method is used to match the TextFields id name to the string key used in the database
      * @param tf Takes a pair of the threshold TextField objects
-     * @return a string with the name of the field we want to edit in the database eg. "cloudburst"
+     * @return a string with the name of the field we want to edit in the database e.g. "cloudburst"
      */
     private String getRiskName(List<TextField> tf) {
         return tf.get(0).getId().replace("Lower", "").toLowerCase();

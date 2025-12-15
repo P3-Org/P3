@@ -11,7 +11,9 @@ import org.locationtech.jts.geom.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Responsible for reading and returning the measurements in the geotiff files.
+ * */
 public class ClimateMeasurements {
     private final GeometryFactory gf = new GeometryFactory();
 
@@ -57,7 +59,7 @@ public class ClimateMeasurements {
         /* Prepare transforms so we can go from pixels to world coordinates and the other way as well */
         MathTransform2D gridToCRS = coverage.getGridGeometry().getGridToCRS2D();
 
-        /* Gets the width and height of the coverage such that we can iterate over it */
+        /* Gets the width and height of the coverage. Later used to set the bounds in for loop when iteration through every pixel */
         int width = coverage.getRenderedImage().getWidth();
         int height = coverage.getRenderedImage().getHeight();
 

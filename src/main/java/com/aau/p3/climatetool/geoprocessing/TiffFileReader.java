@@ -29,11 +29,11 @@ public class TiffFileReader implements GeoDataReader {
             CoverageMosaicker mosaicker = new CoverageMosaicker();
             GridCoverage2D unifiedCoverage = mosaicker.mosaicTiles(tiles);
 
-            /* Gathers the max value from the tif file that is within the bounds of the polygon (property).
-            *  Then returns it */
             ClimateMeasurements valuesOfProperty = new ClimateMeasurements();
 
+            // Returns the list of measurements points, that fall within the polygon encapsulating the property
             return valuesOfProperty.getMeasurements(unifiedCoverage, coordinates);
+
         } catch (IOException | TransformException e) {
             throw new RuntimeException(e);
         }

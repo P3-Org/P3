@@ -8,15 +8,15 @@ public class AlertPopup {
      * @param message The message to be displayed in the error popup
      */
     public static void errorMessage(String message) {
-        // Create alert type and sets title
+        // Create alert type and sets title.
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Fejl");
 
-        // Turns off header
+        // Turns off header.
         alert.setHeaderText(null);
         alert.setContentText(message);
 
-        // Program waits until popup is resolved
+        // Program waits until popup is resolved.
         alert.showAndWait();
     }
 }

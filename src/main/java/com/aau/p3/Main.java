@@ -9,14 +9,21 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
+/**
+ * The class main is responsible for initiating the GUI. It extends Application (An abstract class defines in javaFX),
+ * this class has the abstract method start. And defines launch behavior.
+ */
 public class Main extends Application {
     public static PropertyManager propertyManager = new PropertyManager();
 
-    /* The start method is defined in Application and is used to create a scene with JavaFX */
+    /**
+     * The start method is defined in Application and is used to create a scene with JavaFX
+     * @param primaryStage defines the primary GUI window. It gets its value assined upon launch,
+     * which is defined in Application (which Main extends)
+     */
     @Override
     public void start(Stage primaryStage) {
         LocalProxyServer.startProxy(8080);
-
         try {
             /* Makes a new FXMLLoader object the parsed parameter,
              * gets the entire path to the fxml file that we wish to display.
@@ -39,7 +46,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(root, bounds.getWidth() * 0.9, bounds.getHeight() * 0.9);
 
-            // Add CSS here
+            // Applys the stylesheets we defined for GUI
             scene.getStylesheets().add(getClass().getResource("/ui/css/settings.css").toExternalForm());
             scene.getStylesheets().add(getClass().getResource("/ui/css/nav.css").toExternalForm());
 

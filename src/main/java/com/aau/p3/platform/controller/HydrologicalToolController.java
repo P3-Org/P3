@@ -414,15 +414,15 @@ public class HydrologicalToolController implements ControlledScreen {
      */
     @FXML
     private void increaseScore(ActionEvent event) {
-        if (currentProperty.getSpecialistScore() == -1) {
-            currentProperty.setSpecialistScore(0);
+        if (currentProperty.getSpecialistAdjustment() == -1) {
+            currentProperty.applySpecialistAdjustment(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
-            PropertyManager.updateDBSpecialistScore(currentProperty);
+            PropertyManager.updateDBSpecialistAdjustment(currentProperty);
             updateScoreButtons();
         } else {
-            currentProperty.setSpecialistScore(1);
+            currentProperty.applySpecialistAdjustment(1);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
-            PropertyManager.updateDBSpecialistScore(currentProperty);
+            PropertyManager.updateDBSpecialistAdjustment(currentProperty);
             updateScoreButtons();
         }
     }
@@ -433,15 +433,15 @@ public class HydrologicalToolController implements ControlledScreen {
      */
     @FXML
     private void decreaseScore(ActionEvent event) {
-        if (currentProperty.getSpecialistScore() == 1) {
-            currentProperty.setSpecialistScore(0);
+        if (currentProperty.getSpecialistAdjustment() == 1) {
+            currentProperty.applySpecialistAdjustment(0);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
-            PropertyManager.updateDBSpecialistScore(currentProperty);
+            PropertyManager.updateDBSpecialistAdjustment(currentProperty);
             updateScoreButtons();
         } else {
-            currentProperty.setSpecialistScore(-1);
+            currentProperty.applySpecialistAdjustment(-1);
             overallScoreId.setText(Double.toString(currentProperty.getClimateScore()));
-            PropertyManager.updateDBSpecialistScore(currentProperty);
+            PropertyManager.updateDBSpecialistAdjustment(currentProperty);
             updateScoreButtons();
         }
     }
@@ -453,7 +453,7 @@ public class HydrologicalToolController implements ControlledScreen {
     private void updateScoreButtons() {
         // Calculate new score
         int overallClimateScore = currentProperty.getClimateScore();
-        int specialistScoreFactor = currentProperty.getSpecialistScore();
+        int specialistScoreFactor = currentProperty.getSpecialistAdjustment();
 
         // Shows the buttons if the score is in a certain range
         scoreDownButton.setVisible(overallClimateScore > 1);
@@ -614,4 +614,10 @@ public class HydrologicalToolController implements ControlledScreen {
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
+
+    @Override
+    public String toString(){
+        return "HydrologicalToolController";
+    }
+
 }

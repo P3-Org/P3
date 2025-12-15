@@ -28,17 +28,18 @@ import com.aau.p3.platform.utilities.openPdfFile;
  * Class that handles the main controller and the windows that can be called from the main controller
  */
 public class MainController {
+    private static ControlledScreen activeScreen;
     Object ctrl;
 
     @FXML
     private Button climateLookupButton;
 
     /* contentArea is used to work as the area of the screen where the different "windows" will be shown.
-    *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
+     *  The specific name contentArea is needed as the tag @FXML connects the java code to the fxml id tag "contentArea" */
     @FXML private AnchorPane contentArea;
 
     /* void Method that is ALWAYS called during the initialization process of FXML from Main.java
-    *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
+     *  setCenter is called in this class and the page HomePage.fxml is set in the contentArea */
     @FXML
     public void initialize() {
         setCenter("/ui/fxml/AddressLookup.fxml");
@@ -62,21 +63,22 @@ public class MainController {
      */
     public void setCenter(String fxml) {
         try {
+
             /* Creates a FXMLloader object based on the given fxml file and loads it into the class Node (in javafx.scene)
-            *  Node is a superclass to Parent in javafx that is used to hold any scene object, where Parent class only holds containers
-            *  such as "Vbox, Hbox, etc." */
+             *  Node is a superclass to Parent in javafx that is used to hold any scene object, where Parent class only holds containers
+             *  such as "Vbox, Hbox, etc." */
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
 
             /* loader.load() returns the outermost tag <> in the fxml file */
             Node view = loader.load();
 
             /* Give sub-controller a reference back to this controller so a two-way communication is possible
-            *  loader.getController() finds which controller os calling it from the FXML file that was found in getResource() */
+             *  loader.getController() finds which controller os calling it from the FXML file that was found in getResource() */
             this.ctrl = loader.getController();
 
             /* Checks if the current controller is an instance of the interface ControlledScreen
-            * such that the subcontroller implements the method setMainController() and can communicate with the MainController
-            * while in theory not being linked at all with it */
+             * such that the subcontroller implements the method setMainController() and can communicate with the MainController
+             * while in theory not being linked at all with it */
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
 
@@ -84,11 +86,14 @@ public class MainController {
                 if (ctrl instanceof HydrologicalToolController htc){
                     htc.afterInitialize();
                 }
+                activeScreen = cs;
+            } else {
+                activeScreen = null;
             }
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
-            *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
-            * with id contentArea in the MainWindow.fxml */
+             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
+             * with id contentArea in the MainWindow.fxml */
             System.out.println("contentArea" + contentArea.getChildren());
 
             // Make the node resize to fill the StackPane
@@ -152,8 +157,17 @@ public class MainController {
         document.close();
     }
 
+    public static ControlledScreen getActiveScreen() {
+        return activeScreen;
+    }
+
     @FXML
     private void exitApp() {
         System.exit(0);
+    }
+
+    @Override
+    public String toString(){
+        return "MainController";
     }
 }

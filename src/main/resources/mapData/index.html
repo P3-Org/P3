@@ -46,7 +46,7 @@
 ></script>
 <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 <script>
-    // The different stormsurge styles, signify increase in sea level in m.
+    // The different storm surge styles, signify increase in sea level in m.
     const stormSurgeMap = {
         0: 'havvandpaaland_0',
         0.1: 'havvandpaaland_0_1',
@@ -79,12 +79,6 @@
         2.8: 'havvandpaaland_2_8',
         2.9: 'havvandpaaland_2_9',
         3: 'havvandpaaland_3',
-        // 3.5: 'havvandpaaland_3_5', not in use atm
-        // 4: 'havvandpaaland_4',
-        // 4.5: 'havvandpaaland_4_5',
-        // 5: 'havvandpaaland_5',
-        // 5.5: 'havvandpaaland_5_5',
-        // 6: 'havvandpaaland_6'
     };
 
     // The different cloudBurst styles, signify rainfall given in m. (Object key in mm)
@@ -101,7 +95,7 @@
         135: 'bluespot_ekstremregn_0_135',
         150: 'bluespot_ekstremregn_0_150'
     };
-    // The different groundwater layers, signify year event given in years. (object key in years)
+    // The different groundwater layers, signify year events (Danish: "Årshændelse"). (object key in years)
     const groundWaterMap = {
         2: '100m_phreatic_all_T2',
         5: '100m_phreatic_all_T5',
@@ -164,15 +158,26 @@
         climateOverlay;
     });
 
-    // Functions for changing the API calls when moving the slider.
+    /**
+     * Function for changing the API calls when moving the slider.
+     * @param index refers to the different keys in cloudBurstMap, and is set by the sliders in the GUI
+     */
     function cloudBurstStyles(index) {
         climateOverlay.setParams({ styles: cloudBurstMap[index] })
     }
 
+    /**
+     * Function for changing the API calls when moving the slider.
+     * @param index refers to the different keys in stormSurgeMap, and is set by the sliders in the GUI
+     */
     function stormSurgeStyles(index) {
         climateOverlay.setParams({ styles: stormSurgeMap[index] })
     }
 
+    /**
+     * Function for changing the API calls when moving the slider.
+     * @param index refers to the different keys in groundWaterMap, and is set by the sliders in the GUI
+     */
     function groundWaterLayers(index) {
         climateOverlay.setParams({ layers: groundWaterMap[index] })
     }
@@ -187,7 +192,9 @@
         shadowSize:   [41, 41]
     });
 
-    // Functions for setting up the API calls when the corresponding button is clicked.
+    /**
+     * Function for setting up the API calls related to cloudburst when the corresponding button is clicked.
+     */
     function setCloudburst() {
         // Cloudburst overlay API.
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
@@ -201,6 +208,9 @@
         }).addTo(map);
     }
 
+    /**
+     * Function for setting up the API calls related to groundwater when the corresponding button is clicked.
+     */
     function setGroundwater() {
         // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
@@ -219,6 +229,9 @@
         showLegend("hip_dtg_10m_100m(400-400).png");
     }
 
+    /**
+     * Function for setting up the API calls related to storm surge when the corresponding button is clicked.
+     */
     function setStormSurge() {
         // Storm surge seawater levels overlay api
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
@@ -232,6 +245,9 @@
         }).addTo(map);
     }
 
+    /**
+     * Function for setting up the API calls related to coastal erosion when the corresponding button is clicked.
+     */
     function setErosion() {
         climateOverlay = L.esri.dynamicMapLayer({
                 url: 'http://localhost:8080/arc_gis-nst',
@@ -245,7 +261,9 @@
         showLegend("coastal_legend.png");
     }
 
-    // Function for the cadastral overlay when corresponding button is clicked.
+    /**
+     * Function for the cadastral overlay when corresponding button is clicked.
+     */
     function setCadastral() {
         cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
             layers: 'Centroide_Gaeldende',
@@ -268,7 +286,9 @@
         }).addTo(map);
     }
 
-    // Removes the climateOverlay if it is turned on.
+    /**
+     * Removes the climateOverlay if it is turned on.
+     */
     function removeClimateLayer() {
         if (climateOverlay) {
             map.removeLayer(climateOverlay)
@@ -276,7 +296,9 @@
         hideLegend();
     }
 
-    // Removes the cadastralLayer centroid and boundary if it is turned on.
+    /**
+     * Removes the cadastralLayer centroid and boundary if it is turned on.
+     */
     function removeCadastralLayer(){
         if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
         if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
@@ -284,6 +306,9 @@
 
     let currentLegendImg = null;
 
+    /**
+     * Creates a div container to where the legend image will be displayed
+     */
     Legend.onAdd = function () {
         const div = L.DomUtil.create('div', 'gw-legend');
         if (currentLegendImg) {
@@ -293,13 +318,16 @@
             img.style.height = "auto";
             div.appendChild(img);
         } else {
-            // Fallback hvis ingen src er sat
+            // Fallback if no source is available
             div.textContent = "No legend available";
         }
         return div;
     };
 
-    // Updates the legend size for the different legends
+    /**
+     * Updates the legend size for the different legends
+     * @param width refers to the width of the map
+     */
     function updateLegendSize(width) {
         const legendImg = document.querySelector('.gw-legend img');
         if (!legendImg) return;
@@ -310,7 +338,11 @@
         legendImg.style.height = "auto";
     }
 
-    // Show Legend
+    //
+    /**
+     * Function that makes the legend visible
+     * @param imageUrl defines the path to the legend images
+     */
     function showLegend(imageUrl) {
         currentLegendImg = imageUrl;
 
@@ -319,7 +351,9 @@
 
     }
 
-    // Remove legend
+    /**
+     * Method for hiding the legend
+     */
     function hideLegend() {
         currentLegendImg = null;
 
@@ -333,7 +367,7 @@
 
     let propertyMarker = null;
 
-    // Adds a property marker to the correct location defined by the input coordinates
+    // Adds the red pin property marker to the correct location defined by the input coordinates
     window.showPropertyMarker = function(coords) {
         if (propertyMarker) {
             map.removeLayer(propertyMarker);

@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class used to define the loading of the geotiff files, which are located on an FTP server.
+ * */
 public class TiffTileLoader {
     private static final String USER_NAME = "ftpuser";
     private static final String PASSWORD = "0Ett84fGAB:&";
@@ -30,7 +33,8 @@ public class TiffTileLoader {
     }
 
     /**
-     * Method used for loading both single or multiple tif files. Reads a GeoTIFF file from the specified path and loads it as a {@code GridCoverage2D}.
+     * Method used for loading both single or multiple tif files. Reads a GeoTIFF file from the specified path,
+     * and loads it as a {@code GridCoverage2D}.
      * multiple times based on the amount of tif files.
      * @throws IOException if error happens while reading a file
      */

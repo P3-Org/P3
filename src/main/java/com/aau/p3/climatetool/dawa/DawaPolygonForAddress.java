@@ -18,7 +18,7 @@ public class DawaPolygonForAddress{
      * @param ownerLicense one part of the query needed for the API
      * @param cadastre the other part needed for the query
      */
-    public DawaPolygonForAddress(String ownerLicense, String cadastre){
+    public DawaPolygonForAddress(String ownerLicense, String cadastre) {
         // Get response from urlhelper, with the search of owner license and cadastre information
         UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
 
