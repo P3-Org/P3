@@ -6,9 +6,16 @@ import javafx.scene.layout.GridPane;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Class that implements the RiskBinderInterface to apply colors and finding the corresponding label for a risk
+ */
 public class RiskLabelBinder implements RiskBinderInterface {
     private final GridPane container;
 
+    /**
+     * Constructor
+     * @param container The container with the corresponding tag
+     */
     public RiskLabelBinder(GridPane container) {
         this.container = container;
     }

@@ -1,5 +1,8 @@
 package com.aau.p3.climatetool.utilities.color;
 
+/**
+ * Class for the Red Polynomial
+ */
 public class RedPolynomial implements PolynomialInterface {
     private final double normalizedMeasurement;
 

@@ -1,5 +1,9 @@
 package com.aau.p3.climatetool.utilities;
 
+
+/**
+ * Class for normalizing thresholds
+ */
 public class NormalizeSample {
     /**
      * Min-max normalization. Maps the sample to a 0-1 range, based on the thresholds
