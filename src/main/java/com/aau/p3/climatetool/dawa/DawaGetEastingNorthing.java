@@ -16,7 +16,7 @@ public class DawaGetEastingNorthing {
     public DawaGetEastingNorthing(String query) {
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
-        StringBuilder response = autoComplete.getAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
+        StringBuilder response = autoComplete.GETAutoComplete(); // Uses the autocomplete that gets Easting Northing coordinates
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
         JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array.

@@ -24,7 +24,7 @@ public class GroundwaterReader implements RestDataReader {
     public void riskFetch(String query) {
         // Use URL manager to perform API call and get response
         UrlGroundwater groundwater = new UrlGroundwater(query);
-        StringBuilder response = groundwater.getUrlGroundwater();
+        StringBuilder response = groundwater.GETUrlGroundwater();
 
         // Get kote value
         kote = GroundwaterReader.extractKote(response);

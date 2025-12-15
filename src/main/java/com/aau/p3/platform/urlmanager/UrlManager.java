@@ -2,23 +2,19 @@ package com.aau.p3.platform.urlmanager;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
 
 /**
- * How to use:
- * Add a method containing the specific endpoint you want to access
- * Use the getResponse method to make the get request
- * Make a UrlHelper constructor with the base url
- * Handle the response JSON in your own method not in this class
+ * Parent class for all other URL classes. Contains the constructor for assigning BASE-URL.
+ * Also holds the method GETResponse, which handles the API call on a given query and returns a StringBuilder response.
  */
 public class UrlManager {
     protected static String BASE_URL;
 
     /**
-     * Constructor for UrlManager
+     * Constructor for UrlManager.
      * @param baseURL
      */
     public UrlManager(String baseURL){
@@ -29,17 +25,16 @@ public class UrlManager {
      * Features the creation of connection, readings of information, security checks and termination.
      * @param urlString URL string to be created as a URL object
      */
-    public StringBuilder getResponse(String urlString){
+    public StringBuilder GETResponse(String urlString) {
         try {
-            // Create URL object from url string
+            // Create URL object from url string.
             URL url = new URL(urlString);
-            //System.out.println(url); // Used for API debug
 
-            // Create connection and request "GET"
+            // Create connection and request "GET".
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
-            // Check if response was successful
+            // Check if response was successful.
             int responseCode = conn.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -51,7 +46,7 @@ public class UrlManager {
                     response.append(line);
                 }
 
-                // Closes connection when all lines are read
+                // Closes connection when all lines are read.
                 in.close();
 
                 return response;

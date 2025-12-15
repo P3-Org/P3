@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -13,6 +12,9 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
+/**
+ * Test for the DAWA autocomplete API call to receive nested list of doubles of coordinates
+ */
 class DawaPolygonForAddressTest {
     private List<List<Double>> expectedCoordsList;
     DawaPropertyNumbers testProperty = Mockito.mock(DawaPropertyNumbers.class);
@@ -20,7 +22,7 @@ class DawaPolygonForAddressTest {
 
     @BeforeEach
     void setup() {
-        // Arrange
+        // Arrange: Mock cadastre number and owner license
         when(testProperty.getCadastre()).thenReturn("9af");
         when(testProperty.getOwnerLicense()).thenReturn("980251");
 
@@ -29,7 +31,7 @@ class DawaPolygonForAddressTest {
 
     @Test
     void getPolygon() {
-        // Arrange
+        // Arrange: Create list of expected response
         expectedCoordsList = Arrays.asList(
                 Arrays.asList(563376.144, 6234684.897),
                 Arrays.asList(563342.218, 6234679.676),
@@ -42,7 +44,7 @@ class DawaPolygonForAddressTest {
         String cadastre = testProperty.getCadastre();
         String ownerLicense = testProperty.getOwnerLicense();
 
-        // Act
+        // Act: Call the DAWA API
         DawaPolygonForAddress polygon = new DawaPolygonForAddress(ownerLicense, cadastre);
         
         // Assert

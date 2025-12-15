@@ -20,7 +20,7 @@ public class DawaPropertyNumbers {
     public DawaPropertyNumbers(List<String> coordinates) {
         // Get the response with the given query for the UrlPropertyNumber
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
-        StringBuilder response = propertyCoordinates.getPropertyNumber();
+        StringBuilder response = propertyCoordinates.GETPropertyNumber();
 
         // Converts the response to a string which we then make to a JSON array.
         JSONArray jsonArray = new JSONArray(response.toString());

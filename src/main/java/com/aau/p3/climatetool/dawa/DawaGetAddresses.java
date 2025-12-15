@@ -17,7 +17,7 @@ public class DawaGetAddresses {
     public DawaGetAddresses(String query){
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
-        StringBuilder response = autoComplete.getAutoComplete();
+        StringBuilder response = autoComplete.GETAutoComplete();
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
 

@@ -1,7 +1,7 @@
 package com.aau.p3.climatetool.utilities;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /***
@@ -12,37 +12,33 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class NormalizedScale {
     double[] mockThresholds = {10,30};
-
     double minNormalized;
     double maxNormalized;
-
     double minNormal;
     double maxNormal;
-
     double measurementValue;
+
+    // Initialize values before each test is run.
     @BeforeEach
     void setup(){
-
         minNormalized = -0.5;
         maxNormalized = 1.5;
-
         minNormal = 0;
         maxNormal = 40;
-
         measurementValue = 14.6;
     }
 
 
     @Test
     void testNormalized(){
-        // Arrange
+        // Arrange: Get normalized measurement value.
         double normalizedMeasurementValue = NormalizeSample.minMaxNormalization(14.6, mockThresholds);
 
-        // Act
+        // Act: Perform operations
         double percentOfScaleNormalized = (normalizedMeasurementValue - minNormalized) / (maxNormalized - minNormalized);
         double percentofScaleNormal = (measurementValue/(minNormal+maxNormal));
 
-        // Assert
+        // Assert:
         assertEquals(percentofScaleNormal, percentOfScaleNormalized);
     }
 

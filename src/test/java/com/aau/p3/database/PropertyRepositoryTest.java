@@ -72,7 +72,7 @@ class PropertyRepositoryTest {
         testListOfRisk.addAll(Arrays.asList(testcloudBurstRisk, teststormSurgeRisk, testgroundWaterRisk, testcoastalErosionRisk));
 
         // create the property that we'll be testing on
-        property = new Property(testAddress, testCoordinates,testEastingNorthing, testLatLong, testListOfRisk);
+        property = new Property(testAddress, testCoordinates, testEastingNorthing, testLatLong, testListOfRisk);
     }
 
     /**

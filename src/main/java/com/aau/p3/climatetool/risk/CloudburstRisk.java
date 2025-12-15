@@ -6,8 +6,8 @@ import com.aau.p3.climatetool.utilities.NormalizeSample;
 import java.util.List;
 
 /**
- * Class that implements "RiskAssessment" interface and handles the valuation of cloudburst risk
- * Reads information from TIFF files and sets color from normalized measurements
+ * Class that implements "RiskAssessment" interface and handles the valuation of cloudburst risk.
+ * Reads information from TIFF files and sets color from normalized measurements.
  */
 public class CloudburstRisk implements RiskAssessment {
     private final GeoDataReader geoDataReader;
@@ -19,12 +19,7 @@ public class CloudburstRisk implements RiskAssessment {
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    /**
-     * Constructor for final attributes in CloudburstRisk class
-     * @param geoDataReader
-     * @param thresholdRepository
-     * @param measurementStrategy
-     */
+    /* Constructor for final attributes in CloudburstRisk class */
     public CloudburstRisk(GeoDataReader geoDataReader, ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
@@ -38,20 +33,26 @@ public class CloudburstRisk implements RiskAssessment {
      */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
+        // Read and assign values from the file SIMRAIN, with the given coordinates.
         List<Double> value = geoDataReader.readValues(coordinates, "bluespot", "SIMRAIN");
 
-        // Use interface methods to get threshold, measurement value, normalized measurement and RGB value.
+        // Extract the threshold values for cloudburst.
         this.threshold = thresholdRepository.getThreshold("cloudburst");
 
-        // Temporary measured value that is multiplied by 1000 to convert meters to milli meters
+        // Temporary measured value that is multiplied by 1000 to convert meters to milli meters.
         double tempVal = measurementStrategy.processValues(value) * 1000;
 
-        /* If process value is NaN - no risk data is found on the property the measure value is set to 999.9
-        *  This is done if a property doesn't contain any data of cloudburst risk the label container will be green */
+        /* If process value is NaN - no risk data is found on the property the measure value is set to 999.9.
+        *  This is done if a property doesn't contain any data of cloudburst risk, which labels the container green */
         this.measurementValue = Double.isNaN(tempVal) ? 999.9 : tempVal;
 
+        // Get the normalized measurement of the measured value using the thresholds.
         this.normalizedMeasurement = NormalizeSample.minMaxNormalization(this.measurementValue, this.threshold);
+
+        // Assign color according to the normalized measurement value.
         this.RGBValue = ColorManager.getRGBValues(normalizedMeasurement);
+
+        // Write the description for the risk.
         this.setDescription();
     }
 
@@ -66,7 +67,7 @@ public class CloudburstRisk implements RiskAssessment {
 
     /**
      * Getter method
-     * @return NormalizedValue for the given risk
+     * @return NormalizedValue
      */
     @Override
     public double getNormalizedValue() {
@@ -83,16 +84,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Setter method. Sets description.
-     */
-    @Override
-    public void setDescription() {
-        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + " millimeter til for, at oversvømme denne grund.";
-    }
-
-    /**
      * Getter method
-     * @return description
+     * @return Description
      */
     @Override
     public String getDescription() {
@@ -115,5 +108,13 @@ public class CloudburstRisk implements RiskAssessment {
     @Override
     public String getRiskType() {
         return "cloudburst";
+    }
+
+    /**
+     * Setter method. Sets description.
+     */
+    @Override
+    public void setDescription() {
+        this.description = this.measurementValue == 999.9 ? "Ingen data tilgænglig" : "Som resultat af kraftig regn, skal der " + String.format("%.2f", this.measurementValue) + " millimeter til for, at oversvømme denne grund.";
     }
 }

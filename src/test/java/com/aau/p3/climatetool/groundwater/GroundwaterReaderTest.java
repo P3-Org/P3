@@ -9,20 +9,26 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test that checks whether the extraction methods in GroundwaterReader reads keys correctly.
+ */
 class GroundwaterReaderTest {
     String json;
 
+
     @Test
     void testExtractKote() {
+        // Arrange: Create string JSON with "kote" key.
         String jsontest = """
         {
           "kote": 12.34
         }
         """;
 
-
+        // Act: Perform extractKote on the JSON.
         double result = GroundwaterReader.extractKote(new StringBuilder(jsontest));
 
+        // Assert: Check whether it matches the actual kote to the read value.
         assertEquals(12.34, result, 0.0001);
     }
 
@@ -30,6 +36,7 @@ class GroundwaterReaderTest {
 
     @Test
     void testExtractHValues() {
+        // Arrange: Create string JSON with "statistik" and "samlet" key, including the h-values.
         String json = """
         {
           "statistik": {
@@ -40,9 +47,11 @@ class GroundwaterReaderTest {
         }
         """;
 
+        // Act: Read the values and insert into a list of doubles.
         RestDataReader reader = new GroundwaterReader();
         List<Double> values = reader.extractValues(new StringBuilder(json));
 
+        // Assert: Check whether the read values match the expected.
         assertEquals(6, values.size());
         assertEquals(1.1, values.get(0), 0.0001);
         assertEquals(6.6, values.get(5), 0.0001);
@@ -50,9 +59,12 @@ class GroundwaterReaderTest {
 
     @Test
     void testExtractKoteFull(){
+        // Arrange: Done in the @BeforeEach setup().
 
+        // Act: Extract "kote" from the full JSON.
         double result = GroundwaterReader.extractKote(new StringBuilder(json));
 
+        // Assert: Check whether the result matches the expected.
         assertEquals(43.98, result, 0.01);
     }
 
