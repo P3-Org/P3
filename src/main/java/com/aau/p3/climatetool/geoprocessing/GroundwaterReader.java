@@ -16,9 +16,6 @@ public class GroundwaterReader implements RestDataReader {
     private List<Double> hValues;
     private double distanceFromSurface;
 
-    // Hent koordinater og brug den her linje til at formatere dem til groundwaterFetch (slet comment senere)
-    // String wkt = String.format(java.util.Locale.US, "POINT (%.3f %.3f)", x, y);
-
     /**
      * @param query the search query, being the coordinates in EPSG:25832 format
      * Performs API call and gathers the "kote" value and the h values and stores them
@@ -46,9 +43,7 @@ public class GroundwaterReader implements RestDataReader {
     public static Double extractKote(StringBuilder response) {
         // Get the double from the object "kote"
         JSONObject obj = new JSONObject(response.toString());
-        double holder = obj.getDouble("kote");
-
-        return holder;
+        return obj.getDouble("kote");
     }
 
     /**
@@ -59,7 +54,7 @@ public class GroundwaterReader implements RestDataReader {
     @Override
     public List<Double> extractValues(StringBuilder response) {
         // Initialize hValues as an array list
-        List<Double> holder = new ArrayList<>();
+        List<Double> hData = new ArrayList<>();
         JSONObject json = new JSONObject(response.toString());
         // Find the "samlet" array inside the "statistik" array of the geoJson
         JSONArray samletArray = json.getJSONObject("statistik").getJSONArray("samlet");
@@ -70,24 +65,12 @@ public class GroundwaterReader implements RestDataReader {
             String[] keys = {"h2", "h5", "h10", "h20", "h50", "h100"};
             for (String key : keys) {
                 if (hObject.has(key)) {
-                    holder.add(hObject.getDouble(key));
+                    hData.add(hObject.getDouble(key));
                 }
             }
         }
-        return holder;
+        return hData;
     }
-
-    /**
-     * Getter method
-     * @return kote
-     */
-    public double getKote() { return this.kote; }
-
-    /**
-     * Getter method
-     * @return H values
-     */
-    public List<Double> getHValues() { return this.hValues; }
 
     /**
      * Getter method
