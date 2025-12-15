@@ -614,4 +614,10 @@ public class HydrologicalToolController implements ControlledScreen {
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
+
+    @Override
+    public String toString(){
+        return "HydrologicalToolController";
+    }
+
 }
