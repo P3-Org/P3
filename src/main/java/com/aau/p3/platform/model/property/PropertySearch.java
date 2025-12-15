@@ -4,6 +4,7 @@ import com.aau.p3.Main;
 import com.aau.p3.climatetool.dawa.*;
 import com.aau.p3.climatetool.geoprocessing.TiffFileReader;
 import com.aau.p3.climatetool.utilities.GeoDataReader;
+import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
 import com.aau.p3.database.ThresholdRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -118,7 +119,7 @@ public class PropertySearch {
                      *  Uses abstractions in form of interfaces (reference types) instead of concrete class types.
                      *  Follows the Dependency Inversion Principle */
                     GeoDataReader geoReader = new TiffFileReader();
-                    com.aau.p3.climatetool.utilities.ThresholdRepository thresholdRepo = new ThresholdRepository();
+                    ThresholdRepositoryInterface thresholdRepo = new ThresholdRepository();
 
                     // Initializes the riskFactory that will be used to create the risks for the property
                     RiskFactory riskFactory = new RiskFactory(geoReader, thresholdRepo);

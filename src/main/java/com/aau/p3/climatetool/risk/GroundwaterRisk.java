@@ -9,7 +9,7 @@ import com.aau.p3.climatetool.utilities.color.ColorManager;
  * Gets information through API call to dataforsyningen.
  */
 public class GroundwaterRisk implements RiskAssessment{
-    private final ThresholdRepository thresholdRepository;
+    private final ThresholdRepositoryInterface thresholdRepository;
     private double measurementValue;
     private double[] threshold;
     private double[] RGBValue;
@@ -17,7 +17,7 @@ public class GroundwaterRisk implements RiskAssessment{
     private String description = "Ingen data tilgængelig";
 
     /* Constructor for final attributes */
-    public GroundwaterRisk(ThresholdRepository thresholdRepository) {
+    public GroundwaterRisk(ThresholdRepositoryInterface thresholdRepository) {
         this.thresholdRepository = thresholdRepository;
     }
 

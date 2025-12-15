@@ -18,7 +18,7 @@ public class Indicator {
      * @param indicator
      */
     public void setThresholdsLines(AnchorPane indicator, String risk, String siPrefix) {
-        com.aau.p3.climatetool.utilities.ThresholdRepository thresholdRepo = new ThresholdRepository();
+        ThresholdRepositoryInterface thresholdRepo = new ThresholdRepository();
         thresholdValues = thresholdRepo.getThreshold(risk);
 
         Line lowerThreshold = new Line();

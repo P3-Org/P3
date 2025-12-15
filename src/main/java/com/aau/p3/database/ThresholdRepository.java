@@ -1,11 +1,13 @@
 package com.aau.p3.database;
 
+import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
+
 import java.sql.*;
 
 /**
  * Class responsible for handling communication with the "threshold" table inside the database
  */
-public class ThresholdRepository implements com.aau.p3.climatetool.utilities.ThresholdRepository {
+public class ThresholdRepository implements ThresholdRepositoryInterface {
     /**
      * Method for retrieving thresholds from database climateTool.db under the table: thresholds.
      * @param riskType is the parameter containing corresponding to the risk types like: "cloudburst", "stormsurge", etc.

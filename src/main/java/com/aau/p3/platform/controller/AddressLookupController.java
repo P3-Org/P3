@@ -1,5 +1,4 @@
 package com.aau.p3.platform.controller;
-
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
 import com.aau.p3.platform.model.property.PropertySearch;
@@ -13,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
 import java.nio.charset.StandardCharsets;
 import java.net.URLDecoder;
 
@@ -21,31 +19,37 @@ import java.net.URLDecoder;
  * Class that handles the Address look up controller and window
  */
 public class AddressLookupController implements ControlledScreen  {
-    @FXML private TextField addressSearchField; // The field where the user types the address
+    @FXML private TextField addressSearchField;
     @FXML private TableView<Case> myCasesTable;
     @FXML private TableColumn<Case, Integer> tableCaseID;
-    @FXML private TableColumn<Case, String> tableTitle;   // address
+    @FXML private TableColumn<Case, String> tableTitle;
     @FXML private TableColumn<Case, String> tableOwner;
     @FXML private TableColumn<Case, StatusEnum> tableStatus;
-
     private MainController mainController;
 
+    /**
+     * Controller, that sets the instance as the main controller.
+     */
     @Override
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Initialization method. This method is run to assemble contents of the page.
+     * In this case, the table on the page is filled with data, also mocked below.
+     */
     @FXML
     public void initialize() {
-        // Map columns using lambdas (explicit, avoids reflection issues)
+        // Map column cells filled using lambda functions (explicitly which avoids reflection issues).
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
         tableTitle.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
         tableOwner.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getOwnerName()));
-        // Convert StatusEnum to a readable String (you can change formatting here)
+
+        // Convert StatusEnum to a readable String
         tableStatus.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getStatus()));
 
-        // Mock Data — adjust Address/Customer constructors to match your real classes
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
                         URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
@@ -69,11 +73,11 @@ public class AddressLookupController implements ControlledScreen  {
                         StatusEnum.PENDING)
         );
 
-        // Set data in the table
         myCasesTable.setItems(mockData);
 
-        /* Creates a PropertySearch object to be used for looking up an address using DAWA api. It passes the field that will be filled out, and a callback method
-           responsible for calling the mainController ones the address has been filled out. */
+        /* Creates a PropertySearch object to be used for looking up an address using the DAWA API.
+        *  It passes the field that will be filled out, and a callback method responsible for calling
+        *  the mainController once the address has been filled out. */
         PropertySearch search = new PropertySearch(addressSearchField, () -> setWindowHydrologicalTool());
         search.searchAddress();
     }

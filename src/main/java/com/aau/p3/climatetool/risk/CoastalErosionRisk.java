@@ -3,8 +3,7 @@ package com.aau.p3.climatetool.risk;
 import com.aau.p3.climatetool.geoprocessing.CoastalErosionReader;
 import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
-import com.aau.p3.climatetool.utilities.*;
+import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
 import com.aau.p3.climatetool.utilities.color.ColorManager;
 import com.aau.p3.climatetool.utilities.NormalizeSample;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * Gets information through API call to dataforsyningen.
  */
 public class CoastalErosionRisk implements RiskAssessment {
-    private final ThresholdRepository thresholdRepository;
+    private final ThresholdRepositoryInterface thresholdRepository;
     private final MeasurementStrategy measurementStrategy;
     private double measurementValue;
     private double[] threshold;
@@ -24,7 +23,7 @@ public class CoastalErosionRisk implements RiskAssessment {
     private String severityString;
 
     /* Constructor for final attributes */
-    public CoastalErosionRisk(ThresholdRepository thresholdRepository, MeasurementStrategy measurementStrategy) {
+    public CoastalErosionRisk(ThresholdRepositoryInterface thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;
     }
