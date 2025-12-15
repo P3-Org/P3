@@ -40,8 +40,8 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import javafx.util.StringConverter;
 import javafx.scene.text.Text;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -120,17 +120,6 @@ public class HydrologicalToolController implements ControlledScreen {
         this.currentProperty = propertyManager.currentProperty;
         mainController.updateClimateButtonVisibility();
     }
-
-    @Override
-    public void onShow() {
-        System.out.println("It showed!");
-    }
-
-    @Override
-    public void onHide() {
-        System.out.println("Saved all comments!");
-    }
-
 
     @FXML
     private void settingsMenu(ActionEvent event) {
@@ -333,9 +322,6 @@ public class HydrologicalToolController implements ControlledScreen {
                 showPropertyMarker(this.currentProperty.getLatLongCoordinates());
             }
         });
-
-        // Listeners for save-at-exit
-
     }
 
     public void afterInitialize() {
@@ -521,8 +507,8 @@ public class HydrologicalToolController implements ControlledScreen {
     private void commentButtonHandler(ActionEvent event) {
         String comment = commentArea.getText();
         if (!comment.isEmpty()) {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-            String timestamp = LocalDateTime.now().format(dateFormatter);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            String timestamp = LocalDate.now().format(dateFormatter);
             String fullComment = timestamp + "\n" + comment;
             Main.propertyManager.currentProperty.setComment(fullComment);
             PropertyManager.addCommentToDB(currentProperty, fullComment);
@@ -628,10 +614,4 @@ public class HydrologicalToolController implements ControlledScreen {
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }
-
-    @Override
-    public String toString(){
-        return "HydrologicalToolController";
-    }
-
 }
