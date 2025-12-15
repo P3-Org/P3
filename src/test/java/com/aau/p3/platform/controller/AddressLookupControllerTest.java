@@ -1,10 +1,6 @@
 package com.aau.p3.platform.controller;
 
-import com.aau.p3.Main;
-import com.aau.p3.platform.model.property.PropertySearch;
 import com.aau.p3.platform.utilities.ControlledScreen;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyCode;
@@ -12,19 +8,13 @@ import javafx.stage.Stage;
 import org.junit.jupiter.api.*;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
-
 import javafx.scene.control.TextField;
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import static org.junit.jupiter.api.Assertions.*;
 
 class AddressLookupControllerTest extends ApplicationTest {
-
     MainController mainController = new MainController();
-
     ControlledScreen activeScreen;
     String testAddress;
 
@@ -34,7 +24,7 @@ class AddressLookupControllerTest extends ApplicationTest {
         testAddress = "Danmarksgade 88, 9000 Aalborg";
     }
 
-
+    /* Create a JavaFX window to test */
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/MainWindow.fxml"));
@@ -45,6 +35,7 @@ class AddressLookupControllerTest extends ApplicationTest {
         stage.show();
     }
 
+    // Exclude from CI pipeline
     @Tag("exclude")
     @Test
     void HydrologicalToolIntergration() throws TimeoutException {
@@ -58,8 +49,7 @@ class AddressLookupControllerTest extends ApplicationTest {
         Assertions.assertEquals("AddressLookupController", activeScreen.toString());
 
 
-        // Simulate a user
-        // Change address search filed to test Address
+        // Simulate a user entering an address
         interact(() -> lookup("#addressSearchField").queryAs(TextField.class)
                 .setText(testAddress));
         push(KeyCode.ENTER);
