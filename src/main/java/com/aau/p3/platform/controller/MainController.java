@@ -28,6 +28,7 @@ import com.aau.p3.platform.utilities.openPdfFile;
  * Class that handles the main controller and the windows that can be called from the main controller
  */
 public class MainController {
+    private static ControlledScreen activeScreen;
     Object ctrl;
 
     @FXML
@@ -61,7 +62,13 @@ public class MainController {
      * @param fxml file
      */
     public void setCenter(String fxml) {
+        System.out.println("setCenter() CALLED with: " + fxml);
+        //Thread.dumpStack();
         try {
+            // Call onHide() on the previous screen if it exists
+            if (activeScreen != null) {
+                activeScreen.onHide();
+            }
             /* Creates a FXMLloader object based on the given fxml file and loads it into the class Node (in javafx.scene)
             *  Node is a superclass to Parent in javafx that is used to hold any scene object, where Parent class only holds containers
             *  such as "Vbox, Hbox, etc." */
@@ -84,6 +91,10 @@ public class MainController {
                 if (ctrl instanceof HydrologicalToolController htc){
                     htc.afterInitialize();
                 }
+                activeScreen = cs;
+                cs.onShow();
+            } else {
+                activeScreen = null;
             }
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
@@ -152,8 +163,17 @@ public class MainController {
         document.close();
     }
 
+    public static ControlledScreen getActiveScreen() {
+        return activeScreen;
+    }
+
     @FXML
     private void exitApp() {
         System.exit(0);
+    }
+
+    @Override
+    public String toString(){
+        return "MainController";
     }
 }

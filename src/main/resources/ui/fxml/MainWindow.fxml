@@ -25,7 +25,7 @@
                         <Button maxWidth="Infinity" styleClass="nav-item" text="*Klassifikation" />
                         <Button maxWidth="Infinity" styleClass="nav-item" text="*Historik" />
                         <Button fx:id="climateLookupButton" maxWidth="Infinity" onAction="#openHydrologicalTool" styleClass="nav-item" text="Klimaopslag" />
-                        <Button maxWidth="Infinity" onAction="#exportDocument" styleClass="export-btn" text="Udskriv vurderingskladde" />
+                        <Button maxWidth="Infinity" onAction="#exportDocument" styleClass="export-btn" text="Eksporter vurderingskladde som PDF" />
                         <Separator />
                         <Button maxWidth="Infinity" onAction="#exitApp" styleClass="exit-btn" text="Luk programmet" />
                     </children>
