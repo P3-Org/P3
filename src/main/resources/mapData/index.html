@@ -306,6 +306,9 @@
 
     let currentLegendImg = null;
 
+    /**
+     * Creates a div container to where the legend image will be displayed
+     */
     Legend.onAdd = function () {
         const div = L.DomUtil.create('div', 'gw-legend');
         if (currentLegendImg) {
