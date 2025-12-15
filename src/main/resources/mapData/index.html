@@ -154,11 +154,13 @@
         "Streets": streetMap
     };
 
+    let layersControl;
+
     // When the window is opened and loaded, add the tilelayers from the API's to the leaflet map.
     document.addEventListener('DOMContentLoaded', () => {
 
         // Control layers gives the ability to swap between the map objects satelliteMap and streetMap and display it on the map
-        L.control.layers(baseMaps).addTo(map);
+        layersControl = L.control.layers(baseMaps).addTo(map);
 
         // Variable used for inserting the different overlays from wms.
         climateOverlay;
@@ -341,6 +343,20 @@
         const lat = parseFloat(coords[0]);
         const lon = parseFloat(coords[1]);
         propertyMarker = L.marker([lat, lon], { icon: redPinIcon }).addTo(map);
+    }
+
+    // Removes all UI overlays for taking screenshots
+    function removeUIOverlays() {
+        layersControl.remove();
+        map.zoomControl.remove()
+        map.attributionControl.remove();
+    }
+
+    // Adds all UI overlays, for after a screenshot has been taken
+    function addUIOverlays() {
+        layersControl.addTo(map);
+        map.zoomControl.addTo(map);
+        map.attributionControl.addTo(map);
     }
 </script>
 </body>

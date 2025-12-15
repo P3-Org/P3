@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -145,6 +146,8 @@ public class HydrologicalToolController implements ControlledScreen {
         webEngine.executeScript("showPropertyMarker(" + jsArray + ")");
     }
 
+    WebView webView;
+
     @FXML
     public void initialize() {
         // Initialize sliders functionality
@@ -152,7 +155,7 @@ public class HydrologicalToolController implements ControlledScreen {
         this.setCloudBurstSlider();
 
         // Makes a website(view), and an engine to handle it, so we may display it in a JavaFX scene
-        WebView webView = new WebView();
+        webView = new WebView();
         webEngine = webView.getEngine();
 
         // Make variable for HTML file with all relevant map data and information
@@ -640,6 +643,13 @@ public class HydrologicalToolController implements ControlledScreen {
             panTo(currentProperty.getLatLongCoordinates()); // always run on new selection
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
+    }
+
+    public WritableImage takeMapSnapshot() {
+        webEngine.executeScript("removeUIOverlays()");
+        WritableImage img = webView.snapshot(null,null);
+        webEngine.executeScript("addUIOverlays()");
+        return img;
     }
 
 

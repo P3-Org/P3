@@ -6,19 +6,21 @@ import com.aau.p3.platform.model.pdfcontents.PdfClimateState;
 import com.aau.p3.platform.model.pdfcontents.PdfOverview;
 import com.aau.p3.platform.model.property.Property;
 import com.aau.p3.platform.utilities.ControlledScreen;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.Region;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -126,9 +128,23 @@ public class MainController {
         setCenter("/ui/fxml/HydrologicalTool.fxml");
     }
 
+    static BufferedImage mapImage;
+
     @FXML
     private void exportDocument (ActionEvent actionEvent) throws IOException {
         System.out.println("Exporting document...");
+
+        WritableImage fxImage;
+        // Take screenshot of map
+        if (ctrl instanceof HydrologicalToolController) {
+        fxImage = ((HydrologicalToolController) ctrl).takeMapSnapshot();
+        } else {
+            System.out.println("Should be on this Hydrological tool maybe?");
+            fxImage = null;
+        }
+
+        mapImage = SwingFXUtils.fromFXImage(fxImage, null);
+
 
         // Initialize
         PDDocument document = new PDDocument();
@@ -167,5 +183,9 @@ public class MainController {
     private void exitApp() {
         onHideActiveScreen();
         System.exit(0);
+    }
+
+    public static BufferedImage getMapPicture() {
+        return mapImage;
     }
 }
