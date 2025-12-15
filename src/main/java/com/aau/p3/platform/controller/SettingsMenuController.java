@@ -1,7 +1,7 @@
 package com.aau.p3.platform.controller;
 
 import com.aau.p3.database.PropertyRepository;
-import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.database.ThresholdRepository;
 import com.aau.p3.platform.model.property.PropertyManager;
 import com.aau.p3.platform.utilities.ControlledScreen;
 import javafx.fxml.FXML;
@@ -33,7 +33,7 @@ public class SettingsMenuController implements ControlledScreen {
      */
     @FXML
     public void initialize() {
-        StaticThresholdRepository repo = new StaticThresholdRepository();
+        ThresholdRepository repo = new ThresholdRepository();
 
         setThresholdLabels(repo.getThreshold("cloudburst"), cloudBurstCurrentLower, cloudBurstCurrentUpper);
         setThresholdLabels(repo.getThreshold("groundwater"), groundWaterCurrentLower, groundWaterCurrentUpper);
@@ -81,7 +81,7 @@ public class SettingsMenuController implements ControlledScreen {
     @FXML
     private void storeNewThresholdValues() {
 
-        StaticThresholdRepository thresholdRepository = new StaticThresholdRepository();
+        ThresholdRepository thresholdRepository = new ThresholdRepository();
 
         writeToThresholdFieldInDB(thresholdRepository);
         PropertyRepository.wipeProperties();
@@ -95,7 +95,7 @@ public class SettingsMenuController implements ControlledScreen {
      * Reads values from inputs fields in the settings window, and writes them to the database
      * @param thresholdRepository Object of the StaticThesholdReposity, allows us to update the database
      */
-     private void writeToThresholdFieldInDB(StaticThresholdRepository thresholdRepository) {
+     private void writeToThresholdFieldInDB(ThresholdRepository thresholdRepository) {
          textFieldList.addAll(Arrays.asList(
                  Arrays.asList(cloudBurstLower, cloudBurstUpper),
                  Arrays.asList(groundWaterLower, groundWaterUpper),

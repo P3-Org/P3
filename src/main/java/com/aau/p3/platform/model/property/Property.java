@@ -1,30 +1,30 @@
 package com.aau.p3.platform.model.property;
+
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import java.util.ArrayList;
 import java.util.List;
 import com.aau.p3.climatetool.ClimateStateScore;
 
 /**
- * Class that holds information on a property, which in "PropertyManager" can be saved in a list.
- * Holds everything from address, location and risks
+ * Class that holds information on a property
  */
 public class Property {
     private final String address;
     private final List<List<Double>> polygonCoordinates;
     private final List<String> latLongCoordinates;
     private final List<String> eastingNorthing;
+    private final List<String> comments = new ArrayList<>();
     private final List<RiskAssessment> riskAssessment;
     private int climateScore;
-    private int specialistScore = 0;
-    private List<String> comments = new ArrayList<>();
+    private int specialistAdjustment = 0;
 
     /**
-     * Constructor for property - initializes final variables
-     * @param address
-     * @param polygonCoordinates
-     * @param eastingNorthing
-     * @param latLongCoordinates
-     * @param riskAssessment
+     * Constructor for property
+     * @param address of the property
+     * @param polygonCoordinates of the property
+     * @param eastingNorthing projected coordinate system coordinates for the property
+     * @param latLongCoordinates geographic coordinate system coordinates for the property
+     * @param riskAssessment list containing the risks
      */
     public Property(String address, List<List<Double>> polygonCoordinates, List<String> eastingNorthing, List<String> latLongCoordinates, List<RiskAssessment> riskAssessment) {
         this.address = address;
@@ -35,46 +35,46 @@ public class Property {
     }
 
     /**
-     * Calls "computeOverallClimateScore" and assigns to attribute climateScore in property
+     * Method for assigning the climate score value calculated in "computeOverallClimateScore" to the associated property
      */
     public void calculateClimateScore() {
         this.climateScore = ClimateStateScore.computeOverallClimateScore(riskAssessment);
     }
 
     /**
-     * Getter method
-     * @return Risk assessment for the property
+     * Getter method for the risk on the property
+     * @return A list of climate risks for the property
      */
     public List<RiskAssessment> getRisks() {
         return this.riskAssessment;
     }
 
     /**
-     * Getter method
-     * @return Address for the property
+     * Getter method for the address
+     * @return the address for the property
      */
     public String getAddress() {
         return this.address;
     }
 
     /**
-     * Getter method
-     * @return Polygon coordinates
+     * Getter method for polygon coordinates
+     * @return the polygon coordinates
      */
     public List<List<Double>> getPolygonCoordinates() {
         return this.polygonCoordinates;
     }
 
     /**
-     * Getter method
-     * @return climateScore + changes by the specialist in specialistScore
+     * Getter method for the climate score of the property
+     * @return the latest climateScore for the property (might have been affected by the specialists increasing or decreasing the climate score)
      */
     public int getClimateScore() {
-        return climateScore + specialistScore;
+        return climateScore + specialistAdjustment;
     }
 
     /**
-     * Getter method
+     * Getter method for the geographic coordinates
      * @return Latitude Longitude Coordinates
      */
     public List<String> getLatLongCoordinates() {
@@ -82,53 +82,47 @@ public class Property {
     }
 
     /**
-     * Getter method
-     * @return Easting Northing Coordinates
+     * Getter method for the specialists score, the score that lies in-between the interval of [-1..1]
+     * @return specialistAdjustment for the property
      */
-    public List<String> getEastingNorthingCoordinates() {
-        return eastingNorthing;
+    public int getSpecialistAdjustment() {
+        return this.specialistAdjustment;
     }
 
     /**
-     * Getter method
-     * @return specialistScore from property class
+     * Apply's the specialist adjustment for the property, adjusting the climate score.
+     * The score is constrained to be -1, 0, or 1, and modifies the overall climate score:
+     * - 1 increases the score,
+     * - -1 decreases it (unless the climate score is 1),
+     * - 0 resets the adjustment.
+     * @param scoreEdit the adjustment value (-1, 0, or 1)
      */
-    public int getSpecialistScore() {
-        return this.specialistScore;
-    }
-
-    /**
-     * Setter method
-     * @param scoreEdit the score that is to be edited or set
-     */
-    public void setSpecialistScore(int scoreEdit) {
+    public void applySpecialistAdjustment(int scoreEdit) {
         if (scoreEdit > 0) {
-            specialistScore = 1;
+            specialistAdjustment = 1; // Increases the climate score by 1
         } else if (scoreEdit < 0) {
-            if (climateScore > 1){
-            specialistScore = -1;
+            // Decreases the score if climateScore > 1, otherwise resets to 0
+            if (climateScore > 1) {
+                specialistAdjustment = -1;
             } else {
-                specialistScore = 0;
+                specialistAdjustment = 0;
             }
         } else {
-            specialistScore = 0;
+            specialistAdjustment = 0;
         }
     }
 
     /**
-     * Setter method.
-     * Set comment in property object
+     * Sets comment in the property object
      * @param newComment the new comment to be added to property
      */
     public void setComment(String newComment) {
         this.comments.add(newComment);
-        System.out.println("Added a comment!");
     }
 
     /**
-     * Getter method.
      * Gets comment in property object
-     * @return comment from property
+     * @return comments from property
      */
     public List<String> getComments() {
         return this.comments;

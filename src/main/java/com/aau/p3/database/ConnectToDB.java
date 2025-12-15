@@ -9,12 +9,12 @@ import java.sql.SQLException;
  */
 public class ConnectToDB {
     /**
-     * connect establishes a Connection to the given DB.
-     * @param db the database your connecting to
-     * @return Connection class as a object
+     * method for establishing a Connection to the given DB.
+     * @param db the database connecting to
+     * @return Connection class as an object
      */
     public static Connection connect(String db) {
-        // connection string
+        // SQLite connection string using jdbc
         var url = "jdbc:sqlite:" + db;
 
         try {

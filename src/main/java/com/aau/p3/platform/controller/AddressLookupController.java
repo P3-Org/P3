@@ -40,7 +40,7 @@ public class AddressLookupController implements ControlledScreen  {
         // Map columns using lambdas (explicit, avoids reflection issues)
         tableCaseID.setCellValueFactory(cell -> new SimpleObjectProperty<>(cell.getValue().getCaseID()));
         tableTitle.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
-        tableOwner.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getOwner()));
+        tableOwner.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getOwnerName()));
         // Convert StatusEnum to a readable String (you can change formatting here)
         tableStatus.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getStatus()));
@@ -84,5 +84,10 @@ public class AddressLookupController implements ControlledScreen  {
     @FXML
     private void setWindowHydrologicalTool() {
         mainController.setCenter("/ui/fxml/HydrologicalTool.fxml");
+    }
+
+    @Override
+    public String toString(){
+        return "AddressLookupController";
     }
 }
