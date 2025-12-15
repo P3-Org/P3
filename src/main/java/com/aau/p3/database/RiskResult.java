@@ -2,6 +2,10 @@ package com.aau.p3.database;
 
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 
+/**
+ * Class for converting the data only objects (DTOs) of the risks to actual risk objects using the RiskAssessment datatype.
+ * This class implements the RiskAssessment interface, as the restored risks from now on will be referred to as RiskResult objects.
+ */
 public class RiskResult implements RiskAssessment {
     private final String description;
     private final String riskType;
@@ -12,7 +16,7 @@ public class RiskResult implements RiskAssessment {
 
     /**
      * Constructor that takes in the dto values and matches it with the object of type RiskAssessments.
-     * @param dto contains the data values originally converted from RiskAssessment objects.
+     * @param dto contains the data values originally converted from RiskAssessment objects
      */
     public RiskResult(RiskToDTO dto) {
         this.description = dto.description;
@@ -23,7 +27,7 @@ public class RiskResult implements RiskAssessment {
         this.rgb = dto.RGB;
     }
 
-    // Implement RiskAssessment interface:
+    /* Implements the RiskAssessment interface and all of it's methods */
     @Override public double[] getRGB() { return rgb; }
     @Override public double getNormalizedValue() { return normalizedValue; }
     @Override public double getMeasurementValue() { return measurementValue; }
@@ -31,13 +35,7 @@ public class RiskResult implements RiskAssessment {
     @Override public String getRiskType() {
         return this.riskType;
     }
-
-    @Override
-    public void computeRiskMetrics(double[][] coordinates) {}
-
-    @Override
-    public void setDescription() {}
-
-    @Override
-    public String getDescription() { return this.description; }
+    @Override public void computeRiskMetrics(double[][] coordinates) {}
+    @Override public void setDescription() {}
+    @Override public String getDescription() { return this.description; }
 }

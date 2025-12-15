@@ -1,6 +1,6 @@
 package com.aau.p3.climatetool.utilities;
 
-import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.database.ThresholdRepository;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
@@ -18,7 +18,7 @@ public class Indicator {
      * @param indicator
      */
     public void setThresholdsLines(AnchorPane indicator, String risk, String siPrefix) {
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+        com.aau.p3.climatetool.utilities.ThresholdRepository thresholdRepo = new ThresholdRepository();
         thresholdValues = thresholdRepo.getThreshold(risk);
 
         Line lowerThreshold = new Line();

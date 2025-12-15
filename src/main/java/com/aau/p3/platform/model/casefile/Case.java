@@ -1,34 +1,55 @@
 package com.aau.p3.platform.model.casefile;
+
 import com.aau.p3.platform.utilities.StatusEnum;
 
 /**
- * Class case
+ * Class case that is used for mocking the cases. More functionality can be added come future development.
  */
 public class Case {
-    private int caseID;
-    private String address;
-    private String owner;
-    private StatusEnum status;
+    private final int caseID;
+    private final String address;
+    private final Customer owner;
+    private final StatusEnum status;
 
     /**
      * Constructor for case class
-     * @param caseID id of the case
-     * @param address for the case
-     * @param owner for the case
+     * @param caseID ID of the case
+     * @param address of the property for the case
+     * @param owner of the property for the case
      * @param status of the case
      */
     public Case(int caseID, String address, Customer owner, StatusEnum status) {
         this.caseID = caseID;
         this.address = address;
-        this.owner = owner.getName();
+        this.owner = owner;
         this.status = status;
     }
 
-    // Getters
+    /**
+     * Case ID getter
+     * @return the int corresponding to the caseID for the given case object
+     */
     public int getCaseID() { return this.caseID; }
+
+    /**
+     * Address getter
+     * @return the string corresponding to the address of the property
+     */
     public String getAddress() { return this.address; }
-    public String getOwner() { return this.owner; }
-    public StatusEnum getStatus() { return this.status; }
-    // Setters
-    public void setStatus(StatusEnum status) { this.status = status; }
+
+    /**
+     * Owner name of the property getter
+     * @return string containing the owner of the property's name
+     */
+    public String getOwnerName() {
+        return this.owner.getName();
+    }
+
+    /**
+     * Getter for the status of the case
+     * @return the status enum corresponding to that case
+     */
+    public StatusEnum getStatus() {
+        return this.status;
+    }
 }

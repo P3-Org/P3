@@ -1,6 +1,5 @@
 package com.aau.p3.climatetool.popUpMessages;
-import com.aau.p3.climatetool.utilities.ThresholdRepository;
-import com.aau.p3.database.StaticThresholdRepository;
+import com.aau.p3.database.ThresholdRepository;
 
 import java.util.ResourceBundle;
 
@@ -12,7 +11,7 @@ public class RiskInfoService {
      * @return returns an object of RiskInfo with the correct information strings
      */
     public RiskInfo loadInfo(String filename) {
-        ThresholdRepository thresholdRepo = new StaticThresholdRepository();
+        com.aau.p3.climatetool.utilities.ThresholdRepository thresholdRepo = new ThresholdRepository();
         ResourceBundle bundle = ResourceBundle.getBundle("ui/drilldowns/" +filename);
         String general = bundle.getString("general") + "\n\n";
         String threshold = bundle.getString("threshold") + "\n\n";
