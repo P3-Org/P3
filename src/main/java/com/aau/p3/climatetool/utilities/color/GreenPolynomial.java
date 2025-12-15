@@ -1,5 +1,8 @@
 package com.aau.p3.climatetool.utilities.color;
 
+/**
+ * Class for the green polynomial
+ */
 public class GreenPolynomial implements PolynomialInterface {
     private final double normalizedMeasurement;
 
@@ -34,5 +37,4 @@ public class GreenPolynomial implements PolynomialInterface {
          return -560 * Math.pow(normalizedMeasurement, 2) + 680 * normalizedMeasurement + 50;
         }
     }
-
 }

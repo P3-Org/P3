@@ -1,5 +1,8 @@
 package com.aau.p3.climatetool.utilities.color;
 
+/**
+ * Class for managing colors of the normalized measurements
+ */
 public class ColorManager {
 
     /**

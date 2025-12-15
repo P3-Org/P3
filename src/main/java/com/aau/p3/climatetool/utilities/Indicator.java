@@ -7,15 +7,17 @@ import javafx.scene.shape.Line;
 
 
 /**
- * Indicator class
+ * Indicator class.
+ * Class that sets the threshold lines for a given risk.
  */
 public class Indicator {
     private double[] thresholdValues;
 
     /**
-     *
-     * @param risk
-     * @param indicator
+     * Method for setting the Threshold line for a given indicator.
+     * @param indicator the anchor pane where the indicator is to be set.
+     * @param risk which risk we are creating an indicator for.
+     * @param siPrefix is either in millimeters mm or meters m.
      */
     public void setThresholdsLines(AnchorPane indicator, String risk, String siPrefix) {
         ThresholdRepository thresholdRepo = new StaticThresholdRepository();
@@ -63,6 +65,11 @@ public class Indicator {
         indicator.getChildren().addAll(lowerThreshold, upperThreshold, lowerLabel, upperLabel);
     }
 
+    /**
+     * Scales a threshold
+     * @param threshold to be scaled
+     * @return the scaled Threshold
+     */
     private double scaleThreshold(double threshold) {
         return threshold/(thresholdValues[0]+thresholdValues[1]);
     }

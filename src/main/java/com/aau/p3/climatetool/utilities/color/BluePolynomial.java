@@ -1,5 +1,8 @@
 package com.aau.p3.climatetool.utilities.color;
 
+/**
+ * Class for creating a polynomial
+ */
 public class BluePolynomial implements PolynomialInterface {
     // The measurement is not yet used
     private final double normalizedMeasurement;
