@@ -1,29 +1,47 @@
 package com.aau.p3.climatetool.dawa;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Test for the DAWA autocomplete API call to receive type of searched address
+ */
 public class DawaGetTypeTest {
-    @BeforeEach
-    void Setup() {
-    }
+    String expected;
 
     @Test
     void getVejnavnTest() {
+        // Arrange: Create expected string
+        expected = "vejnavn";
+
+        // Act: Call the DAWA API
         DawaGetType addressInfo = new DawaGetType("Bondag");
-        Assertions.assertEquals("vejnavn", addressInfo.getType());
+
+        // Assert: Check whether the result matches the expected value.
+        Assertions.assertEquals(expected, addressInfo.getType());
     }
 
     @Test
     void getAdgangsAddresseTest() {
+        // Arrange: Create expected string
+        expected = "adgangsadresse";
+
+        // Act: Call the DAWA API
         DawaGetType addressInfo = new DawaGetType("Bondagervej");
-        Assertions.assertEquals("adgangsadresse", addressInfo.getType());
+
+        // Assert: Check whether the result matches the expected value.
+        Assertions.assertEquals(expected, addressInfo.getType());
     }
 
     @Test
     void getAddressTest() {
+        // Arrange: Create expected string
+        expected = "adresse";
+
+        // Act: Call the DAWA API
         DawaGetType addressInfo = new DawaGetType("Tryvej+30+9750");
-        Assertions.assertEquals("adresse", addressInfo.getType());
+
+        // Assert: Check whether the result matches the expected value.
+        Assertions.assertEquals(expected, addressInfo.getType());
     }
 }
