@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 /**
- * The class main is responsible for initiating the GUI. It extends Application, this class has the abstract method start
- * And defines launch behavior.
+ * The class main is responsible for initiating the GUI. It extends Application (An abstract class defines in javaFX),
+ * this class has the abstract method start. And defines launch behavior.
  */
 public class Main extends Application {
     public static PropertyManager propertyManager = new PropertyManager();
