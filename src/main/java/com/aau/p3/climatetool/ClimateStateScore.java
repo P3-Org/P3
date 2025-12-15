@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Class that computes the overall climate score. Starts from 5 and counts down according to different hydrological
  * ratings and their severity.
- * @Author Batman
  */
 public class ClimateStateScore {
 
@@ -31,6 +30,7 @@ public class ClimateStateScore {
         if (overallClimateScore < 1) {
             overallClimateScore = 1;
         }
+
         return overallClimateScore;
     }
 }

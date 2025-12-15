@@ -22,7 +22,7 @@ public class DawaPolygonForAddress{
         // Get response from urlhelper, with the search of owner license and cadastre information
         UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
 
-        StringBuilder response = dawaPolygon.getPolygon();
+        StringBuilder response = dawaPolygon.GETPolygon();
 
         JSONObject results = new JSONObject(response.toString());
 

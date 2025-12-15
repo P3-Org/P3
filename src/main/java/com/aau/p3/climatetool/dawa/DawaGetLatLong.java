@@ -18,7 +18,7 @@ public class DawaGetLatLong {
     public DawaGetLatLong(String query) {
         // Get the response with the given query
         UrlAutoComplete autoCompleteLatLong = new UrlAutoComplete(query);
-        StringBuilder response = autoCompleteLatLong.getAutoCompleteLatLong(); // Uses the Latitude Longitude version of auto complete for those coordinates
+        StringBuilder response = autoCompleteLatLong.GETAutoCompleteLatLong(); // Uses the Latitude Longitude version of auto complete for those coordinates
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
         JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
