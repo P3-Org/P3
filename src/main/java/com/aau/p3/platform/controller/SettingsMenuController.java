@@ -19,12 +19,8 @@ public class SettingsMenuController implements ControlledScreen {
     @FXML private Label cloudBurstCurrentLower, cloudBurstCurrentUpper, groundWaterCurrentLower, groundWaterCurrentUpper, stormSurgeCurrentLower, stormSurgeCurrentUpper, coastalErosionCurrentLower, coastalErosionCurrentUpper;
 
     /**
-     * Method called upon loading the controller, retrives the currect threshold values stored in the database
+     * Method called upon loading the controller, retrieves the correct threshold values stored in the database
      * and displays then on a label.
-     */
-    /**
-     * Initialization method. This method is run to assemble contents of the page.
-     * In this case, it simply gets a hold of where to define the thresholds, and fills that with the given values.
      */
     @FXML
     public void initialize() {
@@ -37,21 +33,21 @@ public class SettingsMenuController implements ControlledScreen {
     }
 
     private void setThresholdLabels(double[] thresholdValues, Label lowerLbl, Label upperLbl) {
-        // checks if there is no value, and sets to label to display empty if true
+        // Checks if there is no value, and sets to label to display empty if true.
         if (thresholdValues == null || thresholdValues.length < 2) {
             lowerLbl.setText("-");
             upperLbl.setText("-");
             return;
         }
 
-        // Set the label text to the values of the thresholds
+        // Set the label text to the values of the thresholds.
         lowerLbl.setText(String.valueOf(thresholdValues[0]));
         upperLbl.setText(String.valueOf(thresholdValues[1]));
     }
 
     /**
-     * Sets SettingMenuController as the current main controller
-     * @param mainController the controller that we want to set as the new main controller
+     * Sets SettingMenuController as the current main controller.
+     * @param mainController The controller that we want to set as the new main controller.
      */
     @Override
     public void setMainController(MainController mainController) {
@@ -59,7 +55,7 @@ public class SettingsMenuController implements ControlledScreen {
     }
 
     /**
-     * Method that is called when the "cancel" button is clicked. Sets the window back to the climate tool
+     * Method that is called when the "cancel" button is clicked. Sets the window back to the climate tool.
      */
     @FXML
     private void goBack() {
@@ -69,12 +65,11 @@ public class SettingsMenuController implements ControlledScreen {
 
     /**
      * When the "gem" button is clicked this method is initialized.
-     * Updates the thresholdValues in the database
-     * Clears existing properties both in the database and memory as these are outdated and needs to be recalculated
+     * Updates the thresholdValues in the database. Clears existing properties both in the database
+     * and memory as these are outdated and needs to be recalculated.
      */
     @FXML
     private void storeNewThresholdValues() {
-
         ThresholdRepositoryInterface thresholdRepository = new ThresholdRepository();
 
         writeToThresholdFieldInDB(thresholdRepository);
@@ -82,12 +77,11 @@ public class SettingsMenuController implements ControlledScreen {
         PropertyManager.emptyMemory();
 
         goBack();
-
     }
 
     /**
      * Reads values from inputs fields in the settings window, and writes them to the database
-     * @param thresholdRepository Object of the StaticThesholdReposity, allows us to update the database
+     * @param thresholdRepository Object of the ThresholdRepository, allows us to update the database
      */
      private void writeToThresholdFieldInDB(ThresholdRepositoryInterface thresholdRepository) {
          textFieldList.addAll(Arrays.asList(
@@ -97,13 +91,13 @@ public class SettingsMenuController implements ControlledScreen {
                  Arrays.asList(coastalErosionLower, coastalErosionUpper)
          ));
 
-         // loop trough each pair of threshold (one for cloudBurst, stormSurge etc..)
+         // Loop trough each pair of threshold (one for cloudBurst, stormSurge etc..).
          for (List<TextField> pair : textFieldList) {
-             // Tries the parse the input to a double (To avoid invalid inputs)
+             // Tries the parse the input to a double (To avoid invalid inputs).
              Double lower = tryParseDouble(pair.get(0));
              Double upper = tryParseDouble(pair.get(1));
 
-             // If statement pases when both fields for a threshold type is filled out with a valid input
+             // If statement pases when both fields for a threshold type is filled out with a valid input.
              if (lower != null && upper != null) {
                  thresholdRepository.updateThreshold(getRiskName(pair), lower, upper);
              }
@@ -111,9 +105,9 @@ public class SettingsMenuController implements ControlledScreen {
      }
 
     /**
-     * This method is used to validate the input in the threshold input field
-     * @param tf Takes a TextField object as input
-     * @return Returns null if "tf" is either empty or not of type double
+     * This method is used to validate the input in the threshold input field.
+     * @param tf Takes a TextField object as input.
+     * @return Null if "tf" is either empty or not of type double.
      */
     private Double tryParseDouble(TextField tf) {
         try {
@@ -126,9 +120,9 @@ public class SettingsMenuController implements ControlledScreen {
     }
 
     /**
-     * This method is used to match the TextFields id name to the string key used in the database
-     * @param tf Takes a pair of the threshold TextField objects
-     * @return a string with the name of the field we want to edit in the database e.g. "cloudburst"
+     * This method is used to match the TextFields id name to the string key used in the database.
+     * @param tf Takes a pair of the threshold TextField objects.
+     * @return A string with the name of the field we want to edit in the database e.g. "cloudburst".
      */
     private String getRiskName(List<TextField> tf) {
         return tf.get(0).getId().replace("Lower", "").toLowerCase();

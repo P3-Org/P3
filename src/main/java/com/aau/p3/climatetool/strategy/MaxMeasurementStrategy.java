@@ -10,12 +10,13 @@ import java.util.List;
 public class MaxMeasurementStrategy implements MeasurementStrategy {
 
     /**
-     * Finds the maximum measurement based on sample values.
-     * @param samples List of samples as doubles.
-     * @return the maximum measurement value.
+     * Finds the maximum value of the measurement within the polygon defining a property.
+     * @param samples List of samples as doubles
+     * @return the maximum measurement value
      */
     @Override
     public double processValues(List<Double> samples) {
+        // Creates a stream from the list of samples. compares each element and return the largest
         return samples.stream().max(Double::compare).orElse(Double.NaN);
     }
 }

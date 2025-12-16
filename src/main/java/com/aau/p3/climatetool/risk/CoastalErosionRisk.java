@@ -22,7 +22,11 @@ public class CoastalErosionRisk implements RiskAssessment {
     private String description = "Ingen data tilgængelig";
     private String severityString;
 
-    /* Constructor for final attributes */
+    /**
+     * Constructor for final attributes
+     * @param thresholdRepository the threshold values
+     * @param measurementStrategy the strategy for picking measurement
+     */
     public CoastalErosionRisk(ThresholdRepositoryInterface thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;
@@ -31,7 +35,7 @@ public class CoastalErosionRisk implements RiskAssessment {
     /**
      * Method for computing the risks of coastal erosion. Uses coordinates to gather information about a properties risk
      * of coastal erosion, which is then handled by RGB and thresholds to decide a severity color.
-     * @param coordinates The list of coordinates
+     * @param coordinates The list of coordinates.
      */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
@@ -41,13 +45,13 @@ public class CoastalErosionRisk implements RiskAssessment {
         double x = coordinates[0][0];
         double y = coordinates[0][1];
 
-        // Format string for the url string and perform API call
+        // Format string for the url string and perform API call.
         String wktFormat = String.format(java.util.Locale.US, "%.3f, %.3f", x, y);
 
         // Get information through coastal erosion classes, with the query of the coordinates.
         reader.riskFetch(wktFormat);
 
-        // Data from coastal erosion inserted into list of doubles
+        // Data from coastal erosion inserted into list of doubles.
         List<Double> value = reader.getRiskValueArray();
 
         // Extract the threshold values for coastal erosion.
@@ -70,8 +74,8 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return RGB Value
+     * Getter method.
+     * @return An RGB Value.
      */
     @Override
     public double[] getRGB() {
@@ -79,8 +83,8 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return NormalizedValue
+     * Getter method.
+     * @return NormalizedValue.
      */
     @Override
     public double getNormalizedValue() {
@@ -88,8 +92,8 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Measurement value
+     * Getter method.
+     * @return Measurement value.
      */
     @Override
     public double getMeasurementValue() {
@@ -97,15 +101,15 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Description
+     * Getter method.
+     * @return Description.
      */
     @Override
     public String getDescription() { return this.description; }
 
     /**
-     * Getter method
-     * @return Thresholds
+     * Getter method.
+     * @return Thresholds.
      */
     @Override
     public double[] getThresholds() {
@@ -113,8 +117,8 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Risk type
+     * Getter method.
+     * @return Risk type.
      */
     @Override
     public String getRiskType() {
@@ -122,7 +126,7 @@ public class CoastalErosionRisk implements RiskAssessment {
     }
 
     /**
-     * Setter method. Sets description.
+     * Setter method that sets the description.
      */
     @Override
     public void setDescription() {

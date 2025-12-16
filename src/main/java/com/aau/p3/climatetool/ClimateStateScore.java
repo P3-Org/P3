@@ -11,14 +11,14 @@ public class ClimateStateScore {
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     * @param riskAssessment The list of risk assessments for a property
+     * @param riskAssessment The list of risk assessments for a property.
      * @return The overall climate score as an integer from 1-5
      */
     public static int computeOverallClimateScore(List<RiskAssessment> riskAssessment) {
         // The starting point for each property
         int overallClimateScore = 5;
 
-        // For each risk, subtract either 2 if it is red or 1 if it is yellow
+        // For each risk, subtract either 2 if it is red or 1 if it is yellow.
         for (RiskAssessment risks : riskAssessment) {
             if (risks.getNormalizedValue() <= 0) { // Below the min threshold thus, in the red zone.
                 overallClimateScore -= 2;

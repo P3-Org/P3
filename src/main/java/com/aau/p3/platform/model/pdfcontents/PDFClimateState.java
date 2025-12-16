@@ -1,4 +1,5 @@
 package com.aau.p3.platform.model.pdfcontents;
+
 import com.aau.p3.climatetool.utilities.RiskAssessment;
 import com.aau.p3.platform.model.property.Property;
 import org.apache.pdfbox.pdmodel.PDDocument;

@@ -1,4 +1,5 @@
 package com.aau.p3.platform.model.pdfcontents;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import java.io.IOException;

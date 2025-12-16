@@ -10,7 +10,7 @@ import java.util.List;
 public class AverageMeasurementStrategy implements MeasurementStrategy {
 
     /**
-     * Finds the average measurement based on sample values.
+     * Finds the average value of the measurement within the polygon defining a property.
      * @param samples List of samples as doubles.
      * @return the average measurement value.
      */
