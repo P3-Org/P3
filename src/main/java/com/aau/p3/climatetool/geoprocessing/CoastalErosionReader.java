@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 /**
  * Class for reading information about coastal erosion on a given address. Holds different methods that fetches and
- * processes data, to return for presentation.
+ * processes data, to return for presentation. Data gathered is a string describing how big the risk is, in a given radius.
  */
 public class CoastalErosionReader implements RestDataReader {
     private List<Double> riskValueArray;
@@ -57,9 +57,9 @@ public class CoastalErosionReader implements RestDataReader {
     }
 
     /**
-     * Methods, which converts risk serverity descriptions to double values
-     * @param riskSeverityList List of strings, with serverity descriptions
-     * @return List of doubles with serverity values
+     * Methods, which converts risk severity descriptions to double values
+     * @param riskSeverityList List of strings, with severity descriptions
+     * @return List of doubles with severity values
      */
     public List<Double> convertSeverityToValue(List<String> riskSeverityList) {
         List<Double> riskScores = new ArrayList<>();
@@ -95,7 +95,7 @@ public class CoastalErosionReader implements RestDataReader {
     }
 
     /**
-     * Coverts the value of climate risk to a string that describe the situation.
+     * Converts the value of climate risk to a string that describes the situation.
      * @param value the value to be converted
      * @return String depending on the value
      */

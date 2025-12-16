@@ -22,7 +22,11 @@ public class CoastalErosionRisk implements RiskAssessment {
     private String description = "Ingen data tilgængelig";
     private String severityString;
 
-    /* Constructor for final attributes */
+    /**
+     * Constructor for final attributes
+     * @param thresholdRepository the threshold values
+     * @param measurementStrategy the strategy for picking measurement
+     */
     public CoastalErosionRisk(ThresholdRepositoryInterface thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.thresholdRepository = thresholdRepository;
         this.measurementStrategy = measurementStrategy;

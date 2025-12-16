@@ -559,7 +559,7 @@ public class HydrologicalToolController implements ControlledScreen {
         animateSliderTo(coastalErosionThumb, listOfRisks.get(3).getNormalizedValue());
     }
 
-    /***
+    /**
      * Helper function to setupSliderIndicators. It controls the logic for animating the thumb of the slider.
      * It uses javaFX.Animations to achieve this.
      * @param slider A reference to the slider object that we want to animate.

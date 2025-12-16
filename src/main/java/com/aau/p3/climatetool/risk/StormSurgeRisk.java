@@ -18,7 +18,12 @@ public class StormSurgeRisk implements RiskAssessment {
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    /* Constructor for final attributes */
+    /**
+     * Constructor for final attributes in CloudburstRisk class
+     * @param geoDataReader method of reading values
+     * @param thresholdRepository threshold values
+     * @param measurementStrategy method of choosing measurements
+     */
     public StormSurgeRisk(GeoDataReader geoDataReader, ThresholdRepositoryInterface thresholdRepository, MeasurementStrategy measurementStrategy) {
         this.geoDataReader = geoDataReader;
         this.thresholdRepository = thresholdRepository;
