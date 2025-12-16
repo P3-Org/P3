@@ -14,7 +14,7 @@ public class DawaPropertyNumbers {
     private String ownerLicense;
 
     /** Constructor for the DawaPropertyNumbers class
-     * @param coordinates list of an x and y coordinate (also known as Latitude and Longitude)
+     * @param coordinates list of an x and y coordinate (also known as easting and northing)
      * Finds and stores info about cadastre and owner license
      * */
     public DawaPropertyNumbers(List<String> coordinates) {
@@ -39,14 +39,14 @@ public class DawaPropertyNumbers {
     }
 
     /** Getter method
-     * @return returns string of the cadastre code
+     * @return string of the cadastre code
      */
     public String getCadastre() {
         return this.cadastre;
     }
 
     /** Getter method
-     * @return returns string of the owner license code
+     * @return string of the owner license code
      */
     public String getOwnerLicense() {
         return this.ownerLicense;

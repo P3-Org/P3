@@ -14,15 +14,15 @@ public class RiskLabelBinder implements RiskBinderInterface {
 
     /**
      * Constructor
-     * @param container The container with the corresponding tag
+     * @param container The FXML GridPane container with the corresponding tag, containing the risks and their values
      */
     public RiskLabelBinder(GridPane container) {
         this.container = container;
     }
 
     /**
-     * Method for looping through all the risks and gather their data and sets the color values
-     * @param riskAssessment holds the RiskAssessment interface that the risk objects have been initialized based on
+     * Method for looping through all the risks, gathering their data, and setting the color values
+     * @param riskAssessment holds a list of RiskAssement objects
      * @param coordinates corresponding to the property corners
      */
     @Override
@@ -30,7 +30,8 @@ public class RiskLabelBinder implements RiskBinderInterface {
         for (RiskAssessment risk : riskAssessment) {
             AnchorPane riskLabel = findLabelForRisk(risk);
             double[] rgb = risk.getRGB();
-            double alpha = 0.65;
+            double alpha = 0.65; // Constant opacity value for RGBA
+            // Formats the RGBA value as a string
             String style = String.format(Locale.US, "-fx-background-color: rgba(%f, %f, %f, %.3f);", rgb[0], rgb[1], rgb[2], alpha);
             riskLabel.setStyle(style);
         }

@@ -19,11 +19,9 @@ public class DawaPolygonForAddress{
      * @param cadastre the other part needed for the query
      */
     public DawaPolygonForAddress(String ownerLicense, String cadastre) {
-        // Get response from urlhelper, with the search of owner license and cadastre information
+        // Get response from Urlhelper, with the search of owner license and cadastre information
         UrlPolygon dawaPolygon = new UrlPolygon(ownerLicense, cadastre);
-
         StringBuilder response = dawaPolygon.GETPolygon();
-
         JSONObject results = new JSONObject(response.toString());
 
         // Get the "geometry" object
@@ -36,8 +34,9 @@ public class DawaPolygonForAddress{
 
             // Middle loop: Points within a ring
             for (int j = 0; j < ringArray.length(); j++) {
-                JSONArray pointArray = ringArray.getJSONArray(j); // This is the [x(lon), y(lat)] pair
+                JSONArray pointArray = ringArray.getJSONArray(j); // This is the [x(easting), y(northing)] pair
 
+                // Create a list to store the x and y pairs
                 List<Double> javaPoint = new ArrayList<>();
                 double longitude = pointArray.getDouble(0);
                 double latitude = pointArray.getDouble(1);

@@ -46,7 +46,7 @@
 ></script>
 <script src="https://unpkg.com/esri-leaflet@3.0.10/dist/esri-leaflet.js"></script>
 <script>
-    // The different storm surge styles, signify increase in sea level in m.
+    // The different storm surge styles, signify increase in sea level in m. Used for different overlay layers
     const stormSurgeMap = {
         0: 'havvandpaaland_0',
         0.1: 'havvandpaaland_0_1',
@@ -81,7 +81,7 @@
         3: 'havvandpaaland_3',
     };
 
-    // The different cloudBurst styles, signify rainfall given in m. (Object key in mm)
+    // The different cloudBurst styles, signify rainfall given in m. (Object key in mm). Used of different overlay layers
     const cloudBurstMap = {
         0: 'bluespot_ekstremregn_0',
         15: 'bluespot_ekstremregn_0_015',
@@ -95,7 +95,7 @@
         135: 'bluespot_ekstremregn_0_135',
         150: 'bluespot_ekstremregn_0_150'
     };
-    // The different groundwater layers, signify year events (Danish: "Årshændelse"). (object key in years)
+    // The different groundwater layers, signify year events (Danish: "Årshændelse"). (object key in years). Used for different overlay layers
     const groundWaterMap = {
         2: '100m_phreatic_all_T2',
         5: '100m_phreatic_all_T5',
@@ -107,7 +107,7 @@
     // Predefine variables for later use.
     let climateOverlay, cadOverlayCentroid, cadOverlayBoundary;
 
-    // Adds a placeholder for the Legend to where it will be located
+    // Adds a placeholder for the Legend to where it will be located on the HTML container.
     const Legend = L.control({ position: 'bottomright' });
 
     // Variables for getting the satellite map from arcgisonline.com as well as attributions
@@ -118,14 +118,14 @@
     var OSM_attribution = '@openstreetmap.org'
     var OSM_url = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
-    // Sets the tile layer for leaflet to use the url from satellite map and sets the zoom levels
+    // Sets the tile layer for Leaflet to use the URL from satellite map and sets the zoom levels
     var satelliteMap = L.tileLayer(esri_url, {
         maxZoom: 18,
         attribution: esri_attribution,
         zIndex: 1
     });
 
-    // Sets the tile layer for leaflet to use the url from street map and sets the zoom levels
+    // Sets the tile layer for Leaflet to use the URL from street map and sets the zoom levels
     var streetMap =  L.tileLayer(OSM_url, {
         maxZoom: 18,
         attribution: OSM_attribution,
@@ -148,7 +148,7 @@
         "Streets": streetMap
     };
 
-    // When the window is opened and loaded, add the tilelayers from the API's to the leaflet map.
+    // When the window is opened and loaded, add the tilelayers from the API's to the Leaflet map.
     document.addEventListener('DOMContentLoaded', () => {
 
         // Control layers gives the ability to swap between the map objects satelliteMap and streetMap and display it on the map
@@ -183,7 +183,7 @@
     }
 
 
-    // Map pin for property
+    // Configuration for the map pin for property
     const redPinIcon = L.icon({
         iconUrl: '../UI/images/pin.png',
         iconSize:     [35, 35],
@@ -196,13 +196,12 @@
      * Function for setting up the API calls related to cloudburst when the corresponding button is clicked.
      */
     function setCloudburst() {
-        // Cloudburst overlay API.
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
             layers: 'dhm_bluespot_ekstremregn',
             styles: 'bluespot_ekstremregn_0_0',
             format: 'image/png',
             transparent: "TRUE",
-            token: '614d970326f8c0bc7f7b666245c117f8',
+            token: '614d970326f8c0bc7f7b666245c117f8', // Required for access.
             attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
@@ -212,7 +211,6 @@
      * Function for setting up the API calls related to groundwater when the corresponding button is clicked.
      */
     function setGroundwater() {
-        // Groundwater levels overlay API.
         climateOverlay = L.tileLayer.wms('http://localhost:8080/wms-hip-proxy', {
             layers: '100m_phreatic_all_T50',
             format: 'image/png',
@@ -233,13 +231,12 @@
      * Function for setting up the API calls related to storm surge when the corresponding button is clicked.
      */
     function setStormSurge() {
-        // Storm surge seawater levels overlay api
         climateOverlay = L.tileLayer.wms("http://localhost:8080/wms-dmh-proxy", {
             layers: 'dhm_havvandpaaland',
             styles: 'havvandpaaland_0',
             format: 'image/png',
             transparent: "TRUE",
-            token: '614d970326f8c0bc7f7b666245c117f8',
+            token: '614d970326f8c0bc7f7b666245c117f8', // Required for access.
             attribution: '@dataforsyningen.dk',
             zIndex: 5
         }).addTo(map);
@@ -258,6 +255,7 @@
             f: "image",
             attribution: '@kyst.dk'
         }).addTo(map);
+
         showLegend("coastal_legend.png");
     }
 
@@ -265,6 +263,7 @@
      * Function for the cadastral overlay when corresponding button is clicked.
      */
     function setCadastral() {
+        // For the cadastral numbers on the map
         cadOverlayCentroid = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
             layers: 'Centroide_Gaeldende',
             styles: 'Roede_centroider',
@@ -275,6 +274,7 @@
             zIndex: 5
         }).addTo(map);
 
+        // For the red cadastral outlines
         cadOverlayBoundary = L.tileLayer.wms("http://localhost:8080/wms-daf-proxy", {
             layers: 'MatrikelSkel_Gaeldende',
             styles: 'Roede_skel',
@@ -287,7 +287,7 @@
     }
 
     /**
-     * Removes the climateOverlay if it is turned on.
+     * Removes the climateOverlay.
      */
     function removeClimateLayer() {
         if (climateOverlay) {
@@ -297,18 +297,23 @@
     }
 
     /**
-     * Removes the cadastralLayer centroid and boundary if it is turned on.
+     * Removes the cadastralLayer centroid and boundary.
      */
     function removeCadastralLayer(){
-        if (cadOverlayCentroid){map.removeLayer(cadOverlayCentroid)}
-        if (cadOverlayBoundary){map.removeLayer(cadOverlayBoundary)}
-    }
+        if (cadOverlayCentroid) {
+            map.removeLayer(cadOverlayCentroid)
+        }
 
-    let currentLegendImg = null;
+        if (cadOverlayBoundary) {
+            map.removeLayer(cadOverlayBoundary)
+        }
+    }
 
     /**
      * Creates a div container to where the legend image will be displayed
      */
+    let currentLegendImg = null;
+
     Legend.onAdd = function () {
         const div = L.DomUtil.create('div', 'gw-legend');
         if (currentLegendImg) {
@@ -338,7 +343,7 @@
         legendImg.style.height = "auto";
     }
 
-    //
+
     /**
      * Function that makes the legend visible
      * @param imageUrl defines the path to the legend images
@@ -360,14 +365,19 @@
         map.removeControl(Legend);
     }
 
-    // Pans to a specific coordinate on the map
+    /**
+     * Pans to a specific coordinate on the map
+     */
     window.panTo = function(coords) {
         map.panTo(coords);
     }
 
+
+    /**
+     * Adds the red pin property marker to the correct location defined by the input coordinates
+     */
     let propertyMarker = null;
 
-    // Adds the red pin property marker to the correct location defined by the input coordinates
     window.showPropertyMarker = function(coords) {
         if (propertyMarker) {
             map.removeLayer(propertyMarker);

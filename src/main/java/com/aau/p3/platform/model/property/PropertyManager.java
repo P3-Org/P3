@@ -1,7 +1,6 @@
 package com.aau.p3.platform.model.property;
 
 import com.aau.p3.database.PropertyRepository;
-
 import java.util.HashMap;
 
 /**
@@ -26,7 +25,7 @@ public class PropertyManager {
             return true;
         }
 
-        /* If the property doesn't exit in the local cache we check if it exists in the Database.
+        /* If the property doesn't exist in the local cache, we check if it exists in the database.
         *  If it exists in the DB we add it to the local cache and return true. */
         Property loaded = PropertyRepository.loadProperty(address);
         if (loaded != null) {
@@ -34,7 +33,7 @@ public class PropertyManager {
             return true;
         }
 
-        // If the property doesn't exist in either memory or the database we return false
+        // If the property does not exist in either memory or the database we return false
         return false;
     }
 

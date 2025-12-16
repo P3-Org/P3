@@ -14,7 +14,7 @@ public class DawaGetAddresses {
     /** Method for getting the addresses from the API dataforsyningen that will be auto suggested for the user
      * @param query the search query
      */
-    public DawaGetAddresses(String query){
+    public DawaGetAddresses(String query) {
         // Get the response with the given query
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.GETAutoComplete();
