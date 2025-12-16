@@ -1,6 +1,5 @@
 package com.aau.p3.climatetool.utilities;
 
-
 /**
  * Class for normalizing thresholds
  */
