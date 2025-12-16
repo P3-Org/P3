@@ -3,7 +3,7 @@ package com.aau.p3.climatetool.utilities;
 import javafx.scene.control.Slider;
 
 /**
- * Class that handles the Thumb on the threshold sliders
+ * Class that handles the Thumb on the indicator sliders
  */
 public class ThumbEditor {
     double[] thresholdValues;

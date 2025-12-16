@@ -10,12 +10,13 @@ import java.util.List;
 public class MinMeasurementStrategy implements MeasurementStrategy {
 
     /**
-     * Finds the minimum measurement.
+     * Finds the minimum value of the measurement within the polygon defining a property.
      * @param samples List of samples as doubles.
      * @return the minimum measurement value.
      */
     @Override
     public double processValues(List<Double> samples) {
+        // Creates a stream from the list of samples. compares each element and return the smallest
         return samples.stream().min(Double::compare).orElse(Double.NaN);
     }
 }

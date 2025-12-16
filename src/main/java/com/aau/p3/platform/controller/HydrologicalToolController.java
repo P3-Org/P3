@@ -560,7 +560,7 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     /**
-     * Helper function to setupSliderIndicators. It controls the logic for animating the thumb of the slider.
+     * Helper function to "setupSliderIndicators". It controls the logic for animating the thumb of the slider.
      * It uses javaFX.Animations to achieve this.
      * @param slider A reference to the slider object that we want to animate.
      * @param targetValue corresponds to the normalized measurement value,
