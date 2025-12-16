@@ -17,7 +17,7 @@ public class DawaPropertyNumbers {
      * Constructor for the DawaPropertyNumbers class
      * @param coordinates list of an x and y coordinate (also known as Latitude and Longitude)
      * Finds and stores info about cadastre and owner license
-     * */
+     */
     public DawaPropertyNumbers(List<String> coordinates) {
         // Get the response with the given query for the UrlPropertyNumber
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);

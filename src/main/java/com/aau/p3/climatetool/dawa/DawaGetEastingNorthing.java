@@ -13,7 +13,7 @@ public class DawaGetEastingNorthing {
     private final List<String> coordinates = new ArrayList<>();
 
     /**
-     * Constructor for getting the coordinates from the API dataforsyningen
+     * Constructor for getting the coordinates from the API dataforsyningen.
      * @param query the search query
      */
     public DawaGetEastingNorthing(String query) {

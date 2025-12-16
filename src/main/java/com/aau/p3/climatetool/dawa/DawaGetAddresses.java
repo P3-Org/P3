@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class
+ * Class that acts as a constructor to get suggested addresses with the help from the UrlAutoComplete class.
  */
 public class DawaGetAddresses {
     private final List<String> addresses = new ArrayList<>();
 
-    /** Method for getting the addresses from the API dataforsyningen that will be auto suggested for the user
+    /**
+     * Method for getting the addresses from the API dataforsyningen that will be auto suggested for the user.
      * @param query the search query
      */
     public DawaGetAddresses(String query){
@@ -30,8 +31,9 @@ public class DawaGetAddresses {
         }
     }
 
-    /** Getter method for the list of address suggestions.
-     * @return list of addresses
+    /**
+     * Getter method for the list of address suggestions.
+     * @return list of addresses.
      */
     public List<String> getAddresses(){
         return addresses;
