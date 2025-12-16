@@ -2,11 +2,12 @@ package com.aau.p3.climatetool.popUpMessages;
 
 import com.aau.p3.database.ThresholdRepository;
 import com.aau.p3.climatetool.utilities.ThresholdRepositoryInterface;
-
 import java.util.ResourceBundle;
 
-/** A class, whose instances serve as helpers. These helpers make use of the methods
- *  to get hold of information for the systems pop-up boxes */
+/**
+ * A class, whose instances serve as helpers. These helpers make use of the methods
+ * to get hold of information for the systems pop-up boxes
+ */
 public class RiskInfoService {
     /**
      * Method that locates the proper .properties file, and returns the information stored in each property.

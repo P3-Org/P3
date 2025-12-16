@@ -16,26 +16,26 @@ public class GroundwaterRisk implements RiskAssessment{
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    /* Constructor for final attributes */
+    // Constructor for final attributes.
     public GroundwaterRisk(ThresholdRepositoryInterface thresholdRepository) {
         this.thresholdRepository = thresholdRepository;
     }
 
     /**
      * Method for performing the different calls necessary to gather sample values from a property within a grid.
+     * Initializes all fields with the computed information.
      * @param eastNorth The list of coordinates
-     * Initializes all fields with the computed information
      */
     @Override
     public void computeRiskMetrics(double[][] eastNorth) {
-        // Groundwater object creation
+        // Groundwater object creation.
         GroundwaterReader reader = new GroundwaterReader();
 
-        // Get x and y coordinates to perform API call
+        // Get x and y coordinates to perform API call.
         double x = eastNorth[0][0];
         double y = eastNorth[0][1];
 
-        // Format string for the url string and perform API call
+        // Format string for the url string and perform API call.
         String wkt = String.format(java.util.Locale.US, "%.3f %.3f", x, y);
 
         // Get information through coastal erosion classes, with the query of the coordinates.
@@ -58,8 +58,8 @@ public class GroundwaterRisk implements RiskAssessment{
     }
 
     /**
-     * Getter method
-     * @return RGB Value
+     * Getter method.
+     * @return An RGB Value.
      */
     @Override
     public double[] getRGB() {
@@ -67,8 +67,8 @@ public class GroundwaterRisk implements RiskAssessment{
     }
 
     /**
-     * Getter method
-     * @return NormalizedValue
+     * Getter method.
+     * @return NormalizedValue.
      */
     @Override
     public double getNormalizedValue() {
@@ -76,29 +76,29 @@ public class GroundwaterRisk implements RiskAssessment{
     }
 
     /**
-     * Getter method
-     * @return Measurement value
+     * Getter method.
+     * @return Measurement value.
      */
     @Override
     public double getMeasurementValue() { return this.measurementValue; }
 
     /**
-     * Getter method
-     * @return Description
+     * Getter method.
+     * @return Description.
      */
     @Override
     public String getDescription() { return this.description; }
 
     /**
-     * Getter method
-     * @return Thresholds
+     * Getter method.
+     * @return Thresholds.
      */
     @Override
     public double[] getThresholds() { return this.threshold; }
 
     /**
-     * Getter method
-     * @return Risk type
+     * Getter method.
+     * @return Risk type.
      */
     @Override
     public String getRiskType() {
@@ -106,7 +106,7 @@ public class GroundwaterRisk implements RiskAssessment{
     }
 
     /**
-     * Setter method. Sets description.
+     * Setter method that sets the description.
      */
     @Override
     public void setDescription() {

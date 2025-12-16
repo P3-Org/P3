@@ -1,4 +1,5 @@
 package com.aau.p3.platform.model.pdfcontents;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
@@ -6,6 +7,11 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+
+/**
+ * Class to represent a chapter in a PDF containing general information.
+ * In this case, simply the address of the exported property.
+ */
 public class PDFOverview extends PDFChapter {
     String address;
 
