@@ -16,7 +16,10 @@ public class GroundwaterRisk implements RiskAssessment{
     private double normalizedMeasurement;
     private String description = "Ingen data tilgængelig";
 
-    // Constructor for final attributes.
+    /**
+     * Constructor for final attributes
+     * @param thresholdRepository the thresholdvalues for the risk
+     */
     public GroundwaterRisk(ThresholdRepositoryInterface thresholdRepository) {
         this.thresholdRepository = thresholdRepository;
     }
