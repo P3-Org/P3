@@ -33,8 +33,8 @@ public class CloudburstRisk implements RiskAssessment {
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     * @param coordinates The list of coordinates
-     * Reads values from TIFF files and initializes all fields with the computed information
+     * Reads values from TIFF files and initializes all fields with the computed information.
+     * @param coordinates The list of coordinates.
      */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
@@ -62,8 +62,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return RGB Value
+     * Getter method.
+     * @return An RGB Value.
      */
     @Override
     public double[] getRGB() {
@@ -71,8 +71,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return NormalizedValue
+     * Getter method.
+     * @return NormalizedValue.
      */
     @Override
     public double getNormalizedValue() {
@@ -80,8 +80,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Measurement value
+     * Getter method.
+     * @return Measurement value.
      */
     @Override
     public double getMeasurementValue() {
@@ -89,8 +89,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Description
+     * Getter method.
+     * @return Description.
      */
     @Override
     public String getDescription() {
@@ -98,8 +98,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Thresholds
+     * Getter method.
+     * @return Thresholds.
      */
     @Override
     public double[] getThresholds() {
@@ -107,8 +107,8 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Risk type
+     * Getter method.
+     * @return Risk type.
      */
     @Override
     public String getRiskType() {
@@ -116,7 +116,7 @@ public class CloudburstRisk implements RiskAssessment {
     }
 
     /**
-     * Setter method. Sets description.
+     * Setter method that sets the description.
      */
     @Override
     public void setDescription() {

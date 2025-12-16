@@ -83,6 +83,7 @@ public class HydrologicalToolController implements ControlledScreen {
     /**
      * Controller, that sets the instance as the main controller.
      * Also, transfers the propertyManager, along with the currentProperty.
+     * @param mainController The controller intended to be the new main.
      */
     @Override
     public void setMainController(MainController mainController) {
@@ -258,7 +259,7 @@ public class HydrologicalToolController implements ControlledScreen {
             panTo(coords);
         });
 
-        // Event listener for changing size of page containing the WebView
+        /* Event listener for changing size of page containing the WebView */
         webEngine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             webView.widthProperty().addListener((observable, oldVal, newVal) -> {
                 webView.getEngine().executeScript("updateLegendSize(" + newVal.doubleValue() + ")");
@@ -419,7 +420,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * Method for changing the climate score, in case any measures have been taken to better the score.
      */
     private void updateScoreButtons() {
-        // Calculate new score
+        // Calculate new score.
         int overallClimateScore = currentProperty.getClimateScore();
         int specialistScoreFactor = currentProperty.getSpecialistAdjustment();
 
@@ -454,7 +455,7 @@ public class HydrologicalToolController implements ControlledScreen {
             Button clicked = (Button) event.getSource();
             String category = clicked.getId().replace("Popup", "").toLowerCase();
 
-            // Instantialises RiskInfoService, to enable calling the loadInfo method, and sourcing the proper information.
+            // Instantiates RiskInfoService, to enable calling the loadInfo method, and sourcing the proper information.
             RiskInfoService infoService = new RiskInfoService();
             RiskInfo RiskDrilldown = infoService.loadInfo(category);
 
@@ -591,7 +592,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
         // Pans the map to the correct property.
         if (currentProperty != null) {
-            panTo(currentProperty.getLatLongCoordinates()); // always run on new selection
+            panTo(currentProperty.getLatLongCoordinates()); // always run on new selection.
             showPropertyMarker(this.currentProperty.getLatLongCoordinates());
         }
     }

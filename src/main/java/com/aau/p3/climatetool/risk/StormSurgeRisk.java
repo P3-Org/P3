@@ -32,8 +32,8 @@ public class StormSurgeRisk implements RiskAssessment {
 
     /**
      * Method for constructing the different calls necessary to gather sample values from a property within a grid.
-     * @param coordinates The list of coordinates
-     * Reads values from TIFF files and initializes all fields with the computed information
+     * Reads values from TIFF files and initializes all fields with the computed information.
+     * @param coordinates The list of coordinates.
      */
     @Override
     public void computeRiskMetrics(double[][] coordinates) {
@@ -43,7 +43,7 @@ public class StormSurgeRisk implements RiskAssessment {
         // Extract the threshold values for stormsurge.
         this.threshold = thresholdRepository.getThreshold("stormsurge");
 
-        // Temporary measured value
+        // Temporary measured value.
         double tempVal = measurementStrategy.processValues(value);
 
         /* If process value is NaN - no risk data is found on the property the measure value is set to 999.9.
@@ -61,8 +61,8 @@ public class StormSurgeRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return RGB Value
+     * Getter method.
+     * @return RGB Value.
      */
     @Override
     public double[] getRGB() {
@@ -70,8 +70,8 @@ public class StormSurgeRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return NormalizedValue
+     * Getter method.
+     * @return NormalizedValue.
      */
     @Override
     public double getNormalizedValue() {
@@ -79,15 +79,15 @@ public class StormSurgeRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Measurement value
+     * Getter method.
+     * @return Measurement value.
      */
     @Override
     public double getMeasurementValue() { return this.measurementValue; }
 
     /**
-     * Getter method
-     * @return Description
+     * Getter method.
+     * @return Description.
      */
     @Override
     public String getDescription() {
@@ -95,15 +95,15 @@ public class StormSurgeRisk implements RiskAssessment {
     }
 
     /**
-     * Getter method
-     * @return Thresholds
+     * Getter method.
+     * @return Thresholds.
      */
     @Override
     public double[] getThresholds() { return this.threshold; }
 
     /**
-     * Getter method
-     * @return Risk type
+     * Getter method.
+     * @return Risk type.
      */
     @Override
     public String getRiskType() {
@@ -111,7 +111,7 @@ public class StormSurgeRisk implements RiskAssessment {
     }
 
     /**
-     * Setter method. Sets description.
+     * Setter method that sets the description.
      */
     @Override
     public void setDescription() {

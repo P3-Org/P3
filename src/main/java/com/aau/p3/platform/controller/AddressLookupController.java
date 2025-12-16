@@ -1,4 +1,5 @@
 package com.aau.p3.platform.controller;
+
 import com.aau.p3.platform.model.casefile.Case;
 import com.aau.p3.platform.model.casefile.Customer;
 import com.aau.p3.platform.model.property.PropertySearch;
@@ -29,6 +30,7 @@ public class AddressLookupController implements ControlledScreen  {
 
     /**
      * Controller, that sets the instance as the main controller.
+     * @param mainController The controller intended to be the new main.
      */
     @Override
     public void setMainController(MainController mainController) {
@@ -46,7 +48,7 @@ public class AddressLookupController implements ControlledScreen  {
         tableTitle.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getAddress()));
         tableOwner.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getOwnerName()));
 
-        // Convert StatusEnum to a readable String
+        // Convert StatusEnum to a readable String.
         tableStatus.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getStatus()));
 
@@ -84,7 +86,7 @@ public class AddressLookupController implements ControlledScreen  {
     }
 
     /**
-     * Method for switching UI window to HydrologicalTool.fxml
+     * Method for switching UI window to HydrologicalTool.fxml.
      */
     @FXML
     private void setWindowHydrologicalTool() {
