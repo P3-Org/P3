@@ -82,9 +82,12 @@ public class PropertySearch {
         });
     }
 
-    /** Method that takes the selected item from ListView and adds it to addressSearchField.
+    /**
+     * Method that takes the selected item from ListView and adds it to addressSearchField.
      * Following this, it checks if the selected text will result in the API call "type" address,
-     * and if it does it then get the coordinates, OwnerLicense and Cadastre for the according property
+     * and if it does it then gets the coordinates, OwnerLicense and Cadastre for the according property.
+     * Checks if the property exist in the DB - if the property already exist it sets the property to the current one.
+     * If it does not exist - it creates a new property and saves it to the DB, and then sets it to the current property.
      */
     private void selectItem() {
         // Selected is the selected address from the text field

@@ -13,10 +13,11 @@ public class DawaPropertyNumbers {
     private String cadastre;
     private String ownerLicense;
 
-    /** Constructor for the DawaPropertyNumbers class
+    /**
+     * Constructor for the DawaPropertyNumbers class
      * @param coordinates list of an x and y coordinate (also known as Latitude and Longitude)
      * Finds and stores info about cadastre and owner license
-     * */
+     */
     public DawaPropertyNumbers(List<String> coordinates) {
         // Get the response with the given query for the UrlPropertyNumber
         UrlPropertyNumber propertyCoordinates = new UrlPropertyNumber(coordinates);
@@ -38,15 +39,17 @@ public class DawaPropertyNumbers {
         this.ownerLicense = ejerlav.optString("kode","");
     }
 
-    /** Getter method
-     * @return returns string of the cadastre code
+    /**
+     * Getter method
+     * @return string of the cadastre code
      */
     public String getCadastre() {
         return this.cadastre;
     }
 
-    /** Getter method
-     * @return returns string of the owner license code
+    /**
+     * Getter method
+     * @return string of the owner license code
      */
     public String getOwnerLicense() {
         return this.ownerLicense;

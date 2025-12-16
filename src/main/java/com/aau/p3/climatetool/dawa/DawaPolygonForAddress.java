@@ -13,8 +13,9 @@ import java.util.List;
 public class DawaPolygonForAddress{
     private final List<List<Double>> polygon = new ArrayList<>();
 
-    /** Constructor for getting the polygon from the API dataforsyningen.
-     * Fills out the field of polygon with coordinates of the polygon
+    /**
+     * Constructor for getting the polygon from the API dataforsyningen.
+     * Fills out the field of polygon with coordinates of the polygon.
      * @param ownerLicense one part of the query needed for the API
      * @param cadastre the other part needed for the query
      */
@@ -49,7 +50,8 @@ public class DawaPolygonForAddress{
             }
         }
     }
-    /** Getter method
+    /**
+     * Getter method
      * @return returns the nested double list with the coordinates of the polygon
      */
     public List<List<Double>> getPolygon() {
