@@ -50,6 +50,7 @@ public class AddressLookupController implements ControlledScreen  {
         tableStatus.setCellValueFactory(cell ->
                 new SimpleObjectProperty<>(cell.getValue().getStatus()));
 
+        // Example cases for presentation in table
         ObservableList<Case> mockData = FXCollections.observableArrayList(
                 new Case(1,
                         URLDecoder.decode("Kildev%C3%A6ldet+5%2C+9000+Aalborg", StandardCharsets.UTF_8),
