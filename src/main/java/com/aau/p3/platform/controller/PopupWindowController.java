@@ -1,4 +1,5 @@
 package com.aau.p3.platform.controller;
+
 import com.aau.p3.climatetool.popUpMessages.RiskInfo;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;

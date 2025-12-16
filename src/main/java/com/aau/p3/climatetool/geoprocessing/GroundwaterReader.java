@@ -9,7 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class that gets "h" values and "kote" values, to analyze distance to groundwater after certain weather conditions
+ * Class that gets "h" and "kote" values, to analyze distance to groundwater after certain weather conditions.
+ * "h" values refer to the distance above sea level of the groundwater, after a h-year event.
+ * "kote" value refers to the height above sea level of the surface point
+ * This means, kote-h equals the distance from the water to the surface in a certain event.
  */
 public class GroundwaterReader implements RestDataReader {
     private double kote;
@@ -18,7 +21,7 @@ public class GroundwaterReader implements RestDataReader {
 
     /**
      * @param query the search query, being the coordinates in EPSG:25832 format
-     * Performs API call and gathers the "kote" value and the h values and stores them
+     * Performs API call and gathers the "kote" and "h" values and stores them
      */
     @Override
     public void riskFetch(String query) {
@@ -56,6 +59,7 @@ public class GroundwaterReader implements RestDataReader {
         // Initialize hValues as an array list
         List<Double> hData = new ArrayList<>();
         JSONObject json = new JSONObject(response.toString());
+
         // Find the "samlet" array inside the "statistik" array of the geoJson
         JSONArray samletArray = json.getJSONObject("statistik").getJSONArray("samlet");
 

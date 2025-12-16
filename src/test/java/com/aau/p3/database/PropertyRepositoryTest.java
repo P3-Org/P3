@@ -14,10 +14,10 @@ import java.util.List;
 
 class PropertyRepositoryTest {
     static String testAddress;
-    static RiskAssessment testcloudBurstRisk;
-    static RiskAssessment teststormSurgeRisk;
-    static RiskAssessment testgroundWaterRisk;
-    static RiskAssessment testcoastalErosionRisk;
+    static RiskAssessment testCloudBurstRisk;
+    static RiskAssessment testStormSurgeRisk;
+    static RiskAssessment testGroundwaterRisk;
+    static RiskAssessment testCoastalErosionRisk;
     static Property property;
     static List<RiskAssessment> testListOfRisk;
     static List<Double> testMeasurements;
@@ -42,32 +42,33 @@ class PropertyRepositoryTest {
      */
     @BeforeEach
     void setup() {
+        /* ARRANGE */
         testAddress = "testaddress 10, 9000 Aalborg";
         testEastingNorthing.add("563350.22");
         testLatLong.add("563350.22");
         testListOfRisk = new ArrayList<>();
 
         // Mock each of the four risks using Mockito
-        testcloudBurstRisk = Mockito.mock(CloudburstRisk.class);
-        teststormSurgeRisk = Mockito.mock(CloudburstRisk.class);
-        testgroundWaterRisk = Mockito.mock(CloudburstRisk.class);
-        testcoastalErosionRisk = Mockito.mock(CloudburstRisk.class);
+        testCloudBurstRisk = Mockito.mock(CloudburstRisk.class);
+        testStormSurgeRisk = Mockito.mock(CloudburstRisk.class);
+        testGroundwaterRisk = Mockito.mock(CloudburstRisk.class);
+        testCoastalErosionRisk = Mockito.mock(CloudburstRisk.class);
 
         // Set a returnValue for when getMeasurementValue() is called
-        Mockito.when(testcloudBurstRisk.getMeasurementValue()).thenReturn(5.0);
-        Mockito.when(teststormSurgeRisk.getMeasurementValue()).thenReturn(10.0);
-        Mockito.when(testgroundWaterRisk.getMeasurementValue()).thenReturn(15.0);
-        Mockito.when(testcoastalErosionRisk.getMeasurementValue()).thenReturn(7.0);
+        Mockito.when(testCloudBurstRisk.getMeasurementValue()).thenReturn(5.0);
+        Mockito.when(testStormSurgeRisk.getMeasurementValue()).thenReturn(10.0);
+        Mockito.when(testGroundwaterRisk.getMeasurementValue()).thenReturn(15.0);
+        Mockito.when(testCoastalErosionRisk.getMeasurementValue()).thenReturn(7.0);
 
         // Append the measurements to a list so we later can check if the restored values are equal
         testMeasurements = List.of(
-                testcloudBurstRisk.getMeasurementValue(),
-                teststormSurgeRisk.getMeasurementValue(),
-                testgroundWaterRisk.getMeasurementValue(),
-                testcoastalErosionRisk.getMeasurementValue());
+                testCloudBurstRisk.getMeasurementValue(),
+                testStormSurgeRisk.getMeasurementValue(),
+                testGroundwaterRisk.getMeasurementValue(),
+                testCoastalErosionRisk.getMeasurementValue());
 
         // Add all our risks to List<RiskAssessment> so we can create a real property object
-        testListOfRisk.addAll(Arrays.asList(testcloudBurstRisk, teststormSurgeRisk, testgroundWaterRisk, testcoastalErosionRisk));
+        testListOfRisk.addAll(Arrays.asList(testCloudBurstRisk, testStormSurgeRisk, testGroundwaterRisk, testCoastalErosionRisk));
 
         // create the property that we'll be testing on
         property = new Property(testAddress, testCoordinates, testEastingNorthing, testLatLong, testListOfRisk);
@@ -88,7 +89,6 @@ class PropertyRepositoryTest {
      */
     @Test
     void insertAndLoadProperty() {
-
         /* ACT */
         // Insert it into database
         PropertyRepository.saveProperty(property);
