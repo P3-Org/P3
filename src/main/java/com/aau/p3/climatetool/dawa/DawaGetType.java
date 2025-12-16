@@ -10,7 +10,8 @@ import org.json.JSONObject;
 public class DawaGetType {
     private final String type;
 
-    /** Constructor for getting the type of search on addresses from the API dataforsyningen
+    /**
+     * Constructor for getting the type of search on addresses from the API dataforsyningen
      * @param query the search query
      */
     public DawaGetType(String query){
@@ -22,7 +23,8 @@ public class DawaGetType {
         JSONObject item = jsonArray.getJSONObject(0);
         this.type = item.optString("type","");
     }
-    /** Getter method
+    /**
+     * Getter method
      * @return the type of search as a String
      */
     public String getType(){

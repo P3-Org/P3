@@ -6,11 +6,14 @@ import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Class that acts as a constructor to get Easting Northing coordinates with the help from the UrlAutoComplete class */
+/**
+ * Class that acts as a constructor to get Easting Northing coordinates with the help from the UrlAutoComplete class
+ */
 public class DawaGetEastingNorthing {
     private final List<String> coordinates = new ArrayList<>();
 
-    /** Constructor for getting the coordinates from the API dataforsyningen
+    /**
+     * Constructor for getting the coordinates from the API dataforsyningen
      * @param query the search query
      */
     public DawaGetEastingNorthing(String query) {
@@ -29,7 +32,8 @@ public class DawaGetEastingNorthing {
         coordinates.add(coordinateY); // adds the y coordinate to our list
 
     }
-    /** Getter method for the coordinates.
+    /**
+     * Getter method for the coordinates.
      * @return Easting Northing coordinates from the class
      */
     public List<String> getEastingNorthing() {
