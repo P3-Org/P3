@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
 
-
 /**
  * Class that manages the threshold lines for the indicators located under each risk box.
  */

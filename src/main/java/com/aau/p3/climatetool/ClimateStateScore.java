@@ -1,7 +1,6 @@
 package com.aau.p3.climatetool;
 
 import com.aau.p3.climatetool.utilities.RiskAssessment;
-
 import java.util.List;
 
 /**
@@ -16,17 +15,19 @@ public class ClimateStateScore {
      * @return The overall climate score as an integer from 1-5
      */
     public static int computeOverallClimateScore(List<RiskAssessment> riskAssessment) {
+        // The starting point for each property
         int overallClimateScore = 5;
 
         // For each risk, subtract either 2 if it is red or 1 if it is yellow.
         for (RiskAssessment risks : riskAssessment) {
-            if (risks.getNormalizedValue() <= 0) {
+            if (risks.getNormalizedValue() <= 0) { // Below the min threshold thus, in the red zone.
                 overallClimateScore -= 2;
-            } else if (risks.getNormalizedValue() < 1) {
+            } else if (risks.getNormalizedValue() < 1) { // Above the min threshold and below the max threshold thus, in the yellow zone.
                 overallClimateScore -= 1;
             }
         }
-        // Minimum score is 1, in case it goes below.
+
+        // Fail-safe making sure the score can't fall below 1
         if (overallClimateScore < 1) {
             overallClimateScore = 1;
         }

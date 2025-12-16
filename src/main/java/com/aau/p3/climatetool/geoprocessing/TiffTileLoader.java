@@ -3,16 +3,14 @@ package com.aau.p3.climatetool.geoprocessing;
 import com.aau.p3.climatetool.utilities.URLFileUtil;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.gce.geotiff.GeoTiffReader;
-
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Class used to define the loading of the geotiff files, which are located on an FTP server.
- * */
+ */
 public class TiffTileLoader {
     private static final String USER_NAME = "ftpuser";
     private static final String PASSWORD = "0Ett84fGAB:&";
@@ -23,19 +21,19 @@ public class TiffTileLoader {
 
     /**
      * Constructor used to point to the correct file path
-     * @param tifTileDir contains the specific folder
-     * @param listOfTifFiles is a list of tif files gathered by methods in SelectTif.java
+     * @param tiffTileDir contains the specific folder
+     * @param listOfTiffFiles is a list of tiff files gathered by methods in {@code SelectTiff.java}
      */
-    public TiffTileLoader(String tifTileDir, List<String> listOfTifFiles) {
-        for (String fileTag : listOfTifFiles) {
-            this.filePaths.add(BASE_URL + tifTileDir + "/" + fileTag);
+    public TiffTileLoader(String tiffTileDir, List<String> listOfTiffFiles) {
+        for (String fileTag : listOfTiffFiles) {
+            this.filePaths.add(BASE_URL + tiffTileDir + "/" + fileTag);
         }
     }
 
     /**
-     * Method used for loading both single or multiple tif files. Reads a GeoTIFF file from the specified path,
-     * and loads it as a {@code GridCoverage2D}.
-     * multiple times based on the amount of tif files.
+     * Method used for loading both single or multiple tiff files. Reads GeoTIFF files from the server location,
+     * and loads it as a {@code GridCoverage2D},
+     * multiple times based on the amount of tiff files.
      * @throws IOException if error happens while reading a file
      */
     public List<GridCoverage2D> load() throws IOException {

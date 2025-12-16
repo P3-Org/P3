@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class GroundwaterReaderTest {
     String json;
 
-
     @Test
     void testExtractKote() {
         // Arrange: Create string JSON with "kote" key.
@@ -31,8 +30,6 @@ class GroundwaterReaderTest {
         // Assert: Check whether it matches the actual kote to the read value.
         assertEquals(12.34, result, 0.0001);
     }
-
-
 
     @Test
     void testExtractHValues() {
@@ -67,7 +64,6 @@ class GroundwaterReaderTest {
         // Assert: Check whether the result matches the expected.
         assertEquals(43.98, result, 0.01);
     }
-
 
     @BeforeEach
     void setup(){
@@ -330,6 +326,4 @@ class GroundwaterReaderTest {
         }
         """;
     }
-
-
 }

@@ -12,7 +12,7 @@ class ClimateMeasurementsTest {
 
     @Test
     void buildCoordinateTest() throws Exception {
-        // Act: Make object and make method accessible, since buildCoordinate is a private method
+        // Arrange: Make object and make method accessible, since buildCoordinate is a private method
         ClimateMeasurements cm = new ClimateMeasurements();
 
         Method method = ClimateMeasurements.class.getDeclaredMethod("buildCoordinate", double[][].class);

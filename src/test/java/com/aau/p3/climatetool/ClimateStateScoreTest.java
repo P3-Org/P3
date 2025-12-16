@@ -8,11 +8,8 @@ import com.aau.p3.climatetool.utilities.RiskAssessment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static com.aau.p3.climatetool.ClimateStateScore.computeOverallClimateScore;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -34,6 +31,22 @@ class ClimateStateScoreTest {
         riskList.add(coastalErosion);
         riskList.add(groundWater);
         riskList.add(stormSurge);
+    }
+
+    @Test
+    void computeOverallClimateScoreTestOne() {
+        // Arrange: Give fixed values for each risk
+        when(riskList.get(0).getNormalizedValue()).thenReturn(-0.5);
+        when(riskList.get(1).getNormalizedValue()).thenReturn(-0.5);
+        when(riskList.get(2).getNormalizedValue()).thenReturn(-0.5);
+        when(riskList.get(3).getNormalizedValue()).thenReturn(-5.0);
+        int expectedScore = 1;
+
+        // Act: Compute the climate score from the riskList.
+        int resultScore = computeOverallClimateScore(riskList);
+
+        // Assert: Does it calculate the expected climate score.
+        assertEquals(expectedScore, resultScore);
     }
 
     @Test
@@ -67,21 +80,4 @@ class ClimateStateScoreTest {
         // Assert: Does it calculate the expected climate score.
         assertEquals(expectedScore, resultScore);
     }
-
-    @Test
-    void computeOverallClimateScoreTestOne() {
-        // Arrange: Give fixed values for each risk
-        when(riskList.get(0).getNormalizedValue()).thenReturn(-0.5);
-        when(riskList.get(1).getNormalizedValue()).thenReturn(-0.5);
-        when(riskList.get(2).getNormalizedValue()).thenReturn(-0.5);
-        when(riskList.get(3).getNormalizedValue()).thenReturn(-5.0);
-        int expectedScore = 1;
-
-        // Act: Compute the climate score from the riskList.
-        int resultScore = computeOverallClimateScore(riskList);
-
-        // Assert: Does it calculate the expected climate score.
-        assertEquals(expectedScore, resultScore);
-    }
-
 }
