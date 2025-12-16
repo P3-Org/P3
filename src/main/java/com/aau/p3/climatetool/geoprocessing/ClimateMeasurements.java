@@ -11,9 +11,10 @@ import org.locationtech.jts.geom.Polygon;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Responsible for reading and returning the measurements in the geotiff files.
- * */
+ */
 public class ClimateMeasurements {
     private final GeometryFactory gf = new GeometryFactory();
 

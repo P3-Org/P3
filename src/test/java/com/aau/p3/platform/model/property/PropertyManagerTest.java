@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
-
 import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class PropertyManagerTest {

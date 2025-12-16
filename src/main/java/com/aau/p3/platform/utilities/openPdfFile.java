@@ -4,7 +4,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-
 public class openPdfFile {
     /**
      * Method that automatically opens the pdf "report.pdf".

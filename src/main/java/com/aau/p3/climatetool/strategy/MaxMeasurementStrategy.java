@@ -5,14 +5,14 @@ import com.aau.p3.climatetool.utilities.MeasurementStrategy;
 import java.util.List;
 
 /**
- * Class that implements "MeasurementStrategy" and finds the maximum measurement
+ * Class that implements "MeasurementStrategy" and finds the maximum measurement.
  */
 public class MaxMeasurementStrategy implements MeasurementStrategy {
 
     /**
-     * Finds the maximum measurement
-     * @param samples List of samples as doubles
-     * @return the maximum measurement value
+     * Finds the maximum measurement based on sample values.
+     * @param samples List of samples as doubles.
+     * @return the maximum measurement value.
      */
     @Override
     public double processValues(List<Double> samples) {
