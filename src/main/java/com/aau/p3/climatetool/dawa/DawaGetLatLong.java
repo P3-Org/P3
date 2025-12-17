@@ -6,11 +6,14 @@ import com.aau.p3.platform.urlmanager.UrlAutoComplete;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/** Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class */
+/**
+ * Class that acts as a constructor to get the Latitude and Longitude coordinates with the help from the UrlAutoComplete class
+ */
 public class DawaGetLatLong {
     private final List<String> latLong = new ArrayList<>();
 
-    /** Constructor for getting the coordinates from the API dataforsyningen
+    /**
+     * Constructor for getting the coordinates from the API dataforsyningen
      * @param query the search query
      */
     public DawaGetLatLong(String query) {
@@ -25,10 +28,11 @@ public class DawaGetLatLong {
 
     }
 
-    /** Helper function that extracts the key with name "data" from the json response
+    /**
+     * Helper method that extracts the key with name "data" from the json response
      * @param query the search query
      * @return the information from the json object associated to key "data"
-     * */
+     */
     private static JSONObject getJsonObject(String query) {
         UrlAutoComplete autoCompleteLatLong = new UrlAutoComplete(query);
         StringBuilder response = autoCompleteLatLong.GETAutoCompleteLatLong(); // Uses the Latitude Longitude version of auto complete for those coordinates
@@ -39,7 +43,8 @@ public class DawaGetLatLong {
         return data;
     }
 
-    /** Getter method for the coordinates.
+    /**
+     * Getter method for the coordinates.
      * @return LatLong coordinates from the class
      */
     public List<String> getLatLong() {

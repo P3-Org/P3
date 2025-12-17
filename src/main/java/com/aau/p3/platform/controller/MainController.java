@@ -29,7 +29,7 @@ public class MainController {
     @FXML private Button climateLookupButton;
 
     /* contentArea functions as the area of the screen where the different "windows" will be shown.
-    *  must have the name contentArea, as the @FXML tag connects the java code to the fx:id "contentArea" */
+    *  must have the name contentArea, as the @FXML tag connects the java code to the fx:id "contentArea". */
     @FXML private AnchorPane contentArea;
 
     private static ControlledScreen activeScreen;
@@ -37,7 +37,7 @@ public class MainController {
 
     /**
      * Method that is ALWAYS called during the initialization process of FXML from Main.java.
-     * setCenter is called in this class, and the page AddressLookup.fxml is inserted in the contentArea
+     * setCenter is called in this class, and the page AddressLookup.fxml is inserted in the contentArea.
      */
     @FXML
     public void initialize() {
@@ -70,12 +70,12 @@ public class MainController {
             Node view = loader.load();
 
             /* Give the sub-controller a reference back to this controller, so a two-way communication is possible.
-            *  loader.getController() finds which controller is calling it from the FXML file that was found in getResource() */
+            *  loader.getController() finds which controller is calling it from the FXML file that was found in getResource(). */
             this.ctrl = loader.getController();
 
             /* Checks if the current controller is an instance of the interface ControlledScreen, such that
             * the subcontroller implements the method setMainController(), and can communicate with the MainController
-            * while not theoretically being linked with it */
+            * while not theoretically being linked with it. */
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
 
@@ -89,8 +89,8 @@ public class MainController {
             }
 
             /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
-             *  contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data below the StackPane tag
-             * with id contentArea in the MainWindow.fxml */
+            * contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data
+            * below the StackPane tag with id contentArea in the MainWindow.fxml. */
             System.out.println("contentArea" + contentArea.getChildren());
 
             // Make the node resize to fill the StackPane.
@@ -164,15 +164,23 @@ public class MainController {
     /**
      * Quits and shuts down the program upon pressing the exit button.
      */
-    public static ControlledScreen getActiveScreen() {
-        return activeScreen;
-    }
-
     @FXML
     private void exitApp() {
         System.exit(0);
     }
 
+    /**
+     * Getter method made for testing purposes.
+     * @return The active screen.
+     */
+    public static ControlledScreen getActiveScreen() {
+        return activeScreen;
+    }
+
+    /**
+     * Setter method made for testing purposes.
+     * @return The controller MainController.
+     */
     @Override
     public String toString() {
         return "MainController";

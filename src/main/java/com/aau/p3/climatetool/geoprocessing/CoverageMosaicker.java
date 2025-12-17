@@ -7,6 +7,9 @@ import org.geotools.coverage.processing.CoverageProcessor;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Class responsible for mosaicking coverages. Can handle, single or multiple files.
+ */
 public class CoverageMosaicker {
 
     /**
@@ -22,30 +25,28 @@ public class CoverageMosaicker {
             throw new IOException("No valid raster coverages could be loaded for mosaic.");
         }
 
-        // If just one coverage, return it as there no need to mosaic it.
+        // If just one coverage, return it as there is no need to mosaic it
         if (coverages.size() == 1) {
             return coverages.get(0);
         }
 
         /* If more than one coverage was loaded, they need to be combined into a single coverage.
-         * The GeoTools CoverageProcessor handles this using the "Mosaic" operation.
-         */
+         * The GeoTools CoverageProcessor handles this using the "Mosaic" operation. */
         CoverageProcessor processor = CoverageProcessor.getInstance();
 
         /* Retrieve the parameter group for the Mosaic operation.
-         * Lets us define which coverages to merge and how the mosaic should be handled.
-         */
+         * Lets us define which coverages to merge and how the mosaic should be handled. */
         ParameterValueGroup params = processor.getOperation("Mosaic").getParameters();
 
         // Specify the list of source coverages (the individual tiles) to be merged into one raster.
         params.parameter("sources").setValue(coverages);
 
-        // Set a background value for areas where no data exists in any tile.
-        // Using NaN ensures that nodata regions remain transparent or undefined in the final mosaic.
+        /* Set a background value for areas where no data exists in any tile.
+         * Using NaN ensures that nodata regions remain transparent or undefined in the final mosaic. */
         params.parameter("backgroundValues").setValue(new double[] { Double.NaN }); // Could also have been set to 0.0
 
-        // Execute the mosaic operation and return the resulting combined GridCoverage2D.
-        // The second argument "hints" can be null for it to use the default hints unless specific rendering options are required.
+        /* Execute the mosaic operation and return the resulting combined GridCoverage2D.
+         * The second argument "hints" can be null for it to use the default hints unless specific rendering options are required. */
         return (GridCoverage2D) processor.doOperation(params, null);
     }
 }

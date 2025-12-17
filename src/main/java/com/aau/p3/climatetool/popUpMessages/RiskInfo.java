@@ -1,6 +1,8 @@
 package com.aau.p3.climatetool.popUpMessages;
 
-/** Class that will hold up to four strings, each a description of what a climate risk is, or how it works. */
+/**
+ * Class that will hold up to four strings, each a description of what a climate risk is, or how it works.
+ */
 public class RiskInfo {
     private String generalInfo;
     private String thresholdInfo;

@@ -21,7 +21,8 @@ public class UrlManager {
         BASE_URL = baseURL;
     }
 
-    /** Collective method, that with the given Url string performs and API call and returns the response.
+    /**
+     * Collective method, that with the given Url string performs and API call and returns the response.
      * Features the creation of connection, readings of information, security checks and termination.
      * @param urlString URL string to be created as a URL object
      */
