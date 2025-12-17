@@ -21,7 +21,7 @@ public class DawaGetAddresses {
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
 
-        for (int i = 0; i < jsonArray.length() && i < 15; i++){
+        for (int i = 0; i < jsonArray.length() && i < 15; i++) {
             JSONObject item = jsonArray.getJSONObject(i); // Loops through the JSON array to find each object
             String address = item.optString("forslagstekst",""); // In each object it finds the "forslagstekst"
             addresses.add(address); // adds the address suggestion to our List
@@ -31,7 +31,7 @@ public class DawaGetAddresses {
     /** Getter method for the list of address suggestions.
      * @return list of addresses
      */
-    public List<String> getAddresses(){
+    public List<String> getAddresses() {
         return addresses;
     }
 }

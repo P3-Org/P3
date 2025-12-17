@@ -21,7 +21,7 @@ public class PDFOverview extends PDFChapter {
      * @return The title "Overblik".
      */
     @Override
-    public String getTitle (){
+    public String getTitle () {
         return "Overblik";
     }
 

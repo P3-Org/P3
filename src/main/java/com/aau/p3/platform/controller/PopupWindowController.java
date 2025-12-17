@@ -24,7 +24,7 @@ public class PopupWindowController {
      * Adds the information paragraphs for the parsed climate risk, using the .properties files.
      * @param info Risk info object to use the getters inside the class.
      */
-    public void displayInfo(RiskInfo info){
+    public void displayInfo(RiskInfo info) {
         infoDisplay.getChildren().add(new Text(info.getGeneralInfo()));
         infoDisplay.getChildren().add(new Text(info.getCalculationInfo()));
         infoDisplay.getChildren().add(new Text(info.getThresholdInfo()));

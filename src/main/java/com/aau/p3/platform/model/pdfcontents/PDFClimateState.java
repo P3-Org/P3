@@ -40,7 +40,7 @@ public class PDFClimateState extends PDFChapter{
      * @return The title "Klimastand".
      */
     @Override
-    public String getTitle(){
+    public String getTitle() {
         return "Klimastand";
     }
 
@@ -71,7 +71,7 @@ public class PDFClimateState extends PDFChapter{
         // Writes the descriptions for all the risks.
         contentStream.setFont(font, fontSize);
         contentStream.newLineAtOffset(0, -15);
-        for (int i = 0; i < riskTitles.size(); i++){
+        for (int i = 0; i < riskTitles.size(); i++) {
             String firstLinePrefix = riskTitles.get(i);
             contentStream.showText(firstLinePrefix);
             contentStream.newLineAtOffset(0, -15);

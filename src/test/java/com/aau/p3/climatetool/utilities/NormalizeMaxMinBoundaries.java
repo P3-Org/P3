@@ -13,7 +13,7 @@ class NormalizeMaxMinBoundariesTest {
     double[] mockThreshold = {10,30};
 
     @Test
-    void testUpperLimit(){
+    void testUpperLimit() {
         // Arrange: Initialize expected value and upper limit.
         double expected = 1.5;
         double upperlimit = 40;
@@ -26,7 +26,7 @@ class NormalizeMaxMinBoundariesTest {
     }
 
     @Test
-    void testLowerLimit(){
+    void testLowerLimit() {
         // Arrange: Initialize expected value and lower limit.
         double expected = -0.5;
         double lowerlimit = 0;

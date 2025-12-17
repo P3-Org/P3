@@ -13,7 +13,7 @@ public class UrlGroundwater extends UrlManager{
      * Constructor for UrlGroundWater class.
      * @param query added to baseURL, being a coordinate pair in string format.
      */
-    public UrlGroundwater(String query){
+    public UrlGroundwater(String query) {
         super("https://api.dataforsyningen.dk");
         this.query = query;
     }
@@ -22,7 +22,7 @@ public class UrlGroundwater extends UrlManager{
      * Method for creating URL string and performing API call.
      * @return GET response in a StringBuilder object.
      */
-    public StringBuilder GETUrlGroundwater(){
+    public StringBuilder GETUrlGroundwater() {
         // Encode with URLEncoder
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8).replace("+", "%20");
         String urlString = BASE_URL + "/rest/hydro_model/v1.0/grundvandsstand/100m?punkt=POINT(" +

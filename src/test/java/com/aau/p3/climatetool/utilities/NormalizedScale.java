@@ -20,7 +20,7 @@ public class NormalizedScale {
 
     // Initialize values before each test is run.
     @BeforeEach
-    void setup(){
+    void setup() {
         minNormalized = -0.5;
         maxNormalized = 1.5;
         minNormal = 0;
@@ -30,7 +30,7 @@ public class NormalizedScale {
 
 
     @Test
-    void testNormalized(){
+    void testNormalized() {
         // Arrange: Get normalized measurement value.
         double normalizedMeasurementValue = NormalizeSample.minMaxNormalization(14.6, mockThresholds);
 

@@ -13,7 +13,7 @@ class ColorManagerTest {
 
     // Set up threshold array before each test.
     @BeforeEach
-    void setup(){
+    void setup() {
          threshold = new double[] { 10, 30 };
     }
 

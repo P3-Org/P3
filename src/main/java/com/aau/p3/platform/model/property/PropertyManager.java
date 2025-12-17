@@ -78,7 +78,7 @@ public class PropertyManager {
      * Setter method, sets the current property to the one given
      * @param newCurrentProperty property to be set as currentProperty
      */
-    public void setCurrentProperty(Property newCurrentProperty ){
+    public void setCurrentProperty(Property newCurrentProperty ) {
         this.currentProperty = newCurrentProperty;
     }
 

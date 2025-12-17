@@ -44,7 +44,7 @@ public class CoastalErosionReader implements RestDataReader {
         if (!responseObject.isEmpty()) {
             JSONArray featuresArray = responseObject.getJSONArray("features");
 
-            for (int i = 0; i < featuresArray.length(); i++){
+            for (int i = 0; i < featuresArray.length(); i++) {
                 // For each feature element, get the JSON object attribute and the value from key "KLASSE", add to list
                 JSONObject feature = featuresArray.getJSONObject(i);
                 JSONObject attributes = feature.getJSONObject("attributes");
@@ -115,7 +115,7 @@ public class CoastalErosionReader implements RestDataReader {
      * Getter method
      * @return risk value array
      */
-    public List<Double> getRiskValueArray(){
+    public List<Double> getRiskValueArray() {
         return this.riskValueArray;
     }
 }

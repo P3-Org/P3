@@ -13,7 +13,7 @@ public class DawaGetType {
     /** Constructor for getting the type of search on addresses from the API dataforsyningen
      * @param query the search query
      */
-    public DawaGetType(String query){
+    public DawaGetType(String query) {
         // Get the response with the given query.
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.GETAutoComplete();
@@ -25,7 +25,7 @@ public class DawaGetType {
     /** Getter method
      * @return the type of search as a String
      */
-    public String getType(){
+    public String getType() {
         return type;
     }
 }

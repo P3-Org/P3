@@ -58,7 +58,7 @@ class GroundwaterReaderTest {
     }
 
     @Test
-    void testExtractKoteFull(){
+    void testExtractKoteFull() {
         // Arrange: Done in the @BeforeEach setup().
 
         // Act: Extract "kote" from the full JSON.
@@ -70,7 +70,7 @@ class GroundwaterReaderTest {
 
 
     @BeforeEach
-    void setup(){
+    void setup() {
         json = """
         {
             "tileId": "63553_5783",
