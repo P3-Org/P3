@@ -1,15 +1,13 @@
 package com.aau.p3.climatetool.utilities;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
 
 /**
  * NormalizeMaxMinBoundaries tests that the normalized boundaries we set for the sliders
  * correspond to the boundaries we would have using normal values.
  */
-class NormalizeMaxMinBoundariesTest {
+class NormalizeMaxMinBoundaries {
     double[] mockThreshold = {10,30};
 
     @Test

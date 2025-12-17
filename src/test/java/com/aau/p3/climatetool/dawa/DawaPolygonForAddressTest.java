@@ -19,7 +19,6 @@ class DawaPolygonForAddressTest {
     private List<List<Double>> expectedCoordsList;
     DawaPropertyNumbers testProperty = Mockito.mock(DawaPropertyNumbers.class);
 
-
     @BeforeEach
     void setup() {
         // Arrange: Mock cadastre number and owner license
@@ -27,7 +26,6 @@ class DawaPolygonForAddressTest {
         when(testProperty.getOwnerLicense()).thenReturn("980251");
 
     }
-
 
     @Test
     void getPolygon() {

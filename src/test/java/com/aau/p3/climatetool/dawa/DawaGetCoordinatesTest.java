@@ -21,11 +21,6 @@ class DawaGetCoordinatesTest  {
     @Test
     @DisplayName("autocomplete")
     void autocomplete() {
-        // List of Lat/Long coordinates if we go back to using them
-        //expectedCoords.add("56.25263942");
-        //expectedCoords.add("10.02245235");
-
-
         // Arrange: Create list of expected response
         expectedCoords.add("563350.22");
         expectedCoords.add("6234668.27");
