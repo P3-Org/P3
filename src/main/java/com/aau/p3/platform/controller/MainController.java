@@ -88,11 +88,6 @@ public class MainController {
                 activeScreen = null;
             }
 
-            /* Prints out to show how the contentArea is replaces after each navigation in the GUI.
-            * contentArea.getChildren.setAll(view) is the code in charge of actually changing the FXML data
-            * below the StackPane tag with id contentArea in the MainWindow.fxml. */
-            System.out.println("contentArea" + contentArea.getChildren());
-
             // Make the node resize to fill the StackPane.
             view.setManaged(true);
             view.setVisible(true);

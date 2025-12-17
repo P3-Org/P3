@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * We check to see if the thumb it placed the same on the normalized scale as we would expect on a normal scale.
  * With the mock values we expect a value of 0.365 meaning that the slider should be set 36.5% of the way up the scale
  */
-public class NormalizedScale {
+public class NormalizedScaleTest {
     double[] mockThresholds = {10,30};
     double minNormalized;
     double maxNormalized;
