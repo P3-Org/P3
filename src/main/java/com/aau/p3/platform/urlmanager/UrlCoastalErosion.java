@@ -15,7 +15,7 @@ public class UrlCoastalErosion extends UrlManager{
      * Constructor for URL coastal erosion.
      * @param queryCoordinatePair Pair of coordinates for the query.
      */
-    public UrlCoastalErosion(String queryCoordinatePair){
+    public UrlCoastalErosion(String queryCoordinatePair) {
         super("https://gis.nst.dk");
         this.queryCoordinatePair = queryCoordinatePair;
     }
@@ -24,7 +24,7 @@ public class UrlCoastalErosion extends UrlManager{
      * Create URL from base url and query and get response from API.
      * @return response of API call in a StringBuilder object.
      */
-    public StringBuilder GETUrlCoastalErosion(){
+    public StringBuilder GETUrlCoastalErosion() {
         // Encode with URLEncoder.
         String urlCoordinates = URLEncoder.encode(queryCoordinatePair, StandardCharsets.UTF_8);
 

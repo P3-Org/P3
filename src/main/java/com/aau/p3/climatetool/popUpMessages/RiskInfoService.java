@@ -37,7 +37,7 @@ public class RiskInfoService {
      * @param threshold A list of the values that will replace the placeholders.
      * @return The new description, with the proper values parsed, instead of placeholders.
      */
-    private String formatString(String description, double[] threshold){
+    private String formatString(String description, double[] threshold) {
         description = description.replace("{lowerThresh}", Double.toString(threshold[0]));
         description = description.replace("{upperThresh}", Double.toString(threshold[1]));
         return description;

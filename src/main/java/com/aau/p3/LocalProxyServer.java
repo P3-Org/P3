@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.Executors;
 
 /**
- * The class below is intended to set up a local server to use for api calls in case of CORS issues
+ * The class below is intended to set up a local server to use for API calls in case of CORS issues
  */
 public class LocalProxyServer {
     private static HttpServer server;
@@ -27,7 +27,7 @@ public class LocalProxyServer {
      */
     public static void startProxy(int port) {
         try {
-            // Creates a httpserver which binds to a socket-address object with the specified port number
+            // Creates an HTTP server which binds to a socket-address object with the specified port number
             server = HttpServer.create(new InetSocketAddress(port), 0);
 
             // The HTTP context specifies what to do when receiving requests on the given port + path
@@ -57,23 +57,23 @@ public class LocalProxyServer {
      * @param query path
      * @return both the targetUrl and query in one string
      */
-    private static String queryNullCheck(String targetUrl, String query){
+    private static String queryNullCheck(String targetUrl, String query) {
         return (query == null) ? targetUrl : targetUrl + "?" + query;
     }
 
     /**
-     * Dynamic url handler that works for all paths that are specified in the map "Route"
+     * Dynamic URL handler that works for all paths that are specified in the map "Route"
      * @param exchange the exchange between the server and the targetUrl
      * @throws IOException in out exception
      */
-    private static void handleURL(HttpExchange exchange)  throws IOException{
+    private static void handleURL(HttpExchange exchange)  throws IOException {
         String path = exchange.getRequestURI().getPath();
 
-        // Get the base url from the map
+        // Get the base URL from the map
         String targetUrl = Route.get(path);
 
         // Closes the exchange if the requests is not on a path we know
-        if (targetUrl == null){
+        if (targetUrl == null) {
             exchange.close();
         }
 
@@ -85,11 +85,11 @@ public class LocalProxyServer {
     /**
      * Method for handling the GET requests
      * @param exchange the exchange between the server and the targetUrl
-     * @param targetUrl url to open a connection on
+     * @param targetUrl URL to open a connection on
      * @throws IOException in out exception
      */
     private static void handleRequest(HttpExchange exchange, String targetUrl) throws IOException {
-        // Opens the connection between the proxy server and the api endpoint
+        // Opens the connection between the proxy server and the API endpoint
         HttpURLConnection conn = (HttpURLConnection) new URL(targetUrl).openConnection();
         conn.setRequestProperty("User-Agent", "JavaFX-Proxy");
         conn.setConnectTimeout(10000);
@@ -98,10 +98,11 @@ public class LocalProxyServer {
         // Adds CORS headers
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
         exchange.getResponseHeaders().add("Content-Type", conn.getContentType());
-
+        
+        // Sends response headers to client
         exchange.sendResponseHeaders(conn.getResponseCode(), 0);
 
-        // Forwards the info from the api endpoint to the javafx application
+        // Forwards the info from the API endpoint to the JavaFX application
         try (InputStream is = conn.getInputStream();
              OutputStream os = exchange.getResponseBody()) {
             is.transferTo(os);

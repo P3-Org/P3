@@ -53,7 +53,7 @@ public class URLFileUtil {
     public static File downloadGeoTiff(String urlString) throws IOException {
         URL url = new URL(urlString);
 
-        if(!urlExists(url)){
+        if(!urlExists(url)) {
             errorMessage("Adressen findes ikke i databasen!");
             throw new IOException("Url not found: " + url);
         }

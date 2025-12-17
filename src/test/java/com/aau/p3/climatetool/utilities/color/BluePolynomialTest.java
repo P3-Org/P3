@@ -12,7 +12,7 @@ class BluePolynomialTest {
 
     // Initialize expectedResult before each test.
     @BeforeEach
-    void setup(){
+    void setup() {
         expectedResult = 50;
     }
 

@@ -20,7 +20,7 @@ public class DawaGetAddressesTest {
 
     @Test
     @DisplayName("Test for auto completion of addresses")
-    void getAddresses(){
+    void getAddresses() {
         // Arrange: Create list of expected response
         expectedAddresses.add("Bondager");
         expectedAddresses.add("Bondagervej");

@@ -8,7 +8,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +34,7 @@ public class ClimateMeasurements {
      * @param worldCoords The EPSG:25832 coordinates for the polygons corners from DAWA
      * @return an array of type Coordinate
      */
-    private Coordinate[] buildCoordinate(double[][] worldCoords){
+    private Coordinate[] buildCoordinate(double[][] worldCoords) {
         Coordinate[] coords = new Coordinate[worldCoords.length + 1]; // +1 since we want to add an extra closing coordinate
 
         /* Convert the double values for the world coordinates to the datatype Coordinate used by the framework locationtech */

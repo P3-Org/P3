@@ -94,7 +94,7 @@ public class AddressLookupController implements ControlledScreen  {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "AddressLookupController";
     }
 }

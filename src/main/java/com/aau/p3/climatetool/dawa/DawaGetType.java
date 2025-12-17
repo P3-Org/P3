@@ -14,20 +14,20 @@ public class DawaGetType {
      * Constructor for getting the type of search on addresses from the API dataforsyningen
      * @param query the search query
      */
-    public DawaGetType(String query){
+    public DawaGetType(String query) {
         // Get the response with the given query.
         UrlAutoComplete autoComplete = new UrlAutoComplete(query);
         StringBuilder response = autoComplete.GETAutoComplete();
 
         JSONArray jsonArray = new JSONArray(response.toString()); // Converts the response to a string which we then make to a JSON array.
-        JSONObject item = jsonArray.getJSONObject(0);
-        this.type = item.optString("type","");
+        JSONObject item = jsonArray.getJSONObject(0); // Finds the first object in the array
+        this.type = item.optString("type",""); // In the Object item, get the Object data with the key: "data".
     }
     /**
      * Getter method
      * @return the type of search as a String
      */
-    public String getType(){
+    public String getType() {
         return type;
     }
 }

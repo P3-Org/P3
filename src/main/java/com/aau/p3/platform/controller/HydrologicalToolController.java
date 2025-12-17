@@ -158,7 +158,7 @@ public class HydrologicalToolController implements ControlledScreen {
         /* Event listeners for cloudburst and storm surge toggle buttons. Changes map upon adjusting slider.
         *  Else, the button is untoggled. */
         cloudburstToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 cloudBurstSlider.setVisible(true);
                 cloudBurstReturnEvent.setVisible(true);
                 webEngine.executeScript("setCloudburst()");
@@ -170,7 +170,7 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
         stormsurgeToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 stormSurgeSlider.setVisible(true);
                 stormSurgeReturnEvent.setVisible(true);
                 webEngine.executeScript("setStormSurge()");
@@ -207,7 +207,7 @@ public class HydrologicalToolController implements ControlledScreen {
         /* Event listener for groundwater toggle button. Else, removes layer if button is untoggled.
         *  Followed by listeners for toggle buttons corresponding to predefined X-year incidents */
         groundwaterToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 groundWaterReturnEvent.setVisible(true);
                 webEngine.executeScript("setGroundwater()");
             } else {
@@ -216,27 +216,27 @@ public class HydrologicalToolController implements ControlledScreen {
             }
         });
         groundWater2year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 2 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 2 + ")"); }
         });
         groundWater5year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 5 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 5 + ")"); }
         });
         groundWater10year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 10 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 10 + ")"); }
         });
         groundWater20year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 20 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 20 + ")"); }
         });
         groundWater50year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 50 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 50 + ")"); }
         });
         groundWater100year.selectedProperty().addListener((overservable, oldvalue, newValue) -> {
-            if (newValue){ webEngine.executeScript("groundWaterLayers(" + 100 + ")"); }
+            if (newValue) { webEngine.executeScript("groundWaterLayers(" + 100 + ")"); }
         });
 
         /* Event listener for coastal erosion toggle button. Else, removes layer if button is untoggled. */
         coastalToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 webEngine.executeScript("setErosion()");
             } else {
                 webEngine.executeScript("removeClimateLayer()");
@@ -245,7 +245,7 @@ public class HydrologicalToolController implements ControlledScreen {
 
         /* Event listener for cadastral map toggle button. Else, removes layer if button is untoggled. */
         cadastralToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue){
+            if (newValue) {
                 webEngine.executeScript("setCadastral()");
             } else {
                 webEngine.executeScript("removeCadastralLayer()");
@@ -499,7 +499,7 @@ public class HydrologicalToolController implements ControlledScreen {
      * Method for showing previous comments on a property. Gets comments in currentProperty as a List,
      * then loops through the list and creates a Text for each comment, and adds them to Vbox previousComments.
      */
-    private void showPreviousComments(){
+    private void showPreviousComments() {
         // Clears comments. When the function is called again when submitting a new comment, the new comment is also shown.
         previousComments.getChildren().clear();
 
@@ -598,7 +598,7 @@ public class HydrologicalToolController implements ControlledScreen {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "HydrologicalToolController";
     }
 

@@ -79,8 +79,8 @@ public class MainController {
             if (ctrl instanceof ControlledScreen cs) {
                 cs.setMainController(this);
 
-                // Runs afterInitialize() after main controller is set and variables are moved.
-                if (ctrl instanceof HydrologicalToolController htc){
+                    // Runs afterInitialize() after main controller is set and variables are moved.
+                if (ctrl instanceof HydrologicalToolController htc) {
                     htc.afterInitialize();
                 }
                 activeScreen = cs;
@@ -182,7 +182,7 @@ public class MainController {
      * @return The controller MainController.
      */
     @Override
-    public String toString(){
+    public String toString() {
         return "MainController";
     }
 }

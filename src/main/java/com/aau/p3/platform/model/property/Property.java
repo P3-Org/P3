@@ -91,11 +91,11 @@ public class Property {
 
     /**
      * Apply's the specialist adjustment for the property, adjusting the climate score.
-     * The score is constrained to be -1, 0, or 1, and modifies the overall climate score:
-     * - 1 increases the score,
-     * - -1 decreases it (unless the climate score is 1),
+     * The score is constrained to be -1, 0, or +1, and modifies the overall climate score:
+     * - +1 increases the score,
+     * - -1 decreases it (unless the climate score is +1),
      * - 0 resets the adjustment.
-     * @param scoreEdit the adjustment value (-1, 0, or 1)
+     * @param scoreEdit the adjustment value (-1, 0, or +1)
      */
     public void applySpecialistAdjustment(int scoreEdit) {
         if (scoreEdit > 0) {

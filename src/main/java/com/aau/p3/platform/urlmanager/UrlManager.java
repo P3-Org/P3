@@ -17,7 +17,7 @@ public class UrlManager {
      * Constructor for UrlManager.
      * @param baseURL
      */
-    public UrlManager(String baseURL){
+    public UrlManager(String baseURL) {
         BASE_URL = baseURL;
     }
 
